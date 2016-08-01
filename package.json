@@ -1,0 +1,25 @@
+{
+  "name": "creative-patterns",
+  "version": "0.1.0",
+  "description": "Pattern library developed and maintained by cool people at creativestyle.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "creativestyle",
+    "creative",
+    "pattern",
+    "library",
+    "patterns",
+    "pattern",
+    "library",
+    "styleguide"
+  ],
+  "author": "creativestyle",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.creativestyle.pl/frontend/creative-patterns"
+  }
+}
