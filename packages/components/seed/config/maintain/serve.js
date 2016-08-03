@@ -1,9 +1,11 @@
 import paths from '../paths';
 
+import buildImagesSettings from '../build/images';
 import buildScriptsSettings from '../build/scripts';
 import buildStylesSettings from '../build/styles';
 import buildTplsSettings from '../build/templates';
 import buildUnitTestsSettings from '../build/tests.unit';
+import buildVendorsSettings from '../build/vendors';
 
 const settings = {
     /**
@@ -17,6 +19,10 @@ const settings = {
         }
     },
     watches: [
+        {
+            paths: buildImagesSettings.watch,
+            tasks: 'build:images'
+        },
         {
             paths: buildScriptsSettings.watch,
             tasks: 'build:scripts'
@@ -32,6 +38,10 @@ const settings = {
         {
             paths: buildUnitTestsSettings.watch,
             tasks: 'build:tests.unit'
+        },
+        {
+            paths: buildVendorsSettings.watch,
+            tasks: 'build:vendors'
         }
     ]
 };

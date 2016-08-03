@@ -17,7 +17,10 @@ module.exports = function() {
                 '/' + path.basename( file.path, 'twig' ) + 'data.json';
             delete require.cache[ template ];
             // Assigning this to variable seems to fix invisible changes issue.
-            const data = require( template );
+            let data = {};
+            try {
+                data = require( template );
+            } catch(e) {}
 
             return data;
         } ) )

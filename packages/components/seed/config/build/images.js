@@ -4,10 +4,9 @@ import paths from '../paths';
  * Templates compilation task settings.
  */
 export default {
-    src: paths.src + '**/*.twig',
+    src: paths.src + '**/*.{gif,png,jpg,webp}',
     watch: [
-        paths.src + '**/*.twig',
-        paths.src + '**/*.data.json'
+        paths.src + '**/*.{gif,png,jpg,webp}'
     ],
     dest: paths.dist
 };

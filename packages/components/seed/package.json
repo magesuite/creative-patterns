@@ -3,16 +3,6 @@
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "pretest": "rollup -c rollup.test.conf.js",
-    "test": "karma start karma.conf.js",
-    "styles": "node-sass src --output dist",
-    "scripts": "rollup -c dist/component.es5.js",
-    "typescript": "tsc",
-    "build": "npm run test && npm run scripts && npm run styles",
-    "prebuild": "npm run clean",
-    "clean": "rimraf dist"
-  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
