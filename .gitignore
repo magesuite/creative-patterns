@@ -2,7 +2,7 @@
 # Main creativepatterns .gitignore configuration.
 
 node_modules/
-dist/tests
+dist/tests/
 
 # Created by https://www.gitignore.io/api/jetbrains,osx,linux,windows
 

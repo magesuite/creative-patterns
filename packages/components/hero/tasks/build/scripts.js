@@ -1,7 +1,8 @@
+/*eslint-env node */
 import { rollup } from 'rollup';
 import notifier from 'node-notifier';
 
-import settings from '../../config/build/tests.unit.js';
+import settings from '../../config/build/scripts';
 
 /**
  * Task for compiling components' TS files.
