@@ -1,0 +1,1 @@
+{"version":3,"file":null,"sources":["../src/seed.ts"],"sourcesContent":["\r\nexport function seed(a: number, b: number): number {\n  return a + b;\r\n};\r\n"],"names":[],"mappings":";;;kBACqB,CAAS,EAAE,CAAS;QACvC,OAAO,CAAC,GAAG,CAAC,CAAC;AACf,IAAA,CAAC;AAAA,IAAA,CAAC;;;;"}

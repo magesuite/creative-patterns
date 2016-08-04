@@ -1,49 +1,23 @@
-import paths from '../paths';
+/*eslint-env node */
+import browserSync from 'browser-sync';
+import settings from '../../config/maintain/serve';
 
-import buildImagesSettings from '../build/images';
-import buildScriptsSettings from '../build/scripts';
-import buildStylesSettings from '../build/styles';
-import buildTplsSettings from '../build/templates';
-import buildUnitTestsSettings from '../build/tests.unit';
-import buildVendorsSettings from '../build/vendors';
+/**
+ * Serves project files using provided BrowserSync config.
+ * @return {Promise} Gulp promise for proper task completition timing.
+ */
+module.exports = function() {
+    settings.watches.forEach( ( watch ) => {
+        this.gulp.watch( [
+                watch.paths
+            ],
+            [
+                watch.tasks,
+                browserSync.reload
+            ]
+        )
+    } );
 
-const settings = {
-    /**
-     * BrowserSync configuration.
-     */
-    browserSync: {
-        port: 9000,
-        server: {
-            baseDir: [ 'dist' ],
-            directory: true
-        }
-    },
-    watches: [
-        {
-            paths: buildImagesSettings.watch,
-            tasks: 'build:images'
-        },
-        {
-            paths: buildScriptsSettings.watch,
-            tasks: 'build:scripts'
-        },
-        {
-            paths: buildStylesSettings.watch,
-            tasks: 'build:styles'
-        },
-        {
-            paths: buildTplsSettings.watch,
-            tasks: 'build:templates'
-        },
-        {
-            paths: buildUnitTestsSettings.watch,
-            tasks: 'build:tests.unit'
-        },
-        {
-            paths: buildVendorsSettings.watch,
-            tasks: 'build:vendors'
-        }
-    ]
+    /*eslint no-sync: 0*/
+    browserSync.init( settings.browserSync );
 };
-
-export default settings;

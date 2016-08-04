@@ -20,8 +20,8 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "src/component.ts",
-    "src/tests/unit/component.ts",
+    "src/seed.ts",
+    "src/tests/unit/seed.ts",
     "node_modules/@types/jasmine/index.d.ts"
   ]
 }

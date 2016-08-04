@@ -1,1 +1,0 @@
-{"version":3,"file":null,"sources":["../src/component.ts"],"sourcesContent":["\r\nexport function component(a: number, b: number): number {\r\n  return a + b;\r\n};\r\n"],"names":["a","b"],"mappings":"qCAC0BA,EAAWC,GACnC,MAAOD,GAAIC"}

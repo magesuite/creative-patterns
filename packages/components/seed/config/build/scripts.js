@@ -8,7 +8,7 @@ import uglify from 'rollup-plugin-uglify';
  * JavaScript bundle entry and destination filename WITHOUT extension.
  * @type {String}
  */
-const filename = 'hero';
+const filename = 'seed';
 /**
  * Components JS compilation settings.
  */
