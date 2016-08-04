@@ -9,16 +9,12 @@
         <link rel="stylesheet" href="../hero.css">
     </head>
     <body>
-        <main style="width:1200px; max-width:100%; margin:0 auto;">
+        <main>
             {% include '../hero.twig' with { 'instance': 1 } %}
 
-            <p style="font-weight:1.25em; line-height:1.5em;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam aliquid eligendi beatae eius sit, vitae repudiandae quos eaque natus hic harum quo consequuntur quibusdam! Doloribus qui, magni eos praesentium provident adipisci dolor odit beatae corporis officiis accusamus quod laboriosam maxime, ut veritatis. Dolor sint tenetur, est sunt asperiores omnis necessitatibus aut doloremque harum voluptatum molestias recusandae, consequatur soluta illum repellat nostrum? Alias porro magni iusto dolor a asperiores non vitae facere, id quod cumque voluptas sequi? Alias soluta doloribus dolores nesciunt necessitatibus fugit blanditiis provident eos facere tenetur dolorum eum, porro corporis obcaecati, voluptas quia facilis. Saepe aperiam, consectetur molestias ab illum quia modi dolorum quibusdam doloribus accusantium quo a, itaque nam, vero velit assumenda! Dolorum hic vitae iste consectetur neque, nihil modi, perspiciatis, libero dolores dolorem, tempore fuga quod reiciendis sunt unde natus quisquam cupiditate. Id, excepturi a aperiam aspernatur iusto dolore corporis eum vitae itaque magnam possimus quidem sint dicta, mollitia eveniet cum doloremque rem placeat harum modi veniam qui! Voluptas atque velit id tempora dolore esse, aperiam reiciendis quia ratione quos alias totam voluptatem voluptatibus culpa ipsum odit quae quaerat accusamus vitae corrupti repellendus aut minus? Quod consequuntur eveniet eum iure error, accusamus tempora odio, tenetur enim architecto alias, reiciendis expedita quisquam incidunt delectus voluptate laudantium veniam aut nesciunt hic dignissimos quo illo pariatur odit autem!</p>
+            <p style="font-weight:1.25em; line-height:1.5em;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam aliquid eligendi beatae eius sit, vitae repudiandae quos eaque natus hic harum quo consequuntur quibusdam! Doloribus qui, magni eos praesentium provident adipisci dolor odit beatae corporis officiis accusamus quod laboriosam maxime, ut veritatis. Dolor sint tenetur, est sunt asperiores omnis necessitatibus aut doloremque harum voluptatum molestias recusandae, consequatur soluta illum repellat nostrum? Alias porro magni iusto dolor a asperiores non vitae facere, id quod cumque voluptas sequi? Alias soluta doloribus dolores nesciunt necessitatibus fugit blanditiis provident eos facere tenetur dolorum eum, porro corporis obcaecati.</p>
 
-            {% include '../hero.twig' with { 'instance': 2 } %}
-
-            <p style="font-weight:1.25em; line-height:1.5em;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam aliquid eligendi beatae eius sit, vitae repudiandae quos eaque natus hic harum quo consequuntur quibusdam! Doloribus qui, magni eos praesentium provident adipisci dolor odit beatae corporis officiis accusamus quod laboriosam maxime, ut veritatis. Dolor sint tenetur, est sunt asperiores omnis necessitatibus aut doloremque harum voluptatum molestias recusandae, consequatur soluta illum repellat nostrum? Alias porro magni iusto dolor a asperiores non vitae facere, id quod cumque voluptas sequi? Alias soluta doloribus dolores nesciunt necessitatibus fugit blanditiis provident eos facere tenetur dolorum eum, porro corporis obcaecati, voluptas quia facilis. Saepe aperiam, consectetur molestias ab illum quia modi dolorum quibusdam doloribus accusantium quo a, itaque nam, vero velit assumenda! Dolorum hic vitae iste consectetur neque, nihil modi, perspiciatis, libero dolores dolorem, tempore fuga quod reiciendis sunt unde natus quisquam cupiditate. Id, excepturi a aperiam aspernatur iusto dolore corporis eum vitae itaque magnam possimus quidem sint dicta, mollitia eveniet cum doloremque rem placeat harum modi veniam qui! Voluptas atque velit id tempora dolore esse, aperiam reiciendis quia ratione quos alias totam voluptatem voluptatibus culpa ipsum odit quae quaerat accusamus vitae corrupti repellendus aut minus? Quod consequuntur eveniet eum iure error, accusamus tempora odio, tenetur enim architecto alias, reiciendis expedita quisquam incidunt delectus voluptate laudantium veniam aut nesciunt hic dignissimos quo illo pariatur odit autem!</p>
-
-            {% include '../hero.twig' with { 'instance': 3, 'variant': 'truncated-siblings' } %}
+            {% include '../hero.twig' with { 'instance': 2, 'variant': 'truncated-siblings' } %}
 
         </main>
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -26,8 +22,11 @@
         <script src="../vendors/swiper/swiper.jquery.js"></script>
         <script src="../hero.js"></script>
         <script>
-            heroSlider = new hero( $( '.js-hero--instance-{{ instance }}'), {
-                autoplay: '5000'
+            var heros = {}
+            $( '.js-hero' ).each( function( i ) {
+                heros[i] = new hero( $( '.js-hero--instance-' + ( i + 1 ) ), {
+                    autoplay: '5000'
+                } );
             } );
         </script>
     </body>
