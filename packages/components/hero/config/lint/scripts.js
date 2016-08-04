@@ -1,4 +1,4 @@
-import paths from '../paths.js';
+import paths from '../paths';
 
 /**
  * Settingf for TypeScript linting task.
