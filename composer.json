@@ -4,5 +4,8 @@
     "license": [
         "OSL-3.0",
         "AFL-3.0"
-    ]
+    ],
+    "autoload": {
+        "psr-4": {"Creativestyle\\CreativePatterns\\": "src/"}
+    }
 }
