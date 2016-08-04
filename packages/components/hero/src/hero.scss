@@ -89,11 +89,11 @@ $namespace: 'm2c-';
         margin: 0;
         line-height: 1.05em;
         font-weight: 700;
-        font-size: 5em;
+        font-size: 3.5em;
     }
 
     &__text {
-        font-size: 3.5em;
+        font-size: 1.5em;
         line-height: 1.05em;
         margin: 0 0 20px;
         font-weight: 300;
@@ -131,7 +131,7 @@ $namespace: 'm2c-';
 
     &--truncated-siblings {
         width: 80%;
-        margin: 0 auto;
+        padding: 0 10%;
 
         #{$root}__content-wrapper {
             width: 75%;
