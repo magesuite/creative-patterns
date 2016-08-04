@@ -2,18 +2,13 @@ import path from '../paths';
 import namespace from '../namespace';
 
 import typescript from 'rollup-plugin-typescript';
-import uglify from 'rollup-plugin-uglify';
+import multiEntry from 'rollup-plugin-multi-entry';
 
 /**
- * Scripts bundle entry and destination filename WITHOUT extension.
+ * JavaScript destination test file name WITHOUT extension.
  * @type {String}
  */
-const filename = '';
-
-if ( !filename ) {
-    throw new Error( 'Please set file name for scrips entry and destination points in config/scripts.js file.' )
-}
-
+const filename = 'component';
 /**
  * Components JS compilation settings.
  */
@@ -29,8 +24,9 @@ export default {
      * @see https://github.com/rollup/rollup/wiki/JavaScript-API#bundlegenerate-options-
      */
     rollup: {
-        entry: path.src + filename + '.ts',
+        entry: path.src + 'tests/unit/**/*.ts',
         plugins: [
+            multiEntry(),
             /**
              * Rollup typescript plugin configuration.
              * @see https://github.com/rollup/rollup-plugin-typescript
@@ -48,7 +44,7 @@ export default {
         /**
          * JavaScript bundle destination directory.
          */
-        dest: path.dist + filename + '.js',
+        dest: path.dist + 'tests/unit/' + filename + '.js',
         format: 'iife',
         moduleName: namespace.javascript,
         globals: {},

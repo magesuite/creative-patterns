@@ -3,9 +3,9 @@ export default {
      * Long, normal name of your component eg. "Hero Carousel", "Super Duper Modal" etc.
      * @type {String}
      */
-    name: '',
+    name: 'Seed',
     /**
-     * Namespace prefix for your classes eg. "cs-", "m2c-" etc.
+     * Namespace prefix for your classes eg. "cs-" etc.
      * @type {String}
      */
     prefix: '',
@@ -14,6 +14,6 @@ export default {
      * Basically, it is a name of the variable in global window object.
      * @type {String}
      */
-    javascript: ''
+    javascript: 'seed'
 };
 

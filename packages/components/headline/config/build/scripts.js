@@ -5,15 +5,10 @@ import typescript from 'rollup-plugin-typescript';
 import uglify from 'rollup-plugin-uglify';
 
 /**
- * Scripts bundle entry and destination filename WITHOUT extension.
+ * JavaScript bundle entry and destination filename WITHOUT extension.
  * @type {String}
  */
-const filename = '';
-
-if ( !filename ) {
-    throw new Error( 'Please set file name for scrips entry and destination points in config/scripts.js file.' )
-}
-
+const filename = 'seed';
 /**
  * Components JS compilation settings.
  */
