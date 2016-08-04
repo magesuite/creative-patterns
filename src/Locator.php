@@ -9,7 +9,7 @@ class Locator
     }
 
     public static function locateTemplate($componentName, $templateName) {
-        $path = self::getBasePath().'/components/'.$componentName.'/'.$templateName;
+        $path = self::getBasePath().'/packages/components/'.$componentName.'/src/'.$templateName;
 
         return realpath($path);
     }
