@@ -21,6 +21,7 @@
   },
   "files": [
     "src/seed.ts",
+    "src/tests/e2e/seed.ts",
     "src/tests/unit/seed.ts",
     "node_modules/@types/jasmine/index.d.ts"
   ]

@@ -13,4 +13,4 @@
     });
 
 }((this.seed = this.seed || {})));
-//# sourceMappingURL=component.js.map
+//# sourceMappingURL=seed.js.map

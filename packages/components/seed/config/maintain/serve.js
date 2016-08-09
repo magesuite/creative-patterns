@@ -4,7 +4,7 @@ import buildImagesSettings from '../build/images';
 import buildScriptsSettings from '../build/scripts';
 import buildStylesSettings from '../build/styles';
 import buildTplsSettings from '../build/templates';
-import buildUnitTestsSettings from '../build/tests.unit';
+import buildUnitTestsSettings from '../build/unit';
 import buildVendorsSettings from '../build/vendors';
 
 const settings = {

@@ -2,7 +2,7 @@ import path from '../paths';
 import mainConfig from '../main';
 
 import typescript from 'rollup-plugin-typescript';
-import uglify from 'rollup-plugin-uglify';
+import multiEntry from 'rollup-plugin-multi-entry';
 
 /**
  * Components JS compilation settings.
@@ -19,8 +19,9 @@ export default {
      * @see https://github.com/rollup/rollup/wiki/JavaScript-API#bundlegenerate-options-
      */
     rollup: {
-        entry: path.src + mainConfig.jsEntryFilename + '.ts',
+        entry: path.src + 'tests/unit/**/*.ts',
         plugins: [
+            multiEntry(),
             /**
              * Rollup typescript plugin configuration.
              * @see https://github.com/rollup/rollup-plugin-typescript
@@ -38,7 +39,7 @@ export default {
         /**
          * JavaScript bundle destination directory.
          */
-        dest: path.dist + mainConfig.jsEntryFilename + '.js',
+        dest: path.dist + 'tests/unit/' + mainConfig.jsEntryFilename + '.js',
         format: 'iife',
         moduleName: mainConfig.jsExportVariable,
         globals: {},

@@ -1,13 +1,14 @@
-import namespace from '../../config/namespace';
+import mainConfig from '../../config/main';
 
 module.exports = function() {
     /**
-     * Check namespace configuration.
+     * Check configuration.
      */
-    if ( !namespace.name ) {
-        throw new Error( 'Please, provide a name for your component in namespace.js file!' );
+    if ( !mainConfig.jsExportVariable ) {
+        throw new Error( 'Please, provide a javascript export variable name for your component in config/main.js file!' );
     }
-    if ( !namespace.javascript ) {
-        throw new Error( 'Please, provide a javascript variable name for your component in namespace.js file!' );
+
+    if ( !mainConfig.jsEntryFilename ) {
+        throw new Error( 'Please set file name for scrips entry and destination points in config/main.js file.' )
     }
 };

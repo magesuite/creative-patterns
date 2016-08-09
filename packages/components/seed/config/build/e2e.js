@@ -1,14 +1,9 @@
 import path from '../paths';
-import namespace from '../namespace';
+import mainConfig from '../main';
 
 import typescript from 'rollup-plugin-typescript';
 import multiEntry from 'rollup-plugin-multi-entry';
 
-/**
- * JavaScript destination test file name WITHOUT extension.
- * @type {String}
- */
-const filename = 'component';
 /**
  * Components JS compilation settings.
  */
@@ -44,9 +39,9 @@ export default {
         /**
          * JavaScript bundle destination directory.
          */
-        dest: path.dist + 'tests/unit/' + filename + '.js',
+        dest: path.dist + 'tests/unit/' + mainConfig.jsEntryFilename + '.js',
         format: 'iife',
-        moduleName: namespace.javascript,
+        moduleName: mainConfig.jsExportVariable,
         globals: {},
         sourceMap: true
     }

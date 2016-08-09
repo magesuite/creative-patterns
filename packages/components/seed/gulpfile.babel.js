@@ -22,7 +22,8 @@ gulp.task( 'build', ( callback ) => {
             'build:scripts',
             'build:styles',
             'build:templates',
-            'build:tests.unit',
+            'build:unit',
+            'build:e2e',
         ],
         callback
     );
@@ -34,9 +35,8 @@ gulp.task( 'build', ( callback ) => {
 gulp.task( 'test', ( callback ) => {
     sequence(
         'build',
-        [
-            'test:scripts.unit',
-        ],
+        'test:unit',
+        'test:e2e',
         callback
     );
 } );
