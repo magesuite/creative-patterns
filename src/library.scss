@@ -2,7 +2,11 @@ html,
 body {
     padding: 0;
     margin: 0;
+    background: #ececec;
+    font-family: sans-serif;
 }
 
 
 @import './components/navbar/navbar';
+@import './components/packages-list/packages-list';
+@import './components/component-card/component-card';

@@ -20,10 +20,10 @@
     "rewriteTsconfig": true
   },
   "files": [
+    "src/components/packages-list/packages-list.ts",
+    "src/components/packages-search/packages-search.ts",
     "src/library.ts",
     "src/packages-list/packages-list.ts",
-    "src/packages-search/packages-search.ts",
-    "src/pattern-library/pattern-library.ts",
     "node_modules/@types/jquery/index.d.ts",
     "node_modules/@types/vue/index.d.ts"
   ]

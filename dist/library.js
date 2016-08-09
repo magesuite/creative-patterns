@@ -4,12 +4,15 @@
     const packagesList = Vue.extend({
         template: `
         <section calss="cs-packages-list">
-            <a class="cs-packages-list__card | cs-component-card" href="#" v-for="singlePackage in matchingPackages">
-                <h2 calss="cs-component-card__name">{{ singlePackage.name }}</h2>
-                <p class="cs-component-card__author">{{ singlePackage.author }}</p>
-                <div class="cs-component-card__description">{{ singlePackage.description }}</div>
-                <p class="cs-component-card__version">{{ singlePackage.version }}</p>
-            </a>
+            <div class="cs-packages-list__cards" v-show="matchingPackages.length">
+                <a class="cs-packages-list__card | cs-component-card" href="#" v-for="singlePackage in matchingPackages">
+                    <h2 class="cs-component-card__name">{{ singlePackage.name }}</h2>
+                    <p class="cs-component-card__author">{{ singlePackage.author }}</p>
+                    <div class="cs-component-card__description">{{ singlePackage.description }}</div>
+                    <p class="cs-component-card__version">{{ singlePackage.version }}</p>
+                </a>
+            </div>
+            <h2 class="cs-packages-list__no-packages" v-else>No packages matching the query :-(</h2>
         </section>
     `,
         data: function () {
