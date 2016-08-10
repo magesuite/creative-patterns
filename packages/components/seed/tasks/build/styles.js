@@ -1,12 +1,10 @@
 /*eslint-env node */
 import sourcemaps from 'gulp-sourcemaps';
 import notifier from 'node-notifier';
-import gulpif from 'gulp-if';
 import sass from 'gulp-sass';
 import postcss from 'gulp-postcss';
 
-import environment from '../../config/environment'
-import settings from '../../config/build/styles'
+import settings from '../../config/build/styles';
 
 
 /**
@@ -27,11 +25,11 @@ module.exports = function() {
         .pipe( sass( settings.sass )
             .on( 'error', sass.logError )
             .on( 'error', ( error ) => {
-                throw new error;
                 notifier.notify( {
                     'title': 'SASS Error',
                     'message': error.messageOriginal
                 } );
+                throw error;
             } )
         )
 

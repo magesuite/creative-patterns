@@ -14,5 +14,5 @@ export default {
      * Basically, it is a name of the variable in global window object.
      * @type {String}
      */
-    jsExportVariable: 'seed',
+    jsExportVariable: 'seed'
 };

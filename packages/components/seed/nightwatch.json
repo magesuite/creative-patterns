@@ -2,7 +2,7 @@
     "src_folders": [
         "dist/tests/e2e"
     ],
-    "output_folder": "reports",
+    "output_folder": false,
     "custom_commands_path": "",
     "custom_assertions_path": "",
     "page_objects_path": "",
@@ -40,6 +40,22 @@
         "firefox": {
             "desiredCapabilities": {
                 "browserName": "firefox",
+                "javascriptEnabled": true,
+                "acceptSslCerts": true
+            }
+        },
+
+        "ie": {
+            "desiredCapabilities": {
+                "browserName": "internet explorer",
+                "javascriptEnabled": true,
+                "acceptSslCerts": true
+            }
+        },
+
+        "safari": {
+            "desiredCapabilities": {
+                "browserName": "safari",
                 "javascriptEnabled": true,
                 "acceptSslCerts": true
             }

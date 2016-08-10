@@ -20,7 +20,9 @@ module.exports = function() {
             let data = {};
             try {
                 data = require( template );
-            } catch(e) {}
+            } catch ( e ) {
+                // Packaga doesn't have package.json file.
+            }
 
             return data;
         } ) )

@@ -1,5 +1,3 @@
-import paths from '../paths';
-
 import buildImagesSettings from '../build/images';
 import buildScriptsSettings from '../build/scripts';
 import buildStylesSettings from '../build/styles';

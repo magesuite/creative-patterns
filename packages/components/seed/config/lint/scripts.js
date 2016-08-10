@@ -10,5 +10,5 @@ export default {
          * Lint all TypeScript files.
          */
         paths.src + '**/*.ts'
-    ],
+    ]
 };

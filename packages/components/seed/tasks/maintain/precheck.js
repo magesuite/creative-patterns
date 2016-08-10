@@ -1,3 +1,4 @@
+/*eslint-env node */
 import mainConfig from '../../config/main';
 
 module.exports = function() {
@@ -9,6 +10,6 @@ module.exports = function() {
     }
 
     if ( !mainConfig.jsEntryFilename ) {
-        throw new Error( 'Please set file name for scrips entry and destination points in config/main.js file.' )
+        throw new Error( 'Please set file name for scrips entry and destination points in config/main.js file.' );
     }
 };

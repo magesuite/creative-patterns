@@ -1,5 +1,4 @@
 /*eslint-env node */
-import browserSync from 'browser-sync';
 import imagemin from 'gulp-imagemin';
 
 import settings from '../../config/build/images';

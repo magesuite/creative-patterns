@@ -19,7 +19,12 @@
       "version": "0.0.1",
       "description": "",
       "author": "",
-      "license": "ISC"
+      "license": "ISC",
+      "scripts": {
+        "build": "gulp build",
+        "selenium": "selenium-standalone install && selenium-standalone start",
+        "test": "gulp test"
+      }
     }
   ]
 }

@@ -1,6 +1,10 @@
+/*eslint-env node */
+
+import path from 'path';
+
 export default {
     server: {
-        configFile: __dirname + '/../../karma.conf.js',
+        configFile: path.join( __dirname, '/../../karma.conf.js' ),
         singleRun: true
     }
-}
+};

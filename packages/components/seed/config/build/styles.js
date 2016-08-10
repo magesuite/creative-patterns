@@ -1,5 +1,4 @@
 import path from '../paths';
-import environment from '../environment';
 
 import clean from 'postcss-clean';
 import autoprefixer from 'autoprefixer';

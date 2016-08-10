@@ -2,7 +2,6 @@ import path from '../paths';
 import mainConfig from '../main';
 
 import typescript from 'rollup-plugin-typescript';
-import uglify from 'rollup-plugin-uglify';
 
 /**
  * Components JS compilation settings.

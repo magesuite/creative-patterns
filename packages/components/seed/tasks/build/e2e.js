@@ -1,4 +1,5 @@
-import { rollup } from 'rollup';
+/*eslint-env node */
+
 import notifier from 'node-notifier';
 import typescript from 'gulp-typescript';
 
@@ -9,7 +10,7 @@ import settings from '../../config/build/e2e';
  * @return {Promise} Promise used to properly time task execution completition
  */
 module.exports = function() {
-    return this.gulp.src('src/tests/e2e/**/*.ts')
+    return this.gulp.src( 'src/tests/e2e/**/*.ts' )
         .pipe( typescript( {
             sourceMap: true, // (optional) Generates corresponding .map file.
             target: 'es5', // (optional) Specify ECMAScript target version: 'ES3' (default), or 'ES5'
@@ -19,5 +20,5 @@ module.exports = function() {
             removeComments: true,
             inlineSourceMap: true
         } ) )
-        .pipe( this.gulp.dest('dist/tests/e2e/') );
+        .pipe( this.gulp.dest( 'dist/tests/e2e/' ) );
 };

@@ -8,8 +8,7 @@ import util from 'gulp-util';
 const environment = {
     development: false,
     jenkins: false,
-    production: false,
-    watch: false
+    production: false
 };
 
 switch ( util.env.env ) {
@@ -23,7 +22,5 @@ switch ( util.env.env ) {
     default:
         environment.development = true;
 }
-
-environment.watch = Boolean( util.env.watch );
 
 export default environment;
