@@ -1,0 +1,106 @@
+/**
+ * Define block class using namespace.
+ */
+.action-button {
+    $root: &;
+
+    display: inline-block;
+    padding: 17px 50px;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+    color: #c20000;
+    text-decoration: none;
+    transition: color .15s,
+                border-color .15s,
+                background-color .15s;
+
+        &:not(:disabled):hover {
+            color: #007bdb;
+            border-color: #007bdb;
+            background-color: #e4f7fe;
+
+            #{$root}__icon {
+                fill: #007bdb;
+            }
+        }
+
+    &__icon {
+        width: 17px;
+        height: 17px;
+        position: relative;
+        top: -2px;
+        margin-right: 8px;
+        line-height: 1;
+        vertical-align: middle;
+        transition: fill .15s;
+
+        &--arrow-up, &--arrow-down {
+            width: 24px;
+        }
+
+        &--primary {
+            fill: #c20000;
+        }
+
+        #{$root}--disabled & {
+            fill: #e1e1e1 !important;
+        }
+    }
+
+    &--primary {
+        border: 0;
+        font-size: 1.13em;
+        background: #c20000;
+        color: #fff;
+
+        &:not(:disabled):hover {
+            background-color: darken(#c20000, 8%);
+            color: #fff;
+
+            #{$root}__icon {
+                fill: #fff;
+            }
+        }
+
+        #{$root}__icon {
+            fill: #fff;
+        }
+    }
+
+    &--tool {
+        width: 53px;
+        height: 53px;
+        padding: 10px;
+
+        #{$root}__icon {
+            display: block;
+            top: 0;
+            margin: auto;
+            fill: #333;
+
+            #{root}--primary & {
+                fill: #c20000;
+            }
+        }
+    }
+
+    &--add {
+        color: #c20000;
+
+        #{$root}__icon {
+            fill: #c20000;
+        }
+    }
+
+    &--warning {
+        &:not(:disabled):hover {
+            color: #c20000;
+            background-color: lighten(#c20000, 57%);
+            border-color: #c20000;
+
+            #{$root}__icon {
+                fill: #c20000;
+            }
+        }
+    }
+}
