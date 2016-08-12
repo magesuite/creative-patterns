@@ -1,6 +1,6 @@
 <button class="action-button {{ classes }} | {{ mix }}" {{ state }}>
-    {% if icon %}
-        <svg class="action-button__icon action-button__icon--{{ icon }}"><use xlink:href="/images/sprites.svg#icon_{{ icon }}"></use></svg>
+    {% if icon.svgId %}
+        <svg class="action-button__icon {{ icon.classes }}"><use xlink:href="/images/sprites.svg#{{ icon.svgId }}"></use></svg>
     {% endif %}
     {{ text }}
 </button>

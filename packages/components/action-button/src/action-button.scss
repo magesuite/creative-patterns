@@ -18,33 +18,28 @@
     transition: color .15s, border-color .15s, background-color .15s;
 
     &__icon {
-        width: 12px;
-        height: 14px;
+        width: 1.25em;
+        height: 1.25em;
         position: relative;
         top: -2px;
-        margin-right: 8px;
+        margin-right: .5em;
         line-height: 1;
         vertical-align: middle;
         transition: fill .15s;
 
-        &--settings {
-            width: 20px;
-            height: 20px;
-        }
+        &--size {
+            // Don't use sizes like medium or big which make you end up with
+            // semi-medium, bigger, ultra-big etc. Use font-weight like sizing,
+            // so you can always make 90, 350 etc.
+            &_100 {
+                height: .875em;
+                width: .875em;
+            }
 
-        &--trash-can {
-            width: 16px;
-            height: 20px;
-        }
-
-        &--edit {
-            width: 19px;
-            height: 21px;
-        }
-
-        &--plus {
-            width: 17px;
-            height: 17px;
+            &_300 {
+                width: 1.063em;
+                height: 1.063em;
+            }
         }
 
         &--primary {
@@ -104,9 +99,9 @@
 
     &--type {
         &_icon-only {
-            width: 53px;
-            height: 53px;
-            padding: 10px;
+            width: 3.313em;
+            height: 3.313em;
+            padding: .625em;
 
             #{$root}__icon {
                 display: block;
