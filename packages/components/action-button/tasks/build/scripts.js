@@ -29,4 +29,6 @@ module.exports = function() {
     } catch ( e ) {
         util.log( 'No scripts entry file found. Assuming component has no JavaScript.' );
     }
+
+    return null;
 };
