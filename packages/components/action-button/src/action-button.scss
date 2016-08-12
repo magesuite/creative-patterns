@@ -10,11 +10,13 @@
     background: #fff;
     color: #c20000;
     text-decoration: none;
+    font-size: 1em;
     transition: color .15s,
                 border-color .15s,
                 background-color .15s;
 
         &:not(:disabled):hover {
+            cursor: pointer;
             color: #007bdb;
             border-color: #007bdb;
             background-color: #e4f7fe;
@@ -25,8 +27,8 @@
         }
 
     &__icon {
-        width: 17px;
-        height: 17px;
+        width: 12px;
+        height: 14px;
         position: relative;
         top: -2px;
         margin-right: 8px;
@@ -34,8 +36,24 @@
         vertical-align: middle;
         transition: fill .15s;
 
-        &--arrow-up, &--arrow-down {
-            width: 24px;
+        &--settings {
+            width: 20px;
+            height: 20px;
+        }
+
+        &--trash-can {
+            width: 16px;
+            height: 20px;
+        }
+
+        &--edit {
+            width: 19px;
+            height: 21px;
+        }
+
+        &--plus {
+            width: 17px;
+            height: 17px;
         }
 
         &--primary {
@@ -49,7 +67,6 @@
 
     &--primary {
         border: 0;
-        font-size: 1.13em;
         background: #c20000;
         color: #fff;
 
@@ -84,7 +101,7 @@
         }
     }
 
-    &--add {
+    &--important {
         color: #c20000;
 
         #{$root}__icon {
