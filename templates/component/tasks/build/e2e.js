@@ -1,6 +1,5 @@
 /*eslint-env node */
 
-import notifier from 'node-notifier';
 import typescript from 'gulp-typescript';
 
 import settings from '../../config/build/e2e';

@@ -3,6 +3,8 @@ import mainConfig from '../main';
 
 import typescript from 'rollup-plugin-typescript';
 
+let cache;
+
 /**
  * Components JS compilation settings.
  */
@@ -19,6 +21,7 @@ export default {
      */
     rollup: {
         entry: path.src + mainConfig.jsEntryFilename + '.ts',
+        cache: cache,
         plugins: [
             /**
              * Rollup typescript plugin configuration.

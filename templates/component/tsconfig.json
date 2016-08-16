@@ -13,13 +13,17 @@
   "filesGlob": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "!src/**/*.spec.ts",
     "node_modules/@types/**/*.ts"
   ],
   "atom": {
     "rewriteTsconfig": true
   },
   "files": [
+    "src/seed.ts",
+    "src/tests/e2e/seed.ts",
+    "src/tests/unit/seed.ts"
+    "src/tests/e2e/e2e.ts",
+    "src/tests/unit/unit.ts"
     "src/seed.ts",
     "src/tests/e2e/seed.ts",
     "src/tests/unit/seed.ts"
