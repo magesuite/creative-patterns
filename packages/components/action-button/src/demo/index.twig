@@ -11,82 +11,118 @@
     <body>
         <main>
             <p>
-                default:<br>
+                No look applied:<br>
                 {% include '../action-button.twig' with {
                     'text': 'Example'
                 } %}
             </p>
 
             <p>
-                default with icon:<br>
+                .action-button--look_default:<br>
                 {% include '../action-button.twig' with {
+                    'classes': 'action-button--look_default',
+                    'text': 'Example'
+                } %}
+            </p>
+
+            <p>
+                .action-button--look_default with icon:<br>
+                {% include '../action-button.twig' with {
+                    'classes': 'action-button--look_default',
                     'text': 'Edit',
-                    'icon': 'edit'
+                    'icon': {
+                        'classes': '',
+                        'svgId': 'icon_edit'
+                    }
                 } %}
             </p>
 
             <p>
-                .action-button--tool:<br>
+                .action-button--look_default .action-button--type_icon-only:<br>
                 {% include '../action-button.twig' with {
-                    'mix': 'action-button--tool',
-                    'icon': 'arrow-up'
+                    'classes': 'action-button--look_default action-button--type_icon-only',
+                    'icon': {
+                        'classes': 'action-button__icon--size_100',
+                        'svgId': 'icon_arrow-up'
+                    }
                 } %}
 
                 {% include '../action-button.twig' with {
-                    'mix': 'action-button--tool',
-                    'icon': 'arrow-down'
+                    'classes': 'action-button--look_default action-button--type_icon-only',
+                    'icon': {
+                        'classes': 'action-button__icon--size_100',
+                        'svgId': 'icon_arrow-down'
+                    }
                 } %}
 
                 {% include '../action-button.twig' with {
-                    'mix': 'action-button--tool',
-                    'icon': 'settings'
+                    'classes': 'action-button--look_default action-button--type_icon-only',
+                    'icon': {
+                        'classes': '',
+                        'svgId': 'icon_settings'
+                    }
                 } %}
 
                 {% include '../action-button.twig' with {
-                    'mix': 'action-button--tool',
-                    'icon': 'edit'
-                } %}
-            </p>
-
-            <p>
-                .action-button--tool - disabled:<br>
-                {% include '../action-button.twig' with {
-                    'mix': 'action-button--tool action-button--disabled',
-                    'icon': 'arrow-up',
-                    'state': 'disabled'
-                } %}
-            </p>
-
-            <p>
-                .action-button--tool .action-button--warning:<br>
-                {% include '../action-button.twig' with {
-                    'mix': 'action-button--tool action-button--warning',
-                    'icon': 'trash-can'
+                    'classes': 'action-button--look_default action-button--type_icon-only',
+                    'icon': {
+                        'classes': '',
+                        'svgId': 'icon_edit'
+                    }
                 } %}
             </p>
 
             <p>
-                .action-button--tool .action-button--important:<br>
+                .action-button--look_disabled .action-button--type_icon-only:<br>
                 {% include '../action-button.twig' with {
-                    'mix': 'action-button--tool action-button--important',
-                    'icon': 'plus'
+                    'classes': 'action-button--look_disabled action-button--type_icon-only',
+                    'state': 'disabled',
+                    'icon': {
+                        'classes': 'action-button__icon--size_100',
+                        'svgId': 'icon_arrow-up'
+                    }
                 } %}
             </p>
 
             <p>
-                .action-button--primary:<br>
+                .action-button--look_warning .action-button--type_icon-only:<br>
+                {% include '../action-button.twig' with {
+                    'classes': 'action-button--look_warning action-button--type_icon-only',
+                    'icon': {
+                        'classes': '',
+                        'svgId': 'icon_trash-can'
+                    }
+                } %}
+            </p>
+
+            <p>
+                .action-button--look_important .action-button--type_icon-only:<br>
+                {% include '../action-button.twig' with {
+                    'classes': 'action-button--look_important action-button--type_icon-only',
+                    'icon': {
+                        'classes': 'action-button__icon--size_300',
+                        'svgId': 'icon_plus'
+                    }
+                } %}
+            </p>
+
+            <p>
+                .action-button--look_primary:<br>
                 {% include '../action-button.twig' with {
                     'text': 'Example',
-                    'mix': 'action-button--primary'
+                    'classes': 'action-button--look_primary'
                 } %}
             </p>
 
             <p>
-                .action-button--primary with icon:<br>
+                .action-button--look_primary with icon:<br>
                 {% include '../action-button.twig' with {
                     'text': 'Edit',
-                    'mix': 'action-button--primary',
-                    'icon': 'edit'
+                    'classes': 'action-button--look_primary',
+                    'icon': {
+                        'classes': '',
+                        'svgId': 'icon_edit'
+                    }
                 } %}
             </p>
         </main>
