@@ -1,0 +1,27 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ title }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-navigation.css">
+    </head>
+    <body>
+        <main>
+
+            <div style="margin: 0 0 40px">
+                Default: <br>
+                {% include '../cc-navigation.twig' %}
+            </div>
+
+            Fixed height flexbox parent:
+            <div style="display:flex; align-items:stretch; min-height:290px;">
+                {% include '../cc-navigation.twig' %}
+            </div>
+
+        </main>
+
+    </body>
+</html>
