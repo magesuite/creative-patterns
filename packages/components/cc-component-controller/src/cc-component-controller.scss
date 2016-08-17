@@ -1,0 +1,28 @@
+@import '../../action-button/src/action-button';
+/**
+ * Component controller component.
+ * This component is responsible for displaying and handling user interactions of
+ * side utility navigation for each component that supports:
+ * - Moving component up,
+ * - Moving component down,
+ * - Opening component settings,
+ * - Deleting component.
+ */
+.cc-component-controller {
+    $root: &;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    &__button {
+        display: block;
+        margin: 0 0 10px;
+
+        #{$root}__bottom & {
+            &:last-child {
+                margin: 0;
+            }
+        }
+    }
+}

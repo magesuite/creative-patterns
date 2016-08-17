@@ -1,0 +1,37 @@
+<cc-component-controller class="cc-component-controller">
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--up">
+        {% include '../../action-button/src/action-button.twig' with {
+            'classes': 'action-button--look_default action-button--type_icon-only',
+            'icon': {
+                'classes': 'action-button__icon--size_100',
+                'svgId': 'icon_arrow-up',
+            }
+        } %}
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--down">
+        {% include '../../action-button/src/action-button.twig' with {
+            'classes': 'action-button--look_default action-button--type_icon-only',
+            'icon': {
+                'classes': 'action-button__icon--size_100',
+                'svgId': 'icon_arrow-down',
+            }
+        } %}
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--settings">
+        {% include '../../action-button/src/action-button.twig' with {
+            'classes': 'action-button--look_default action-button--type_icon-only',
+            'icon': {
+                'svgId': 'icon_settings'
+            }
+        } %}
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--delete">
+        {% include '../../action-button/src/action-button.twig' with {
+            'classes': 'action-button--look_default action-button--type_icon-only',
+            'icon': {
+                'svgId': 'icon_trash-can'
+            }
+        } %}
+    </div>
+
+</cc-component-controller>

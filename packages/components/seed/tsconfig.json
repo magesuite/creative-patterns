@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "noImplicitAny": true,
-    "target": "es6",
+    "target": "es5",
     "moduleResolution": "node",
     "inlineSourceMap": true,
     "emitDecoratorMetadata": true,
@@ -22,7 +22,6 @@
   "files": [
     "src/seed.ts",
     "src/tests/e2e/seed.ts",
-    "src/tests/unit/seed.ts",
-    "node_modules/@types/jasmine/index.d.ts"
+    "src/tests/unit/seed.ts"
   ]
 }
