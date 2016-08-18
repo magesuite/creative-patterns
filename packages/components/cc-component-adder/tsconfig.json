@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "noImplicitAny": true,
-    "target": "es6",
+    "target": "es5",
     "moduleResolution": "node",
     "inlineSourceMap": true,
     "emitDecoratorMetadata": true,
@@ -20,9 +20,10 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "src/action-button.ts",
-    "src/tests/e2e/action-button.ts",
-    "src/tests/unit/action-button.ts",
-    "node_modules/@types/jasmine/index.d.ts"
+    "src/cc-component-adder.ts",
+    "src/tests/e2e/cc-component-adder.ts",
+    "src/tests/unit/cc-component-adder.ts",
+    "node_modules/@types/jasmine/index.d.ts",
+    "node_modules/@types/vue/index.d.ts"
   ]
 }

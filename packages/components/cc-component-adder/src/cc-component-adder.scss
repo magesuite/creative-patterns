@@ -5,6 +5,7 @@
     z-index: 2;
     text-align: center;
 
+    // Vertical dashed line at the middle going through whole component wide
     &:before {
         position: absolute;
         top: 50%;
@@ -17,6 +18,12 @@
         content: " ";
     }
 
+    // this is just wrapper but event will be set to this element
+    &__button-create {
+        display: inline-block;
+    }
+
+    // component specific button styles
     &__button {
         background-color: #fff;
         transition: border-color 0.25s linear;

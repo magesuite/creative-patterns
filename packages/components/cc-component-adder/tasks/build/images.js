@@ -1,4 +1,4 @@
-/*eslint-env node */
+/* eslint-env node */
 import imagemin from 'gulp-imagemin';
 
 import settings from '../../config/build/images';
