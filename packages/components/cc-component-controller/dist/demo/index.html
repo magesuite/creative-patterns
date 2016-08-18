@@ -1,0 +1,86 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Demo of 'cc-navigation' component</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-component-controller.css">
+    </head>
+    <body>
+        <main>
+            <div style="margin: 0 0 40px">
+                Default: <br>
+                <cc-component-controller class="cc-component-controller">
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--up">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon action-button__icon--size_100"><use xlink:href="/images/sprites.svg#icon_arrow-up"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--down">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon action-button__icon--size_100"><use xlink:href="/images/sprites.svg#icon_arrow-down"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--settings">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon "><use xlink:href="/images/sprites.svg#icon_settings"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--delete">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon "><use xlink:href="/images/sprites.svg#icon_trash-can"></use></svg>
+        
+</button>
+    </div>
+
+</cc-component-controller>
+            </div>
+
+            Fixed height flexbox parent:
+            <div style="display:flex; align-items:stretch; min-height:290px;">
+                <cc-component-controller class="cc-component-controller">
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--up">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon action-button__icon--size_100"><use xlink:href="/images/sprites.svg#icon_arrow-up"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--down">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon action-button__icon--size_100"><use xlink:href="/images/sprites.svg#icon_arrow-down"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--settings">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon "><use xlink:href="/images/sprites.svg#icon_settings"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--delete">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon "><use xlink:href="/images/sprites.svg#icon_trash-can"></use></svg>
+        
+</button>
+    </div>
+
+</cc-component-controller>
+            </div>
+        </main>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+        <script src="../cc-component-controller.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'cc-component-controller': ccComponentController
+                }
+            } );
+        </script>
+    </body>
+</html>
