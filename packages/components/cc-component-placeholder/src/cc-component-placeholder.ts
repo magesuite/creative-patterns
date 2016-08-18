@@ -1,0 +1,3 @@
+/**
+ * Component placeholder component.
+ */
