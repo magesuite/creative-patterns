@@ -1,0 +1,10 @@
+<cc-component-adder class="cc-component-adder">
+    <div slot="cc-component-adder__button-create">
+        {% include '../../action-button/src/action-button.twig' with {
+            'classes': 'action-button--look_important action-button--type_icon-only | cc-component-adder__button',
+            'icon': {
+                'svgId': 'icon_plus'
+            }
+        } %}
+    </div>
+</cc-component-adder>
