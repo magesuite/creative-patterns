@@ -1,0 +1,37 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ title }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-component-placeholder.css">
+    </head>
+    <body>
+        <main>
+            Default:
+            <div>
+                {% include '../cc-component-placeholder.twig' %}
+            </div>
+
+            <br>
+
+            Fixed height flexbox parent:
+            <div style="display:flex; align-items:stretch; min-height:290px;">
+                {% include '../cc-component-placeholder.twig' %}
+            </div>
+
+            <br>
+
+            Fixed height flexbox parent &amp; sample content:
+            <div style="display:flex; align-items:stretch; min-height:290px;">
+                {% embed '../cc-component-placeholder.twig' %}
+                    {% block content %}
+                        Some content here
+                    {% endblock %}
+                {% endembed %}
+            </div>
+        </main>
+    </body>
+</html>
