@@ -1,0 +1,39 @@
+@import '../../cc-component-controller/src/cc-component-controller';
+@import '../../cc-component-placeholder/src/cc-component-placeholder';
+@import '../../cc-component-adder/src/cc-component-adder';
+
+// cc-layout-builder
+// It bootstraps layout for Creative Constructor backend
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cc-layout-builder {
+
+    &__adder {
+        margin: 20px 0;
+
+        &:first-child {
+            margin-top: 0
+        }
+
+        &:last-child {
+            margin-bottom: 0
+        }
+    }
+
+    &__component {
+        display: flex;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    &__component-actions {
+        margin-right: 30px;
+    }
+
+    &__component-wrapper {
+        display: inline-flex;
+        align-items: stretch;
+        width: 100%;
+    }
+}

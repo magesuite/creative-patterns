@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Demo of 'cc-layout-builder' component</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-layout-builder.css">
+    </head>
+    <body>
+        <main>
+
+            <cc-layout-builder class="cc-layout-builder">
+
+    <div class="cc-layout-builder__adder" slot="cc-layout-builder__adder">
+        <cc-component-adder class="cc-component-adder">
+    <div slot="cc-component-adder__button-create">
+        <button class="action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button | " >
+            <svg class="action-button__icon "><use xlink:href="/images/sprites.svg#icon_plus"></use></svg>
+        
+</button>
+    </div>
+</cc-component-adder>
+    </div>
+
+    <div class="cc-layout-builder__component">
+
+        <div class="cc-layout-builder__component-actions" slot="cc-layout-builder__component-actions">
+            <cc-component-controller class="cc-component-controller">
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--up">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon action-button__icon--size_100"><use xlink:href="/images/sprites.svg#icon_arrow-up"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--down">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon action-button__icon--size_100"><use xlink:href="/images/sprites.svg#icon_arrow-down"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--settings">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon "><use xlink:href="/images/sprites.svg#icon_settings"></use></svg>
+        
+</button>
+    </div>
+    <div class="cc-component-controller__button" slot="cc-component-controller__button--delete">
+        <button class="action-button action-button--look_default action-button--type_icon-only | " >
+            <svg class="action-button__icon "><use xlink:href="/images/sprites.svg#icon_trash-can"></use></svg>
+        
+</button>
+    </div>
+
+</cc-component-controller>
+        </div>
+
+        <div class="cc-layout-builder__component-wrapper" slot="cc-layout-builder__component-wrapper">
+            <div class="cc-component-placeholder">
+    <div class="cc-component-placeholder__content">
+        
+            </div>
+</div>
+        </div>
+
+    </div>
+</cc-layout-builder>
+
+        </main>
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+        <script src="../cc-layout-builder.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'cc-layout-builder': ccLayoutBuilder
+                }
+            } );
+        </script>
+    </body>
+</html>
