@@ -10,6 +10,8 @@
     </head>
     <body>
         <main>
+            <h1>Action button component demo</h1>
+            <h2>Twig based version</h2>
             <p>
                 No look applied:<br>
                 {% include '../action-button.twig' with {
@@ -125,6 +127,23 @@
                     }
                 } %}
             </p>
+            <h2>Vue based version</h2>
+            <button is="action-button" class="action-button action-button--look_default">
+                <svg class="action-button__icon">
+                    <use xlink:href="/images/sprites.svg#icon_edit"></use>
+                </svg>
+                Edit
+            </button>
         </main>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+        <script src="../action-button.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'action-button': actionButton
+                }
+            } );
+        </script>
     </body>
 </html>

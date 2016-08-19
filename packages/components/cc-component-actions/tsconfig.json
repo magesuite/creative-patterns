@@ -20,9 +20,9 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "src/cc-component-controller.ts",
+    "src/cc-component-actions.ts",
     "src/tests/e2e/cc-component-controller.ts",
-    "src/tests/unit/cc-component-controller.ts",
+    "src/tests/unit/cc-component-actions.ts",
     "node_modules/@types/jasmine/index.d.ts",
     "node_modules/@types/vue/index.d.ts"
   ]

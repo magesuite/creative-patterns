@@ -1,0 +1,64 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ title }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-component-actions.css">
+    </head>
+    <body>
+        <main>
+            <div style="margin: 0 0 40px">
+                Default: <br>
+                <cc-component-actions class="cc-component-actions">
+                    <div class="cc-component-actions__top" slot="cc-component-actions__top">
+                        <button is="action-button" class="cc-component-actions__button | action-button--look_default action-button action-button--type_icon-only" icon-classes="action-button__icon--size_100" icon-id="icon_arrow-up"></button>
+
+                        <button is="action-button" class="cc-component-actions__button | action-button action-button--look_default action-button--type_icon-only" icon-classes="action-button__icon--size_100" icon-id="icon_arrow-up"></button>
+                    </div>
+                    <div class="cc-component-actions__bottom" slot="cc-component-actions__bottom">
+                        <button is="action-button" class="cc-component-actions__button | action-button action-button--look_default action-button--type_icon-only" icon-classes="action-button__icon--size_100" icon-id="icon_icon_settings"></button>
+
+                        <button is="action-button" class="action-button--look_default action-button action-button--type_icon-only">
+                            <svg class="action-button__icon">
+                                <use xlink:href="/images/sprites.svg#icon_trash-can"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </cc-component-actions>
+            </div>
+
+            Fixed height flexbox parent:
+            <div style="display:flex; align-items:stretch; min-height:290px;">
+                <cc-component-actions class="cc-component-actions">
+                    <div class="cc-component-actions__top" slot="cc-component-actions__top">
+                        <button is="action-button" class="cc-component-actions__button | action-button--look_default action-button action-button--type_icon-only" icon-classes="action-button__icon--size_100" icon-id="icon_arrow-up"></button>
+
+                        <button is="action-button" class="cc-component-actions__button | action-button action-button--look_default action-button--type_icon-only" icon-classes="action-button__icon--size_100" icon-id="icon_arrow-up"></button>
+                    </div>
+                    <div class="cc-component-actions__bottom" slot="cc-component-actions__bottom">
+                        <button is="action-button" class="cc-component-actions__button | action-button action-button--look_default action-button--type_icon-only" icon-classes="action-button__icon--size_100" icon-id="icon_icon_settings"></button>
+
+                        <button is="action-button" class="action-button--look_default action-button action-button--type_icon-only">
+                            <svg class="action-button__icon">
+                                <use xlink:href="/images/sprites.svg#icon_trash-can"></use>
+                            </svg>
+                        </button>
+                    </div>
+                </cc-component-actions>
+            </div>
+        </main>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+        <script src="../cc-component-actions.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'cc-component-actions': ccComponentActions
+                }
+            } );
+        </script>
+    </body>
+</html>

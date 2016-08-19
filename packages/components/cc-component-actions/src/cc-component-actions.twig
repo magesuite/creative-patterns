@@ -1,5 +1,5 @@
-<cc-component-controller class="cc-component-controller">
-    <div class="cc-component-controller__button" slot="cc-component-controller__button--up">
+<cc-component-actions class="cc-component-actions">
+    <div class="cc-component-actions__bottom" slot="cc-component-actions__top">
         {% include '../../action-button/src/action-button.twig' with {
             'classes': 'action-button--look_default action-button--type_icon-only',
             'icon': {
@@ -7,8 +7,6 @@
                 'svgId': 'icon_arrow-up',
             }
         } %}
-    </div>
-    <div class="cc-component-controller__button" slot="cc-component-controller__button--down">
         {% include '../../action-button/src/action-button.twig' with {
             'classes': 'action-button--look_default action-button--type_icon-only',
             'icon': {
@@ -17,15 +15,13 @@
             }
         } %}
     </div>
-    <div class="cc-component-controller__button" slot="cc-component-controller__button--settings">
+    <div class="cc-component-actions__bottom" slot="cc-component-actions__bottom">
         {% include '../../action-button/src/action-button.twig' with {
             'classes': 'action-button--look_default action-button--type_icon-only',
             'icon': {
                 'svgId': 'icon_settings'
             }
         } %}
-    </div>
-    <div class="cc-component-controller__button" slot="cc-component-controller__button--delete">
         {% include '../../action-button/src/action-button.twig' with {
             'classes': 'action-button--look_default action-button--type_icon-only',
             'icon': {
@@ -33,5 +29,4 @@
             }
         } %}
     </div>
-
-</cc-component-controller>
+</cc-component-actions>
