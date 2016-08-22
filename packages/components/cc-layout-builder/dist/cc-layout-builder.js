@@ -182,6 +182,8 @@ var ccLayoutBuilder = (function () {
         template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>"
     };
 
+    var template = "<section class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"addedComponent in addedComponents\">\n        <div class=\"cc-layout-builder__component\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"moveComponentUp( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"moveComponentDown( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_settings\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>{{ addedComponent.name }}</cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"addedComponents.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</section>";
+
     /**
      * Layout builder component.
      * This component is responsible for displaying and handling user interactions of
@@ -189,7 +191,7 @@ var ccLayoutBuilder = (function () {
      * @type {vuejs.ComponentOption} Vue component object.
      */
     var layoutBuilder = {
-        template: "<section class=\"cc-layout-builder | {{ class }}\">\n        <cc-component-adder>\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n        <template v-for=\"addedComponent in addedComponents\">\n            <div class=\"cc-layout-builder__component\">\n                <div class=\"cc-layout-builder__component-actions\">\n                    <cc-component-actions>\n                        <template slot=\"cc-component-actions__top\">\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\">\n                                <svg class=\"action-button__icon action-button__icon--size_100\">\n                                    <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use>\n                                </svg>\n                            </button>\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\">\n                                <svg class=\"action-button__icon action-button__icon--size_100\">\n                                    <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use>\n                                </svg>\n                            </button>\n                        </template>\n                        <template slot=\"cc-component-actions__bottom\">\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\">\n                                <svg class=\"action-button__icon\">\n                                    <use xlink:href=\"/images/sprites.svg#icon_settings\"></use>\n                                </svg>\n                            </button>\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\">\n                                <svg class=\"action-button__icon\">\n                                    <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use>\n                                </svg>\n                            </button>\n                        </template>\n                    </cc-component-actions>\n                </div>\n                <div class=\"cc-layout-builder__component-wrapper\">\n                    <cc-component-placeholder>{{ addedComponent.name }}</cc-component-placeholder>\n                </div>\n            </div>\n            <cc-component-adder v-if=\"addedComponents.length\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                    <svg class=\"action-button__icon action-button__icon--size_300\">\n                        <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n        </template>\n    </section>",
+        template: template,
         /**
          * Get dependencies
          */
@@ -220,8 +222,30 @@ var ccLayoutBuilder = (function () {
                     name: Date.now(),
                     settings: {}
                 });
+            },
+            /**
+             * Moves component under given index up by swaping it with previous element.
+             * @param {number} index Component's index in array.
+             */
+            moveComponentUp: function (index) {
+                if (index > 0) {
+                    var previousComponent = this.addedComponents[index - 1];
+                    this.addedComponents.$set(index - 1, this.addedComponents[index]);
+                    this.addedComponents.$set(index, previousComponent);
+                }
+            },
+            /**
+             * Moves component under given index down by swaping it with next element.
+             * @param {number} index Component's index in array.
+             */
+            moveComponentDown: function (index) {
+                if (index < this.addedComponents.length - 1) {
+                    var previousComponent = this.addedComponents[index + 1];
+                    this.addedComponents.$set(index + 1, this.addedComponents[index]);
+                    this.addedComponents.$set(index, previousComponent);
+                }
             }
-        }
+        },
     };
 
     return layoutBuilder;
