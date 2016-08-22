@@ -7,7 +7,7 @@
 const componentAdder: vuejs.ComponentOption = {
     template: `<section class="cc-component-adder | {{ class }}">
         <div class="cc-component-adder__button-create" @click="onCreateComponent">
-            <slot name="cc-component-adder__button-create"></slot>
+            <slot></slot>
         </div>
     </section>`,
     props: {

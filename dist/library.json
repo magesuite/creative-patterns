@@ -63,6 +63,18 @@
       }
     },
     {
+      "name": "cc-layout-builder",
+      "version": "0.0.1",
+      "description": "It bootstraps layout for Creative Constructor backend",
+      "author": "Maciej Borkowski",
+      "license": "ISC",
+      "scripts": {
+        "build": "gulp build",
+        "selenium": "selenium-standalone install && selenium-standalone start",
+        "test": "gulp test"
+      }
+    },
+    {
       "name": "component-boilerplate",
       "version": "0.0.1",
       "description": "",
