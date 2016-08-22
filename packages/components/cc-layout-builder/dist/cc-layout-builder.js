@@ -14,9 +14,8 @@ var ccLayoutBuilder = (function () {
              * Class property support to enable BEM mixes.
              */
             class: {
-                type: String,
-                default: '',
-                coerce: function (value) { return value.replace(/(\s|^)action-button(\s|$)/, ''); }
+                type: [String, Object, Array],
+                default: ''
             },
             iconId: {
                 type: String
@@ -182,7 +181,7 @@ var ccLayoutBuilder = (function () {
         template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>"
     };
 
-    var template = "<section class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"addedComponent in addedComponents\">\n        <div class=\"cc-layout-builder__component\" id=\"{{ addedComponent.id }}\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"moveComponentUp( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"moveComponentDown( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"editComponentSettings( addedComponent.id )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_settings\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>{{ addedComponent.id }}</cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"addedComponents.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</section>\n";
+    var template = "<section class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"addedComponent in addedComponents\">\n        <div class=\"cc-layout-builder__component\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_settings\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>{{ addedComponent.id }}</cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"addedComponents.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</section>\n";
 
     /**
      * Layout builder component.
@@ -206,9 +205,26 @@ var ccLayoutBuilder = (function () {
              * Class property support to enable BEM mixes.
              */
             class: {
-                type: String,
-                default: '',
-                coerce: function (value) { return value.replace('cc-layout-builder', ''); }
+                type: [String, Object, Array],
+                default: ''
+            },
+            /**
+             * Callback invoked when edit component button is clicked.
+             * This function should take IComponentInformation and return changed version of it.
+             * If callback returns falsy value then component isn't changed.
+             */
+            editComponent: {
+                type: Function,
+                default: function (componentInfo) { return componentInfo; }
+            },
+            /**
+             * Callback invoked when edit component button is clicked.
+             * This function should return IComponentInformation.
+             * If callback returns falsy value then component isn't added.
+             */
+            addComponent: {
+                type: Function,
+                default: function () { return undefined; }
             }
         },
         data: function () {
@@ -217,12 +233,18 @@ var ccLayoutBuilder = (function () {
             };
         },
         methods: {
+            /**
+             * Creates new component and adds it to a specified index.
+             * This function calls callback specified by "add-component" property that
+             * should return IComponentInformation.
+             * If callback returns falsy value then component isn't added.
+             * @param {number} index New component's index in components array.
+             */
             createNewComponent: function (index) {
-                this.addedComponents.splice(index, 0, {
-                    name: Date.now(),
-                    id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10),
-                    settings: {}
-                });
+                var componentInfo = this.addComponent();
+                if (componentInfo) {
+                    this.addedComponents.splice(index, 0, componentInfo);
+                }
             },
             /**
              * Moves component under given index up by swaping it with previous element.
@@ -248,10 +270,18 @@ var ccLayoutBuilder = (function () {
             },
             /**
              * Initializes edit mode of component.
-             * @param {string} id: Component's ID.
+             * This function invokes callback given by "edit-component" callback that
+             * should take current IComponentInformation as param and return changed version of it.
+             * If callback returns falsy value then component isn't changed.
+             * @param {string} index: Component's index in array.
              */
-            editComponentSettings: function (id) {
-                console.log("Openning modal window with component settings (ID: " + id + ")");
+            editComponentSettings: function (index) {
+                var componentInfo = this.addedComponents[index];
+                console.log("Openning modal window with component settings (ID: " + componentInfo.name + ")");
+                componentInfo = this.editComponent(componentInfo);
+                if (componentInfo) {
+                    this.addedComponents.$set(index, componentInfo);
+                }
             },
             /**
              * Removes component and adder that is right after component from the DOM
@@ -259,8 +289,24 @@ var ccLayoutBuilder = (function () {
              */
             deleteComponent: function (index) {
                 if (confirm("Are you sure you want to remove this component?")) {
-                    this.addedComponents.$remove(this.addedComponents[index]);
+                    this.addedComponents.splice(index, 1);
                 }
+            },
+            /**
+             * Tells if component with given index is the first component.
+             * @param  {number}  index Index of the component.
+             * @return {boolean}       If component is first in array.
+             */
+            isFirstComponent: function (index) {
+                return index === 0;
+            },
+            /**
+             * Tells if component with given index is the last component.
+             * @param  {number}  index Index of the component.
+             * @return {boolean}       If component is last in array.
+             */
+            isLastComponent: function (index) {
+                return index === this.addedComponents.length - 1;
             }
         },
     };
