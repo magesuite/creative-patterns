@@ -20,8 +20,10 @@
     "rewriteTsconfig": true
   },
   "files": [
+    "src/action-button.ts",
     "src/tests/e2e/action-button.ts",
     "src/tests/unit/action-button.ts",
-    "node_modules/@types/jasmine/index.d.ts"
+    "node_modules/@types/jasmine/index.d.ts",
+    "node_modules/@types/vue/index.d.ts"
   ]
 }

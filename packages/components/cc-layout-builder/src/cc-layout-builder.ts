@@ -1,6 +1,7 @@
-/*import componentAdder from '../../cc-component-adder/src/cc-component-adder';
-import componentController from '../../cc-component-controller/src/cc-component-controller';
-import componentPlaceholder from '../../cc-component-placeholder/src/cc-component-placeholder';*/
+import actionButton from '../../action-button/src/action-button';
+import componentAdder from '../../cc-component-adder/src/cc-component-adder';
+import componentActions from '../../cc-component-actions/src/cc-component-actions';
+import componentPlaceholder from '../../cc-component-placeholder/src/cc-component-placeholder';
 
 /**
  * Layout builder component.
@@ -10,27 +11,37 @@ import componentPlaceholder from '../../cc-component-placeholder/src/cc-componen
  */
 const layoutBuilder: vuejs.ComponentOption = {
     template: `<section class="cc-layout-builder | {{ class }}">
-        <div class="cc-layout-builder__adder" @click="createNewComponent">
-            <slot name="cc-layout-builder__adder"></slot>
-        </div>
-        <div class="cc-layout-builder__component">
-            <div class="cc-layout-builder__component-actions">
-                <slot name="cc-layout-builder__component-actions"></slot>
+        <cc-component-adder>
+            <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only" @click="createNewComponent">
+                <svg class="action-button__icon action-button__icon--size_300">
+                    <use xlink:href="/images/sprites.svg#icon_plus"></use>
+                </svg>
+            </button>
+        </cc-component-adder>
+        <template v-for="addedComponent in addedComponents">
+            <div class="cc-layout-builder__component">
+                <cc-component-actions></cc-component-actions>
+                <cc-component-placeholder>{{ addedComponent.name }}</cc-component-placeholder>
             </div>
-            <div class="cc-layout-builder__component-wrapper">
-                <slot name="cc-layout-builder__component-wrapper"></slot>
-            </div>
-        </div>
+            <cc-component-adder v-if="addedComponents.length">
+                <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only" @click="createNewComponent">
+                    <svg class="action-button__icon action-button__icon--size_300">
+                        <use xlink:href="/images/sprites.svg#icon_plus"></use>
+                    </svg>
+                </button>
+            </cc-component-adder>
+        </template>
     </section>`,
+    /**
+     * Get dependencies
+     */
+    components: {
+        'action-button': actionButton,
+        'cc-component-adder': componentAdder,
+        'cc-component-actions': componentActions,
+        'cc-component-placeholder': componentPlaceholder
+    },
     props: {
-        /**
-         * Get dependencies
-         */
-        /*components: {
-            'cc-component-adder': componentAdder,
-            'cc-component-controller': componentController,
-            'cc-component-placeholder': componentPlaceholder
-        },*/
         /**
          * Class property support to enable BEM mixes.
          */
@@ -38,25 +49,20 @@ const layoutBuilder: vuejs.ComponentOption = {
             type: String,
             default: '',
             coerce: ( value: String ): String => value.replace( 'cc-layout-builder', '' )
-        },
-        /**
-         * Property containing callback triggered when user clicks create-component button (the one with plus sign).
-         */
-        createNewComponent: {
-            type: Function
         }
     },
+    data: function(): any {
+        return {
+            addedComponents: []
+        };
+    },
     methods: {
-        /**
-         * Create-component button click handler.
-         * This handler triggers "cc-layout-builder__create-new-component" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onCreateNewComponent: function ( event: Event ): void {
-            this.$dispatch( 'cc-layout-builder__create-new-component', event );
-            if ( typeof this.createNewComponent === 'function' ) {
-                this.createNewComponent( event );
-            }
+        createNewComponent: function ( index: number ): void {
+            console.log( index );
+            this.addedComponents.splice( index, 0, {
+                name: Date.now(),
+                settings: {}
+            });
         }
     }
 };
