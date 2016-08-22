@@ -32,6 +32,9 @@ export default {
             typescript( {
                 exclude: [
                     'node_modules/**'
+                ],
+                include: [
+                    '../**/*.ts'
                 ]
             } ),
             nodeResolve( {

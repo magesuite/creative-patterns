@@ -8,11 +8,11 @@ export default {
      * Name of the entry file for TypeScritpt/JavaScript without extension.
      * @type {String}
      */
-    jsEntryFilename: 'cc-component-controller',
+    jsEntryFilename: 'cc-component-actions',
     /**
      * JavaScript namespace for your components code.
      * Basically, it is a name of the variable in global window object.
      * @type {String}
      */
-    jsExportVariable: 'ccComponentController'
+    jsExportVariable: 'ccComponentActions'
 };

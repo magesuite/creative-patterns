@@ -23,7 +23,6 @@
     "src/components/packages-list/packages-list.ts",
     "src/components/packages-search/packages-search.ts",
     "src/library.ts",
-    "node_modules/@types/jquery/index.d.ts",
-    "node_modules/@types/vue/index.d.ts"
+    "node_modules/@types/jquery/index.d.ts"
   ]
 }

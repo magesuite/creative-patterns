@@ -36,7 +36,7 @@ const settings = {
         },
         {
             paths: buildUnitTestsSettings.watch,
-            tasks: 'build:tests.unit'
+            tasks: 'build:unit'
         },
         {
             paths: buildVendorsSettings.watch,

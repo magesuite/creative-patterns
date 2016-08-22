@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import component from '../../cc-component-controller';
+import component from '../../cc-component-actions';
 
-describe( 'Component controller object.', function(): void {
+describe( 'Component actions object.', function(): void {
     const methods: any = component.methods;
     const props: any = component.props;
 
@@ -43,7 +43,7 @@ describe( 'Component controller object.', function(): void {
 
 });
 
-describe( 'Component controller Vue component', function(): void {
+describe( 'Component actions Vue component', function(): void {
     let vm: any, spy: any, ref: any;
     beforeEach( function(): void {
         // Create a spy that we will use to check if callbacks was called.
@@ -57,16 +57,16 @@ describe( 'Component controller Vue component', function(): void {
         // Prepare Vue instance with a template.
         vm = new Vue( {
             template: `<div>
-                <cc-component-controller v-ref:component :move-up="propCallback" :move-down="propCallback"
+                <cc-component-actions v-ref:component :move-up="propCallback" :move-down="propCallback"
                     :open-settings="propCallback" :delete-component="propCallback">
-                    <div class="cc-component-controller__button" slot="cc-component-controller__button--up"></div>
-                    <div class="cc-component-controller__button" slot="cc-component-controller__button--down"></div>
-                    <div class="cc-component-controller__button" slot="cc-component-controller__button--settings"></div>
-                    <div class="cc-component-controller__button" slot="cc-component-controller__button--delete"></div>
-                </cc-component-controller>
+                    <div class="cc-component-actions__button" slot="cc-component-actions__button--up"></div>
+                    <div class="cc-component-actions__button" slot="cc-component-actions__button--down"></div>
+                    <div class="cc-component-actions__button" slot="cc-component-actions__button--settings"></div>
+                    <div class="cc-component-actions__button" slot="cc-component-actions__button--delete"></div>
+                </cc-component-actions>
             </div>`,
             components: {
-                'cc-component-controller': component
+                'cc-component-actions': component
             },
             methods: {
                 propCallback: spy.propCallback
@@ -78,7 +78,7 @@ describe( 'Component controller Vue component', function(): void {
 
 
     it( 'triggers move up event.', function(): void {
-        vm.$on( 'cc-component-controller__move-up', spy.eventCallback );
+        vm.$on( 'cc-component-actions__move-up', spy.eventCallback );
         ref.onMoveUp();
 
         expect( spy.eventCallback ).toHaveBeenCalled();
@@ -91,7 +91,7 @@ describe( 'Component controller Vue component', function(): void {
     } );
 
     it( 'triggers move down event.', function(): void {
-        vm.$on( 'cc-component-controller__move-down', spy.eventCallback );
+        vm.$on( 'cc-component-actions__move-down', spy.eventCallback );
         ref.onMoveDown();
 
         expect( spy.eventCallback ).toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe( 'Component controller Vue component', function(): void {
     } );
 
     it( 'triggers open settings event.', function(): void {
-        vm.$on( 'cc-component-controller__open-settings', spy.eventCallback );
+        vm.$on( 'cc-component-actions__open-settings', spy.eventCallback );
         ref.onOpenSettings();
 
         expect( spy.eventCallback ).toHaveBeenCalled();
@@ -117,7 +117,7 @@ describe( 'Component controller Vue component', function(): void {
     } );
 
     it( 'triggers delete component event.', function(): void {
-        vm.$on( 'cc-component-controller__delete-component', spy.eventCallback );
+        vm.$on( 'cc-component-actions__delete-component', spy.eventCallback );
         ref.onDeleteComponent();
 
         expect( spy.eventCallback ).toHaveBeenCalled();
