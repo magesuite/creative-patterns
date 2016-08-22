@@ -7,7 +7,7 @@
         </button>
     </cc-component-adder>
     <template v-for="addedComponent in addedComponents">
-        <div class="cc-layout-builder__component">
+        <div class="cc-layout-builder__component" id="{{ addedComponent.id }}">
             <div class="cc-layout-builder__component-actions">
                 <cc-component-actions>
                     <template slot="cc-component-actions__top">
@@ -23,12 +23,12 @@
                         </button>
                     </template>
                     <template slot="cc-component-actions__bottom">
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button" @click="editComponentSettings( addedComponent.id )">
                             <svg class="action-button__icon">
                                 <use xlink:href="/images/sprites.svg#icon_settings"></use>
                             </svg>
                         </button>
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button" @click="deleteComponent( addedComponent.id )">
                             <svg class="action-button__icon">
                                 <use xlink:href="/images/sprites.svg#icon_trash-can"></use>
                             </svg>
@@ -37,7 +37,7 @@
                 </cc-component-actions>
             </div>
             <div class="cc-layout-builder__component-wrapper">
-                <cc-component-placeholder>{{ addedComponent.name }}</cc-component-placeholder>
+                <cc-component-placeholder>{{ addedComponent.id }}</cc-component-placeholder>
             </div>
         </div>
         <cc-component-adder v-if="addedComponents.length">

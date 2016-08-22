@@ -49,6 +49,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         createNewComponent: function ( index: number ): void {
             this.addedComponents.splice( index, 0, {
                 name: Date.now(),
+                id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10),
                 settings: {}
             } );
         },
@@ -72,6 +73,27 @@ const layoutBuilder: vuejs.ComponentOption = {
                 let previousComponent: IComponentInformation = this.addedComponents[ index + 1 ];
                 this.addedComponents.$set( index + 1, this.addedComponents[ index ] );
                 this.addedComponents.$set(  index, previousComponent );
+            }
+        },
+        /**
+         * Initializes edit mode of component.
+         * @param {string} id: Component's ID.
+         */
+        editComponentSettings: function( id: String ): void {
+            console.log( `Openning modal window with component settings (ID: ${id})` );
+        },
+        /**
+         * Removes component and adder that is right after component from the DOM
+         * @param {string} id: Component's ID.
+         */
+        deleteComponent: function( id: String ): void {
+             if ( confirm( `Are you sure you want to remove this component? (ID: ${id})` ) ) {
+                const el = document.getElementById( id );
+
+                if ( el.nextElementSibling ) {
+                    el.parentElement.removeChild( el.nextElementSibling );
+                }
+                el.parentElement.removeChild( el );
             }
         }
     },
