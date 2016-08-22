@@ -84,16 +84,11 @@ const layoutBuilder: vuejs.ComponentOption = {
         },
         /**
          * Removes component and adder that is right after component from the DOM
-         * @param {string} id: Component's ID.
+         * @param {number} index Component's index in array.
          */
-        deleteComponent: function( id: String ): void {
-             if ( confirm( `Are you sure you want to remove this component? (ID: ${id})` ) ) {
-                const el = document.getElementById( id );
-
-                if ( el.nextElementSibling ) {
-                    el.parentElement.removeChild( el.nextElementSibling );
-                }
-                el.parentElement.removeChild( el );
+        deleteComponent: function( index: number ): void {
+             if ( confirm( `Are you sure you want to remove this component?` ) ) {
+                this.addedComponents.$remove( this.addedComponents[ index ] );
             }
         }
     },

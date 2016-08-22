@@ -28,7 +28,7 @@
                                 <use xlink:href="/images/sprites.svg#icon_settings"></use>
                             </svg>
                         </button>
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button" @click="deleteComponent( addedComponent.id )">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button" @click="deleteComponent( $index )">
                             <svg class="action-button__icon">
                                 <use xlink:href="/images/sprites.svg#icon_trash-can"></use>
                             </svg>
