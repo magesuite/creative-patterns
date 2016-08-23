@@ -8,14 +8,15 @@ import settings from '../../config/maintain/serve';
  */
 module.exports = function() {
     settings.watches.forEach( ( watch ) => {
-        this.gulp.watch( [
+        this.gulp.watch(
+            [
                 watch.paths
             ],
             [
                 watch.tasks,
                 browserSync.reload
             ]
-        )
+        );
     } );
 
     /*eslint no-sync: 0*/
