@@ -13,7 +13,8 @@ export default {
      * Paths to watch for this task.
      */
     watch: [
-        path.src + '**/*.ts'
+        path.src + '**/*.ts',
+        path.src + '**/*.tpl'
     ],
     /**
      * Rollup configuration.
@@ -31,6 +32,9 @@ export default {
                 {
                     exclude: [
                         'node_modules/**'
+                    ],
+                    include: [
+                        '../../**/**.ts'
                     ]
                 }
             )
