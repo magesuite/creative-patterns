@@ -95,6 +95,14 @@
             background-color: #fff;
             fill: #e5e5e5;
             cursor: default;
+
+            &:hover,
+            &:focus {
+                border-color: #e5e5e5;
+                background-color: #fff;
+                fill: #e5e5e5;
+                cursor: default;
+            }
         }
     }
 

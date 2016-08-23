@@ -35,9 +35,26 @@ const layoutBuilder: vuejs.ComponentOption = {
          * Class property support to enable BEM mixes.
          */
         class: {
-            type: String,
-            default: '',
-            coerce: ( value: String ): String => value.replace( 'cc-layout-builder', '' )
+            type: [ String, Object, Array ],
+            default: ''
+        },
+        /**
+         * Callback invoked when edit component button is clicked.
+         * This function should take IComponentInformation and return changed version of it.
+         * If callback returns falsy value then component isn't changed.
+         */
+        editComponent: {
+            type: Function,
+            default: ( componentInfo: IComponentInformation ): IComponentInformation => componentInfo
+        },
+        /**
+         * Callback invoked when edit component button is clicked.
+         * This function should return IComponentInformation.
+         * If callback returns falsy value then component isn't added.
+         */
+        addComponent: {
+            type: Function,
+            default: (): IComponentInformation => undefined
         }
     },
     data: function(): any {
@@ -46,12 +63,18 @@ const layoutBuilder: vuejs.ComponentOption = {
         };
     },
     methods: {
+        /**
+         * Creates new component and adds it to a specified index.
+         * This function calls callback specified by "add-component" property that
+         * should return IComponentInformation.
+         * If callback returns falsy value then component isn't added.
+         * @param {number} index New component's index in components array.
+         */
         createNewComponent: function ( index: number ): void {
-            this.addedComponents.splice( index, 0, {
-                name: Date.now(),
-                id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 10),
-                settings: {}
-            } );
+            const componentInfo: IComponentInformation = this.addComponent();
+            if ( componentInfo ) {
+                this.addedComponents.splice( index, 0, componentInfo );
+            }
         },
         /**
          * Moves component under given index up by swaping it with previous element.
@@ -77,24 +100,44 @@ const layoutBuilder: vuejs.ComponentOption = {
         },
         /**
          * Initializes edit mode of component.
-         * @param {string} id: Component's ID.
+         * This function invokes callback given by "edit-component" callback that
+         * should take current IComponentInformation as param and return changed version of it.
+         * If callback returns falsy value then component isn't changed.
+         * @param {string} index: Component's index in array.
          */
-        editComponentSettings: function( id: String ): void {
-            console.log( `Openning modal window with component settings (ID: ${id})` );
+        editComponentSettings: function( index: number ): void {
+            let componentInfo: IComponentInformation = this.addedComponents[ index ];
+            console.log( `Openning modal window with component settings (ID: ${componentInfo.name})` );
+
+            componentInfo = this.editComponent( componentInfo );
+            if ( componentInfo ) {
+                this.addedComponents.$set( index, componentInfo );
+            }
         },
         /**
          * Removes component and adder that is right after component from the DOM
-         * @param {string} id: Component's ID.
+         * @param {number} index Component's index in array.
          */
-        deleteComponent: function( id: String ): void {
-             if ( confirm( `Are you sure you want to remove this component? (ID: ${id})` ) ) {
-                const el = document.getElementById( id );
-
-                if ( el.nextElementSibling ) {
-                    el.parentElement.removeChild( el.nextElementSibling );
-                }
-                el.parentElement.removeChild( el );
+        deleteComponent: function( index: number ): void {
+             if ( confirm( `Are you sure you want to remove this component?` ) ) {
+                this.addedComponents.splice( index, 1 );
             }
+        },
+        /**
+         * Tells if component with given index is the first component.
+         * @param  {number}  index Index of the component.
+         * @return {boolean}       If component is first in array.
+         */
+        isFirstComponent: function( index: number ): boolean {
+            return index === 0;
+        },
+        /**
+         * Tells if component with given index is the last component.
+         * @param  {number}  index Index of the component.
+         * @return {boolean}       If component is last in array.
+         */
+        isLastComponent: function( index: number ): boolean {
+            return index === this.addedComponents.length - 1;
         }
     },
 };
