@@ -1,6 +1,31 @@
 import template from './cc-component-picker.tpl';
 
 /**
+ * Single component information object.
+ */
+interface IComponentInformation {
+    type: string;
+    /**
+     * Cover image url.
+     * @type {string}
+     */
+    cover: string;
+    /**
+     * Cover image alt attribute value.
+     * @type {string}
+     */
+    coverAlt: string;
+    name: string;
+}
+
+/**
+ * Components information object that should be returned by AJAX call to API.
+ */
+interface IComponentsInformation {
+    components: IComponentInformation[];
+}
+
+/**
  * Componen picker.
  * Lists all types of components available in m2c in the grid/list mode
  * @type {vuejs.ComponentOption} Vue component object.
@@ -31,9 +56,9 @@ const componentPicker: vuejs.ComponentOption = {
     /**
      * Get JSON file with components list and put into data
      */
-    ready: function() {
-        this.$http.get( './../cc-component-picker.data.json' ).then( function( response ) {
-            this.components = response.json().components;
+    ready: function(): void {
+        this.$http.get( './../cc-component-picker.data.json' ).then( function( response: vuejs.HttpResponse ): void {
+            this.components = response.json().components as IComponentInformation[];
         } );
     },
     methods: {
