@@ -1,10 +1,13 @@
-/*eslint-env node */
+/* eslint-env node */
 
-import path from 'path';
+import { Server } from 'karma';
 
-export default {
-    server: {
-        configFile: path.join( __dirname, '/../../karma.conf.js' ),
-        singleRun: true
-    }
+import settings from '../../config/test/unit';
+import environment from '../../config/environment';
+
+module.exports = function( callback ) {
+    // Don't break build when not on CI environment.
+    const done = environment.jenkins ? callback : () => callback();
+
+    new Server( settings.server, done ).start();
 };
