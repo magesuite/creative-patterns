@@ -54,6 +54,8 @@ module.exports = ( plop ) => {
                 fse.removeSync( componentPath + 'config/main.js' );
                 fse.removeSync( componentPath + 'src/seed.ts' );
                 fse.removeSync( componentPath + 'src/seed.scss' );
+                fse.removeSync( componentPath + 'src/seed.twig' );
+                fse.removeSync( componentPath + 'src/demo/index.twig' );
                 fse.emptyDirSync( componentPath + 'src/tests' );
 
                 return 'Generating base component structure.';
@@ -81,6 +83,11 @@ module.exports = ( plop ) => {
             },
             {
                 type: 'add',
+                path: paths.packages + 'components/{{ dashCase name }}/src/{{ dashCase name }}.twig',
+                templateFile: templatesDir + 'component/src/seed.twig'
+            },
+            {
+                type: 'add',
                 path: paths.packages + 'components/{{ dashCase name }}/src/tests/unit/{{ dashCase name }}.ts',
                 templateFile: templatesDir + 'component/src/tests/unit/seed.ts'
             },
@@ -88,6 +95,11 @@ module.exports = ( plop ) => {
                 type: 'add',
                 path: paths.packages + 'components/{{ dashCase name }}/src/tests/e2e/{{ dashCase name }}.ts',
                 templateFile: templatesDir + 'component/src/tests/e2e/seed.ts'
+            },
+            {
+                type: 'add',
+                path: paths.packages + 'components/{{ dashCase name }}/src/demo/index.twig',
+                templateFile: templatesDir + 'component/src/demo/index.twig'
             }
         ]
     } );
