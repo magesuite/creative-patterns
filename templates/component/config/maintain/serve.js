@@ -3,6 +3,7 @@ import buildScriptsSettings from '../build/scripts';
 import buildStylesSettings from '../build/styles';
 import buildTplsSettings from '../build/templates';
 import buildUnitTestsSettings from '../build/unit';
+import buildE2ETestsSettings from '../build/e2e';
 import buildVendorsSettings from '../build/vendors';
 
 const settings = {
@@ -35,7 +36,11 @@ const settings = {
         },
         {
             paths: buildUnitTestsSettings.watch,
-            tasks: 'build:tests.unit'
+            tasks: 'build:unit'
+        },
+        {
+            paths: buildE2ETestsSettings.watch,
+            tasks: 'build:e2e'
         },
         {
             paths: buildVendorsSettings.watch,
