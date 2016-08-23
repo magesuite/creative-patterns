@@ -1,0 +1,16 @@
+{
+    "components": [
+        {
+            "type": "static-block",
+            "cover": "http://placehold.it/350x185",
+            "coverAlt": "cover of static block",
+            "name": "Static block"
+        },
+        {
+            "type": "headline",
+            "cover": "http://placehold.it/350x185",
+            "coverAlt": "cover of headline",
+            "name": "Headline"
+        }
+    ]
+}
