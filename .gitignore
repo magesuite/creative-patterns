@@ -3,6 +3,7 @@
 
 node_modules/
 dist/tests/
+npm-debug.log
 
 # Created by https://www.gitignore.io/api/jetbrains,osx,linux,windows
 

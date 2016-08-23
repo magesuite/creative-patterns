@@ -7,7 +7,7 @@ import environment from '../../config/environment';
 
 module.exports = function() {
     return this.gulp.src( '' )
-    .pipe( nightwatch( settings.nightwatch ) )
+        .pipe( nightwatch( settings.nightwatch ) )
         .on( 'error', function() {
             if ( !environment.jenkins ) {
                 this.emit( 'end' );

@@ -13,9 +13,8 @@ const actionButton: vuejs.ComponentOption = {
          * Class property support to enable BEM mixes.
          */
         class: {
-            type: String,
-            default: '',
-            coerce: ( value: String ): String => value.replace( /(\s|^)action-button(\s|$)/, '' )
+            type: [ String, Object, Array ],
+            default: ''
         },
         iconId: {
             type: String

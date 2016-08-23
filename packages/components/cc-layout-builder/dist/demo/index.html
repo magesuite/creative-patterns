@@ -10,10 +10,8 @@
     </head>
     <body>
         <main>
-
-            <cc-layout-builder class="cc-layout-builder">
-</cc-layout-builder>
-
+            <cc-layout-builder class="cc-layout-builder" :add-component="generateComponent" :edit-component="generateComponent">
+            </cc-layout-builder>
         </main>
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
@@ -23,6 +21,19 @@
                 el: 'body',
                 components: {
                     'cc-layout-builder': ccLayoutBuilder
+                },
+                methods: {
+                    /**
+                     * Generate some random component data.
+                     */
+                    generateComponent( currentComponent ) {
+                        console.log( currentComponent );
+                        return {
+                            name: Date.now(),
+                            id: Math.random().toString( 36 ).replace( /[^a-z]+/g, '' ).substr( 0, 10 ),
+                            settings: {}
+                        }
+                    }
                 }
             } );
         </script>
