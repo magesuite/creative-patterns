@@ -22,10 +22,5 @@
     "src/seed.ts",
     "src/tests/e2e/seed.ts",
     "src/tests/unit/seed.ts"
-    "src/tests/e2e/e2e.ts",
-    "src/tests/unit/unit.ts"
-    "src/seed.ts",
-    "src/tests/e2e/seed.ts",
-    "src/tests/unit/seed.ts"
   ]
 }

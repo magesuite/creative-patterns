@@ -24,6 +24,7 @@ gulp.task( 'build', ( callback ) => {
             'build:templates',
             'build:unit',
             'build:e2e',
+            'build:sprites:svg'
         ],
         callback
     );
