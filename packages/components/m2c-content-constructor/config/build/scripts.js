@@ -2,6 +2,7 @@ import path from '../paths';
 import mainConfig from '../main';
 
 import typescript from 'rollup-plugin-typescript';
+import string from 'rollup-plugin-string';
 
 let cache;
 
@@ -31,9 +32,16 @@ export default {
                 {
                     exclude: [
                         'node_modules/**'
+                    ],
+                    include: [
+                        '../../**/*.ts'
                     ]
                 }
-            )
+            ),
+            string( {
+                // Required to be specified
+                include: '../../**/*.{html,tpl}'
+            } )
         ]
     },
     bundle: {
