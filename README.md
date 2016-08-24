@@ -7,7 +7,7 @@ This is creativestyle's pattern library that will contain all of the awesome cod
 
 To install the local copy of the library:
 
-1. Make sure you have `nodejs` installed on your computer.
+1. Make sure you have `node` installed on your computer, you can run `node -v` in console to check it.
 2. Clone the repository.
 3. Run `npm install` in project's root to install all of the needed dependencies.
 4. Run `npm run serve` to build the library and start its website.
