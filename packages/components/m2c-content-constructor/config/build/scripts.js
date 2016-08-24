@@ -41,9 +41,13 @@ export default {
          * JavaScript bundle destination directory.
          */
         dest: path.dist + mainConfig.jsEntryFilename + '.js',
-        format: 'iife',
+        format: 'umd',
+        moduleId: mainConfig.jsExportVariable,
         moduleName: mainConfig.jsExportVariable,
-        globals: {},
+        globals: {
+            Vue: 'Vue',
+            vue: 'Vue'
+        },
         sourceMap: true
     }
 };
