@@ -1,5 +1,4 @@
 // This is an UMD module to work with Magento 2 requirejs system.
-import Vue from 'Vue';
 
 import { layoutBuilder, IComponentInformation } from '../../cc-layout-builder/src/cc-layout-builder';
 
@@ -46,19 +45,4 @@ const m2cContentConstructor: vuejs.ComponentOption = {
     }
 };
 
-/**
- * Since it is the last layer of M2C frontend integration in Magento, we can
- * finally initialize Vue here.
- */
-new Vue( {
-    el: 'body',
-    components: {
-        'm2c-content-constructor': m2cContentConstructor
-    }
-} );
-
-/**
- * Export Vue component object so we can test it.
- * @type {vuejs.ComponentOption}
- */
 export default m2cContentConstructor;

@@ -1,10 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('Vue')) :
-    typeof define === 'function' && define.amd ? define('m2CContentConstructor', ['Vue'], factory) :
-    (global.m2CContentConstructor = factory(global.Vue));
-}(this, function (Vue) { 'use strict';
-
-    Vue = 'default' in Vue ? Vue['default'] : Vue;
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('m2CContentConstructor', factory) :
+    (global.m2CContentConstructor = factory());
+}(this, function () { 'use strict';
 
     /**
      * Action button component version.
@@ -391,16 +389,6 @@
             }
         }
     };
-    /**
-     * Since it is the last layer of M2C frontend integration in Magento, we can
-     * finally initialize Vue here.
-     */
-    new Vue({
-        el: 'body',
-        components: {
-            'm2c-content-constructor': m2cContentConstructor
-        }
-    });
 
     return m2cContentConstructor;
 
