@@ -13,14 +13,22 @@
         <m2c-content-constructor></m2c-content-constructor>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js"></script>
         <script>
-            requirejs.config({
+            require.config({
                 'baseUrl': '../',
                 'paths': {
                     'Vue': '//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue',
                     'm2CContentConstructor': 'm2c-content-constructor'
                 }
             });
-            requirejs( [ 'm2CContentConstructor' ] );
+            // Initialize content constructor using AMD.
+            require( [ 'Vue', 'm2CContentConstructor' ], function( Vue, m2CContentConstructor ) {
+                new Vue( {
+                    el: 'body',
+                    components: {
+                        'm2c-content-constructor': m2CContentConstructor
+                    }
+                } );
+            } );
         </script>
     </body>
 </html>
