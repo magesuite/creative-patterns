@@ -10,6 +10,7 @@ import template from './cc-layout-builder.tpl';
  */
 interface IComponentInformation {
     name: string;
+    id: string;
     settings: any;
 }
 
@@ -64,6 +65,28 @@ const layoutBuilder: vuejs.ComponentOption = {
     },
     methods: {
         /**
+         * Sets provided component information on current index in components array.
+         * If component exists on given index then this compoennt will be inserted before it.
+         * @param {number}                index         Component index in components array.
+         * @param {IComponentInformation} componentInfo Component information.
+         */
+        addComponentInformation: function( index: number, componentInfo: IComponentInformation ): void {
+            if ( componentInfo ) {
+                this.addedComponents.splice( index, 0, componentInfo );
+            }
+        },
+        /**
+         * Sets provided component information on current index in components array.
+         * If component exists on given index then it will be overwritten.
+         * @param {number}                index         Component index in components array.
+         * @param {IComponentInformation} componentInfo Component information.
+         */
+        setComponentInformation: function( index: number, componentInfo: IComponentInformation ): void {
+            if ( componentInfo ) {
+                this.addedComponents.$set( index, componentInfo );
+            }
+        },
+        /**
          * Creates new component and adds it to a specified index.
          * This function calls callback specified by "add-component" property that
          * should return IComponentInformation.
@@ -71,10 +94,44 @@ const layoutBuilder: vuejs.ComponentOption = {
          * @param {number} index New component's index in components array.
          */
         createNewComponent: function ( index: number ): void {
-            const componentInfo: IComponentInformation = this.addComponent();
-            if ( componentInfo ) {
-                this.addedComponents.splice( index, 0, componentInfo );
-            }
+            /**
+             * To allow both sync and async set of new component data we call
+             * provided handler with callback function.
+             * If handler doesn't return component information then it can still
+             * set it using given callback.
+             */
+            const componentInfo: IComponentInformation = this.addComponent(
+                ( asyncComponentInfo: IComponentInformation ): void => {
+                    this.addComponentInformation( index, asyncComponentInfo );
+                }
+            );
+            this.addComponentInformation( index, componentInfo );
+        },
+        /**
+         * Initializes edit mode of component.
+         * This function invokes callback given by "edit-component" callback that
+         * should take current IComponentInformation as param and return changed version of it.
+         * If callback returns falsy value then component isn't changed.
+         * @param {string} index: Component's index in array.
+         */
+        editComponentSettings: function( index: number ): void {
+            // Create a static, non-reactive copy of component data.
+            let componentInfo: IComponentInformation = JSON.parse(
+                JSON.stringify( this.addedComponents[ index ] )
+            );
+            /**
+             * To allow both sync and async set of new component data we call
+             * provided handler with current component data and callback function.
+             * If handler doesn't return component information then it can still
+             * set it using given callback.
+             */
+            componentInfo = this.editComponent(
+                componentInfo,
+                ( asyncComponentInfo: IComponentInformation ): void => {
+                    this.setComponentInformation( index, asyncComponentInfo );
+                }
+            );
+            this.setComponentInformation( index, componentInfo );
         },
         /**
          * Moves component under given index up by swaping it with previous element.
@@ -96,22 +153,6 @@ const layoutBuilder: vuejs.ComponentOption = {
                 let previousComponent: IComponentInformation = this.addedComponents[ index + 1 ];
                 this.addedComponents.$set( index + 1, this.addedComponents[ index ] );
                 this.addedComponents.$set(  index, previousComponent );
-            }
-        },
-        /**
-         * Initializes edit mode of component.
-         * This function invokes callback given by "edit-component" callback that
-         * should take current IComponentInformation as param and return changed version of it.
-         * If callback returns falsy value then component isn't changed.
-         * @param {string} index: Component's index in array.
-         */
-        editComponentSettings: function( index: number ): void {
-            let componentInfo: IComponentInformation = this.addedComponents[ index ];
-            console.log( `Openning modal window with component settings (ID: ${componentInfo.name})` );
-
-            componentInfo = this.editComponent( componentInfo );
-            if ( componentInfo ) {
-                this.addedComponents.$set( index, componentInfo );
             }
         },
         /**
@@ -143,3 +184,4 @@ const layoutBuilder: vuejs.ComponentOption = {
 };
 
 export default layoutBuilder;
+export { layoutBuilder, IComponentInformation };

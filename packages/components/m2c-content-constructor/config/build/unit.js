@@ -6,6 +6,7 @@ import typescript from 'rollup-plugin-typescript';
 import multiEntry from 'rollup-plugin-multi-entry';
 import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
+import string from 'rollup-plugin-string';
 
 /**
  * Components JS compilation settings.
@@ -32,6 +33,9 @@ export default {
             typescript( {
                 exclude: [
                     'node_modules/**'
+                ],
+                include: [
+                    '../../**/*.ts'
                 ]
             } ),
             nodeResolve( {
@@ -48,6 +52,10 @@ export default {
             commonjs(),
             replace( {
                 'process.env.NODE_ENV': JSON.stringify( 'production' )
+            } ),
+            string( {
+                // Required to be specified
+                include: '../../**/*.{html,tpl}'
             } )
         ]
     },
