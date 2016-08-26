@@ -30,7 +30,7 @@ interface IComponentsInformation {
  * Lists all types of components available in m2c in the grid/list mode
  * @type {vuejs.ComponentOption} Vue component object.
  */
-const componentPicker: vuejs.ComponentOption = {
+const ccComponentPicker: vuejs.ComponentOption = {
     template: template,
     props: {
         /**
@@ -47,19 +47,36 @@ const componentPicker: vuejs.ComponentOption = {
         pickComponent: {
             type: Function
         },
+        /**
+         * JSON stringified array containing available components.
+         */
+        components: {
+            type: String,
+            default: ''
+        },
+        /**
+         * URL for API returning JSON stringified array containing available components.
+         */
+        componentsEndpoint: {
+            type: String,
+            default: ''
+        }
     },
     data: function(): any {
         return {
-            components: []
+            availableComponents: []
         };
     },
-    /**
-     * Get JSON file with components list and put into data
-     */
     ready: function(): void {
-        this.$http.get( './../cc-component-picker.data.json' ).then( function( response: vuejs.HttpResponse ): void {
-            this.components = response.json().components as IComponentInformation[];
-        } );
+        // If inline JSON is provided then parse it.
+        if ( this.components ) {
+            this.availableComponents = this.components;
+        } else if ( this.componentsEndpoint ) {
+            // Otherwise load from endpoint if URL provided.
+            this.$http.get( this.componentsEndpoint ).then( function( response: vuejs.HttpResponse ): void {
+                this.availableComponents = response.json();
+            } );
+        }
     },
     methods: {
         /**
@@ -77,4 +94,4 @@ const componentPicker: vuejs.ComponentOption = {
     },
 };
 
-export default componentPicker;
+export default ccComponentPicker;
