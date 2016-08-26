@@ -10,7 +10,9 @@
     </head>
     <body>
         <h1>M2C Content Constructor Component Demo</h1>
-        <m2c-content-constructor></m2c-content-constructor>
+        <m2c-content-constructor configuration-dump="#configuration-dump" configuration='[{"name":"Nazwa komponentu","id":"ID komponentu","settings":"Jakieś ustawienia"}]'></m2c-content-constructor>
+        <label for="configuration-dump">Configuration dump:</label>
+        <input id="configuration-dump" type="text">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js"></script>
         <script>
             require.config({

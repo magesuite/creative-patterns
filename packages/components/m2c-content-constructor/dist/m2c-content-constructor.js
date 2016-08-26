@@ -184,7 +184,7 @@
         template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>"
     };
 
-    var template = "<section class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"addedComponent in addedComponents\">\n        <div class=\"cc-layout-builder__component\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_settings\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>{{ addedComponent.id }}</cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"addedComponents.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</section>\n";
+    var template = "<section class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"component in components\">\n        <div class=\"cc-layout-builder__component\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_settings\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>{{ component.id }}</cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"components.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</section>\n";
 
     /**
      * Layout builder component.
@@ -211,6 +211,10 @@
                 type: [String, Object, Array],
                 default: ''
             },
+            componentsConfiguration: {
+                type: String,
+                default: ''
+            },
             /**
              * Callback invoked when edit component button is clicked.
              * This function should take IComponentInformation and return changed version of it.
@@ -232,8 +236,13 @@
         },
         data: function () {
             return {
-                addedComponents: []
+                components: []
             };
+        },
+        ready: function () {
+            // Set initial components configuration if provided.
+            this.components = this.componentsConfiguration ? JSON.parse(this.componentsConfiguration) : [];
+            this.$dispatch('cc-layout-builder__update');
         },
         methods: {
             /**
@@ -244,7 +253,8 @@
              */
             addComponentInformation: function (index, componentInfo) {
                 if (componentInfo) {
-                    this.addedComponents.splice(index, 0, componentInfo);
+                    this.components.splice(index, 0, componentInfo);
+                    this.$dispatch('cc-layout-builder__update');
                 }
             },
             /**
@@ -255,8 +265,16 @@
              */
             setComponentInformation: function (index, componentInfo) {
                 if (componentInfo) {
-                    this.addedComponents.$set(index, componentInfo);
+                    this.components.$set(index, componentInfo);
+                    this.$dispatch('cc-layout-builder__update');
                 }
+            },
+            /**
+             * Returns components information currently stored within layout builder.
+             * @return {IComponentInformation[]} Components information array.
+             */
+            getComponentInformation: function () {
+                return JSON.parse(JSON.stringify(this.components));
             },
             /**
              * Creates new component and adds it to a specified index.
@@ -288,7 +306,7 @@
             editComponentSettings: function (index) {
                 var _this = this;
                 // Create a static, non-reactive copy of component data.
-                var componentInfo = JSON.parse(JSON.stringify(this.addedComponents[index]));
+                var componentInfo = JSON.parse(JSON.stringify(this.components[index]));
                 /**
                  * To allow both sync and async set of new component data we call
                  * provided handler with current component data and callback function.
@@ -306,9 +324,9 @@
              */
             moveComponentUp: function (index) {
                 if (index > 0) {
-                    var previousComponent = this.addedComponents[index - 1];
-                    this.addedComponents.$set(index - 1, this.addedComponents[index]);
-                    this.addedComponents.$set(index, previousComponent);
+                    var previousComponent = this.components[index - 1];
+                    this.components.$set(index - 1, this.components[index]);
+                    this.components.$set(index, previousComponent);
                 }
             },
             /**
@@ -316,10 +334,10 @@
              * @param {number} index Component's index in array.
              */
             moveComponentDown: function (index) {
-                if (index < this.addedComponents.length - 1) {
-                    var previousComponent = this.addedComponents[index + 1];
-                    this.addedComponents.$set(index + 1, this.addedComponents[index]);
-                    this.addedComponents.$set(index, previousComponent);
+                if (index < this.components.length - 1) {
+                    var previousComponent = this.components[index + 1];
+                    this.components.$set(index + 1, this.components[index]);
+                    this.components.$set(index, previousComponent);
                 }
             },
             /**
@@ -328,7 +346,7 @@
              */
             deleteComponent: function (index) {
                 if (confirm("Are you sure you want to remove this component?")) {
-                    this.addedComponents.splice(index, 1);
+                    this.components.splice(index, 1);
                 }
             },
             /**
@@ -345,7 +363,7 @@
              * @return {boolean}       If component is last in array.
              */
             isLastComponent: function (index) {
-                return index === this.addedComponents.length - 1;
+                return index === this.components.length - 1;
             }
         },
     };
@@ -356,9 +374,40 @@
      * of the M2C admin panel logic.
      */
     var m2cContentConstructor = {
-        template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder :add-component=\"addComponent\" :edit-component=\"editComponent\">\n        </cc-layout-builder>\n    </div>",
+        template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder v-ref:layout-builder :add-component=\"addComponent\" :edit-component=\"editComponent\" :components-configuration=\"configuration\">\n        </cc-layout-builder>\n    </div>",
         components: {
             'cc-layout-builder': layoutBuilder
+        },
+        props: {
+            configuration: {
+                type: String,
+                default: ''
+            },
+            /**
+             * Selector for an input which will hold current components' configuration.
+             */
+            configurationDump: {
+                type: String,
+                required: true,
+                validator: function (selector) {
+                    // Check if input exists. No jQuery, IE9+.
+                    return document.querySelector(selector) !== null;
+                }
+            }
+        },
+        ready: function () {
+            // Let's save HTML element of provided input selector for further use. No jQuery, IE9+.
+            this.configurationDumpElement = document.querySelector(this.configurationDump);
+            this.dumpConfiguration();
+        },
+        events: {
+            /**
+             * We update provided input with new components information each time leyout
+             * builder updates.
+             */
+            'cc-layout-builder__update': function () {
+                this.dumpConfiguration();
+            }
         },
         methods: {
             /**
@@ -386,6 +435,11 @@
                     id: 'Nowe ID komponentu',
                     settings: 'Nowe Jakieś ustawienia'
                 });
+            },
+            dumpConfiguration: function () {
+                if (this.configurationDumpElement) {
+                    this.configurationDumpElement.value = JSON.stringify(this.$refs.layoutBuilder.getComponentInformation());
+                }
             }
         }
     };

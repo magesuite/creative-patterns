@@ -48,7 +48,7 @@ exports.default = {
             .waitForElementVisible('.cc-layout-builder__component', 1000);
         browser.getText(placeholderContent, function (oldText) {
             browser.click(settingsButton);
-            browser.expect.element(placeholderContent).text.to.not.equal(oldText.value);
+            browser.expect.element(placeholderContent).text.to.not.equal(oldText.value).after(1000);
         });
         browser.end();
     },
@@ -61,7 +61,7 @@ exports.default = {
             .waitForElementVisible('.cc-layout-builder__component', 1000);
         browser.click(deleteButton);
         browser.acceptAlert();
-        browser.expect.element('.cc-layout-builder__component').to.not.be.present;
+        browser.expect.element('.cc-layout-builder__component').to.not.be.present.after(1000);
         browser.end();
-    },
+    }
 };

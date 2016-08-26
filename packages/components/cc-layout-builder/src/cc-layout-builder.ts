@@ -39,6 +39,10 @@ const layoutBuilder: vuejs.ComponentOption = {
             type: [ String, Object, Array ],
             default: ''
         },
+        componentsConfiguration: {
+            type: String,
+            default: ''
+        },
         /**
          * Callback invoked when edit component button is clicked.
          * This function should take IComponentInformation and return changed version of it.
@@ -60,8 +64,13 @@ const layoutBuilder: vuejs.ComponentOption = {
     },
     data: function(): any {
         return {
-            addedComponents: []
+            components: []
         };
+    },
+    ready: function(): void {
+        // Set initial components configuration if provided.
+        this.components = this.componentsConfiguration ? JSON.parse( this.componentsConfiguration ) : [];
+        this.$dispatch( 'cc-layout-builder__update' );
     },
     methods: {
         /**
@@ -72,7 +81,8 @@ const layoutBuilder: vuejs.ComponentOption = {
          */
         addComponentInformation: function( index: number, componentInfo: IComponentInformation ): void {
             if ( componentInfo ) {
-                this.addedComponents.splice( index, 0, componentInfo );
+                this.components.splice( index, 0, componentInfo );
+                this.$dispatch( 'cc-layout-builder__update' );
             }
         },
         /**
@@ -83,8 +93,18 @@ const layoutBuilder: vuejs.ComponentOption = {
          */
         setComponentInformation: function( index: number, componentInfo: IComponentInformation ): void {
             if ( componentInfo ) {
-                this.addedComponents.$set( index, componentInfo );
+                this.components.$set( index, componentInfo );
+                this.$dispatch( 'cc-layout-builder__update' );
             }
+        },
+        /**
+         * Returns components information currently stored within layout builder.
+         * @return {IComponentInformation[]} Components information array.
+         */
+        getComponentInformation: function(): IComponentInformation[] {
+            return JSON.parse(
+                JSON.stringify( this.components )
+            );
         },
         /**
          * Creates new component and adds it to a specified index.
@@ -117,7 +137,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         editComponentSettings: function( index: number ): void {
             // Create a static, non-reactive copy of component data.
             let componentInfo: IComponentInformation = JSON.parse(
-                JSON.stringify( this.addedComponents[ index ] )
+                JSON.stringify( this.components[ index ] )
             );
             /**
              * To allow both sync and async set of new component data we call
@@ -139,9 +159,9 @@ const layoutBuilder: vuejs.ComponentOption = {
          */
         moveComponentUp: function( index: number ): void {
             if ( index > 0 ) {
-                let previousComponent: IComponentInformation = this.addedComponents[ index - 1 ];
-                this.addedComponents.$set( index - 1, this.addedComponents[ index ] );
-                this.addedComponents.$set( index, previousComponent );
+                let previousComponent: IComponentInformation = this.components[ index - 1 ];
+                this.components.$set( index - 1, this.components[ index ] );
+                this.components.$set( index, previousComponent );
             }
         },
         /**
@@ -149,10 +169,10 @@ const layoutBuilder: vuejs.ComponentOption = {
          * @param {number} index Component's index in array.
          */
         moveComponentDown: function( index: number ): void {
-            if ( index < this.addedComponents.length - 1 ) {
-                let previousComponent: IComponentInformation = this.addedComponents[ index + 1 ];
-                this.addedComponents.$set( index + 1, this.addedComponents[ index ] );
-                this.addedComponents.$set(  index, previousComponent );
+            if ( index < this.components.length - 1 ) {
+                let previousComponent: IComponentInformation = this.components[ index + 1 ];
+                this.components.$set( index + 1, this.components[ index ] );
+                this.components.$set(  index, previousComponent );
             }
         },
         /**
@@ -161,7 +181,7 @@ const layoutBuilder: vuejs.ComponentOption = {
          */
         deleteComponent: function( index: number ): void {
              if ( confirm( `Are you sure you want to remove this component?` ) ) {
-                this.addedComponents.splice( index, 1 );
+                this.components.splice( index, 1 );
             }
         },
         /**
@@ -178,7 +198,7 @@ const layoutBuilder: vuejs.ComponentOption = {
          * @return {boolean}       If component is last in array.
          */
         isLastComponent: function( index: number ): boolean {
-            return index === this.addedComponents.length - 1;
+            return index === this.components.length - 1;
         }
     },
 };

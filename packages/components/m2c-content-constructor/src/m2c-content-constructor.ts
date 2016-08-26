@@ -9,11 +9,42 @@ import { layoutBuilder, IComponentInformation } from '../../cc-layout-builder/sr
  */
 const m2cContentConstructor: vuejs.ComponentOption = {
     template: `<div class="m2c-content-constructor">
-        <cc-layout-builder :add-component="addComponent" :edit-component="editComponent">
+        <cc-layout-builder v-ref:layout-builder :add-component="addComponent" :edit-component="editComponent" :components-configuration="configuration">
         </cc-layout-builder>
     </div>`,
     components: {
         'cc-layout-builder': layoutBuilder
+    },
+    props: {
+        configuration: {
+            type: String,
+            default: ''
+        },
+        /**
+         * Selector for an input which will hold current components' configuration.
+         */
+        configurationDump: {
+            type: String,
+            required: true,
+            validator: function ( selector: string ): boolean {
+                // Check if input exists. No jQuery, IE9+.
+                return document.querySelector( selector ) !== null;
+            }
+        }
+    },
+    ready: function(): void {
+        // Let's save HTML element of provided input selector for further use. No jQuery, IE9+.
+        this.configurationDumpElement = document.querySelector( this.configurationDump );
+        this.dumpConfiguration();
+    },
+    events: {
+        /**
+         * We update provided input with new components information each time leyout
+         * builder updates.
+         */
+        'cc-layout-builder__update': function(): void {
+            this.dumpConfiguration();
+        }
     },
     methods: {
         /**
@@ -41,6 +72,13 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 id: 'Nowe ID komponentu',
                 settings: 'Nowe Jakieś ustawienia'
             } );
+        },
+        dumpConfiguration: function(): void {
+            if ( this.configurationDumpElement ) {
+                this.configurationDumpElement.value = JSON.stringify(
+                    this.$refs.layoutBuilder.getComponentInformation()
+                );
+            }
         }
     }
 };
