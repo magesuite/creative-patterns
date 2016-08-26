@@ -9,8 +9,11 @@
         <link rel="stylesheet" href="../m2c-component-picker.css">
     </head>
     <body>
-
-        <m2c-component-picker class="cc-component-picker" components="" components-endpoint="../m2c-component-picker.data.json"></m2c-component-picker>
+        <h1>M2C component picker demo.</h1>
+        <h2>Components given as inline JSON</h2>
+        <m2c-component-picker class="cc-component-picker" components='[{"type":"static-block","cover":"http://placehold.it/350x185","coverAlt":"cover of static block","name":"Static block"},{"type":"headline","cover":"http://placehold.it/350x185","coverAlt":"cover of headline","name":"Headline"}]' components-endpoint=""></m2c-component-picker>
+        <h2>Components given as url to API</h2>
+        <m2c-component-picker class="cc-component-picker" components='' components-endpoint="../m2c-component-picker.data.json"></m2c-component-picker>
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/vue-resource/0.9.3/vue-resource.js"></script>

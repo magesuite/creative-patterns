@@ -9,7 +9,10 @@
         <link rel="stylesheet" href="../m2c-component-picker.css">
     </head>
     <body>
-
+        <h1>M2C component picker demo.</h1>
+        <h2>Components given as inline JSON</h2>
+        {% include '../m2c-component-picker.twig' with { 'components': '[{"type":"static-block","cover":"http://placehold.it/350x185","coverAlt":"cover of static block","name":"Static block"},{"type":"headline","cover":"http://placehold.it/350x185","coverAlt":"cover of headline","name":"Headline"}]' } %}
+        <h2>Components given as url to API</h2>
         {% include '../m2c-component-picker.twig' with { 'componentsEndpoint': '../m2c-component-picker.data.json' } %}
 
         <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>

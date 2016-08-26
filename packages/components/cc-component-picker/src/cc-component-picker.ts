@@ -68,9 +68,10 @@ const ccComponentPicker: vuejs.ComponentOption = {
         };
     },
     ready: function(): void {
+        console.log( this.components, this.componentsEndpoint );
         // If inline JSON is provided then parse it.
         if ( this.components ) {
-            this.availableComponents = this.components;
+            this.availableComponents = JSON.parse( this.components );
         } else if ( this.componentsEndpoint ) {
             // Otherwise load from endpoint if URL provided.
             this.$http.get( this.componentsEndpoint ).then( function( response: vuejs.HttpResponse ): void {
