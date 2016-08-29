@@ -15,15 +15,23 @@
         <input id="configuration-dump" type="text">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.js"></script>
         <script>
+            /*
             require.config({
                 'baseUrl': '../',
                 'paths': {
                     'Vue': '//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue',
                     'm2CContentConstructor': 'm2c-content-constructor'
                 }
-            });
+            });*/
+
             // Initialize content constructor using AMD.
-            require( [ 'Vue', 'm2CContentConstructor' ], function( Vue, m2CContentConstructor ) {
+            require( [
+                'jquery',
+                'Vue',
+                'VueResource',
+                'm2CContentConstructor',
+                'Magento_Ui/js/modal/modal'
+            ], function( $, Vue, VueResource, m2CContentConstructor, modal ) {
                 new Vue( {
                     el: 'body',
                     components: {

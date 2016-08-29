@@ -1,6 +1,33 @@
 // This is an UMD module to work with Magento 2 requirejs system.
 
+import Vue from 'Vue';
 import { layoutBuilder, IComponentInformation } from '../../cc-layout-builder/src/cc-layout-builder';
+import m2cComponentPicker from '../../m2c-component-picker/src/m2c-component-picker';
+import $ from 'jquery';
+import modal from 'Magento_Ui/js/modal/modal';
+import $t from 'mage/translate';
+import vr from 'VueResource';
+
+// Use Vue resource
+Vue.use( vr );
+
+// Modal options
+let pickerModalOptions = {
+    type: 'slide',
+    responsive: true,
+    innerScroll: true,
+    autoOpen: true,
+    title: $t( 'Please select type of component' ),
+    buttons: [
+        {
+            text: $.mage.__( 'Cancel' ),
+            class: '',
+            click: function () {
+                this.closeModal();
+            }
+        }
+    ]
+};
 
 /**
  * M2C Content Constructor component.
@@ -11,6 +38,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
     template: `<div class="m2c-content-constructor">
         <cc-layout-builder v-ref:layout-builder :add-component="addComponent" :edit-component="editComponent" :components-configuration="configuration">
         </cc-layout-builder>
+        <div class="m2c-modal"></div>
     </div>`,
     components: {
         'cc-layout-builder': layoutBuilder
@@ -53,12 +81,36 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
          */
         addComponent: function( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
-            // Open magento modal and invoke given callback with component information like below.
-            addComponentInformation( {
+            const _this = this;
+
+            // Magento modal 'opened' callback
+            pickerModalOptions.opened = function() {
+                let modalInstance = this;
+
+                // Get available components and put into modal
+                _this.$http.get( '/admin/content-constructor/component/configurator/type/picker' ).then( function( response: vuejs.HttpResponse ): void {
+                    if ( response.body ) {
+                        $( modalInstance ).html( response.body );
+
+                        new Vue( {
+                            el: 'body',
+                            components: {
+                                'm2c-component-picker': m2cComponentPicker
+                            }
+                        } );
+                    }
+                } );
+            }
+
+            // Create autoopening modal instance
+            const $pickerModal = modal( pickerModalOptions, $( '.m2c-modal' ) );
+
+            // Invoke given callback with component information like below.
+            /*addComponentInformation( {
                 name: 'Nazwa komponentu',
                 id: 'ID komponentu',
                 settings: 'Jakieś ustawienia'
-            } );
+            } );*/
         },
         /**
          * Callback that will be invoked when user clicks edit button.
