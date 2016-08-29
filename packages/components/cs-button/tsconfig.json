@@ -19,9 +19,8 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "src/cs-buttons.ts",
-    "src/tests/e2e/cs-buttons.ts",
-    "src/tests/unit/cs-buttons.ts",
-    "node_modules/@types/jasmine/index.d.ts"
+    "src/cs-button.ts",
+    "node_modules/@types/jasmine/index.d.ts",
+    "node_modules/@types/vue/index.d.ts"
   ]
 }

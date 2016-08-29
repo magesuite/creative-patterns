@@ -1,0 +1,100 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>creativestyle Buttons component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cs-button.css">
+    </head>
+    <body>
+        <h1>creativestyle Buttons Component Demo</h1>
+        <h2>Looks</h2>
+        <p>Different look variations of buttons.</p>
+        <h3>No look</h3>
+        <p>
+            {% include '../cs-button.twig' with { 'text': 'No look' } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Default',
+                'classes': 'cs-button--look_default'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Attention',
+                'classes': 'cs-button--look_attention'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Success',
+                'classes': 'cs-button--look_success'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Info',
+                'classes': 'cs-button--look_info'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Warning',
+                'classes': 'cs-button--look_warning'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Danger',
+                'classes': 'cs-button--look_danger'
+            } %}
+        </p>
+        <h4>Disabled</h4>
+        <p>All buttons looks also suport dissabled variant.</p>
+        <p>
+            {% include '../cs-button.twig' with {
+                'text': 'No look',
+                'classes': 'cs-button--look_disabled'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Default',
+                'classes': 'cs-button--look_default cs-button--look_disabled'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Attention',
+                'classes': 'cs-button--look_attention cs-button--look_disabled'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Success',
+                'classes': 'cs-button--look_success cs-button--look_disabled'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Info',
+                'classes': 'cs-button--look_info cs-button--look_disabled'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Warning',
+                'classes': 'cs-button--look_warning cs-button--look_disabled'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Danger',
+                'classes': 'cs-button--look_danger cs-button--look_disabled'
+            } %}
+        </p>
+        <h2>Sizes</h2>
+        <p>Different size variations of buttons.</p>
+        <p>
+            {% include '../cs-button.twig' with {
+                'text': 'Small 100',
+                'classes': 'cs-button--look_default cs-button--size_100'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Small 300',
+                'classes': 'cs-button--look_default cs-button--size_300'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Default 500',
+                'classes': 'cs-button--look_default'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Big 700',
+                'classes': 'cs-button--look_default cs-button--size_700'
+            } %}
+            {% include '../cs-button.twig' with {
+                'text': 'Big 900',
+                'classes': 'cs-button--look_default cs-button--size_900'
+            } %}
+        </p>
+    </body>
+</html>

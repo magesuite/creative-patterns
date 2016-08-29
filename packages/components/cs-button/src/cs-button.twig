@@ -1,0 +1,6 @@
+<button class="cs-button {{ classes }} | {{ mix }}" {{ attributes }}>
+    {% if icon.svgId %}
+        <svg class="cs-button__icon {{ icon.classes }}"><use xlink:href="{{ icon.href }}"></use></svg>
+    {% endif %}
+    {{ text }}
+</button>
