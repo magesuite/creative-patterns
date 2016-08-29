@@ -1,0 +1,21 @@
+{
+  "content": [
+    {
+      "icon": {
+        "type": "sprite",
+        "content": "icon-tick"
+      },
+      "text": "lorem ipsum"
+    },
+    {
+      "icon": {
+        "type": "character",
+        "content": "□"
+      },
+      "text": "lorem ipsum dolor"
+    }
+  ],
+  "settings": {
+    "order": "horizontal"
+  }
+}
