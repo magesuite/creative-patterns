@@ -1,0 +1,58 @@
+// cs-custom-list
+// List horizontal/vertical with custom icons
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-custom-list {
+    font-size: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 1em;
+    color: #000;
+    fill: #000;
+
+    &--horizontal {
+
+    }
+
+    &--vertical {
+
+    }
+
+    &__prefix-character {
+        margin-right: 1em;
+    }
+
+    &__icon {
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1em;
+
+    }
+
+    &__text {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    &__item {
+        &--horizontal {
+            display: inline-block;
+            margin-right: 1em;
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+
+        &--vertical {
+            display: block;
+            margin-bottom: 1em;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
