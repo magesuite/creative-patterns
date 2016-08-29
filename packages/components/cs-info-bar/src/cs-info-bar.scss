@@ -1,0 +1,31 @@
+// info-bar
+// Wide bar with few information blocks on the top of the page
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+.cs-info-bar {
+    font-size: 1rem;
+    list-style: none;
+    display: flex;
+    margin: 0 auto;
+    padding: 1em 2em;
+
+    &--align {
+        &_stretch {
+            justify-content: space-between;
+        }
+        &_left {
+            justify-content: flex-start;
+        }
+        &_right {
+            justify-content: flex-end;
+        }
+    }
+
+    &__item {
+        margin-right: 2em;
+
+    }
+
+}
