@@ -1,4 +1,4 @@
-var ccComponentActions = (function () {
+(function (exports) {
     'use strict';
 
     /**
@@ -14,9 +14,8 @@ var ccComponentActions = (function () {
              * Class property support to enable BEM mixes.
              */
             class: {
-                type: String,
-                default: '',
-                coerce: function (value) { return value.replace(/(\s|^)action-button(\s|$)/, ''); }
+                type: [String, Object, Array],
+                default: ''
             },
             iconId: {
                 type: String
@@ -135,7 +134,7 @@ var ccComponentActions = (function () {
         }
     };
 
-    return componentActions;
+    exports['default'] = componentActions;
 
-}());
+}((this.ccComponentActions = this.ccComponentActions || {})));
 //# sourceMappingURL=cc-component-actions.js.map

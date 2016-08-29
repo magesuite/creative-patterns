@@ -1,11 +1,7 @@
 (function (exports) {
 	'use strict';
 
-	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {}
-
-	function interopDefault(ex) {
-		return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex;
-	}
+	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 	function createCommonjsModule(fn, module) {
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -9914,8 +9910,6 @@
 	module.exports = Vue;
 	});
 
-	var Vue = interopDefault(vue_common);
-
 	/**
 	 * Action button component version.
 	 * Small component that allows to set it's content.
@@ -9929,9 +9923,8 @@
 	         * Class property support to enable BEM mixes.
 	         */
 	        class: {
-	            type: String,
-	            default: '',
-	            coerce: function (value) { return value.replace(/(\s|^)action-button(\s|$)/, ''); }
+	            type: [String, Object, Array],
+	            default: ''
 	        },
 	        iconId: {
 	            type: String
@@ -10092,7 +10085,7 @@
 	        spyOn(spy, 'propCallback');
 	        spyOn(spy, 'eventCallback');
 	        // Prepare Vue instance with a template.
-	        vm = new Vue({
+	        vm = new vue_common({
 	            template: "<div>\n                <cc-component-actions v-ref:component :move-up=\"propCallback\" :move-down=\"propCallback\"\n                    :open-settings=\"propCallback\" :delete-component=\"propCallback\">\n                    <div class=\"cc-component-actions__button\" slot=\"cc-component-actions__button--up\"></div>\n                    <div class=\"cc-component-actions__button\" slot=\"cc-component-actions__button--down\"></div>\n                    <div class=\"cc-component-actions__button\" slot=\"cc-component-actions__button--settings\"></div>\n                    <div class=\"cc-component-actions__button\" slot=\"cc-component-actions__button--delete\"></div>\n                </cc-component-actions>\n            </div>",
 	            components: {
 	                'cc-component-actions': componentActions
