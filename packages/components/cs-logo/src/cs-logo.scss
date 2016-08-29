@@ -1,0 +1,13 @@
+// cs-logo
+// Main brand logo of the shop
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-logo {
+    width: 4em;
+
+    &__image {
+        display: block;
+        width: 100%;
+    }
+}
