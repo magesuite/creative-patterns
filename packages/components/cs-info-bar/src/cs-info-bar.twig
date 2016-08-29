@@ -1,0 +1,7 @@
+<ul class="cs-info-bar cs-info-bar--align_stretch">
+    {% for contentElement in content %}
+        <li class="cs-info-bar__item">
+            {% include contentElement.template %}
+        </li>
+    {% endfor %}
+</ul>
