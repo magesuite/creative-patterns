@@ -7,7 +7,7 @@ var ccHeadlineConfigurator = (function () {
      * @type {vuejs.ComponentOption} Vue component object.
      */
     var ccHeadlineConfigurator = {
-        template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"cs-input__input\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+        template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"headline.title\" id=\"cfg-headline\" class=\"cs-input__input\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"headline.subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
         props: {
             /**
              * Class property support to enable BEM mixes.
