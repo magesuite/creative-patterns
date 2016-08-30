@@ -12,7 +12,7 @@ import vr from 'VueResource';
 Vue.use( vr );
 
 // Modal options
-let pickerModalOptions = {
+let pickerModalOptions: any = {
     type: 'slide',
     responsive: true,
     innerScroll: true,
@@ -22,7 +22,7 @@ let pickerModalOptions = {
         {
             text: $.mage.__( 'Cancel' ),
             class: '',
-            click: function () {
+            click: function (): void {
                 this.closeModal();
             }
         }
@@ -36,9 +36,13 @@ let pickerModalOptions = {
  */
 const m2cContentConstructor: vuejs.ComponentOption = {
     template: `<div class="m2c-content-constructor">
-        <cc-layout-builder v-ref:layout-builder :add-component="addComponent" :edit-component="editComponent" :components-configuration="configuration">
+        <cc-layout-builder
+            v-ref:layout-builder
+            :add-component="getCompnentPicker"
+            :edit-component="editComponent"
+            :components-configuration="configuration">
         </cc-layout-builder>
-        <div class="m2c-modal"></div>
+        <div class="m2c-modal" v-ref:modal></div>
     </div>`,
     components: {
         'cc-layout-builder': layoutBuilder
@@ -80,37 +84,38 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * This method should open magento modal with component picker.
          * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
          */
-        addComponent: function( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
-            const _this = this;
-
+        getCompnentPicker: function( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
+            const component: any = this;
             // Magento modal 'opened' callback
-            pickerModalOptions.opened = function() {
-                let modalInstance = this;
-
+            pickerModalOptions.opened = function(): void {
+                const modal: HTMLElement = this;
                 // Get available components and put into modal
-                _this.$http.get( '/admin/content-constructor/component/configurator/type/picker' ).then( function( response: vuejs.HttpResponse ): void {
-                    if ( response.body ) {
-                        $( modalInstance ).html( response.body );
+                component.$http.get( '/admin/content-constructor/component/configurator/type/picker' ).then( ( response: vuejs.HttpResponse ): void => {
+                    if ( response.text ) {
+                        modal.innerHTML = response.text();
 
                         new Vue( {
-                            el: 'body',
+                            el: modal,
                             components: {
                                 'm2c-component-picker': m2cComponentPicker
                             }
                         } );
                     }
                 } );
-            }
+            };
 
             // Create autoopening modal instance
-            const $pickerModal = modal( pickerModalOptions, $( '.m2c-modal' ) );
-
-            // Invoke given callback with component information like below.
-            /*addComponentInformation( {
-                name: 'Nazwa komponentu',
-                id: 'ID komponentu',
-                settings: 'Jakieś ustawienia'
-            } );*/
+            const $pickerModal: JQuery = modal( pickerModalOptions, $( this.$refs.modal ) );
+            $pickerModal.on( 'close', function(): void {
+                // No idea what this function recieves tbh.
+                console.log( arguments );
+                // Invoke given callback with component information like below.
+                /*addComponentInformation( {
+                    name: 'Nazwa komponentu',
+                    id: 'ID komponentu',
+                    settings: 'Jakieś ustawienia'
+                } );*/
+            } );
         },
         /**
          * Callback that will be invoked when user clicks edit button.
@@ -131,7 +136,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                     this.$refs.layoutBuilder.getComponentInformation()
                 );
             }
-        }
+        },
     }
 };
 
