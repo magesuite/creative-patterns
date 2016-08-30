@@ -61,12 +61,16 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             :components-configuration="configuration">
         </cc-layout-builder>
         <div class="m2c-content-constructor__modal m2c-content-constructor__modal--picker" v-el:picker-modal>
-            <cc-component-picker :pick-component="getComponentConfigurator"></cc-component-picker>
+            <cc-component-picker
+                :pick-component="getComponentConfigurator"
+                components='[{"type":"static-block","cover":"http://placehold.it/350x185","coverAlt":"cover of static block","name":"Static block"},{"type":"headline","cover":"http://placehold.it/350x185","coverAlt":"cover of headline","name":"Headline"}]'>
+            </cc-component-picker>
         </div>
         <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal></div>
     </div>`,
     components: {
-        'cc-layout-builder': layoutBuilder
+        'cc-layout-builder': layoutBuilder,
+        'cc-component-picker': ccComponentPicker,
     },
     props: {
         configuration: {
