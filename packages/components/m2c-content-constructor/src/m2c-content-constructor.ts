@@ -11,13 +11,31 @@ import vr from 'VueResource';
 // Use Vue resource
 Vue.use( vr );
 
-// Modal options
+// Picker modal options
 let pickerModalOptions: any = {
     type: 'slide',
     responsive: true,
     innerScroll: true,
     autoOpen: true,
     title: $t( 'Please select type of component' ),
+    buttons: [
+        {
+            text: $.mage.__( 'Cancel' ),
+            class: '',
+            click: function (): void {
+                this.closeModal();
+            }
+        }
+    ]
+};
+
+// Picker modal options
+let configuratorModalOptions: any = {
+    type: 'slide',
+    responsive: true,
+    innerScroll: true,
+    autoOpen: true,
+    title: $t( 'Configurate your component' ),
     buttons: [
         {
             text: $.mage.__( 'Cancel' ),
@@ -42,7 +60,8 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             :edit-component="editComponent"
             :components-configuration="configuration">
         </cc-layout-builder>
-        <div class="m2c-modal" v-ref:modal></div>
+        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--picker" v-ref:picker></div>
+        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-ref:configurator></div>
     </div>`,
     components: {
         'cc-layout-builder': layoutBuilder
@@ -76,7 +95,11 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          */
         'cc-layout-builder__update': function(): void {
             this.dumpConfiguration();
-        }
+        },
+        'cc-component-picker__pick': function( componentType: string ): void {
+            console.log( componentType );
+            this.getComponentConfigurator( componentType );
+        },
     },
     methods: {
         /**
@@ -84,7 +107,9 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * This method should open magento modal with component picker.
          * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
          */
-        getCompnentPicker: function( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
+        getComponentPicker: function( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
+            // Save adding callback for async use.
+            this._addComponentInformation = addComponentInformation;
             const component: any = this;
             // Magento modal 'opened' callback
             pickerModalOptions.opened = function(): void {
@@ -104,23 +129,29 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 } );
             };
 
-            // Create autoopening modal instance
-            const $pickerModal: JQuery = modal( pickerModalOptions, $( this.$refs.modal ) );
-            $pickerModal.on( 'close', function(): void {
-                // No idea what this function recieves tbh.
-                console.log( arguments );
-                // Invoke given callback with component information like below.
-                /*addComponentInformation( {
-                    name: 'Nazwa komponentu',
-                    id: 'ID komponentu',
-                    settings: 'Jakieś ustawienia'
-                } );*/
-            } );
+            // Open picker modal.
+            modal( pickerModalOptions, $( this.$refs.picker ) );
+        },
+        getComponentConfigurator: function( componentType: string ): void {
+            const component: any = this;
+            // Magento modal 'opened' callback
+            configuratorModalOptions.opened = function(): void {
+                const modal: HTMLElement = this;
+                // Get configurator and put into modal
+                component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
+                    if ( response.text ) {
+                        modal.innerHTML = response.text();
+                    }
+                } );
+            };
+
+            // Open configurator modal.
+            modal( configuratorModalOptions, $( this.$refs.configurator ) );
         },
         /**
          * Callback that will be invoked when user clicks edit button.
          * This method should open magento modal with component editor.
-         * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
+         * @param  {IComponentInformation} setComponentInformation Callback that let's us add component asynchronously.
          */
         editComponent: function( currentInfo: IComponentInformation, setComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
             // Open magento modal and invoke given callback with component information like below.

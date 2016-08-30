@@ -22,6 +22,7 @@
     "src/cc-component-picker.ts",
     "src/tests/e2e/cc-component-picker.ts",
     "src/tests/unit/cc-component-picker.ts",
+    "node_modules/@types/jasmine/index.d.ts",
     "node_modules/@types/vue-resource/index.d.ts",
     "node_modules/@types/vue/index.d.ts"
   ]
