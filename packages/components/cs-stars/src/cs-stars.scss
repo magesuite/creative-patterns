@@ -1,0 +1,30 @@
+// cs-stars
+// Reviews&#x27; stars with a number for products
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-stars {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1rem;
+
+    &__icon {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        fill: #444;
+        vertical-align: middle;
+
+        &--active {
+            fill: orange;
+        }
+    }
+
+    &__number {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1;
+        color: #555;
+
+    }
+}

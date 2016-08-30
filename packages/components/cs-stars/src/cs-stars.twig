@@ -1,0 +1,16 @@
+<a href="{{ target }}" class="{{ mix }} cs-stars">
+    {% for i in 0..maxStars %}
+        {% if i < activeStars %}
+            <svg class="cs-stars__icon cs-stars__icon--active">
+                <use xlink:href="/images/sprites.svg#{{ iconID }}"></use>
+            </svg>
+        {% else %}
+            <svg class="cs-stars__icon">
+                <use xlink:href="/images/sprites.svg#{{ iconID }}"></use>
+            </svg>
+        {% endif %}
+    {% endfor %}
+    {% if reviewsNumber %}
+        <span class="cs-stars__number">({{ reviewsNumber }})</span>
+    {% endif %}
+</a>

@@ -1,0 +1,8 @@
+{
+  "maxStars": 5,
+  "activeStars": 3,
+  "reviewsNumber": 12,
+  "target": "#",
+  "mix": "",
+  "iconID": "icon-star"
+}
