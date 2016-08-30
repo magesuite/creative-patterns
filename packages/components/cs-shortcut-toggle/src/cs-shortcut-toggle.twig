@@ -1,0 +1,9 @@
+<a href="{{ target }}" class="{{ mix }} cs-shortcut-toggle">
+    <svg class="cs-shortcut-toggle__image">
+        <use xlink:href="/images/sprites.svg#{{ iconID }}"></use>
+    </svg>
+    {% if badgeValue %}
+        <span class="cs-shortcut-toggle__badge">{{ badgeValue }}</span>
+    {% endif %}
+    <span class="cs-shortcut-toggle__label">{{ label }}</span>
+</a>
