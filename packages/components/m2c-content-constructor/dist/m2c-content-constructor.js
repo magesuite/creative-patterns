@@ -464,23 +464,7 @@
             }
         ]
     };
-    // Picker modal options
-    var configuratorModalOptions = {
-        type: 'slide',
-        responsive: true,
-        innerScroll: true,
-        autoOpen: true,
-        title: $t('Configurate your component'),
-        buttons: [
-            {
-                text: $.mage.__('Cancel'),
-                class: '',
-                click: function () {
-                    this.closeModal();
-                }
-            }
-        ]
-    };
+    var $pickerModal;
     /**
      * M2C Content Constructor component.
      * This is the final layer that is responsible for collecting and tying up all
@@ -533,22 +517,49 @@
                 // Save adding callback for async use.
                 this._addComponentInformation = addComponentInformation;
                 // Open picker modal.
-                modal(pickerModalOptions, $(this.$els.pickerModal));
+                $pickerModal = modal(pickerModalOptions, $(this.$els.pickerModal));
             },
             getComponentConfigurator: function (componentType) {
                 var component = this;
-                // Magento modal 'opened' callback
-                configuratorModalOptions.opened = function () {
-                    var modal = this;
-                    // Get configurator and put into modal
-                    component.$http.get("/admin/content-constructor/component/configurator/type/" + componentType).then(function (response) {
-                        if (response.text) {
-                            modal.innerHTML = response.text();
-                        }
-                    });
-                };
                 // Open configurator modal.
-                modal(configuratorModalOptions, $(this.$els.configuratorModal));
+                $(this.$els.configuratorModal).modal({
+                    type: 'slide',
+                    responsive: true,
+                    innerScroll: true,
+                    autoOpen: true,
+                    title: $t('Configure your component'),
+                    buttons: [
+                        {
+                            text: $.mage.__('Cancel'),
+                            class: '',
+                            click: function () {
+                                this.closeModal();
+                            }
+                        },
+                        {
+                            text: $.mage.__('Save'),
+                            class: 'action-primary',
+                            click: function () {
+                                component._addComponentInformation({
+                                    name: 'Nazwa komponentu',
+                                    id: 'ID komponentu',
+                                    settings: 'Nowe Jakieś ustawienia'
+                                });
+                                this.closeModal();
+                                $pickerModal.closeModal();
+                            }
+                        }
+                    ],
+                    opened: function () {
+                        var modal = this;
+                        // Get configurator and put into modal
+                        component.$http.get("/admin/content-constructor/component/configurator/type/" + componentType).then(function (response) {
+                            if (response.text) {
+                                modal.innerHTML = response.text();
+                            }
+                        });
+                    }
+                });
             },
             /**
              * Callback that will be invoked when user clicks edit button.

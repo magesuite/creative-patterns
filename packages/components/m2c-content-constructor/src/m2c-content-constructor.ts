@@ -28,24 +28,7 @@ let pickerModalOptions: any = {
         }
     ]
 };
-
-// Picker modal options
-let configuratorModalOptions: any = {
-    type: 'slide',
-    responsive: true,
-    innerScroll: true,
-    autoOpen: true,
-    title: $t( 'Configurate your component' ),
-    buttons: [
-        {
-            text: $.mage.__( 'Cancel' ),
-            class: '',
-            click: function (): void {
-                this.closeModal();
-            }
-        }
-    ]
-};
+let $pickerModal;
 
 /**
  * M2C Content Constructor component.
@@ -113,23 +96,51 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             // Save adding callback for async use.
             this._addComponentInformation = addComponentInformation;
             // Open picker modal.
-            modal( pickerModalOptions, $( this.$els.pickerModal ) );
+            $pickerModal = modal( pickerModalOptions, $( this.$els.pickerModal ) );
         },
         getComponentConfigurator: function( componentType: string ): void {
             const component: any = this;
-            // Magento modal 'opened' callback
-            configuratorModalOptions.opened = function(): void {
-                const modal: HTMLElement = this;
-                // Get configurator and put into modal
-                component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
-                    if ( response.text ) {
-                        modal.innerHTML = response.text();
-                    }
-                } );
-            };
 
             // Open configurator modal.
-            modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
+            $( this.$els.configuratorModal ).modal( {
+                type: 'slide',
+                responsive: true,
+                innerScroll: true,
+                autoOpen: true,
+                title: $t( 'Configure your component' ),
+                buttons: [
+                    {
+                        text: $.mage.__( 'Cancel' ),
+                        class: '',
+                        click: function (): void {
+                            this.closeModal();
+                        }
+                    },
+                    {
+                        text: $.mage.__( 'Save' ),
+                        class: 'action-primary',
+                        click: function (): void {
+                            component._addComponentInformation( {
+                                name: 'Nazwa komponentu',
+                                id: 'ID komponentu',
+                                settings: 'Nowe Jakieś ustawienia'
+                            } );
+
+                            this.closeModal();
+                            $pickerModal.closeModal();
+                        }
+                    }
+                ],
+                opened: function(): void {
+                    const modal: HTMLElement = this;
+                    // Get configurator and put into modal
+                    component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
+                        if ( response.text ) {
+                            modal.innerHTML = response.text();
+                        }
+                    } );
+                }
+            } );
         },
         /**
          * Callback that will be invoked when user clicks edit button.
