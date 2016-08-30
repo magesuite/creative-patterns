@@ -72,7 +72,7 @@ var m2cComponentPicker = (function () {
         },
     };
 
-    var template$1 = "<div class=\"m2c-component-picker | {{ class }}\">\n    <cc-component-picker :components=\"components\" :components-endpoint=\"componentsEndpoint\"></cc-component-picker>\n</div>\n";
+    var template$1 = "<div class=\"m2c-component-picker | {{ class }}\">\n    <cc-component-picker :components=\"components\" :components-endpoint=\"componentsEndpoint\" :pick-component=\"onPickComponent\"></cc-component-picker>\n</div>\n";
 
     /**
      * M2C component picker.
@@ -108,7 +108,16 @@ var m2cComponentPicker = (function () {
                 type: String,
                 default: ''
             }
-        }
+        },
+        methods: {
+            /**
+             * Component pick Magento 2 custom click handler.
+             * @param {Event} event Click event obj ect.
+             */
+            onPickComponent: function (componentType) {
+                console.log(componentType);
+            }
+        },
     };
 
     return m2cComponentPicker;

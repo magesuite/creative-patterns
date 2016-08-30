@@ -36,7 +36,16 @@ const m2cComponentPicker: vuejs.ComponentOption = {
             type: String,
             default: ''
         }
-    }
+    },
+    methods: {
+        /**
+         * Component pick Magento 2 custom click handler.
+         * @param {Event} event Click event obj ect.
+         */
+        onPickComponent: function ( componentType: String ): void {
+            console.log( componentType );
+        }
+    },
 };
 
 export default m2cComponentPicker;
