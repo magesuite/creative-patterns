@@ -68,7 +68,6 @@ const ccComponentPicker: vuejs.ComponentOption = {
         };
     },
     ready: function(): void {
-        console.log( this.components, this.componentsEndpoint );
         // If inline JSON is provided then parse it.
         if ( this.components ) {
             this.availableComponents = JSON.parse( this.components );

@@ -1,14 +1,14 @@
 var ccComponentPicker = (function () {
     'use strict';
 
-    var template = "<section class=\"cc-component-picker | {{ class }}\">\n    <ul class=\"cc-component-picker__list\">\n        <template v-for=\"component in components\">\n            <li class=\"cc-component-picker__list-item\">\n                <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\">\n                    <figure class=\"cc-component-picker__component-figure\">\n                        <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\">\n                        <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption>\n                    </figure>\n                </a>\n            </li>\n        </template>\n    </ul>\n</section>\n";
+    var template = "<section class=\"cc-component-picker | {{ class }}\">\n    <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\">\n        <li class=\"cc-component-picker__list-item\" v-for=\"component in availableComponents\">\n            <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\">\n                <figure class=\"cc-component-picker__component-figure\">\n                    <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\">\n                    <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption>\n                </figure>\n            </a>\n        </li>\n    </ul>\n    <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\">\n        No components available.\n    </p>\n</section>\n";
 
     /**
      * Componen picker.
      * Lists all types of components available in m2c in the grid/list mode
      * @type {vuejs.ComponentOption} Vue component object.
      */
-    var componentPicker = {
+    var ccComponentPicker = {
         template: template,
         props: {
             /**
@@ -24,20 +24,38 @@ var ccComponentPicker = (function () {
              */
             pickComponent: {
                 type: Function
+            },
+            /**
+             * JSON stringified array containing available components.
+             */
+            components: {
+                type: String,
+                default: ''
+            },
+            /**
+             * URL for API returning JSON stringified array containing available components.
+             */
+            componentsEndpoint: {
+                type: String,
+                default: ''
             }
         },
         data: function () {
             return {
-                components: []
+                availableComponents: []
             };
         },
-        /**
-         * Get JSON file with components list and put into data
-         */
         ready: function () {
-            this.$http.get('./../cc-component-picker.data.json').then(function (response) {
-                this.components = response.json().components;
-            });
+            // If inline JSON is provided then parse it.
+            if (this.components) {
+                this.availableComponents = JSON.parse(this.components);
+            }
+            else if (this.componentsEndpoint) {
+                // Otherwise load from endpoint if URL provided.
+                this.$http.get(this.componentsEndpoint).then(function (response) {
+                    this.availableComponents = response.json();
+                });
+            }
         },
         methods: {
             /**
@@ -51,10 +69,10 @@ var ccComponentPicker = (function () {
                     this.pickComponent(componentType);
                 }
             }
-        }
+        },
     };
 
-    return componentPicker;
+    return ccComponentPicker;
 
 }());
 //# sourceMappingURL=cc-component-picker.js.map
