@@ -2,7 +2,7 @@
 
 import Vue from 'Vue';
 import { layoutBuilder, IComponentInformation } from '../../cc-layout-builder/src/cc-layout-builder';
-import m2cComponentPicker from '../../m2c-component-picker/src/m2c-component-picker';
+import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
 import $ from 'jquery';
 import modal from 'Magento_Ui/js/modal/modal';
 import $t from 'mage/translate';
@@ -122,7 +122,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                         new Vue( {
                             el: modal,
                             components: {
-                                'm2c-component-picker': m2cComponentPicker
+                                'cc-component-picker': ccComponentPicker
                             }
                         } );
                     }

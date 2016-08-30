@@ -445,57 +445,9 @@
         },
     };
 
-    var template$2 = "<div class=\"m2c-component-picker | {{ class }}\">\n    <cc-component-picker :components=\"components\" :components-endpoint=\"componentsEndpoint\" :pick-component=\"onPickComponent\"></cc-component-picker>\n</div>\n";
-
-    /**
-     * M2C component picker.
-     * This is just an additional layer over generic component picker
-     * that can have custom, Magento 2 specific logic.
-     * @type {vuejs.ComponentOption} Vue component object.
-     */
-    var m2cComponentPicker = {
-        template: template$2,
-        components: {
-            'cc-component-picker': ccComponentPicker
-        },
-        props: {
-            /**
-             * Class property support to enable BEM mixes.
-             */
-            class: {
-                type: String,
-                default: '',
-                coerce: function (value) { return value.replace('m2c-component-picker', ''); }
-            },
-            /**
-             * JSON stringified array containing available components.
-             */
-            components: {
-                type: String,
-                default: ''
-            },
-            /**
-             * URL for API returning JSON stringified array containing available components.
-             */
-            componentsEndpoint: {
-                type: String,
-                default: ''
-            }
-        },
-        methods: {
-            /**
-             * Component pick Magento 2 custom click handler.
-             * @param {Event} event Click event obj ect.
-             */
-            onPickComponent: function (componentType) {
-                console.log(componentType);
-            }
-        },
-    };
-
     // Use Vue resource
     Vue.use(vr);
-    // Modal options
+    // Picker modal options
     var pickerModalOptions = {
         type: 'slide',
         responsive: true,
@@ -512,13 +464,30 @@
             }
         ]
     };
+    // Picker modal options
+    var configuratorModalOptions = {
+        type: 'slide',
+        responsive: true,
+        innerScroll: true,
+        autoOpen: true,
+        title: $t('Configurate your component'),
+        buttons: [
+            {
+                text: $.mage.__('Cancel'),
+                class: '',
+                click: function () {
+                    this.closeModal();
+                }
+            }
+        ]
+    };
     /**
      * M2C Content Constructor component.
      * This is the final layer that is responsible for collecting and tying up all
      * of the M2C admin panel logic.
      */
     var m2cContentConstructor = {
-        template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder v-ref:layout-builder :add-component=\"addComponent\" :edit-component=\"editComponent\" :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-modal\"></div>\n    </div>",
+        template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getCompnentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-ref:picker></div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-ref:configurator></div>\n    </div>",
         components: {
             'cc-layout-builder': layoutBuilder
         },
@@ -551,7 +520,11 @@
              */
             'cc-layout-builder__update': function () {
                 this.dumpConfiguration();
-            }
+            },
+            'cc-component-picker__pick': function (componentType) {
+                console.log(componentType);
+                this.getComponentConfigurator(componentType);
+            },
         },
         methods: {
             /**
@@ -559,37 +532,48 @@
              * This method should open magento modal with component picker.
              * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
              */
-            addComponent: function (addComponentInformation) {
-                var _this = this;
+            getComponentPicker: function (addComponentInformation) {
+                // Save adding callback for async use.
+                this._addComponentInformation = addComponentInformation;
+                var component = this;
                 // Magento modal 'opened' callback
                 pickerModalOptions.opened = function () {
-                    var modalInstance = this;
+                    var modal = this;
                     // Get available components and put into modal
-                    _this.$http.get('/admin/content-constructor/component/configurator/type/picker').then(function (response) {
-                        if (response.body) {
-                            $(modalInstance).html(response.body);
+                    component.$http.get('/admin/content-constructor/component/configurator/type/picker').then(function (response) {
+                        if (response.text) {
+                            modal.innerHTML = response.text();
                             new Vue({
-                                el: 'body',
+                                el: modal,
                                 components: {
-                                    'm2c-component-picker': m2cComponentPicker
+                                    'cc-component-picker': ccComponentPicker
                                 }
                             });
                         }
                     });
                 };
-                // Create autoopening modal instance
-                var $pickerModal = modal(pickerModalOptions, $('.m2c-modal'));
-                // Invoke given callback with component information like below.
-                /*addComponentInformation( {
-                    name: 'Nazwa komponentu',
-                    id: 'ID komponentu',
-                    settings: 'Jakieś ustawienia'
-                } );*/
+                // Open picker modal.
+                modal(pickerModalOptions, $(this.$refs.picker));
+            },
+            getComponentConfigurator: function (componentType) {
+                var component = this;
+                // Magento modal 'opened' callback
+                configuratorModalOptions.opened = function () {
+                    var modal = this;
+                    // Get configurator and put into modal
+                    component.$http.get("/admin/content-constructor/component/configurator/type/" + componentType).then(function (response) {
+                        if (response.text) {
+                            modal.innerHTML = response.text();
+                        }
+                    });
+                };
+                // Open configurator modal.
+                modal(configuratorModalOptions, $(this.$refs.configurator));
             },
             /**
              * Callback that will be invoked when user clicks edit button.
              * This method should open magento modal with component editor.
-             * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
+             * @param  {IComponentInformation} setComponentInformation Callback that let's us add component asynchronously.
              */
             editComponent: function (currentInfo, setComponentInformation) {
                 // Open magento modal and invoke given callback with component information like below.
@@ -603,7 +587,7 @@
                 if (this.configurationDumpElement) {
                     this.configurationDumpElement.value = JSON.stringify(this.$refs.layoutBuilder.getComponentInformation());
                 }
-            }
+            },
         }
     };
 
