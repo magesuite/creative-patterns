@@ -374,7 +374,7 @@
         },
     };
 
-    var template$1 = "<section class=\"cc-component-picker | {{ class }}\">\n    <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\">\n        <li class=\"cc-component-picker__list-item\" v-for=\"component in availableComponents\">\n            <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\">\n                <figure class=\"cc-component-picker__component-figure\">\n                    <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\">\n                    <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption>\n                </figure>\n            </a>\n        </li>\n    </ul>\n    <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\">\n        No components available.\n    </p>\n</section>\n";
+    var template$1 = "<section class=\"cc-component-picker | {{ class }}\">\n    <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\">\n        <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\">\n            <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\">\n                <figure class=\"cc-component-picker__component-figure\">\n                    <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\">\n                    <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption>\n                </figure>\n            </a>\n        </li>\n    </ul>\n    <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\">\n        No components available.\n    </p>\n</section>\n";
 
     /**
      * Componen picker.
@@ -419,7 +419,6 @@
             };
         },
         ready: function () {
-            console.log(this.components, this.componentsEndpoint);
             // If inline JSON is provided then parse it.
             if (this.components) {
                 this.availableComponents = JSON.parse(this.components);
@@ -446,7 +445,7 @@
         },
     };
 
-    var template$2 = "<div class=\"m2c-component-picker | {{ class }}\">\n    <cc-component-picker :components=\"components\" :components-endpoint=\"componentsEndpoint\"></cc-component-picker>\n</div>\n";
+    var template$2 = "<div class=\"m2c-component-picker | {{ class }}\">\n    <cc-component-picker :components=\"components\" :components-endpoint=\"componentsEndpoint\" :pick-component=\"onPickComponent\"></cc-component-picker>\n</div>\n";
 
     /**
      * M2C component picker.
@@ -482,7 +481,16 @@
                 type: String,
                 default: ''
             }
-        }
+        },
+        methods: {
+            /**
+             * Component pick Magento 2 custom click handler.
+             * @param {Event} event Click event obj ect.
+             */
+            onPickComponent: function (componentType) {
+                console.log(componentType);
+            }
+        },
     };
 
     // Use Vue resource
