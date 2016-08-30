@@ -60,8 +60,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             :edit-component="editComponent"
             :components-configuration="configuration">
         </cc-layout-builder>
-        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--picker" v-ref:picker></div>
-        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-ref:configurator></div>
+        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--picker" v-el:picker-modal>
+            <cc-component-picker :pick-component="getComponentConfigurator"></cc-component-picker>
+        </div>
+        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal></div>
     </div>`,
     components: {
         'cc-layout-builder': layoutBuilder
@@ -96,10 +98,6 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'cc-layout-builder__update': function(): void {
             this.dumpConfiguration();
         },
-        'cc-component-picker__pick': function( componentType: string ): void {
-            console.log( componentType );
-            this.getComponentConfigurator( componentType );
-        },
     },
     methods: {
         /**
@@ -110,27 +108,8 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         getComponentPicker: function( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
             // Save adding callback for async use.
             this._addComponentInformation = addComponentInformation;
-            const component: any = this;
-            // Magento modal 'opened' callback
-            pickerModalOptions.opened = function(): void {
-                const modal: HTMLElement = this;
-                // Get available components and put into modal
-                component.$http.get( '/admin/content-constructor/component/configurator/type/picker' ).then( ( response: vuejs.HttpResponse ): void => {
-                    if ( response.text ) {
-                        modal.innerHTML = response.text();
-
-                        new Vue( {
-                            el: modal,
-                            components: {
-                                'cc-component-picker': ccComponentPicker
-                            }
-                        } );
-                    }
-                } );
-            };
-
             // Open picker modal.
-            modal( pickerModalOptions, $( this.$refs.picker ) );
+            modal( pickerModalOptions, $( this.$els.pickerModal ) );
         },
         getComponentConfigurator: function( componentType: string ): void {
             const component: any = this;
@@ -146,7 +125,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             };
 
             // Open configurator modal.
-            modal( configuratorModalOptions, $( this.$refs.configurator ) );
+            modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
         },
         /**
          * Callback that will be invoked when user clicks edit button.

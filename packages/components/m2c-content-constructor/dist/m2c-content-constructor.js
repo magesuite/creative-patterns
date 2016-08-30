@@ -374,77 +374,6 @@
         },
     };
 
-    var template$1 = "<section class=\"cc-component-picker | {{ class }}\">\n    <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\">\n        <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\">\n            <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\">\n                <figure class=\"cc-component-picker__component-figure\">\n                    <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\">\n                    <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption>\n                </figure>\n            </a>\n        </li>\n    </ul>\n    <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\">\n        No components available.\n    </p>\n</section>\n";
-
-    /**
-     * Componen picker.
-     * Lists all types of components available in m2c in the grid/list mode
-     * @type {vuejs.ComponentOption} Vue component object.
-     */
-    var ccComponentPicker = {
-        template: template$1,
-        props: {
-            /**
-             * Class property support to enable BEM mixes.
-             */
-            class: {
-                type: String,
-                default: '',
-                coerce: function (value) { return value.replace('cc-component-picker', ''); }
-            },
-            /**
-             * Property containing callback triggered when user picks component.
-             */
-            pickComponent: {
-                type: Function
-            },
-            /**
-             * JSON stringified array containing available components.
-             */
-            components: {
-                type: String,
-                default: ''
-            },
-            /**
-             * URL for API returning JSON stringified array containing available components.
-             */
-            componentsEndpoint: {
-                type: String,
-                default: ''
-            }
-        },
-        data: function () {
-            return {
-                availableComponents: []
-            };
-        },
-        ready: function () {
-            // If inline JSON is provided then parse it.
-            if (this.components) {
-                this.availableComponents = JSON.parse(this.components);
-            }
-            else if (this.componentsEndpoint) {
-                // Otherwise load from endpoint if URL provided.
-                this.$http.get(this.componentsEndpoint).then(function (response) {
-                    this.availableComponents = response.json();
-                });
-            }
-        },
-        methods: {
-            /**
-             * Component pick click handler.
-             * This handler triggers "cc-component-picker__pick" event up the DOM chain when called.
-             * @param {Event} event Click event object.
-             */
-            onPickComponent: function (componentType) {
-                this.$dispatch('cc-component-picker__pick', componentType);
-                if (typeof this.pickComponent === 'function') {
-                    this.pickComponent(componentType);
-                }
-            }
-        },
-    };
-
     // Use Vue resource
     Vue.use(vr);
     // Picker modal options
@@ -487,7 +416,7 @@
      * of the M2C admin panel logic.
      */
     var m2cContentConstructor = {
-        template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-ref:picker></div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-ref:configurator></div>\n    </div>",
+        template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal>\n            <cc-component-picker :pick-component=\"getComponentConfigurator\"></cc-component-picker>\n        </div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal></div>\n    </div>",
         components: {
             'cc-layout-builder': layoutBuilder
         },
@@ -521,10 +450,6 @@
             'cc-layout-builder__update': function () {
                 this.dumpConfiguration();
             },
-            'cc-component-picker__pick': function (componentType) {
-                console.log(componentType);
-                this.getComponentConfigurator(componentType);
-            },
         },
         methods: {
             /**
@@ -535,25 +460,8 @@
             getComponentPicker: function (addComponentInformation) {
                 // Save adding callback for async use.
                 this._addComponentInformation = addComponentInformation;
-                var component = this;
-                // Magento modal 'opened' callback
-                pickerModalOptions.opened = function () {
-                    var modal = this;
-                    // Get available components and put into modal
-                    component.$http.get('/admin/content-constructor/component/configurator/type/picker').then(function (response) {
-                        if (response.text) {
-                            modal.innerHTML = response.text();
-                            new Vue({
-                                el: modal,
-                                components: {
-                                    'cc-component-picker': ccComponentPicker
-                                }
-                            });
-                        }
-                    });
-                };
                 // Open picker modal.
-                modal(pickerModalOptions, $(this.$refs.picker));
+                modal(pickerModalOptions, $(this.$els.pickerModal));
             },
             getComponentConfigurator: function (componentType) {
                 var component = this;
@@ -568,7 +476,7 @@
                     });
                 };
                 // Open configurator modal.
-                modal(configuratorModalOptions, $(this.$refs.configurator));
+                modal(configuratorModalOptions, $(this.$els.configuratorModal));
             },
             /**
              * Callback that will be invoked when user clicks edit button.
