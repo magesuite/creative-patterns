@@ -487,7 +487,7 @@
      * of the M2C admin panel logic.
      */
     var m2cContentConstructor = {
-        template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getCompnentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-ref:picker></div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-ref:configurator></div>\n    </div>",
+        template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-ref:picker></div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-ref:configurator></div>\n    </div>",
         components: {
             'cc-layout-builder': layoutBuilder
         },

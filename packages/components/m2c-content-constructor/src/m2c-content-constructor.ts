@@ -56,7 +56,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
     template: `<div class="m2c-content-constructor">
         <cc-layout-builder
             v-ref:layout-builder
-            :add-component="getCompnentPicker"
+            :add-component="getComponentPicker"
             :edit-component="editComponent"
             :components-configuration="configuration">
         </cc-layout-builder>
