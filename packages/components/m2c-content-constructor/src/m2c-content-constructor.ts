@@ -28,7 +28,7 @@ let pickerModalOptions: any = {
         }
     ]
 };
-let $pickerModal;
+let $pickerModal: any;
 
 /**
  * M2C Content Constructor component.
@@ -93,12 +93,14 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
          */
         getComponentPicker: function( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
+            console.log( 'Getting component picker.' );
             // Save adding callback for async use.
             this._addComponentInformation = addComponentInformation;
             // Open picker modal.
             $pickerModal = modal( pickerModalOptions, $( this.$els.pickerModal ) );
         },
         getComponentConfigurator: function( componentType: string ): void {
+            console.log( `Getting configurator for ${componentType} component.` );
             const component: any = this;
 
             // Open configurator modal.

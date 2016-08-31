@@ -437,6 +437,7 @@
              * @param {Event} event Click event object.
              */
             onPickComponent: function (componentType) {
+                console.log("Component " + componentType + " picked.");
                 this.$dispatch('cc-component-picker__pick', componentType);
                 if (typeof this.pickComponent === 'function') {
                     this.pickComponent(componentType);
@@ -514,12 +515,14 @@
              * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
              */
             getComponentPicker: function (addComponentInformation) {
+                console.log('Getting component picker.');
                 // Save adding callback for async use.
                 this._addComponentInformation = addComponentInformation;
                 // Open picker modal.
                 $pickerModal = modal(pickerModalOptions, $(this.$els.pickerModal));
             },
             getComponentConfigurator: function (componentType) {
+                console.log("Getting configurator for " + componentType + " component.");
                 var component = this;
                 // Open configurator modal.
                 $(this.$els.configuratorModal).modal({

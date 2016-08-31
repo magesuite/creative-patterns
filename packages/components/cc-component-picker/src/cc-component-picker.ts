@@ -85,6 +85,7 @@ const ccComponentPicker: vuejs.ComponentOption = {
          * @param {Event} event Click event object.
          */
         onPickComponent: function ( componentType: String ): void {
+            console.log( `Component ${componentType} picked.` );
             this.$dispatch( 'cc-component-picker__pick', componentType );
 
             if ( typeof this.pickComponent === 'function' ) {
