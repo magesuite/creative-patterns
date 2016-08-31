@@ -1,0 +1,7 @@
+<ul class="{{ mix }} cs-breadcrumbs">
+    {% for item in path %}
+        <li class="cs-breadcrumbs__step">
+            <a href="{{ item.url }}" class="cs-breadcrumbs__link">{{ item.label }}</a>
+        </li>
+    {% endfor %}
+</ul>

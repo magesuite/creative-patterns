@@ -4,5 +4,31 @@
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
 .cs-breadcrumbs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+    font-family: 'sans-serif';
 
+    &__step {
+        display: inline-block;
+        color: #888;
+
+        &::after {
+            content: '/';
+            display: inline-block;
+            margin: 0 1rem;
+        }
+
+        &:last-of-type {
+            color: #111;
+        }
+    }
+    &__link {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+        }
+    }
 }
