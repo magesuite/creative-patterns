@@ -446,6 +446,56 @@
         },
     };
 
+    /**
+     * Headline configurator component.
+     * This component is responsible for displaying headlines configuration form
+     * @type {vuejs.ComponentOption} Vue component object.
+     */
+    var ccHeadlineConfigurator = {
+        template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+        props: {
+            /**
+             * Class property support to enable BEM mixes.
+             */
+            class: {
+                type: [String, Object, Array],
+                default: ''
+            },
+            /**
+             * Property containing callback triggered when user saves component.
+             */
+            save: {
+                type: Function
+            },
+            /**
+             * Property containing callback triggered when configuration is changed.
+             */
+            change: {
+                type: Function
+            }
+        },
+        data: function () {
+            return {
+                title: '',
+                subtitle: ''
+            };
+        },
+        methods: {
+            onChange: function (event) {
+                this.$dispatch('cc-headline-configurator__change', this._data);
+                if (typeof this.change === 'function') {
+                    this.change(this._data);
+                }
+            },
+            onSave: function (event) {
+                this.$dispatch('cc-headline-configurator__save', this._data);
+                if (typeof this.save === 'function') {
+                    this.save(this._data);
+                }
+            }
+        }
+    };
+
     // Use Vue resource
     Vue.use(vr);
     // Picker modal options
@@ -466,6 +516,30 @@
         ]
     };
     var $pickerModal;
+    var configuratorModalOptions = {
+        type: 'slide',
+        responsive: true,
+        innerScroll: true,
+        autoOpen: true,
+        title: $t('Configure your component'),
+        buttons: [
+            {
+                text: $.mage.__('Cancel'),
+                class: '',
+                click: function () {
+                    this.closeModal();
+                }
+            },
+            {
+                text: $.mage.__('Save'),
+                class: 'action-primary'
+            }
+        ],
+        closed: function () {
+            this.innerHTML = '';
+        }
+    };
+    var $configuratorModal;
     /**
      * M2C Content Constructor component.
      * This is the final layer that is responsible for collecting and tying up all
@@ -528,51 +602,29 @@
                 console.log("Getting configurator for " + componentType + " component.");
                 var component = this;
                 // Open configurator modal.
-                $(this.$els.configuratorModal).modal({
-                    type: 'slide',
-                    responsive: true,
-                    innerScroll: true,
-                    autoOpen: true,
-                    title: $t('Configure your component'),
-                    buttons: [
-                        {
-                            text: $.mage.__('Cancel'),
-                            class: '',
-                            click: function () {
-                                this.closeModal();
-                            }
-                        },
-                        {
-                            text: $.mage.__('Save'),
-                            class: 'action-primary',
-                            click: function () {
-                                component._addComponentInformation({
-                                    name: 'Nazwa komponentu',
-                                    id: 'ID komponentu',
-                                    settings: 'Nowe Jakieś ustawienia'
-                                });
-                                this.closeModal();
-                                $pickerModal.closeModal();
-                            }
-                        }
-                    ],
-                    opened: function () {
-                        var modal = this;
-                        requirejs([("cc-" + componentType + "-configurator")], function (ccHeadlineConfigurator) {
-                            console.log(ccHeadlineConfigurator);
-                            var headlineConfigurator = Vue.extend(ccHeadlineConfigurator);
-                            new headlineConfigurator({
-                                parent: component
-                            }).$mount().$appendTo(modal);
-                        });
-                        // Get configurator and put into modal
-                        // component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
-                        //     if ( response.text ) {
-                        //         modal.innerHTML = response.text();
-                        //     }
-                        // } );
-                    }
-                });
+                configuratorModalOptions.buttons[1].click = function () {
+                    component._addComponentInformation({
+                        name: 'Nazwa komponentu',
+                        id: 'ID komponentu',
+                        settings: 'Nowe Jakieś ustawienia'
+                    });
+                    this.closeModal();
+                    $pickerModal.closeModal();
+                };
+                configuratorModalOptions.opened = function () {
+                    var modal = this;
+                    var headlineConfigurator = Vue.extend(ccHeadlineConfigurator);
+                    new headlineConfigurator({
+                        parent: component
+                    }).$mount().$appendTo(modal);
+                    // Get configurator and put into modal
+                    // component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
+                    //     if ( response.text ) {
+                    //         modal.innerHTML = response.text();
+                    //     }
+                    // } );
+                };
+                $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
             },
             /**
              * Callback that will be invoked when user clicks edit button.
