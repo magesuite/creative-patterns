@@ -33,11 +33,11 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
     template: `<form class="cc-headline-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <div class="cs-input cs-input--type-inline">
             <label for="cfg-headline" class="cs-input__label">Headline:</label>
-            <input type="text" v-model="headline.title" id="cfg-headline" class="cs-input__input">
+            <input type="text" v-model="title" id="cfg-headline" class="cs-input__input" @change="onChange">
         </div>
         <div class="cs-input cs-input--type-inline">
             <label for="cfg-subheadline" class="cs-input__label">Subheadline:</label>
-            <input type="text" v-model="headline.subtitle" id="cfg-subheadline" class="cs-input__input">
+            <input type="text" v-model="subtitle" id="cfg-subheadline" class="cs-input__input" @change="onChange">
         </div>
         <button type="submit">Save</button>
     </form>`,
@@ -54,17 +54,28 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
          */
         save: {
             type: Function
+        },
+        /**
+         * Property containing callback triggered when configuration is changed.
+         */
+        change: {
+            type: Function
         }
     },
-    data: function() {
+    data: function(): any {
         return {
-            headline: {
-                title: '',
-                subtitle: ''
-            }
-        }
+            title: '',
+            subtitle: ''
+        };
     },
     methods: {
+        onChange: function( event: Event ): void {
+            this.$dispatch( 'cc-headline-configurator__change', this._data );
+
+            if ( typeof this.change === 'function' ) {
+                this.change( this._data );
+            }
+        },
         onSave: function( event: Event ): void {
             this.$dispatch( 'cc-headline-configurator__save', this._data );
 

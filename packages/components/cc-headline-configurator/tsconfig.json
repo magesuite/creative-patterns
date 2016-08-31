@@ -19,8 +19,10 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "src/seed.ts",
-    "src/tests/e2e/seed.ts",
-    "src/tests/unit/seed.ts"
+    "src/cc-headline-configurator.ts",
+    "src/tests/e2e/cc-headline-configurator.ts",
+    "src/tests/unit/cc-headline-configurator.ts",
+    "node_modules/@types/jasmine/index.d.ts",
+    "node_modules/@types/vue/index.d.ts"
   ]
 }
