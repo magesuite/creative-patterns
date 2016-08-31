@@ -1,0 +1,123 @@
+{
+  "mix": "",
+  "items": [
+    {
+      "label": "Sextoys",
+      "hasChildren": true,
+      "mix": "",
+      "url": "#",
+      "dataNavGroup": "group1"
+    },
+    {
+      "label": "Mode & Dessous",
+      "hasChildren": true,
+      "mix": "",
+      "url": "#",
+      "dataNavGroup": "group2"
+    },
+    {
+      "label": "BDSM",
+      "hasChildren": true,
+      "mix": "",
+      "url": "#",
+      "dataNavGroup": "group3"
+    },
+    {
+      "label": "Drogerie & Zubehor",
+      "hasChildren": true,
+      "mix": "",
+      "url": "#",
+      "dataNavGroup": "group4",
+      "subcategories": [
+        {
+          "label": "subcategory",
+          "url": "#",
+          "subcategories": [
+            {
+              "label": "subcategory1",
+              "url": "#"
+            },
+            {
+              "label": "subcategory2",
+              "url": "#"
+            },
+            {
+              "label": "subcategory3",
+              "url": "#"
+            },
+            {
+              "label": "subcategory4",
+              "url": "#"
+            },
+            {
+              "label": "subcategory5",
+              "url": "#"
+            },
+            {
+              "label": "subcategory6",
+              "url": "#"
+            }
+          ]
+        },
+        {
+          "label": "subcategory",
+          "url": "#",
+          "subcategories": [
+            {
+              "label": "subcategory1",
+              "url": "#"
+            },
+            {
+              "label": "subcategory2",
+              "url": "#"
+            },
+            {
+              "label": "subcategory3",
+              "url": "#"
+            },
+            {
+              "label": "subcategory4",
+              "url": "#"
+            },
+            {
+              "label": "subcategory5",
+              "url": "#"
+            },
+            {
+              "label": "subcategory6",
+              "url": "#"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Fun & Gadgets",
+      "hasChildren": true,
+      "mix": "",
+      "url": "#",
+      "dataNavGroup": "group5"
+    },
+    {
+      "label": "Marken",
+      "hasChildren": false,
+      "mix": "",
+      "url": "#",
+      "dataNavGroup": "group6"
+    },
+    {
+      "label": "Neu",
+      "hasChildren": false,
+      "mix": "",
+      "url": "#",
+      "dataNavGroup": "group7"
+    },
+    {
+      "label": "Sale",
+      "hasChildren": false,
+      "mix": "",
+      "url": "#",
+      "dataNavGroup": "group8"
+    }
+  ]
+}
