@@ -2,13 +2,8 @@ var actionButton = (function () {
     'use strict';
 
     /**
-     * Component controller component.
-     * This component is responsible for displaying and handling user interactions of
-     * side utility navigation for each component that supports:
-     * - Moving component up,
-     * - Moving component down,
-     * - Opening component settings,
-     * - Deleting component.
+     * Action button component version.
+     * Small component that allows to set it's content.
      *
      * @type {vuejs.ComponentOption} Vue component object.
      */
@@ -21,9 +16,8 @@ var actionButton = (function () {
              * Class property support to enable BEM mixes.
              */
             class: {
-                type: String,
-                default: '',
-                coerce: (value) => value.replace(/(\s|^)action-button(\s|$)/, '')
+                type: [String, Object, Array],
+                default: ''
             },
             iconId: {
                 type: String
