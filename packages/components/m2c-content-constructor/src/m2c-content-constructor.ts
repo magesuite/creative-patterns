@@ -53,7 +53,7 @@ let configuratorModalOptions: any = {
     closed: function(): void {
         this.innerHTML = '';
     }
-}
+};
 let $configuratorModal: any;
 
 /**
@@ -142,20 +142,13 @@ const m2cContentConstructor: vuejs.ComponentOption = {
 
                 this.closeModal();
                 $pickerModal.closeModal();
-            }
+            };
             configuratorModalOptions.opened = function(): void {
                 const modal: HTMLElement = this;
-                const headlineConfigurator: any = Vue.extend( ccHeadlineConfigurator );
-                new headlineConfigurator( {
+                new Vue.extend( ccHeadlineConfigurator )( {
                     parent: component
                 } ).$mount().$appendTo( modal );
-                // Get configurator and put into modal
-                // component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
-                //     if ( response.text ) {
-                //         modal.innerHTML = response.text();
-                //     }
-                // } );
-            }
+            };
 
             $configuratorModal = modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
         },

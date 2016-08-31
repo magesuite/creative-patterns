@@ -613,16 +613,9 @@
                 };
                 configuratorModalOptions.opened = function () {
                     var modal = this;
-                    var headlineConfigurator = Vue.extend(ccHeadlineConfigurator);
-                    new headlineConfigurator({
+                    new Vue.extend(ccHeadlineConfigurator)({
                         parent: component
                     }).$mount().$appendTo(modal);
-                    // Get configurator and put into modal
-                    // component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
-                    //     if ( response.text ) {
-                    //         modal.innerHTML = response.text();
-                    //     }
-                    // } );
                 };
                 $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
             },
