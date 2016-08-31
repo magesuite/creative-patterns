@@ -507,6 +507,9 @@
             'cc-layout-builder__update': function () {
                 this.dumpConfiguration();
             },
+            'cc-headline-configurator__change': function (data) {
+                console.log(data);
+            }
         },
         methods: {
             /**
@@ -555,12 +558,19 @@
                     ],
                     opened: function () {
                         var modal = this;
-                        // Get configurator and put into modal
-                        component.$http.get("/admin/content-constructor/component/configurator/type/" + componentType).then(function (response) {
-                            if (response.text) {
-                                modal.innerHTML = response.text();
-                            }
+                        requirejs([("cc-" + componentType + "-configurator")], function (ccHeadlineConfigurator) {
+                            console.log(ccHeadlineConfigurator);
+                            var headlineConfigurator = Vue.extend(ccHeadlineConfigurator);
+                            new headlineConfigurator({
+                                parent: component
+                            }).$mount().$appendTo(modal);
                         });
+                        // Get configurator and put into modal
+                        // component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
+                        //     if ( response.text ) {
+                        //         modal.innerHTML = response.text();
+                        //     }
+                        // } );
                     }
                 });
             },

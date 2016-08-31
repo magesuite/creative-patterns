@@ -85,6 +85,9 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'cc-layout-builder__update': function(): void {
             this.dumpConfiguration();
         },
+        'cc-headline-configurator__change': function( data: any ): void {
+            console.log( data );
+        }
     },
     methods: {
         /**
@@ -135,12 +138,19 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 ],
                 opened: function(): void {
                     const modal: HTMLElement = this;
-                    // Get configurator and put into modal
-                    component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
-                        if ( response.text ) {
-                            modal.innerHTML = response.text();
-                        }
+                    requirejs( [ `cc-${componentType}-configurator` ], function( ccHeadlineConfigurator: any): void {
+                        console.log( ccHeadlineConfigurator );
+                        const headlineConfigurator: any = Vue.extend( ccHeadlineConfigurator );
+                        new headlineConfigurator( {
+                            parent: component
+                        } ).$mount().$appendTo( modal );
                     } );
+                    // Get configurator and put into modal
+                    // component.$http.get( `/admin/content-constructor/component/configurator/type/${componentType}` ).then( ( response: vuejs.HttpResponse ): void => {
+                    //     if ( response.text ) {
+                    //         modal.innerHTML = response.text();
+                    //     }
+                    // } );
                 }
             } );
         },
