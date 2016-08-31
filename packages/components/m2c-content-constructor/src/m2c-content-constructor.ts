@@ -145,7 +145,9 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             };
             configuratorModalOptions.opened = function(): void {
                 const modal: HTMLElement = this;
-                new Vue.extend( ccHeadlineConfigurator )( {
+
+                const headlineConfigurator: any = Vue.extend( ccHeadlineConfigurator );
+                new headlineConfigurator( {
                     parent: component
                 } ).$mount().$appendTo( modal );
             };

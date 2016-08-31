@@ -613,7 +613,8 @@
                 };
                 configuratorModalOptions.opened = function () {
                     var modal = this;
-                    new Vue.extend(ccHeadlineConfigurator)({
+                    var headlineConfigurator = Vue.extend(ccHeadlineConfigurator);
+                    new headlineConfigurator({
                         parent: component
                     }).$mount().$appendTo(modal);
                 };
