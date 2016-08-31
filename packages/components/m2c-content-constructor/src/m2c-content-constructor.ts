@@ -113,6 +113,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         },
         'cc-headline-configurator__change': function( data: any ): void {
             console.log( data );
+            this._currentConfiguratorData = data;
         }
     },
     methods: {
@@ -131,13 +132,13 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         getComponentConfigurator: function( componentType: string ): void {
             console.log( `Getting configurator for ${componentType} component.` );
             const component: any = this;
-
+            component._currentConfiguratorData = {};
             // Open configurator modal.
             configuratorModalOptions.buttons[1].click = function (): void {
-                component._addComponentInformation( {
-                    name: 'Nazwa komponentu',
-                    id: 'ID komponentu',
-                    settings: 'Nowe Jakieś ustawienia'
+                component._addComponentInformation(  {
+                    type: 'headline',
+                    id: 'component' + Math.floor( ( 1 + Math.random() ) * 0x10000 ).toString( 16 ).substring( 1 ),
+                    data: component._currentConfiguratorData
                 } );
 
                 this.closeModal();

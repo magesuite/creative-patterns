@@ -583,6 +583,7 @@
             },
             'cc-headline-configurator__change': function (data) {
                 console.log(data);
+                this._currentConfiguratorData = data;
             }
         },
         methods: {
@@ -601,12 +602,13 @@
             getComponentConfigurator: function (componentType) {
                 console.log("Getting configurator for " + componentType + " component.");
                 var component = this;
+                component._currentConfiguratorData = {};
                 // Open configurator modal.
                 configuratorModalOptions.buttons[1].click = function () {
                     component._addComponentInformation({
-                        name: 'Nazwa komponentu',
-                        id: 'ID komponentu',
-                        settings: 'Nowe Jakieś ustawienia'
+                        type: 'headline',
+                        id: 'component' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
+                        data: component._currentConfiguratorData
                     });
                     this.closeModal();
                     $pickerModal.closeModal();
