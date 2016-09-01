@@ -126,6 +126,18 @@
       }
     },
     {
+      "name": "cs-navigation",
+      "version": "0.0.1",
+      "description": "Navigation bar with 1st level categories",
+      "author": "Lukasz Ostrowski",
+      "license": "ISC",
+      "scripts": {
+        "build": "gulp build",
+        "selenium": "selenium-standalone install && selenium-standalone start",
+        "test": "gulp test"
+      }
+    },
+    {
       "name": "component-boilerplate",
       "version": "0.0.1",
       "description": "",
