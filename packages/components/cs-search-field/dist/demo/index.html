@@ -9,8 +9,15 @@
         <link rel="stylesheet" href="../cs-search-field.css">
     </head>
     <body>
-        {% include '../cs-search-field.twig' %}
-
+        <form class=" cs-search-field">
+    <input class="cs-search-field__input" id="searchField" name="fieldName">
+    <label for="searchField" class="cs-search-field__label">Suchbegriff...</label>
+    <button type="submit" class="cs-search-field__button">
+        <svg class="cs-search-field__icon">
+            <use xlink:href="/images/sprites.svg#icon-search"></use>
+        </svg>
+    </button>
+</form>
         <script   src="https://code.jquery.com/jquery-1.12.4.min.js"   integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="   crossorigin="anonymous"></script>
         <script src="../cs-search-field.js"></script>
     </body>

@@ -3,6 +3,61 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
+html, body {
+    font-size: 14px;
+}
 .cs-search-field {
+    font-size: 1em;
 
+    width: 30em;
+    display: flex;
+    height: 4em;
+    position: relative;
+    margin: 0 auto;
+
+    font-family: 'sans-serif';
+    border: 1px solid #555;
+
+    &__input {
+        flex-grow: 1;
+        line-height: 4em;
+        font-size: 1.5em;
+        padding: 0 1rem;
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__button {
+        font-size: inherit;
+        width: 4em;
+        height: 4em;
+        display: block;
+        background-color: #555;
+        outline: none;
+        border: none;
+        flex-shrink: 0;
+    }
+    &__label {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 1rem;
+        color: #555;
+        transition: 0.3s;
+
+        &--is-floating {
+            transform: translateY(-2em);
+            font-size: 0.7em;
+        }
+    }
+    &__icon {
+        width: 3em;
+        height: 3em;
+
+        fill: #eee;
+
+    }
 }
