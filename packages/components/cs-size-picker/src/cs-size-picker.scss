@@ -1,0 +1,40 @@
+// cs-size-picker
+// Size picker with hidden inputs for forms
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-size-picker {
+    $root: &;
+
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-family: 'sans-serif';
+    color: #fff;
+
+    &__item {
+        display: inline-block;
+        margin-right: 1em;
+    }
+    &__input {
+        display: none;
+
+        &:checked {
+            + #{$root}__label {
+                background: #314e6e;
+            }
+        }
+
+    }
+    &__label {
+        width: 3em;
+        line-height: 3em;
+        background-color: #999;
+        display: block;
+        text-align: center;
+        border-radius: 3em;
+
+        transition: 0.3s;
+        cursor: pointer;
+    }
+}

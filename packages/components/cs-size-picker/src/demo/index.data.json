@@ -1,0 +1,29 @@
+{
+  "name": "sizes",
+  "items": [
+    {
+      "value": "XS",
+      "id": "XS"
+    },
+    {
+      "value": "S",
+      "id": "S"
+    },
+    {
+      "value": "M",
+      "id": "M"
+    },
+    {
+      "value": "L",
+      "id": "L"
+    },
+    {
+      "value": "XL",
+      "id": "XL"
+    },
+    {
+      "value": "XXL",
+      "id": "XXL"
+    }
+  ]
+}
