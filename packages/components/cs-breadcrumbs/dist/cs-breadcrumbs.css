@@ -1,0 +1,2 @@
+.cs-breadcrumbs{list-style:none;padding:0;margin:0;font-size:1.5rem;font-family:sans-serif}.cs-breadcrumbs__step{display:inline-block;color:#888}.cs-breadcrumbs__step::after{content:'/';display:inline-block;margin:0 1rem}.cs-breadcrumbs__step:last-of-type{color:#111}.cs-breadcrumbs__link{text-decoration:none;color:inherit}
+/*# sourceMappingURL=cs-breadcrumbs.css.map */

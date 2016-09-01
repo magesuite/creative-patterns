@@ -1,0 +1,25 @@
+{
+  "path": [
+    {
+      "url": "#",
+      "label": "Computers"
+    },
+    {
+      "url": "#",
+      "label": "Laptops"
+    },
+    {
+      "url": "#",
+      "label": "Ultrabooks"
+    },
+    {
+      "url": "#",
+      "label": "Apple"
+    },
+    {
+      "url": "#",
+      "label": "Macbook Air"
+    }
+  ],
+  "mix": ""
+}
