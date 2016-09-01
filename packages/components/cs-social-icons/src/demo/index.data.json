@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "url": "",
+      "iconID": "icon-fb",
+      "mix": ""
+    },
+    {
+      "url": "",
+      "iconID": "icon-li",
+      "mix": ""
+    },
+    {
+      "url": "",
+      "iconID": "icon-google",
+      "mix": ""
+    }
+  ],
+  "mix": ""
+}
