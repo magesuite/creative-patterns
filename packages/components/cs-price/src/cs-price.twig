@@ -1,0 +1,20 @@
+<div class="{{ mix }} cs-price">
+    {% if old %}
+        <span class="cs-price__old">{{ old }}</span>
+    {% endif %}
+    {% if promo %}
+        <span class="cs-price__base cs-price__base--promo">
+                {{ base }}
+            <span class="cs-price__currency">
+                        {{ currency }}
+                </span>
+        </span>
+    {% else %}
+        <span class="cs-price__base cs-price__base--promo">
+                {{ base }}
+            <span class="cs-price__currency">
+                        {{ currency }}
+                </span>
+        </span>
+    {% endif %}
+</div>
