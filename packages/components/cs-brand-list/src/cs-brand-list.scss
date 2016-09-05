@@ -1,0 +1,23 @@
+// cs-brand-list
+// Horizontal list with logos
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-brand-list {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+
+    &__item {
+        padding: 1rem;
+    }
+    &__link {
+    }
+    &__image {
+        width: auto;
+    }
+}

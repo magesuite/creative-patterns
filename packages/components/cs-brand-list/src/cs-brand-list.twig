@@ -1,0 +1,9 @@
+<ul class="cs-brand-list">
+    {% for item in items %}
+        <li class="cs-brand-list__item">
+            <a class="cs-brand-list__link" href="{{ item.url }}">
+                <img class="cs-brand-list__image" src="{{ item.imageSrc }}">
+            </a>
+        </li>
+    {% endfor %}
+</ul>

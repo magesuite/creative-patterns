@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "url": "#",
+      "imageSrc": "../images/brand1.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand2.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand3.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand4.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand5.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand6.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand7.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand8.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand9.png"
+    },{
+      "url": "#",
+      "imageSrc": "../images/brand10.png"
+    }
+  ],
+  "mix": ""
+}
