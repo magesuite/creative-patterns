@@ -1,0 +1,65 @@
+<div class="{{ mix }} cs-product-tile">
+    <div class="cs-product-tile__wrapper">
+        <div class="cs-product-tile__photos">
+            <img src="{{ productImages[activeImage] }}" class="cs-product-tile__image">
+
+            {% include "../../cs-product-thumbnails/src/cs-product-thumbnails.twig" with {
+            "mix": "cs-product-tile__slider",
+            "thumbnails": [
+            {
+            "src": "../images/dildo1.png",
+            "alt": "dildo1",
+            "isSelected": true
+            },
+            {
+            "src": "../images/dildo2.png",
+            "alt": "dildo2"
+            },
+            {
+            "src": "../images/dildo3.png",
+            "alt": "dildo3"
+            }
+            ]
+            } %}
+
+        </div>
+
+        {% include "../../cs-product-label/src/cs-product-label.twig" with {
+        "mix": "cs-product-tile__label",
+        "label": label
+        } %}
+
+        {% include "../../cs-price/src/cs-price.twig" with {
+        "base": "199,99",
+        "old": "240,99",
+        "currency": "€",
+        "promo": true,
+        "mix": "cs-product-tile__price"
+        } %}
+
+
+        <div class="cs-product-tile__title">{{ title }}</div>
+
+        <div class="cs-product-tile__hidden-row">
+
+
+            {% include "../../cs-stars/src/cs-stars.twig" with {
+            "maxStars": 5,
+            "activeStars": 4,
+            "text": "(12)",
+            "target": "#",
+            "iconID": "icon-star",
+            "mix": "cs-product-tile__reviews"
+            } %}
+
+
+            {% include "../../cs-availability-info/src/cs-availability-info.twig" with {
+            "text": "Sofort verfügbar",
+            "type": "positive",
+            "mix": "cs-product-tile__availability"
+            } %}
+
+        </div>
+
+    </div>
+</div>
