@@ -1,0 +1,35 @@
+{
+  "name": "colors",
+  "items": [
+    {
+      "name": "red",
+      "color": "red",
+      "id": "1"
+    },
+    {
+      "name": "green",
+      "color": "green",
+      "id": "2"
+    },
+    {
+      "name": "blue",
+      "color": "blue",
+      "id": "3"
+    },
+    {
+      "name": "black",
+      "color": "#000",
+      "id": "4"
+    },
+    {
+      "name": "yellow",
+      "color": "yellow",
+      "id": "5"
+    },
+    {
+      "name": "orange",
+      "color": "orange",
+      "id": "6"
+    }
+  ]
+}

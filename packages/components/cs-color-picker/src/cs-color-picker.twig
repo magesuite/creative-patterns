@@ -1,0 +1,8 @@
+<ul class="{{ mix }} cs-color-picker">
+    {% for item in items %}
+        <li class="cs-color-picker__item">
+            <input name="{{ name }}" id="{{ item.id }}" class="cs-color-picker__input" type="radio">
+            <label for="{{ item.id }}" class="cs-color-picker__label" style="background-color: {{ item.color }}"></label>
+        </li>
+    {% endfor %}
+</ul>
