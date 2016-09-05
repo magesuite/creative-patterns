@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"cs-product-label.css","sourceRoot":"/source/","sourcesContent":[]}
+{"version":3,"sources":["../<input css 11>"],"names":[],"mappings":"AAAA,kBAAkB,mBAAmB,cAAc,2BAA2B,8BAA8B,cAAc,sBAAsB,CAAC,wBAAwB,WAAW,eAAe,CAAC","file":"cs-product-label.css","sourcesContent":[".cs-product-label{background:#8b0000;font-size:1em;border-top-left-radius:1em;border-bottom-left-radius:1em;padding:0 1em;font-family:sans-serif}.cs-product-label__text{color:#fff;line-height:2em}"],"sourceRoot":"/source/"}
