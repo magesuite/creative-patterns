@@ -1,0 +1,9 @@
+<ul class="{{ mix }} cs-product-thumbnails">
+    {% for thumbnail in thumbnails %}
+
+        <li class="cs-product-thumbnails__item {{ (thumbnail.isSelected) ? "cs-product-thumbnails__item--is-selected" : "" }}">
+            <img class="cs-product-thumbnails__image" src="{{ thumbnail.src }}" alt="{{ thumbnail.alt }}">
+        </li>
+
+    {% endfor %}
+</ul>
