@@ -5,17 +5,22 @@
         "type": "sprite",
         "content": "icon-tick"
       },
-      "text": "lorem ipsum"
+      "text": "lorem ipsum",
+      "url": "#"
     },
     {
       "icon": {
         "type": "character",
         "content": "□"
       },
-      "text": "lorem ipsum dolor"
+      "text": "lorem ipsum dolor",
+      "url": "#"
+    },
+    {
+      "text": "asd"
     }
   ],
   "settings": {
-    "order": "horizontal"
+    "order": "vertical"
   }
 }

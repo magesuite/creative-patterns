@@ -1,20 +1,26 @@
 <ul class="{{ mix }} cs-custom-list cs-custom-list--{{ settings.order }}">
     {% for contentItem in content %}
         <li class="cs-custom-list__item cs-custom-list__item--{{ settings.order }}">
-            {% if contentItem.icon.type == "sprite" %}
-                <svg class="cs-custom-list__icon">
-                    <use xlink:href="/images/sprites.svg#{{ contentItem.icon.content }}"></use>
-                </svg>
-            {% elseif contentItem.icon.type == "character" %}
-                <span class="cs-custom-list__prefix-character">
+
+            {% if contentItem.url %}
+            <a href="{{ contentItem.url }}" class="cs-custom-list__link">
+                {% endif %}
+
+                {% if contentItem.icon.type == "sprite" %}
+                    <svg class="cs-custom-list__icon">
+                        <use xlink:href="/images/sprites.svg#{{ contentItem.icon.content }}"></use>
+                    </svg>
+                {% elseif contentItem.icon.type == "character" %}
+                    <span class="cs-custom-list__prefix-character">
                             {{ contentItem.icon.content }}
                 </span>
+                {% endif %}
+
+                <span class="cs-custom-list__text">{{ contentItem.text }}</span>
+
+                {% if contentItem.url %}
+            </a>
             {% endif %}
-
-            <span class="cs-custom-list__text">{{ contentItem.text }}</span>
-
-
-
         </li>
     {% endfor %}
 </ul>
