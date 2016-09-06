@@ -1,0 +1,90 @@
+{
+  "sections": [
+    {
+      "template": false,
+      "headline": "Produkte",
+      "links": [
+        {
+          "text": "Toys",
+          "url": "#"
+        },
+        {
+          "text": "Bondage",
+          "url": "#"
+        },
+        {
+          "text": "Neu",
+          "url": "#"
+        },
+        {
+          "text": "Sale",
+          "url": "#"
+        },
+        {
+          "text": "Toys",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "template": false,
+      "headline": "Information",
+      "links": [
+        {
+          "text": "Toys",
+          "url": "#"
+        },
+        {
+          "text": "Bondage",
+          "url": "#"
+        },
+        {
+          "text": "Neu",
+          "url": "#"
+        },
+        {
+          "text": "Sale",
+          "url": "#"
+        },
+        {
+          "text": "Toys",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "template": false,
+      "headline": "Forum",
+      "links": [
+        {
+          "text": "Toys",
+          "url": "#"
+        },
+        {
+          "text": "Bondage",
+          "url": "#"
+        },
+        {
+          "text": "Neu",
+          "url": "#"
+        },
+        {
+          "text": "Sale",
+          "url": "#"
+        },
+        {
+          "text": "Toys",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "template": "",
+      "headline": "Newsletter"
+    },
+    {
+      "template": "",
+      "headline": "Social Media"
+    }
+  ]
+}
