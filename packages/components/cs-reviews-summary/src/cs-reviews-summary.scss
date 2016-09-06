@@ -3,6 +3,8 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
+@import "../../cs-progress-bar/src/cs-progress-bar";
+
 .cs-reviews-summary {
     font-size: 1rem;
     list-style: none;
@@ -12,21 +14,23 @@
     font-family: "sans-serif";
 
     &__item {
-    margin-bottom: 0.5em;
+        margin-bottom: 0.5em;
     }
 
     &__label {
         display: inline-block;
-
+        vertical-align: middle;
     }
 
     &__bar {
         display: inline-block;
+        vertical-align: middle;
 
     }
 
-    &__text {
+    &__number {
         display: inline-block;
+        vertical-align: middle;
     }
 
 }
