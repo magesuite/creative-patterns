@@ -37,15 +37,17 @@ var ccHeadlineConfigurator = (function () {
         },
         methods: {
             onChange: function (event) {
-                this.$dispatch('cc-headline-configurator__change', this._data);
+                var data = JSON.parse(JSON.stringify(this.$data));
+                this.$dispatch('cc-headline-configurator__change', data);
                 if (typeof this.change === 'function') {
-                    this.change(this._data);
+                    this.change(data);
                 }
             },
             onSave: function (event) {
-                this.$dispatch('cc-headline-configurator__save', this._data);
+                var data = JSON.parse(JSON.stringify(this.$data));
+                this.$dispatch('cc-headline-configurator__save', data);
                 if (typeof this.save === 'function') {
-                    this.save(this._data);
+                    this.save(data);
                 }
             }
         }
