@@ -198,9 +198,23 @@ $namespace: 'cs-' !default;
         }
     }
 
+    &--type-required {
+        #{$root}__label {
+            position: relative;
+
+            &:after {
+                position: absolute;
+                color: #c90000;
+                content: '*';
+                font-size: 1.35rem;
+                margin-left: 2px;
+                z-index: 1;
+                vertical-align: middle;
+            }
+        }
+    }
+
     + #{$root} {
         margin-top: 1rem;
     }
 }
-
-//@import 'mba-cs-input';
