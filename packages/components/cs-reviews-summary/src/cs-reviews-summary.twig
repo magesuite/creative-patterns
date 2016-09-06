@@ -1,0 +1,10 @@
+<ul class="{{ mix }} cs-reviews-summary">
+    {% for item in reviewsSummary %}
+        <li class="cs-reviews-summary__item">
+            <span class="cs-reviews-summary__label">{{ item.label }}</span>
+
+            <span class="cs-reviews-summary__number">{{ item.count }}</span>
+
+        </li>
+    {% endfor %}
+</ul>

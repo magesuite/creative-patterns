@@ -1,0 +1,32 @@
+// cs-reviews-summary
+// Contains summary of how many reviews are in each rating 
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-reviews-summary {
+    font-size: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    font-family: "sans-serif";
+
+    &__item {
+    margin-bottom: 0.5em;
+    }
+
+    &__label {
+        display: inline-block;
+
+    }
+
+    &__bar {
+        display: inline-block;
+
+    }
+
+    &__text {
+        display: inline-block;
+    }
+
+}
