@@ -3,7 +3,7 @@
 import Vue from 'Vue';
 import { layoutBuilder, IComponentInformation } from '../../cc-layout-builder/src/cc-layout-builder';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
-import ccHeadlineConfigurator from '../../cc-headline-configurator/src/cc-headline-configurator';
+import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
 import $ from 'jquery';
 import modal from 'Magento_Ui/js/modal/modal';
 import $t from 'mage/translate';
@@ -147,7 +147,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             configuratorModalOptions.opened = function(): void {
                 const modal: HTMLElement = this;
 
-                const headlineConfigurator: any = Vue.extend( ccHeadlineConfigurator );
+                const headlineConfigurator: any = Vue.extend( m2cHeadlineConfigurator );
                 new headlineConfigurator( {
                     parent: component
                 } ).$mount().$appendTo( modal );

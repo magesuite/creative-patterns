@@ -496,6 +496,12 @@
         }
     };
 
+    //import m2Iinput from '../../m2-input/src/m2-input';
+    var m2cHeadlineConfigurator = {
+        template: "<form class=\"m2c-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"m2-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"m2-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n    </form>",
+        mixins: [ccHeadlineConfigurator]
+    };
+
     // Use Vue resource
     Vue.use(vr);
     // Picker modal options
@@ -615,7 +621,7 @@
                 };
                 configuratorModalOptions.opened = function () {
                     var modal = this;
-                    var headlineConfigurator = Vue.extend(ccHeadlineConfigurator);
+                    var headlineConfigurator = Vue.extend(m2cHeadlineConfigurator);
                     new headlineConfigurator({
                         parent: component
                     }).$mount().$appendTo(modal);
