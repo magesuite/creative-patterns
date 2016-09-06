@@ -16,7 +16,12 @@
         margin: 0 auto;
     }
     &__content {
-        column-count: 4;
+        //column-count: 4;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex-wrap: wrap;
+        max-height: 220px;
     }
     &__section {
         break-inside: avoid-column;
