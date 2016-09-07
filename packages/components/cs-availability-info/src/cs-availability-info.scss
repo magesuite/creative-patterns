@@ -1,0 +1,25 @@
+// cs-availability-info
+// Message with availability of product
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-availability-info {
+    display: inline-block;
+    font-family: "sans-serif";
+    font-size: 1rem;
+
+    //Add types depending on project requirements
+    &--type {
+        &_positive {
+            color: green;
+        }
+        &_negative {
+            color: #666;
+        }
+
+    }
+
+    &__text {
+        display: block;
+    }
+}
