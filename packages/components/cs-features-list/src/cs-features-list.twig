@@ -1,0 +1,10 @@
+<ul class="cs-features-list">
+    {% for feature in features %}
+        <li class="cs-features-list__item">
+            <svg class="cs-features-list__icon">
+                <use xlink:href="/images/sprites.svg#{{ feature.icon.svgId }}"></use>
+            </svg>
+            <span class="cs-features-list__text">{{ feature.text }}</span>
+        </li>
+    {% endfor %}
+</ul>

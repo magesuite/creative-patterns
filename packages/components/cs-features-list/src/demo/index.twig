@@ -1,0 +1,36 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>cs-features-list component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../cs-features-list.css">
+</head>
+<body>
+
+{% include "../cs-features-list.twig" with {
+"features": [
+{
+"icon": {
+"svgId": "icon1"
+},
+"text": "Sofort lieferbar"
+},
+{
+"icon": {
+"svgId": "icon2"
+},
+"text": "Diskrete Verpackung"
+},
+{
+"icon": {
+"svgId": "icon3"
+},
+"text": "Kostenloser Versand"
+}
+]
+} %}
+</body>
+</html>
