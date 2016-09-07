@@ -1,7 +1,32 @@
 <ul class="cs-info-bar cs-info-bar--align_stretch">
-    {% for contentElement in content %}
-        <li class="cs-info-bar__item">
-            {% include contentElement.template %}
-        </li>
-    {% endfor %}
+    <li class="cs-info-bar__item">
+        {% include "../../cs-custom-list/src/cs-custom-list.twig" with {
+        "content": [
+        {
+        "icon": {
+        "type": "character",
+        "content": "✓"
+        },
+        "text": "Diskreter und schneller Versand"
+        },{
+        "icon": {
+        "type": "character",
+        "content": "✓"
+        },
+        "text": "Alle Anbegote Zzgl. Mwst."
+        },{
+        "icon": {
+        "type": "character",
+        "content": "✓"
+        },
+        "text": "24-Stunden Lieferung"
+        }
+
+        ],
+        "settings": {
+        "order": "horizontal"
+        },
+        "mix": "cs-info-bar__features"
+        } %}
+    </li>
 </ul>
