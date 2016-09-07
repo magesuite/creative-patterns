@@ -1,2 +1,2 @@
-.cs-stars__icon,.cs-stars__number{display:inline-block;vertical-align:middle}.cs-stars{color:inherit;text-decoration:none;font-size:1rem}.cs-stars__icon{width:1em;height:1em;fill:#444}.cs-stars__icon--active{fill:orange}.cs-stars__number{line-height:1;color:#555}
+.cs-stars__icon,.cs-stars__text{display:inline-block;vertical-align:middle}.cs-stars{text-decoration:none;font-size:1rem;color:#777}.cs-stars__icon{width:1em;height:1em;fill:#444}.cs-stars__icon--active{fill:orange}.cs-stars__text{line-height:1}
 /*# sourceMappingURL=cs-stars.css.map */
