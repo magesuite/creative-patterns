@@ -3,18 +3,16 @@
         <span class="cs-price__old">{{ old }}</span>
     {% endif %}
     {% if promo %}
-        <span class="cs-price__base cs-price__base--promo">
-                {{ base }}
-            <span class="cs-price__currency">
-                        {{ currency }}
-                </span>
+        <span class="cs-price__base cs-price__base--promo">{{ base }}<span
+                    class="cs-price__currency">{{ currency }}</span>
         </span>
     {% else %}
-        <span class="cs-price__base cs-price__base--promo">
-                {{ base }}
-            <span class="cs-price__currency">
-                        {{ currency }}
-                </span>
+        <span class="cs-price__base">{{ base }}<span class="cs-price__currency">{{ currency }}</span>
+        </span>
+    {% endif %}
+    {% if subText %}
+        <span class="cs-price__subtext">
+                {{ subText }}
         </span>
     {% endif %}
 </div>

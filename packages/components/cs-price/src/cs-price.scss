@@ -7,6 +7,7 @@
     font-size: 2rem;
     color: #111;
     display: block;
+    font-family: "sans-serif";
 
     &__old {
         display: block;
@@ -16,6 +17,7 @@
     }
     &__base {
         display: block;
+        font-weight: bold;
 
         &--promo {
             color: red;
@@ -26,5 +28,11 @@
         display: inline-block;
         font-size: 0.7em;
 
+    }
+
+    &__subtext {
+        font-size: 0.5em;
+        display: block;
+        color: #777;
     }
 }
