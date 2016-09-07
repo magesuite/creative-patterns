@@ -8,6 +8,7 @@ import $ from 'jquery';
 import modal from 'Magento_Ui/js/modal/modal';
 import $t from 'mage/translate';
 import vr from 'VueResource';
+import uiRegistry from 'uiRegistry';
 
 // Use Vue resource
 Vue.use( vr );
@@ -85,22 +86,9 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         configuration: {
             type: String,
             default: ''
-        },
-        /**
-         * Selector for an input which will hold current components' configuration.
-         */
-        configurationDump: {
-            type: String,
-            required: true,
-            validator: function ( selector: string ): boolean {
-                // Check if input exists. No jQuery, IE9+.
-                return document.querySelector( selector ) !== null;
-            }
         }
     },
     ready: function(): void {
-        // Let's save HTML element of provided input selector for further use. No jQuery, IE9+.
-        this.configurationDumpElement = document.querySelector( this.configurationDump );
         this.dumpConfiguration();
     },
     events: {
@@ -169,11 +157,12 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             } );
         },
         dumpConfiguration: function(): void {
-            if ( this.configurationDumpElement ) {
-                this.configurationDumpElement.value = JSON.stringify(
+            uiRegistry.get('cms_page_form.cms_page_form').source.set(
+                'data.components',
+                JSON.stringify(
                     this.$refs.layoutBuilder.getComponentInformation()
-                );
-            }
+                )
+            );
         },
     }
 };

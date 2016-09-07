@@ -1,14 +1,15 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('Vue'), require('jquery'), require('Magento_Ui/js/modal/modal'), require('mage/translate'), require('VueResource')) :
-    typeof define === 'function' && define.amd ? define('m2CContentConstructor', ['Vue', 'jquery', 'Magento_Ui/js/modal/modal', 'mage/translate', 'VueResource'], factory) :
-    (global.m2CContentConstructor = factory(global.Vue,global.$,global.modal,global.$t,global.vr));
-}(this, function (Vue,$,modal,$t,vr) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('Vue'), require('jquery'), require('Magento_Ui/js/modal/modal'), require('mage/translate'), require('VueResource'), require('uiRegistry')) :
+    typeof define === 'function' && define.amd ? define('m2CContentConstructor', ['Vue', 'jquery', 'Magento_Ui/js/modal/modal', 'mage/translate', 'VueResource', 'uiRegistry'], factory) :
+    (global.m2CContentConstructor = factory(global.Vue,global.$,global.modal,global.$t,global.vr,global.uiRegistry));
+}(this, function (Vue,$,modal,$t,vr,uiRegistry) { 'use strict';
 
     Vue = 'default' in Vue ? Vue['default'] : Vue;
     $ = 'default' in $ ? $['default'] : $;
     modal = 'default' in modal ? modal['default'] : modal;
     $t = 'default' in $t ? $t['default'] : $t;
     vr = 'default' in vr ? vr['default'] : vr;
+    uiRegistry = 'default' in uiRegistry ? uiRegistry['default'] : uiRegistry;
 
     /**
      * Action button component version.
@@ -563,22 +564,9 @@
             configuration: {
                 type: String,
                 default: ''
-            },
-            /**
-             * Selector for an input which will hold current components' configuration.
-             */
-            configurationDump: {
-                type: String,
-                required: true,
-                validator: function (selector) {
-                    // Check if input exists. No jQuery, IE9+.
-                    return document.querySelector(selector) !== null;
-                }
             }
         },
         ready: function () {
-            // Let's save HTML element of provided input selector for further use. No jQuery, IE9+.
-            this.configurationDumpElement = document.querySelector(this.configurationDump);
             this.dumpConfiguration();
         },
         events: {
@@ -644,9 +632,7 @@
                 });
             },
             dumpConfiguration: function () {
-                if (this.configurationDumpElement) {
-                    this.configurationDumpElement.value = JSON.stringify(this.$refs.layoutBuilder.getComponentInformation());
-                }
+                uiRegistry.get('cms_page_form.cms_page_form').source.set('data.components', JSON.stringify(this.$refs.layoutBuilder.getComponentInformation()));
             },
         }
     };
