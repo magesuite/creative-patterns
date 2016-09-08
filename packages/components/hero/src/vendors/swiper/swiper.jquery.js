@@ -1185,7 +1185,7 @@
             (s.params.touchEventsTarget === 'container' ? s.container : s.wrapper).addClass('swiper-wp8-' + s.params.direction);
         }
         
-        // Attach/detach events
+        // Attach/detach _events
         s.initEvents = function (detach) {
             var actionDom = detach ? 'off' : 'on';
             var action = detach ? 'removeEventListener' : 'addEventListener';
@@ -1668,7 +1668,7 @@
                             s.velocity = 0;
                         }
                         // this implies that the user stopped moving a finger then released.
-                        // There would be no events with distance zero, so the last event is stale.
+                        // There would be no _events with distance zero, so the last event is stale.
                         if (time > 150 || (new window.Date().getTime() - lastMoveEvent.time) > 300) {
                             s.velocity = 0;
                         }
@@ -3349,7 +3349,7 @@
                 s.params[eventName](arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]);
             }
             var i;
-            // Trigger events
+            // Trigger _events
             if (s.emitterEventListeners[eventName]) {
                 for (i = 0; i < s.emitterEventListeners[eventName].length; i++) {
                     s.emitterEventListeners[eventName][i](arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]);
