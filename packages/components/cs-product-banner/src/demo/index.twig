@@ -1,0 +1,24 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cs-product-banner component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cs-product-banner.css">
+    </head>
+    <body>
+    <style>
+        .demo__mix {
+            width: 300px;
+            height: 300px;
+            margin: 50px;
+        }
+    </style>
+    {% include "../cs-product-banner.twig" with {
+        "mix": "demo__mix"
+    } %}
+
+    </body>
+</html>

@@ -1,0 +1,12 @@
+<div class="{{ mix }} cs-product-banner">
+    <div class="cs-product-banner__wrapper">
+        {% set buttonText = button.text %}
+
+        <img class="cs-product-banner__image" src="{{ imageSrc }}" alt="{{ imageAlt }}">
+
+        {% include "../../action-button/src/action-button.twig" with {
+        "text":buttonText,
+        "mix": "cs-product-banner__button"
+        } %}
+    </div>
+</div>

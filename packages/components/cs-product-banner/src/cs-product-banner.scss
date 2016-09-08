@@ -1,0 +1,48 @@
+// cs-product-banner
+// Product tile to inline use with other products, but with static image and CTA button
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@import "../../action-button/src/action-button";
+
+.cs-product-banner {
+    position: relative;
+
+    &__wrapper {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+
+        &:hover {
+            margin-left: -1em;
+            margin-right: -1em;
+            margin-top: -1em;
+            margin-bottom: -1em;
+
+            box-shadow: 0 0 3px 1px rgba(0,0,0,0.4);
+        }
+    }
+
+    &__image {
+        display: block;
+        min-width: 100%;
+        max-width: 100%;
+        min-height: 100%;
+    }
+
+    &__button {
+        z-index: 1;
+        position: absolute;
+        bottom: 1em;
+        white-space: nowrap;
+        left: 50%;
+        transform: translateX(-50%);
+
+        background-color: lightpink;
+        border: 2px solid deeppink;
+
+    }
+}
