@@ -8,5 +8,5 @@
 
     exports.add = add;
 
-}((this.csProgressBar = this.csProgressBar || {})));
-//# sourceMappingURL=cs-progress-bar.js.map
+}((this.csReviewsSummary = this.csReviewsSummary || {})));
+//# sourceMappingURL=cs-reviews-summary.js.map

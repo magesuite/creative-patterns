@@ -1,0 +1,15 @@
+<ul class="{{ mix }} cs-reviews-summary">
+    {% for item in reviewsSummary %}
+        <li class="cs-reviews-summary__item">
+            <span class="cs-reviews-summary__label">{{ item.label }}</span>
+            {% include "../../cs-progress-bar/src/cs-progress-bar.twig" with {
+            "mix": "cs-reviews-summary__bar",
+            "progressBar": {
+            "value": item.percent
+            }
+            } %}
+            <span class="cs-reviews-summary__number">{{ item.count }}</span>
+
+        </li>
+    {% endfor %}
+</ul>
