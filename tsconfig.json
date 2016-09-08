@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "noImplicitAny": true,
-    "target": "es6",
+    "target": "es5",
     "moduleResolution": "node",
     "inlineSourceMap": true,
     "emitDecoratorMetadata": true,
@@ -13,7 +13,6 @@
   "filesGlob": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "!src/**/*.spec.ts",
     "node_modules/@types/**/*.ts"
   ],
   "atom": {
@@ -23,6 +22,10 @@
     "src/components/packages-list/packages-list.ts",
     "src/components/packages-search/packages-search.ts",
     "src/library.ts",
-    "node_modules/@types/jquery/index.d.ts"
+    "node_modules/@types/colors/index.d.ts",
+    "node_modules/@types/jquery/index.d.ts",
+    "node_modules/@types/node/index.d.ts",
+    "node_modules/@types/vinyl/index.d.ts",
+    "node_modules/@types/vinyl/node_modules/@types/node/index.d.ts"
   ]
 }

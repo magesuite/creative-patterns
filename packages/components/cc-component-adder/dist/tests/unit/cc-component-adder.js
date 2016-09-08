@@ -1,11 +1,7 @@
 (function (exports) {
 	'use strict';
 
-	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {}
-
-	function interopDefault(ex) {
-		return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex;
-	}
+	var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
 	function createCommonjsModule(fn, module) {
 		return module = { exports: {} }, fn(module, module.exports), module.exports;
@@ -9914,11 +9910,17 @@
 	module.exports = Vue;
 	});
 
-	var Vue = interopDefault(vue_common);
-
+	/**
+	 * Component controller component.
+	 * This component is responsible for displaying annd handling component adding button
+	 * @type {vuejs.ComponentOption} Vue component object.
+	 */
 	var componentAdder = {
-	    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-create\" @click=\"onCreateComponent\">\n            <slot name=\"cc-component-adder__button-create\"></slot>\n        </div>\n    </section>",
+	    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-create\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
 	    props: {
+	        /**
+	         * Class property support to enable BEM mixes.
+	         */
 	        class: {
 	            type: String,
 	            default: '',
@@ -9926,15 +9928,23 @@
 	                return value.replace('cc-component-adder', '');
 	            }
 	        },
+	        /**
+	         * Property containing callback triggered when user clicks "add component" button.
+	         */
 	        createComponent: {
 	            type: Function
 	        }
 	    },
 	    methods: {
+	        /**
+	         * "Add component" button click handler.
+	         * This handler triggers "cc-component-adder__create-component" event up the DOM chain when called.
+	         * @param {Event} event Click event object.
+	         */
 	        onCreateComponent: function (event) {
 	            this.$dispatch('cc-component-adder__create-component', event);
 	            if (typeof this.createComponent === 'function') {
-	                this.createComponent();
+	                this.createComponent(event);
 	            }
 	        }
 	    }
@@ -9956,24 +9966,34 @@
 	describe('Component controller Vue component', function () {
 	    var vm, spy, ref;
 	    beforeEach(function () {
-	        vm = new Vue({
-	            template: "<div>\n                <cc-component-adder v-ref:component>\n                    <div class=\"cc-component-controller__button\" slot=\"cc-component-controller__button-create\"></div>\n                </cc-component-adder>\n            </div>",
+	        // Create a spy that we will use to check if callbacks was called.
+	        spy = {
+	            propCallback: function () { return undefined; },
+	            eventCallback: function () { return undefined; }
+	        };
+	        spyOn(spy, 'propCallback');
+	        spyOn(spy, 'eventCallback');
+	        // Prepare Vue instance with a template.
+	        vm = new vue_common({
+	            template: "<div>\n                <cc-component-adder v-ref:component :create-component=\"propCallback\">\n                    <div class=\"cc-component-controller__button\" slot=\"cc-component-controller__button-create\"></div>\n                </cc-component-adder>\n            </div>",
 	            components: {
 	                'cc-component-adder': componentAdder
+	            },
+	            methods: {
+	                propCallback: spy.propCallback
 	            }
 	        }).$mount();
+	        // Get reference to component we want to test.
 	        ref = vm.$refs.component;
-	        spy = {
-	            callback: function () {
-	                return undefined;
-	            }
-	        };
-	        spyOn(spy, 'callback');
 	    });
 	    it('triggers create component event.', function () {
-	        vm.$on('cc-component-adder__create-component', spy.callback);
+	        vm.$on('cc-component-adder__create-component', spy.eventCallback);
 	        ref.onCreateComponent();
 	        expect(spy.callback).toHaveBeenCalled();
+	    });
+	    it('triggers create component callback.', function () {
+	        ref.onCreateComponent();
+	        expect(spy.propCallback).toHaveBeenCalled();
 	    });
 	});
 

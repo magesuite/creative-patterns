@@ -1,4 +1,4 @@
-var hero = (function ($,Swiper) {
+(function (exports,$,Swiper) {
     'use strict';
 
     $ = 'default' in $ ? $['default'] : $;
@@ -14,20 +14,20 @@ var hero = (function ($,Swiper) {
      * @param  {Object} settings Custom settings that will be passed along to Swiper.
      * @return {Object} New product slider object instance.
      */
-    let hero = function ($element, settings) {
+    var hero = function ($element, settings) {
         /**
          * Required variables initialization.
          */
         settings = settings || {};
-        let hero = this;
-        const heroName = 'm2c-hero';
-        const jsHeroName = 'js-hero';
-        const heroClass = `.${heroName}`;
-        const $heroWrapper = $element.find(`.${heroName}__wrapper`);
+        var hero = this;
+        var heroName = 'm2c-hero';
+        var jsHeroName = 'js-hero';
+        var heroClass = "." + heroName;
+        var $heroWrapper = $element.find("." + heroName + "__wrapper");
         /**
          * Holds current Swiper instance.
          */
-        let swiperInstance;
+        var swiperInstance;
         /**
          * Attaches component to HTML element.
          */
@@ -35,29 +35,29 @@ var hero = (function ($,Swiper) {
         /**
          * Contains current settings of slider.
          */
-        let currentSettings;
+        var currentSettings;
         /**
          * Default settings for Swiper.
          * @type {Object}
          */
-        const defaultSettings = {
-            slideClass: `${heroName}__slide`,
-            slideActiveClass: `${heroName}__slide--active`,
-            slideVisibleClass: `${heroName}__slide--visible`,
-            slideDuplicateClass: `${heroName}__slide--clone`,
-            slideNextClass: `${heroName}__button--next`,
-            slidePrevClass: `${heroName}__button--prev`,
-            wrapperClass: `${heroName}__slider`,
-            nextButton: $element.find(`${heroClass}__nav--next`)[0],
-            prevButton: $element.find(`${heroClass}__nav--prev`)[0],
+        var defaultSettings = {
+            slideClass: heroName + "__slide",
+            slideActiveClass: heroName + "__slide--active",
+            slideVisibleClass: heroName + "__slide--visible",
+            slideDuplicateClass: heroName + "__slide--clone",
+            slideNextClass: heroName + "__button--next",
+            slidePrevClass: heroName + "__button--prev",
+            wrapperClass: heroName + "__slider",
+            nextButton: $element.find(heroClass + "__nav--next")[0],
+            prevButton: $element.find(heroClass + "__nav--prev")[0],
             paginationBreakpoint: 5,
-            pagination: $element.find(`${heroClass}__pagination`),
+            pagination: $element.find(heroClass + "__pagination"),
             paginationElement: 'li',
             paginationBulletRender: function (index, className) {
-                return `<li class="${heroName}__pagination-item"><button class="${heroName}__pagination-button">${index + 1}</button></li>`;
+                return "<li class=\"" + heroName + "__pagination-item\"><button class=\"" + heroName + "__pagination-button\">" + (index + 1) + "</button></li>";
             },
-            bulletClass: `${heroName}__pagination-item`,
-            bulletActiveClass: `${heroName}__pagination-item--active`,
+            bulletClass: heroName + "__pagination-item",
+            bulletActiveClass: heroName + "__pagination-item--active",
             paginationClickable: true,
             spaceBetween: 5,
             slideMinWidth: 150,
@@ -69,7 +69,7 @@ var hero = (function ($,Swiper) {
             a11y: true,
         };
         currentSettings = $.extend(defaultSettings, settings);
-        swiperInstance = new Swiper($element.find(`.${heroName}__wrapper`), currentSettings);
+        swiperInstance = new Swiper($element.find("." + heroName + "__wrapper"), currentSettings);
         /**
          * Stop/Start autoplay on mouseover/mouseout
          */
@@ -105,7 +105,7 @@ var hero = (function ($,Swiper) {
         };
     };
 
-    return hero;
+    exports['default'] = hero;
 
-}($,Swiper));
+}((this.hero = this.hero || {}),jQuery,Swiper));
 //# sourceMappingURL=hero.js.map

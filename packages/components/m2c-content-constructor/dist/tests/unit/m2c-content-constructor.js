@@ -3,5 +3,5 @@
 
 
 
-}((this.m2CContentConstructor = this.m2CContentConstructor || {})));
+}((this.m2cContentConstructor = this.m2cContentConstructor || {})));
 //# sourceMappingURL=m2c-content-constructor.js.map

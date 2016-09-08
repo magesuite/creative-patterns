@@ -181,7 +181,11 @@
         template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>"
     };
 
+<<<<<<< a10bbeff52ebbb26a088f31f3fc914ec908f0e5a
     var template = "<section class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"component in components\">\n        <div class=\"cc-layout-builder__component\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_settings\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>{{ component.id }}</cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"components.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"/images/sprites.svg#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</section>\n";
+=======
+    var template = "<section class=\"cc-layout-builder | {{ class }}\"> <cc-component-adder> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> <template v-for=\"addedComponent in addedComponents\"> <div class=\"cc-layout-builder__component\"> <div class=\"cc-layout-builder__component-actions\"> <cc-component-actions> <template slot=\"cc-component-actions__top\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use> </svg> </button> </template> <template slot=\"cc-component-actions__bottom\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_settings\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use> </svg> </button> </template> </cc-component-actions> </div> <div class=\"cc-layout-builder__component-wrapper\"> <cc-component-placeholder>{{ addedComponent.id }}</cc-component-placeholder> </div> </div> <cc-component-adder v-if=\"addedComponents.length\"> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> </template> </section> ";
+>>>>>>> [pattern-library] Refactored more tasks, updated scripts building strategy.
 
     /**
      * Layout builder component.
@@ -250,8 +254,12 @@
              */
             addComponentInformation: function (index, componentInfo) {
                 if (componentInfo) {
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                     this.components.splice(index, 0, componentInfo);
                     this.$dispatch('cc-layout-builder__update');
+=======
+                    this.addedComponents.splice(index, 0, componentInfo);
+>>>>>>> [pattern-library] Starting point for tasks rework.
                 }
             },
             /**
@@ -262,6 +270,7 @@
              */
             setComponentInformation: function (index, componentInfo) {
                 if (componentInfo) {
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                     this.components.$set(index, componentInfo);
                     this.$dispatch('cc-layout-builder__update');
                 }
@@ -274,6 +283,12 @@
                 return JSON.parse(JSON.stringify(this.components));
             },
             /**
+=======
+                    this.addedComponents.$set(index, componentInfo);
+                }
+            },
+            /**
+>>>>>>> [pattern-library] Starting point for tasks rework.
              * Creates new component and adds it to a specified index.
              * This function calls callback specified by "add-component" property that
              * should return IComponentInformation.
@@ -281,15 +296,32 @@
              * @param {number} index New component's index in components array.
              */
             createNewComponent: function (index) {
+<<<<<<< 40d620f09551f64b4c6bda2401827be8ee5f2cee
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                 var _this = this;
+=======
+>>>>>>> [pattern-library] Starting point for tasks rework.
+=======
+                var _this = this;
+>>>>>>> Added tests tasks.
                 /**
                  * To allow both sync and async set of new component data we call
                  * provided handler with callback function.
                  * If handler doesn't return component information then it can still
                  * set it using given callback.
                  */
+<<<<<<< 40d620f09551f64b4c6bda2401827be8ee5f2cee
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                 var componentInfo = this.addComponent(function (asyncComponentInfo) {
                     _this.addComponentInformation(index, asyncComponentInfo);
+=======
+                const componentInfo = this.addComponent((asyncComponentInfo) => {
+                    this.addComponentInformation(index, asyncComponentInfo);
+>>>>>>> [pattern-library] Starting point for tasks rework.
+=======
+                var componentInfo = this.addComponent(function (asyncComponentInfo) {
+                    _this.addComponentInformation(index, asyncComponentInfo);
+>>>>>>> Added tests tasks.
                 });
                 this.addComponentInformation(index, componentInfo);
             },
@@ -301,17 +333,38 @@
              * @param {string} index: Component's index in array.
              */
             editComponentSettings: function (index) {
+<<<<<<< 40d620f09551f64b4c6bda2401827be8ee5f2cee
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                 var _this = this;
                 // Create a static, non-reactive copy of component data.
                 var componentInfo = JSON.parse(JSON.stringify(this.components[index]));
+=======
+                // Create a static, non-reactive copy of component data.
+                let componentInfo = JSON.parse(JSON.stringify(this.addedComponents[index]));
+>>>>>>> [pattern-library] Starting point for tasks rework.
+=======
+                var _this = this;
+                // Create a static, non-reactive copy of component data.
+                var componentInfo = JSON.parse(JSON.stringify(this.addedComponents[index]));
+>>>>>>> Added tests tasks.
                 /**
                  * To allow both sync and async set of new component data we call
                  * provided handler with current component data and callback function.
                  * If handler doesn't return component information then it can still
                  * set it using given callback.
                  */
+<<<<<<< 40d620f09551f64b4c6bda2401827be8ee5f2cee
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                 componentInfo = this.editComponent(componentInfo, function (asyncComponentInfo) {
                     _this.setComponentInformation(index, asyncComponentInfo);
+=======
+                componentInfo = this.editComponent(componentInfo, (asyncComponentInfo) => {
+                    this.setComponentInformation(index, asyncComponentInfo);
+>>>>>>> [pattern-library] Starting point for tasks rework.
+=======
+                componentInfo = this.editComponent(componentInfo, function (asyncComponentInfo) {
+                    _this.setComponentInformation(index, asyncComponentInfo);
+>>>>>>> Added tests tasks.
                 });
                 this.setComponentInformation(index, componentInfo);
             },
@@ -321,9 +374,19 @@
              */
             moveComponentUp: function (index) {
                 if (index > 0) {
+<<<<<<< 40d620f09551f64b4c6bda2401827be8ee5f2cee
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                     var previousComponent = this.components[index - 1];
                     this.components.$set(index - 1, this.components[index]);
                     this.components.$set(index, previousComponent);
+=======
+                    let previousComponent = this.addedComponents[index - 1];
+=======
+                    var previousComponent = this.addedComponents[index - 1];
+>>>>>>> Added tests tasks.
+                    this.addedComponents.$set(index - 1, this.addedComponents[index]);
+                    this.addedComponents.$set(index, previousComponent);
+>>>>>>> [pattern-library] Starting point for tasks rework.
                 }
             },
             /**
@@ -331,10 +394,17 @@
              * @param {number} index Component's index in array.
              */
             moveComponentDown: function (index) {
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                 if (index < this.components.length - 1) {
                     var previousComponent = this.components[index + 1];
                     this.components.$set(index + 1, this.components[index]);
                     this.components.$set(index, previousComponent);
+=======
+                if (index < this.addedComponents.length - 1) {
+                    var previousComponent = this.addedComponents[index + 1];
+                    this.addedComponents.$set(index + 1, this.addedComponents[index]);
+                    this.addedComponents.$set(index, previousComponent);
+>>>>>>> [pattern-library] Starting point for tasks rework.
                 }
             },
             /**
@@ -342,8 +412,17 @@
              * @param {number} index Component's index in array.
              */
             deleteComponent: function (index) {
+<<<<<<< 40d620f09551f64b4c6bda2401827be8ee5f2cee
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
                 if (confirm("Are you sure you want to remove this component?")) {
                     this.components.splice(index, 1);
+=======
+                if (confirm(`Are you sure you want to remove this component?`)) {
+=======
+                if (confirm("Are you sure you want to remove this component?")) {
+>>>>>>> Added tests tasks.
+                    this.addedComponents.splice(index, 1);
+>>>>>>> [pattern-library] Starting point for tasks rework.
                 }
             },
             /**
@@ -369,4 +448,8 @@
     exports.layoutBuilder = layoutBuilder;
 
 }((this.ccLayoutBuilder = this.ccLayoutBuilder || {})));
+<<<<<<< 3bf2a1fe022b06497a22f3df180cbfb07d547908
 //# sourceMappingURL=cc-layout-builder.js.map
+=======
+//# sourceMappingURL=cc-layout-builder.js.map
+>>>>>>> [pattern-library] Starting point for tasks rework.

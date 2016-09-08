@@ -1,4 +1,4 @@
-var actionButton = (function () {
+(function (exports) {
     'use strict';
 
     /**
@@ -7,10 +7,8 @@ var actionButton = (function () {
      *
      * @type {vuejs.ComponentOption} Vue component object.
      */
-    const actionButton = {
-        template: `<button class="action-button {{ class }}" @click="onClick">
-        <slot></slot>
-    </button>`,
+    var actionButton = {
+        template: "<button class=\"action-button {{ class }}\" @click=\"onClick\">\n        <slot></slot>\n    </button>",
         props: {
             /**
              * Class property support to enable BEM mixes.
@@ -38,7 +36,7 @@ var actionButton = (function () {
         }
     };
 
-    return actionButton;
+    exports['default'] = actionButton;
 
-}());
+}((this.actionButton = this.actionButton || {})));
 //# sourceMappingURL=action-button.js.map
