@@ -1,0 +1,39 @@
+// cs-footer
+// Basic footer 
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@import "../../cs-custom-list/src/cs-custom-list";
+
+.cs-footer {
+    font-size: 1rem;
+    background: #333;
+    color: #eee;
+    font-family: "sans-serif";
+
+    &__wrapper {
+        max-width: 90rem;
+        margin: 0 auto;
+    }
+    &__content {
+        //column-count: 4;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        flex-wrap: wrap;
+        max-height: 220px;
+    }
+    &__section {
+        break-inside: avoid-column;
+    }
+
+    &__headline {
+        text-transform: uppercase;
+        font-size: 1em;
+    }
+
+    &__links {
+        color: #ddd;
+        font-size: 0.8em;
+    }
+}

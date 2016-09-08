@@ -1,0 +1,23 @@
+<footer class="{{ mix }} cs-footer">
+    <div class="cs-footer__wrapper">
+        <div class="cs-footer__content">
+            {% for section in sections %}
+                <section class="cs-footer__section">
+                    <h1 class="cs-footer__headline">{{ section.headline }}</h1>
+
+                    {% if section.template == false %}
+                        {% set links = section.links %}
+
+
+                        {% include "../../cs-custom-list/src/cs-custom-list.twig" with {
+                        "mix": "cs-footer__links",
+                        "settings": "vertical",
+                        "content": links
+                        } %}
+
+                    {% endif %}
+                </section>
+            {% endfor %}
+        </div>
+    </div>
+</footer>
