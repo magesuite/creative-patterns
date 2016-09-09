@@ -1,7 +1,13 @@
 (function (exports) {
-	'use strict';
+'use strict';
 
+/*import { add } from '../../m2c-headline-configurator';
 
+describe( 'A suite is just a function', function(): void {
+  it( 'and so is a spec', function(): void {
+    expect( add( 1, 2 ) ).toBe( 3 );
+  } );
+} );*/
 
-}((this.m2CHeadlineConfigurator = this.m2CHeadlineConfigurator || {})));
+}((this.m2cHeadlineConfigurator = this.m2cHeadlineConfigurator || {})));
 //# sourceMappingURL=m2c-headline-configurator.js.map

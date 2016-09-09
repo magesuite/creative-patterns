@@ -14,8 +14,10 @@ import environment from './gulp/environment';
  */
 loadTasks( path.join( 'gulp', 'tasks' ) );
 
-
-gulp.task( 'build', ( callback ) => {
+/**
+ *  Task for cleaning and building entire pattern library.
+ */
+gulp.task( 'build', ( done ) => {
     sequence(
         [
             'packages:build:styles',
@@ -24,31 +26,14 @@ gulp.task( 'build', ( callback ) => {
             'packages:copy:assets',
             'packages:build:sprites:svg',
         ],
-        callback
+        done
     );
 } );
 
 /**
- *  Task for cleaning and building entire project.
+ *  Task for testing entire pattern library.
  */
-// gulp.task( 'build', ( callback ) => {
-//     sequence(
-//         'maintain:clean',
-//         [
-//             'build:library',
-//             'build:scripts',
-//             'build:styles',
-//             'build:templates',
-//             // 'build:tests.unit',
-//         ],
-//         callback
-//     );
-// } );
-
-/**
- *  Task for cleaning and building entire project.
- */
-gulp.task( 'test', ( callback ) => {
+gulp.task( 'test', ( done ) => {
     sequence(
         'build',
         [
@@ -57,19 +42,19 @@ gulp.task( 'test', ( callback ) => {
         ],
         'packages:test:unit',
         'packages:test:e2e',
-        callback
+        done
     );
 } );
 
 /**
- *  Task for cleaning and building entire project.
+ *  Task for serving files of the pattern library.
  */
-gulp.task( 'serve', ( callback ) => {
+gulp.task( 'serve', ( done ) => {
     environment.watch = true;
     sequence(
         'build',
         'packages:maintain:serve',
-        callback
+        done
     );
 } );
 

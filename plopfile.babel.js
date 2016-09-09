@@ -9,18 +9,37 @@ const templatesDir = 'templates/';
 module.exports = ( plop ) => {
 
     // We declare a new generator called "module"
-    plop.setGenerator( 'component', {
+    plop.setGenerator( 'package', {
 
         // Succintly describes what generator does.
-        description: 'Create a new awesome component.',
+        description: 'Create a new awesome package.',
 
         // Get inputs from the user.
         // That's Inquirer.js doing the job behind the hood.
         prompts: [
             {
+                type: 'list',
+                name: 'packageType',
+                message: 'What kind of package do you want to create?',
+                choices: [
+                    {
+                        name: 'Component',
+                        value: 'component',
+                    },
+                    {
+                        name: 'Customization',
+                        value: 'customization',
+                    },
+                    {
+                        name: 'Utility',
+                        value: 'utility',
+                    },
+                ],
+            },
+            {
                 type: 'input',
                 name: 'name',
-                message: 'What creative name did you invent for your component?',
+                message: 'What creative name did you invent for your package?',
                 validate: ( name ) => {
                     const minNameLength = 1;
                     if ( name && name.length >= minNameLength ) {
@@ -33,7 +52,7 @@ module.exports = ( plop ) => {
             {
                 type: 'input',
                 name: 'description',
-                message: 'Could you give me a simple description of your new component?',
+                message: 'Could you give me a simple description of your new package?',
             },
             {
                 type: 'input',

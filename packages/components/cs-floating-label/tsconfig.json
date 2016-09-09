@@ -19,8 +19,8 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "src/seed.ts",
-    "src/tests/e2e/seed.ts",
-    "src/tests/unit/seed.ts"
+    "src/cs-floating-label.ts",
+    "src/tests/e2e/cs-floating-label.ts",
+    "src/tests/unit/cs-floating-label.ts"
   ]
 }

@@ -1,12 +1,12 @@
 (function (exports) {
-    'use strict';
+'use strict';
 
-    function add(a, b) {
-        return a + b;
-    }
-    ;
+function add(a, b) {
+    return a + b;
+}
+;
 
-    exports.add = add;
+exports.add = add;
 
 }((this.csInput = this.csInput || {})));
 //# sourceMappingURL=cs-input.js.map

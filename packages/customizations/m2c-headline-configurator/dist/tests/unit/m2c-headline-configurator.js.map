@@ -1,1 +1,1 @@
-{"version":3,"file":null,"sources":[],"sourcesContent":[],"names":[],"mappings":";;;;;"}
+{"version":3,"file":null,"sources":["../../../src/tests/unit/m2c-headline-configurator.ts"],"sourcesContent":["/*import { add } from '../../m2c-headline-configurator';\n\ndescribe( 'A suite is just a function', function(): void {\n  it( 'and so is a spec', function(): void {\n    expect( add( 1, 2 ) ).toBe( 3 );\n  } );\n} );*/\n"],"names":[],"mappings":";;;AAAA;;;;;;MAMM;;"}

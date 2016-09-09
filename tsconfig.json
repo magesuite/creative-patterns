@@ -14,6 +14,9 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "node_modules/@types/**/*.ts"
+    "packages/*/*/src/**/*.ts",
+    "packages/*/*/src/**/*.tsx",
+    "packages/*/*/node_modules/@types/**/*.ts"
   ],
   "atom": {
     "rewriteTsconfig": true
