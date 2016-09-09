@@ -20,14 +20,14 @@ var componentAdder = {
             default: '',
             coerce: function (value) {
                 return value.replace('cc-component-adder', '');
-            }
+            },
         },
         /**
          * Property containing callback triggered when user clicks "add component" button.
          */
         createComponent: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     methods: {
         /**
@@ -40,8 +40,8 @@ var componentAdder = {
             if (typeof this.createComponent === 'function') {
                 this.createComponent(event);
             }
-        }
-    }
+        },
+    },
 };
 
 return componentAdder;

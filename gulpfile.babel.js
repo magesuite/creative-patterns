@@ -31,6 +31,17 @@ gulp.task( 'build', ( done ) => {
 } );
 
 /**
+ *  Task for linting entire pattern library.
+ */
+gulp.task( 'lint', ( done ) => {
+    sequence(
+        'packages:lint:scripts',
+        'packages:lint:styles',
+        done
+    );
+} );
+
+/**
  *  Task for testing entire pattern library.
  */
 gulp.task( 'test', ( done ) => {
@@ -56,6 +67,19 @@ gulp.task( 'serve', ( done ) => {
         'packages:maintain:serve',
         done
     );
+} );
+
+/**
+ * Lint and test code before pushig to main repo.
+ */
+gulp.task( 'pre-push', ( done ) => {
+    // Too many errors to fix at once.
+    // Allow to push for now.
+    // sequence(
+    //     'lint',
+    //     'test',
+    //     done
+    // );
 } );
 
 /**

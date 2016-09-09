@@ -19,9 +19,9 @@ var csButton = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
-        }
-    }
+            default: '',
+        },
+    },
 };
 
 return csButton;

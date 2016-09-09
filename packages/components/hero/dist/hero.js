@@ -69,7 +69,7 @@ var hero = function ($element, settings) {
         loopedSlides: 2,
         loopAdditionalSlides: 2,
         autoplayDisableOnInteraction: false,
-        a11y: true
+        a11y: true,
     };
     currentSettings = $.extend(defaultSettings, settings);
     swiperInstance = new Swiper($element.find("." + heroName + "__wrapper"), currentSettings);
@@ -82,7 +82,7 @@ var hero = function ($element, settings) {
         },
         mouseout: function () {
             swiperInstance.startAutoplay();
-        }
+        },
     });
     /**
      * Returns Swiper object.

@@ -12,7 +12,7 @@ var template = "<section class=\"cc-component-picker | {{ class }}\"> <ul class=
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccComponentPicker = {
-    template: template,
+    template,
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -20,32 +20,32 @@ var ccComponentPicker = {
         class: {
             type: String,
             default: '',
-            coerce: function (value) { return value.replace('cc-component-picker', ''); }
+            coerce: function (value) { return value.replace('cc-component-picker', ''); },
         },
         /**
          * Property containing callback triggered when user picks component.
          */
         pickComponent: {
-            type: Function
+            type: Function,
         },
         /**
          * JSON stringified array containing available components.
          */
         components: {
             type: String,
-            default: ''
+            default: '',
         },
         /**
          * URL for API returning JSON stringified array containing available components.
          */
         componentsEndpoint: {
             type: String,
-            default: ''
+            default: '',
         }
     },
     data: function () {
         return {
-            availableComponents: []
+            availableComponents: [],
         };
     },
     ready: function () {
@@ -72,8 +72,8 @@ var ccComponentPicker = {
             if (typeof this.pickComponent === 'function') {
                 this.pickComponent(componentType);
             }
-        }
-    }
+        },
+    },
 };
 
 return ccComponentPicker;

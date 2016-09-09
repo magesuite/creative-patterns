@@ -22,7 +22,7 @@ export class NavigationToggle implements INavigationToggle {
     private _navGroup: string = '';
     private _flyout: Object;
 
-    constructor(settings) {
+    constructor( settings ) {
         this.classes = {};
         this.classes.active = settings.classes.active;
 
@@ -30,7 +30,7 @@ export class NavigationToggle implements INavigationToggle {
 
         this._dataNavGroupAttribute = 'data-nav-group';
 
-        if(settings.hasFlyout){
+        if ( settings.hasFlyout ) {
             this._hasFlyout = settings.hasFlyout;
         }
 

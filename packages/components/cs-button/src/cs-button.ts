@@ -15,9 +15,9 @@ const csButton: vuejs.ComponentOption = {
          */
         class: {
             type: [ String, Object, Array ],
-            default: ''
-        }
-    }
+            default: '',
+        },
+    },
 };
 
 export default csButton;

@@ -1,17 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define('csSizePicker', ['exports'], factory) :
-    (factory((global.csSizePicker = global.csSizePicker || {})));
-}(this, (function (exports) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof define === 'function' && define.amd ? define('csSizePicker', factory) :
+	(factory());
+}(this, (function () { 'use strict';
 
-function add(a, b) {
-    return a + b;
-}
-;
 
-exports.add = add;
-
-Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 //# sourceMappingURL=cs-size-picker.js.map

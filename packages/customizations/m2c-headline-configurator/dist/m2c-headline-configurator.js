@@ -17,25 +17,25 @@ var ccHeadlineConfigurator = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
+            default: '',
         },
         /**
          * Property containing callback triggered when user saves component.
          */
         save: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when configuration is changed.
          */
         change: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     data: function () {
         return {
             title: '',
-            subtitle: ''
+            subtitle: '',
         };
     },
     methods: {
@@ -52,14 +52,16 @@ var ccHeadlineConfigurator = {
             if (typeof this.save === 'function') {
                 this.save(data);
             }
-        }
-    }
+        },
+    },
 };
 
 //import m2Iinput from '../../m2-input/src/m2-input';
 var m2cHeadlineConfigurator = {
     template: "<form class=\"m2c-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"m2-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"m2-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n    </form>",
-    mixins: [ccHeadlineConfigurator]
+    mixins: [
+        ccHeadlineConfigurator,
+    ],
 };
 
 return m2cHeadlineConfigurator;

@@ -22,7 +22,6 @@
     "src/m2c-component-picker.ts",
     "src/tests/e2e/m2c-component-picker.ts",
     "src/tests/unit/m2c-component-picker.ts",
-    "node_modules/@types/jasmine/index.d.ts",
     "node_modules/@types/vue-resource/index.d.ts",
     "node_modules/@types/vue/index.d.ts"
   ]

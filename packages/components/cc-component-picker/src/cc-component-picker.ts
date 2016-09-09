@@ -31,7 +31,7 @@ interface IComponentsInformation {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 const ccComponentPicker: vuejs.ComponentOption = {
-    template: template,
+    template,
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -39,35 +39,35 @@ const ccComponentPicker: vuejs.ComponentOption = {
         class: {
             type: String,
             default: '',
-            coerce: ( value: String ): String => value.replace( 'cc-component-picker', '' )
+            coerce: ( value: String ): String => value.replace( 'cc-component-picker', '' ),
         },
         /**
          * Property containing callback triggered when user picks component.
          */
         pickComponent: {
-            type: Function
+            type: Function,
         },
         /**
          * JSON stringified array containing available components.
          */
         components: {
             type: String,
-            default: ''
+            default: '',
         },
         /**
          * URL for API returning JSON stringified array containing available components.
          */
         componentsEndpoint: {
             type: String,
-            default: ''
+            default: '',
         }
     },
-    data: function(): any {
+    data(): any {
         return {
-            availableComponents: []
+            availableComponents: [],
         };
     },
-    ready: function(): void {
+    ready(): void {
         // If inline JSON is provided then parse it.
         if ( this.components ) {
             this.availableComponents = JSON.parse( this.components );
@@ -84,14 +84,14 @@ const ccComponentPicker: vuejs.ComponentOption = {
          * This handler triggers "cc-component-picker__pick" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onPickComponent: function ( componentType: String ): void {
+        onPickComponent( componentType: String ): void {
             console.log( `Component ${componentType} picked.` );
             this.$dispatch( 'cc-component-picker__pick', componentType );
 
             if ( typeof this.pickComponent === 'function' ) {
                 this.pickComponent( componentType );
             }
-        }
+        },
     },
 };
 

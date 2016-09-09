@@ -1,15 +1,147 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('Vue'), require('jquery'), require('Magento_Ui/js/modal/modal'), require('mage/translate'), require('VueResource'), require('uiRegistry')) :
-    typeof define === 'function' && define.amd ? define('m2cContentConstructor', ['Vue', 'jquery', 'Magento_Ui/js/modal/modal', 'mage/translate', 'VueResource', 'uiRegistry'], factory) :
-    (global.m2cContentConstructor = factory(global.Vue,global.$,global.modal,global.$t,global.vr,global.uiRegistry));
-}(this, (function (Vue,$,modal,$t,vr,uiRegistry) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('Magento_Ui/js/modal/modal'), require('Vue'), require('VueResource'), require('jquery'), require('mage/translate'), require('uiRegistry')) :
+    typeof define === 'function' && define.amd ? define('m2cContentConstructor', ['Magento_Ui/js/modal/modal', 'Vue', 'VueResource', 'jquery', 'mage/translate', 'uiRegistry'], factory) :
+    (global.m2cContentConstructor = factory(global.modal,global.Vue,global.vr,global.$,global.$t,global.uiRegistry));
+}(this, (function (modal,Vue,vr,$,$t,uiRegistry) { 'use strict';
 
-Vue = 'default' in Vue ? Vue['default'] : Vue;
-$ = 'default' in $ ? $['default'] : $;
 modal = 'default' in modal ? modal['default'] : modal;
-$t = 'default' in $t ? $t['default'] : $t;
+Vue = 'default' in Vue ? Vue['default'] : Vue;
 vr = 'default' in vr ? vr['default'] : vr;
+$ = 'default' in $ ? $['default'] : $;
+$t = 'default' in $t ? $t['default'] : $t;
 uiRegistry = 'default' in uiRegistry ? uiRegistry['default'] : uiRegistry;
+
+/**
+ * Headline configurator component.
+ * This component is responsible for displaying headlines configuration form
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccHeadlineConfigurator = {
+    template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+        /**
+         * Property containing callback triggered when user saves component.
+         */
+        save: {
+            type: Function,
+        },
+        /**
+         * Property containing callback triggered when configuration is changed.
+         */
+        change: {
+            type: Function,
+        },
+    },
+    data: function () {
+        return {
+            title: '',
+            subtitle: '',
+        };
+    },
+    methods: {
+        onChange: function (event) {
+            var data = JSON.parse(JSON.stringify(this.$data));
+            this.$dispatch('cc-headline-configurator__change', data);
+            if (typeof this.change === 'function') {
+                this.change(data);
+            }
+        },
+        onSave: function (event) {
+            var data = JSON.parse(JSON.stringify(this.$data));
+            this.$dispatch('cc-headline-configurator__save', data);
+            if (typeof this.save === 'function') {
+                this.save(data);
+            }
+        },
+    },
+};
+
+//import m2Iinput from '../../m2-input/src/m2-input';
+var m2cHeadlineConfigurator = {
+    template: "<form class=\"m2c-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"m2-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"m2-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n    </form>",
+    mixins: [
+        ccHeadlineConfigurator,
+    ],
+};
+
+var template = "<section class=\"cc-component-picker | {{ class }}\"> <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\"> <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\"> <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\"> <figure class=\"cc-component-picker__component-figure\"> <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\"> <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption> </figure> </a> </li> </ul> <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\"> No components available. </p> </section> ";
+
+/**
+ * Componen picker.
+ * Lists all types of components available in m2c in the grid/list mode
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentPicker = {
+    template,
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: String,
+            default: '',
+            coerce: function (value) { return value.replace('cc-component-picker', ''); },
+        },
+        /**
+         * Property containing callback triggered when user picks component.
+         */
+        pickComponent: {
+            type: Function,
+        },
+        /**
+         * JSON stringified array containing available components.
+         */
+        components: {
+            type: String,
+            default: '',
+        },
+        /**
+         * URL for API returning JSON stringified array containing available components.
+         */
+        componentsEndpoint: {
+            type: String,
+            default: '',
+        }
+    },
+    data: function () {
+        return {
+            availableComponents: [],
+        };
+    },
+    ready: function () {
+        // If inline JSON is provided then parse it.
+        if (this.components) {
+            this.availableComponents = JSON.parse(this.components);
+        }
+        else if (this.componentsEndpoint) {
+            // Otherwise load from endpoint if URL provided.
+            this.$http.get(this.componentsEndpoint).then(function (response) {
+                this.availableComponents = response.json();
+            });
+        }
+    },
+    methods: {
+        /**
+         * Component pick click handler.
+         * This handler triggers "cc-component-picker__pick" event up the DOM chain when called.
+         * @param {Event} event Click event object.
+         */
+        onPickComponent: function (componentType) {
+            console.log("Component " + componentType + " picked.");
+            this.$dispatch('cc-component-picker__pick', componentType);
+            if (typeof this.pickComponent === 'function') {
+                this.pickComponent(componentType);
+            }
+        },
+    },
+};
 
 /**
  * Action button component version.
@@ -25,14 +157,14 @@ var actionButton = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
+            default: '',
         },
         iconId: {
-            type: String
+            type: String,
         },
         iconClasses: {
-            type: String
-        }
+            type: String,
+        },
     },
     methods: {
         /**
@@ -42,48 +174,8 @@ var actionButton = {
          */
         onClick: function (event) {
             this.$dispatch('action-button__click', event);
-        }
-    }
-};
-
-/**
- * Component controller component.
- * This component is responsible for displaying annd handling component adding button
- * @type {vuejs.ComponentOption} Vue component object.
- */
-var componentAdder = {
-    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-create\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
-    props: {
-        /**
-         * Class property support to enable BEM mixes.
-         */
-        class: {
-            type: String,
-            default: '',
-            coerce: function (value) {
-                return value.replace('cc-component-adder', '');
-            }
         },
-        /**
-         * Property containing callback triggered when user clicks "add component" button.
-         */
-        createComponent: {
-            type: Function
-        }
     },
-    methods: {
-        /**
-         * "Add component" button click handler.
-         * This handler triggers "cc-component-adder__create-component" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onCreateComponent: function (event) {
-            this.$dispatch('cc-component-adder__create-component', event);
-            if (typeof this.createComponent === 'function') {
-                this.createComponent(event);
-            }
-        }
-    }
 };
 
 /**
@@ -100,7 +192,7 @@ var componentAdder = {
 var componentActions = {
     template: "<aside class=\"cc-component-actions | {{ class }}\">\n        <div class=\"cc-component-actions__top\">\n            <slot name=\"cc-component-actions__top\"></slot>\n        </div>\n        <div class=\"cc-component-actions__bottom\">\n            <slot name=\"cc-component-actions__bottom\"></slot>\n        </div>\n    </aside>",
     components: {
-        'action-button': actionButton
+        'action-button': actionButton,
     },
     props: {
         /**
@@ -109,32 +201,32 @@ var componentActions = {
         class: {
             type: String,
             default: '',
-            coerce: function (value) { return value.replace('cc-component-actions', ''); }
+            coerce: function (value) { return value.replace('cc-component-actions', ''); },
         },
         /**
          * Property containing callback triggered when user clicks move up button.
          */
         moveUp: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks move down button.
          */
         moveDown: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks settings button.
          */
         openSettings: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks delete button.
          */
         deleteComponent: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     methods: {
         /**
@@ -180,18 +272,58 @@ var componentActions = {
             if (typeof this.deleteComponent === 'function') {
                 this.deleteComponent(event);
             }
-        }
-    }
+        },
+    },
+};
+
+/**
+ * Component controller component.
+ * This component is responsible for displaying annd handling component adding button
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var componentAdder = {
+    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-create\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: String,
+            default: '',
+            coerce: function (value) {
+                return value.replace('cc-component-adder', '');
+            },
+        },
+        /**
+         * Property containing callback triggered when user clicks "add component" button.
+         */
+        createComponent: {
+            type: Function,
+        },
+    },
+    methods: {
+        /**
+         * "Add component" button click handler.
+         * This handler triggers "cc-component-adder__create-component" event up the DOM chain when called.
+         * @param {Event} event Click event object.
+         */
+        onCreateComponent: function (event) {
+            this.$dispatch('cc-component-adder__create-component', event);
+            if (typeof this.createComponent === 'function') {
+                this.createComponent(event);
+            }
+        },
+    },
 };
 
 /**
  * Component placeholder component.
  */
 var componentPlaceholder = {
-    template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>"
+    template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>",
 };
 
-var template = "<section class=\"cc-layout-builder | {{ class }}\"> <cc-component-adder> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> <template v-for=\"component in components\"> <div class=\"cc-layout-builder__component\"> <div class=\"cc-layout-builder__component-actions\"> <cc-component-actions> <template slot=\"cc-component-actions__top\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use> </svg> </button> </template> <template slot=\"cc-component-actions__bottom\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_settings\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use> </svg> </button> </template> </cc-component-actions> </div> <div class=\"cc-layout-builder__component-wrapper\"> <cc-component-placeholder>{{ component.id }}</cc-component-placeholder> </div> </div> <cc-component-adder v-if=\"components.length\"> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> </template> </section> ";
+var template$1 = "<section class=\"cc-layout-builder | {{ class }}\"> <cc-component-adder> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> <template v-for=\"component in components\"> <div class=\"cc-layout-builder__component\"> <div class=\"cc-layout-builder__component-actions\"> <cc-component-actions> <template slot=\"cc-component-actions__top\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use> </svg> </button> </template> <template slot=\"cc-component-actions__bottom\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_settings\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use> </svg> </button> </template> </cc-component-actions> </div> <div class=\"cc-layout-builder__component-wrapper\"> <cc-component-placeholder>{{ component.id }}</cc-component-placeholder> </div> </div> <cc-component-adder v-if=\"components.length\"> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> </template> </section> ";
 
 /**
  * Layout builder component.
@@ -200,7 +332,7 @@ var template = "<section class=\"cc-layout-builder | {{ class }}\"> <cc-componen
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var layoutBuilder = {
-    template: template,
+    template: template$1,
     /**
      * Get dependencies
      */
@@ -208,7 +340,7 @@ var layoutBuilder = {
         'action-button': actionButton,
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
-        'cc-component-placeholder': componentPlaceholder
+        'cc-component-placeholder': componentPlaceholder,
     },
     props: {
         /**
@@ -216,11 +348,11 @@ var layoutBuilder = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
+            default: '',
         },
         componentsConfiguration: {
             type: String,
-            default: ''
+            default: '',
         },
         /**
          * Callback invoked when edit component button is clicked.
@@ -229,7 +361,7 @@ var layoutBuilder = {
          */
         editComponent: {
             type: Function,
-            default: function (componentInfo) { return componentInfo; }
+            default: function (componentInfo) { return componentInfo; },
         },
         /**
          * Callback invoked when edit component button is clicked.
@@ -238,12 +370,12 @@ var layoutBuilder = {
          */
         addComponent: {
             type: Function,
-            default: function () { return undefined; }
-        }
+            default: function () { return undefined; },
+        },
     },
     data: function () {
         return {
-            components: []
+            components: [],
         };
     },
     ready: function () {
@@ -371,141 +503,10 @@ var layoutBuilder = {
          */
         isLastComponent: function (index) {
             return index === this.components.length - 1;
-        }
-    }
+        },
+    },
 };
 
-var template$1 = "<section class=\"cc-component-picker | {{ class }}\"> <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\"> <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\"> <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\"> <figure class=\"cc-component-picker__component-figure\"> <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\"> <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption> </figure> </a> </li> </ul> <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\"> No components available. </p> </section> ";
-
-/**
- * Componen picker.
- * Lists all types of components available in m2c in the grid/list mode
- * @type {vuejs.ComponentOption} Vue component object.
- */
-var ccComponentPicker = {
-    template: template$1,
-    props: {
-        /**
-         * Class property support to enable BEM mixes.
-         */
-        class: {
-            type: String,
-            default: '',
-            coerce: function (value) { return value.replace('cc-component-picker', ''); }
-        },
-        /**
-         * Property containing callback triggered when user picks component.
-         */
-        pickComponent: {
-            type: Function
-        },
-        /**
-         * JSON stringified array containing available components.
-         */
-        components: {
-            type: String,
-            default: ''
-        },
-        /**
-         * URL for API returning JSON stringified array containing available components.
-         */
-        componentsEndpoint: {
-            type: String,
-            default: ''
-        }
-    },
-    data: function () {
-        return {
-            availableComponents: []
-        };
-    },
-    ready: function () {
-        // If inline JSON is provided then parse it.
-        if (this.components) {
-            this.availableComponents = JSON.parse(this.components);
-        }
-        else if (this.componentsEndpoint) {
-            // Otherwise load from endpoint if URL provided.
-            this.$http.get(this.componentsEndpoint).then(function (response) {
-                this.availableComponents = response.json();
-            });
-        }
-    },
-    methods: {
-        /**
-         * Component pick click handler.
-         * This handler triggers "cc-component-picker__pick" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onPickComponent: function (componentType) {
-            console.log("Component " + componentType + " picked.");
-            this.$dispatch('cc-component-picker__pick', componentType);
-            if (typeof this.pickComponent === 'function') {
-                this.pickComponent(componentType);
-            }
-        }
-    }
-};
-
-/**
- * Headline configurator component.
- * This component is responsible for displaying headlines configuration form
- * @type {vuejs.ComponentOption} Vue component object.
- */
-var ccHeadlineConfigurator = {
-    template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
-    props: {
-        /**
-         * Class property support to enable BEM mixes.
-         */
-        class: {
-            type: [String, Object, Array],
-            default: ''
-        },
-        /**
-         * Property containing callback triggered when user saves component.
-         */
-        save: {
-            type: Function
-        },
-        /**
-         * Property containing callback triggered when configuration is changed.
-         */
-        change: {
-            type: Function
-        }
-    },
-    data: function () {
-        return {
-            title: '',
-            subtitle: ''
-        };
-    },
-    methods: {
-        onChange: function (event) {
-            var data = JSON.parse(JSON.stringify(this.$data));
-            this.$dispatch('cc-headline-configurator__change', data);
-            if (typeof this.change === 'function') {
-                this.change(data);
-            }
-        },
-        onSave: function (event) {
-            var data = JSON.parse(JSON.stringify(this.$data));
-            this.$dispatch('cc-headline-configurator__save', data);
-            if (typeof this.save === 'function') {
-                this.save(data);
-            }
-        }
-    }
-};
-
-//import m2Iinput from '../../m2-input/src/m2-input';
-var m2cHeadlineConfigurator = {
-    template: "<form class=\"m2c-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"m2-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"m2-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n    </form>",
-    mixins: [ccHeadlineConfigurator]
-};
-
-// This is an UMD module to work with Magento 2 requirejs system.
 // Use Vue resource
 Vue.use(vr);
 // Picker modal options
@@ -521,9 +522,9 @@ var pickerModalOptions = {
             class: '',
             click: function () {
                 this.closeModal();
-            }
-        }
-    ]
+            },
+        },
+    ],
 };
 var $pickerModal;
 var configuratorModalOptions = {
@@ -538,16 +539,16 @@ var configuratorModalOptions = {
             class: '',
             click: function () {
                 this.closeModal();
-            }
+            },
         },
         {
             text: $.mage.__('Save'),
-            class: 'action-primary'
-        }
+            class: 'action-primary',
+        },
     ],
     closed: function () {
         this.innerHTML = '';
-    }
+    },
 };
 var $configuratorModal;
 /**
@@ -559,13 +560,13 @@ var m2cContentConstructor = {
     template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal>\n            <cc-component-picker\n                :pick-component=\"getComponentConfigurator\"\n                components='[{\"type\":\"static-block\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of static block\",\"name\":\"Static block\"},{\"type\":\"headline\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of headline\",\"name\":\"Headline\"}]'>\n            </cc-component-picker>\n        </div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal></div>\n    </div>",
     components: {
         'cc-layout-builder': layoutBuilder,
-        'cc-component-picker': ccComponentPicker
+        'cc-component-picker': ccComponentPicker,
     },
     props: {
         configuration: {
             type: String,
-            default: ''
-        }
+            default: '',
+        },
     },
     ready: function () {
         this.dumpConfiguration();
@@ -581,7 +582,7 @@ var m2cContentConstructor = {
         'cc-headline-configurator__change': function (data) {
             console.log(data);
             this._currentConfiguratorData = data;
-        }
+        },
     },
     methods: {
         /**
@@ -605,7 +606,7 @@ var m2cContentConstructor = {
                 component._addComponentInformation({
                     type: 'headline',
                     id: 'component' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
-                    data: component._currentConfiguratorData
+                    data: component._currentConfiguratorData,
                 });
                 this.closeModal();
                 $pickerModal.closeModal();
@@ -614,7 +615,7 @@ var m2cContentConstructor = {
                 var modal = this;
                 var headlineConfigurator = Vue.extend(m2cHeadlineConfigurator);
                 new headlineConfigurator({
-                    parent: component
+                    parent: component,
                 }).$mount().$appendTo(modal);
             };
             $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
@@ -629,13 +630,13 @@ var m2cContentConstructor = {
             setComponentInformation({
                 name: 'Nowa Nazwa komponentu',
                 id: 'Nowe ID komponentu',
-                settings: 'Nowe Jakieś ustawienia'
+                settings: 'Nowe Jakieś ustawienia',
             });
         },
         dumpConfiguration: function () {
             uiRegistry.get('cms_page_form.cms_page_form').source.set('data.components', JSON.stringify(this.$refs.layoutBuilder.getComponentInformation()));
-        }
-    }
+        },
+    },
 };
 
 return m2cContentConstructor;

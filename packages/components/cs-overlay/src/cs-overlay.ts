@@ -1,16 +1,16 @@
-//jQuery needed
+import $ from 'jQuery';
 
 interface IOverlay {
-    show(): void,
-    hide(): void,
-    isVisible(): boolean
+    show(): void;
+    hide(): void;
+    isVisible(): boolean;
 }
 
 interface IOverlaySettings {
-    $element: JQuery,
+    $element: JQuery;
     classes: {
         visible: string
-    }
+    };
 }
 
 class Overlay implements IOverlay {
@@ -29,15 +29,15 @@ class Overlay implements IOverlay {
     }
 
     public hide() {
-        this.$element.removeClass(this.classes.visible);
+        this.$element.removeClass( this.classes.visible );
         this._visible = false;
-        this.$element.trigger('overlay:hidden');
+        this.$element.trigger( 'overlay:hidden' );
     }
 
     public show() {
-        this.$element.addClass(this.classes.visible);
+        this.$element.addClass( this.classes.visible );
         this._visible = true;
-        this.$element.trigger('overlay:shown');
+        this.$element.trigger( 'overlay:shown' );
 
         if (this.allowBlurBackground) {
             this._blurBackground();
@@ -54,10 +54,12 @@ class Overlay implements IOverlay {
 const overlay = new Overlay({
     $element: $('.cs-overlay'),
     classes: {
-        visible: 'cs-overlay--is-visible'
+        visible: 'cs-overlay--is-visible',
     },
-    allowBlurBackground: true
+    allowBlurBackground: true,
 });
 
-export {Overlay};
-export {overlay};
+export {
+    Overlay,
+    overlay,
+};

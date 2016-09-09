@@ -1,14 +1,13 @@
-// This is an UMD module to work with Magento 2 requirejs system.
-
-import Vue from 'Vue';
-import { layoutBuilder, IComponentInformation } from '../../cc-layout-builder/src/cc-layout-builder';
-import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
-import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
-import $ from 'jquery';
 import modal from 'Magento_Ui/js/modal/modal';
-import $t from 'mage/translate';
+import Vue from 'Vue';
 import vr from 'VueResource';
+import $ from 'jquery';
+import $t from 'mage/translate';
 import uiRegistry from 'uiRegistry';
+
+import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
+import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
+import { IComponentInformation, layoutBuilder } from '../../cc-layout-builder/src/cc-layout-builder';
 
 // Use Vue resource
 Vue.use( vr );
@@ -26,9 +25,9 @@ let pickerModalOptions: any = {
             class: '',
             click: function (): void {
                 this.closeModal();
-            }
-        }
-    ]
+            },
+        },
+    ],
 };
 let $pickerModal: any;
 
@@ -44,16 +43,16 @@ let configuratorModalOptions: any = {
             class: '',
             click: function (): void {
                 this.closeModal();
-            }
+            },
         },
         {
             text: $.mage.__( 'Save' ),
-            class: 'action-primary'
-        }
+            class: 'action-primary',
+        },
     ],
     closed: function(): void {
         this.innerHTML = '';
-    }
+    },
 };
 let $configuratorModal: any;
 
@@ -85,8 +84,8 @@ const m2cContentConstructor: vuejs.ComponentOption = {
     props: {
         configuration: {
             type: String,
-            default: ''
-        }
+            default: '',
+        },
     },
     ready: function(): void {
         this.dumpConfiguration();
@@ -102,7 +101,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'cc-headline-configurator__change': function( data: any ): void {
             console.log( data );
             this._currentConfiguratorData = data;
-        }
+        },
     },
     methods: {
         /**
@@ -110,14 +109,14 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * This method should open magento modal with component picker.
          * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
          */
-        getComponentPicker: function( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
+        getComponentPicker( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
             console.log( 'Getting component picker.' );
             // Save adding callback for async use.
             this._addComponentInformation = addComponentInformation;
             // Open picker modal.
             $pickerModal = modal( pickerModalOptions, $( this.$els.pickerModal ) );
         },
-        getComponentConfigurator: function( componentType: string ): void {
+        getComponentConfigurator( componentType: string ): void {
             console.log( `Getting configurator for ${componentType} component.` );
             const component: any = this;
             component._currentConfiguratorData = {};
@@ -126,7 +125,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 component._addComponentInformation(  {
                     type: 'headline',
                     id: 'component' + Math.floor( ( 1 + Math.random() ) * 0x10000 ).toString( 16 ).substring( 1 ),
-                    data: component._currentConfiguratorData
+                    data: component._currentConfiguratorData,
                 } );
 
                 this.closeModal();
@@ -137,7 +136,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
 
                 const headlineConfigurator: any = Vue.extend( m2cHeadlineConfigurator );
                 new headlineConfigurator( {
-                    parent: component
+                    parent: component,
                 } ).$mount().$appendTo( modal );
             };
 
@@ -148,12 +147,15 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * This method should open magento modal with component editor.
          * @param  {IComponentInformation} setComponentInformation Callback that let's us add component asynchronously.
          */
-        editComponent: function( currentInfo: IComponentInformation, setComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
+        editComponent(
+            currentInfo: IComponentInformation,
+            setComponentInformation: ( componentInfo: IComponentInformation ) => void
+        ): void {
             // Open magento modal and invoke given callback with component information like below.
             setComponentInformation( {
                 name: 'Nowa Nazwa komponentu',
                 id: 'Nowe ID komponentu',
-                settings: 'Nowe Jakieś ustawienia'
+                settings: 'Nowe Jakieś ustawienia',
             } );
         },
         dumpConfiguration: function(): void {
@@ -164,7 +166,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 )
             );
         },
-    }
+    },
 };
 
 export default m2cContentConstructor;

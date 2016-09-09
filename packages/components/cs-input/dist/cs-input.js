@@ -1,17 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define('csInput', ['exports'], factory) :
-    (factory((global.csInput = global.csInput || {})));
-}(this, (function (exports) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof define === 'function' && define.amd ? define('csInput', factory) :
+	(factory());
+}(this, (function () { 'use strict';
 
-function add(a, b) {
-    return a + b;
-}
-;
 
-exports.add = add;
-
-Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
 //# sourceMappingURL=cs-input.js.map

@@ -18,14 +18,14 @@ var actionButton = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
+            default: '',
         },
         iconId: {
-            type: String
+            type: String,
         },
         iconClasses: {
-            type: String
-        }
+            type: String,
+        },
     },
     methods: {
         /**
@@ -35,8 +35,8 @@ var actionButton = {
          */
         onClick: function (event) {
             this.$dispatch('action-button__click', event);
-        }
-    }
+        },
+    },
 };
 
 /**
@@ -53,7 +53,7 @@ var actionButton = {
 var componentActions = {
     template: "<aside class=\"cc-component-actions | {{ class }}\">\n        <div class=\"cc-component-actions__top\">\n            <slot name=\"cc-component-actions__top\"></slot>\n        </div>\n        <div class=\"cc-component-actions__bottom\">\n            <slot name=\"cc-component-actions__bottom\"></slot>\n        </div>\n    </aside>",
     components: {
-        'action-button': actionButton
+        'action-button': actionButton,
     },
     props: {
         /**
@@ -62,32 +62,32 @@ var componentActions = {
         class: {
             type: String,
             default: '',
-            coerce: function (value) { return value.replace('cc-component-actions', ''); }
+            coerce: function (value) { return value.replace('cc-component-actions', ''); },
         },
         /**
          * Property containing callback triggered when user clicks move up button.
          */
         moveUp: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks move down button.
          */
         moveDown: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks settings button.
          */
         openSettings: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks delete button.
          */
         deleteComponent: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     methods: {
         /**
@@ -133,8 +133,8 @@ var componentActions = {
             if (typeof this.deleteComponent === 'function') {
                 this.deleteComponent(event);
             }
-        }
-    }
+        },
+    },
 };
 
 return componentActions;

@@ -63,5 +63,5 @@ exports.default = {
         browser.acceptAlert();
         browser.expect.element('.cc-layout-builder__component').to.not.be.present.after(1000);
         browser.end();
-    }
+    },
 };

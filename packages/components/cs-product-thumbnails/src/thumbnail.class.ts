@@ -1,14 +1,14 @@
 //JQuery needed
 
 interface IThumbnailSettings {
-    element: JQuery,
-    selectedClass: string
+    element: JQuery;
+    selectedClass: string;
 }
 
 interface IThumbnail {
-    select(): void,
-    unSelect(): void,
-    isSelected(): boolean
+    select(): void;
+    unSelect(): void;
+    isSelected(): boolean;
 }
 
 class Thumbnail implements IThumbnail {
@@ -16,7 +16,7 @@ class Thumbnail implements IThumbnail {
     private element: JQuery;
     private selectedClass: string;
 
-    constructor(settings: IThumbnailSettings) {
+    constructor( settings: IThumbnailSettings ) {
         this.element = settings.element;
         this.selectedClass = settings.selectedClass;
 
@@ -28,14 +28,14 @@ class Thumbnail implements IThumbnail {
     }
 
     public select() {
-        this.element.addClass(this.selectedClass);
+        this.element.addClass( this.selectedClass );
         this.selected = true;
 
-        this.element.trigger('thumbnail:select');
+        this.element.trigger( 'thumbnail:select' );
     }
 
     public unSelect() {
-        this.element.removeClass(this.selectedClass);
+        this.element.removeClass( this.selectedClass );
         this.selected = false;
     }
 

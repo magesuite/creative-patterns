@@ -12,7 +12,9 @@ const m2cHeadlineConfigurator: vuejs.ComponentOption = {
             <input type="text" v-model="subtitle" id="cfg-subheadline" class="m2-input__input" @change="onChange">
         </div>
     </form>`,
-    mixins: [ccHeadlineConfigurator]
+    mixins: [
+        ccHeadlineConfigurator,
+    ],
 };
 
 export default m2cHeadlineConfigurator;

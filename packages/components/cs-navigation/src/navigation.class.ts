@@ -1,19 +1,19 @@
 interface INavigation {
-    close():void,
-    show(index:number):void,
-    init():void
+    close(): void;
+    show( index: number ): void;
+    init(): void;
 }
 
 interface INavigationSettings {
-    toggles: Array<Object>,
-    flyouts: Array<Object>
+    toggles: Array< Object >;
+    flyouts: Array< Object >;
 }
 
-export class Navigation implements INavigation{
+export class Navigation implements INavigation {
     private _toggles: Array<Object>;
     private _flyouts: Array<Object>;
 
-    constructor(settings: INavigationSettings) {
+    constructor( settings: INavigationSettings ) {
         this._toggles = settings.toggles;
         this._flyouts = settings.flyouts;
 
@@ -24,20 +24,20 @@ export class Navigation implements INavigation{
      * Conntects toggles with flyouts via data attribute in template
      * @private
      */
-    _bindItems () {
-        let toggles = this._toggles;
-        let flyouts = this._flyouts;
-        $.each(toggles, (i, toggle)=> {
+    _bindItems (): void {
+        let toggles: Array<Object> = this._toggles;
+        let flyouts: Array<Object> = this._flyouts;
+        $.each( toggles, ( i: number, toggle: any ) => {
             let toggleGroup = toggle.getNavGroup();
-            $.each(flyouts, function (i, flyout) {
+            $.each( flyouts, function ( i, flyout ) {
                 let flyoutGroup = flyout.getNavGroup();
 
-                if (toggleGroup === flyoutGroup) {
-                    toggle.bindFlyout(flyout);
+                if ( toggleGroup === flyoutGroup ) {
+                    toggle.bindFlyout( flyout );
 
                     return;
                 }
-            })
+            } );
         });
     }
 
@@ -45,23 +45,23 @@ export class Navigation implements INavigation{
      * Bind events between toggles and flyouts
      * @private
      */
-    private _events(){
-        $.each(this._toggles, (index, elem) => {
-            let toggle = elem;
-            let $element = toggle.getElement();
+    private _events(): void {
+        $.each( this._toggles, ( index: number, elem: HTMLElement ) => {
+            let toggle: HTMLElement = elem;
+            let $element: JQuery = toggle.getElement();
 
-            $element.on('click', (e) => {
-                this._onClick(e, toggle);
-            });
-        })
+            $element.on( 'click', ( event: Event ) => {
+                this._onClick( event , toggle );
+            } );
+        } );
     }
 
     /**
      * Click action
      * @private
      */
-    _onClick(e, toggle) {
-        console.log('clicked');
+    _onClick( event: Event, toggle: HTMLElement ): void {
+        console.log( 'clicked' );
 
         toggle.getFlyout().show();
 
@@ -80,7 +80,7 @@ export class Navigation implements INavigation{
      * Show flyout with provided index
      * @param index
      */
-    public show(index) {
+    public show( index: number ) {
 
     }
 

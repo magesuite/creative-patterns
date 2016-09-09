@@ -1,1 +1,1 @@
-{"version":3,"file":null,"sources":["../src/cs-footer.ts"],"sourcesContent":["\r\nexport function add(a: number, b: number): number {\n  return a + b;\r\n};\r\n"],"names":[],"mappings":";;;;;;aACoB,CAAS,EAAE,CAAS;IACtC,OAAO,CAAC,GAAG,CAAC,CAAC;CACd;AAAA,CAAC;;;;;;"}
+{"version":3,"file":null,"sources":[],"sourcesContent":[],"names":[],"mappings":";;;;;;;;"}

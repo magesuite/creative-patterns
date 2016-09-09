@@ -1,32 +1,32 @@
 //JQuery needed
 
 interface IThumbnailsSettings {
-    thumbnails: Object[]
+    thumbnails: Object[];
 }
 interface IThumbnails {
-    init(): void
+    init(): void;
 }
 
-class Thumbnails implements IThumbnails{
+class Thumbnails implements IThumbnails {
     private thumbnails: Array;
 
     constructor(settings: IThumbnailsSettings) {
-        this.thumbnails = settings.thumbnails
+        this.thumbnails = settings.thumbnails;
     }
 
     private _resetSelected() {
-        $.each(this.thumbnails, function (i, elem) {
+        $.each( this.thumbnails, function ( i, elem ) {
             elem.unSelect();
-        });
+        } );
     }
 
     private _events() {
         for (let i = 0; i < this.thumbnails.length; i++) {
             let thumbnail = this.thumbnails[i];
-            let $thumbnail = $(thumbnail.element);
+            let $thumbnail = $( thumbnail.element );
 
-            $thumbnail.on('click', () => {
-                if (!thumbnail.isSelected()) {
+            $thumbnail.on( 'click', () => {
+                if ( !thumbnail.isSelected() ) {
                     this._resetSelected();
                     thumbnail.select();
                 }

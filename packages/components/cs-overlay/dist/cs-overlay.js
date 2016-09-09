@@ -1,10 +1,11 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define('csOverlay', ['exports'], factory) :
-    (factory((global.csOverlay = global.csOverlay || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jQuery')) :
+    typeof define === 'function' && define.amd ? define('csOverlay', ['exports', 'jQuery'], factory) :
+    (factory((global.csOverlay = global.csOverlay || {}),global.jQuery));
+}(this, (function (exports,$) { 'use strict';
 
-//jQuery needed
+$ = 'default' in $ ? $['default'] : $;
+
 var Overlay = (function () {
     function Overlay(settings) {
         this._visible = false;
@@ -36,9 +37,9 @@ var Overlay = (function () {
 var overlay = new Overlay({
     $element: $('.cs-overlay'),
     classes: {
-        visible: 'cs-overlay--is-visible'
+        visible: 'cs-overlay--is-visible',
     },
-    allowBlurBackground: true
+    allowBlurBackground: true,
 });
 
 exports.Overlay = Overlay;
