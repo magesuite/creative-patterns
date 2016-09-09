@@ -1,7 +1,10 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.csShortcutToggle = global.csShortcutToggle || {})));
+}(this, (function (exports) { 'use strict';
 
+Object.defineProperty(exports, '__esModule', { value: true });
 
-
-}((this.csShortcutToggle = this.csShortcutToggle || {})));
+})));
 //# sourceMappingURL=cs-shortcut-toggle.js.map

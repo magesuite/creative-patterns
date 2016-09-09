@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.ccComponentPlaceholder = global.ccComponentPlaceholder || {})));
+}(this, (function (exports) { 'use strict';
 
 /**
  * Component placeholder component.
@@ -10,5 +13,7 @@ var componentPlaceholder = {
 
 exports['default'] = componentPlaceholder;
 
-}((this.ccComponentPlaceholder = this.ccComponentPlaceholder || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=cc-component-placeholder.js.map

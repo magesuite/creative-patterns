@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.ccComponentPicker = global.ccComponentPicker || {})));
+}(this, (function (exports) { 'use strict';
 
 var template = "<section class=\"cc-component-picker | {{ class }}\"> <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\"> <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\"> <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\"> <figure class=\"cc-component-picker__component-figure\"> <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\"> <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption> </figure> </a> </li> </ul> <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\"> No components available. </p> </section> ";
 
@@ -70,10 +73,12 @@ var ccComponentPicker = {
                 this.pickComponent(componentType);
             }
         }
-    },
+    }
 };
 
 exports['default'] = ccComponentPicker;
 
-}((this.ccComponentPicker = this.ccComponentPicker || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=cc-component-picker.js.map

@@ -1,5 +1,8 @@
-(function (exports,Vue,$,modal,$t,vr,uiRegistry) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('Vue'), require('jquery'), require('Magento_Ui/js/modal/modal'), require('mage/translate'), require('VueResource'), require('uiRegistry')) :
+    typeof define === 'function' && define.amd ? define(['exports', 'Vue', 'jquery', 'Magento_Ui/js/modal/modal', 'mage/translate', 'VueResource', 'uiRegistry'], factory) :
+    (factory((global.m2cContentConstructor = global.m2cContentConstructor || {}),global.Vue,global.$,global.modal,global.$t,global.vr,global.uiRegistry));
+}(this, (function (exports,Vue,$,modal,$t,vr,uiRegistry) { 'use strict';
 
 Vue = 'default' in Vue ? Vue['default'] : Vue;
 $ = 'default' in $ ? $['default'] : $;
@@ -369,7 +372,7 @@ var layoutBuilder = {
         isLastComponent: function (index) {
             return index === this.components.length - 1;
         }
-    },
+    }
 };
 
 var template$1 = "<section class=\"cc-component-picker | {{ class }}\"> <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\"> <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\"> <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\"> <figure class=\"cc-component-picker__component-figure\"> <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\"> <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption> </figure> </a> </li> </ul> <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\"> No components available. </p> </section> ";
@@ -441,7 +444,7 @@ var ccComponentPicker = {
                 this.pickComponent(componentType);
             }
         }
-    },
+    }
 };
 
 /**
@@ -556,7 +559,7 @@ var m2cContentConstructor = {
     template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal>\n            <cc-component-picker\n                :pick-component=\"getComponentConfigurator\"\n                components='[{\"type\":\"static-block\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of static block\",\"name\":\"Static block\"},{\"type\":\"headline\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of headline\",\"name\":\"Headline\"}]'>\n            </cc-component-picker>\n        </div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal></div>\n    </div>",
     components: {
         'cc-layout-builder': layoutBuilder,
-        'cc-component-picker': ccComponentPicker,
+        'cc-component-picker': ccComponentPicker
     },
     props: {
         configuration: {
@@ -631,11 +634,13 @@ var m2cContentConstructor = {
         },
         dumpConfiguration: function () {
             uiRegistry.get('cms_page_form.cms_page_form').source.set('data.components', JSON.stringify(this.$refs.layoutBuilder.getComponentInformation()));
-        },
+        }
     }
 };
 
 exports['default'] = m2cContentConstructor;
 
-}((this.m2cContentConstructor = this.m2cContentConstructor || {}),Vue,$,modal,$t,vr,uiRegistry));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=m2c-content-constructor.js.map

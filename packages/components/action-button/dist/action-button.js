@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.actionButton = global.actionButton || {})));
+}(this, (function (exports) { 'use strict';
 
 /**
  * Action button component version.
@@ -38,5 +41,7 @@ var actionButton = {
 
 exports['default'] = actionButton;
 
-}((this.actionButton = this.actionButton || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=action-button.js.map
