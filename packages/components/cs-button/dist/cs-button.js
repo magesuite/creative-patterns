@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.csButton = global.csButton || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('csButton', factory) :
+    (global.csButton = factory());
+}(this, (function () { 'use strict';
 
 /**
  * Button component version.
@@ -24,9 +24,7 @@ var csButton = {
     }
 };
 
-exports['default'] = csButton;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return csButton;
 
 })));
 //# sourceMappingURL=cs-button.js.map

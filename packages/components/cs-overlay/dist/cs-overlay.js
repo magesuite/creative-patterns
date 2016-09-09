@@ -1,6 +1,6 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    typeof define === 'function' && define.amd ? define('csOverlay', ['exports'], factory) :
     (factory((global.csOverlay = global.csOverlay || {})));
 }(this, (function (exports) { 'use strict';
 

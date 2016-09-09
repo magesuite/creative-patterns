@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.m2cHeadlineConfigurator = global.m2cHeadlineConfigurator || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('m2cHeadlineConfigurator', factory) :
+    (global.m2cHeadlineConfigurator = factory());
+}(this, (function () { 'use strict';
 
 /**
  * Headline configurator component.
@@ -62,9 +62,7 @@ var m2cHeadlineConfigurator = {
     mixins: [ccHeadlineConfigurator]
 };
 
-exports['default'] = m2cHeadlineConfigurator;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return m2cHeadlineConfigurator;
 
 })));
 //# sourceMappingURL=m2c-headline-configurator.js.map

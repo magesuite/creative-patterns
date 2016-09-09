@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('Vue'), require('jquery'), require('Magento_Ui/js/modal/modal'), require('mage/translate'), require('VueResource'), require('uiRegistry')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'Vue', 'jquery', 'Magento_Ui/js/modal/modal', 'mage/translate', 'VueResource', 'uiRegistry'], factory) :
-    (factory((global.m2cContentConstructor = global.m2cContentConstructor || {}),global.Vue,global.$,global.modal,global.$t,global.vr,global.uiRegistry));
-}(this, (function (exports,Vue,$,modal,$t,vr,uiRegistry) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('Vue'), require('jquery'), require('Magento_Ui/js/modal/modal'), require('mage/translate'), require('VueResource'), require('uiRegistry')) :
+    typeof define === 'function' && define.amd ? define('m2cContentConstructor', ['Vue', 'jquery', 'Magento_Ui/js/modal/modal', 'mage/translate', 'VueResource', 'uiRegistry'], factory) :
+    (global.m2cContentConstructor = factory(global.Vue,global.$,global.modal,global.$t,global.vr,global.uiRegistry));
+}(this, (function (Vue,$,modal,$t,vr,uiRegistry) { 'use strict';
 
 Vue = 'default' in Vue ? Vue['default'] : Vue;
 $ = 'default' in $ ? $['default'] : $;
@@ -638,9 +638,7 @@ var m2cContentConstructor = {
     }
 };
 
-exports['default'] = m2cContentConstructor;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return m2cContentConstructor;
 
 })));
 //# sourceMappingURL=m2c-content-constructor.js.map

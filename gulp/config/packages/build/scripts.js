@@ -74,13 +74,13 @@ export default {
                 dest: path.join( packageDir, 'dist', packageName + '.js' ),
                 format: 'umd',
                 moduleName: packageNameCamelCase,
+                moduleId: packageNameCamelCase,
                 globals: {
                     'jQuery': 'jQuery',
                     '$': 'jQuery',
                     'Swiper': 'Swiper',
                     'Vue': 'Vue',
                 },
-                exports: 'named',
                 sourceMap: true,
             },
         };

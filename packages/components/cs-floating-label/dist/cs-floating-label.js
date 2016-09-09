@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.csFloatingLabel = global.csFloatingLabel || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('csFloatingLabel', factory) :
+    (global.csFloatingLabel = factory());
+}(this, (function () { 'use strict';
 
 var FloatingLabel = (function () {
     function FloatingLabel(settings) {
@@ -33,9 +33,7 @@ var FloatingLabel = (function () {
     return FloatingLabel;
 }());
 
-exports['default'] = FloatingLabel;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return FloatingLabel;
 
 })));
 //# sourceMappingURL=cs-floating-label.js.map

@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.m2cComponentPicker = global.m2cComponentPicker || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('m2cComponentPicker', factory) :
+    (global.m2cComponentPicker = factory());
+}(this, (function () { 'use strict';
 
 var template = "<section class=\"cc-component-picker | {{ class }}\"> <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\"> <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\"> <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\"> <figure class=\"cc-component-picker__component-figure\"> <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\"> <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption> </figure> </a> </li> </ul> <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\"> No components available. </p> </section> ";
 
@@ -124,9 +124,7 @@ var m2cComponentPicker = {
     }
 };
 
-exports['default'] = m2cComponentPicker;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return m2cComponentPicker;
 
 })));
 //# sourceMappingURL=m2c-component-picker.js.map

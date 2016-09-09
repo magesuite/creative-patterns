@@ -1,6 +1,6 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    typeof define === 'function' && define.amd ? define('csReviewsSummary', ['exports'], factory) :
     (factory((global.csReviewsSummary = global.csReviewsSummary || {})));
 }(this, (function (exports) { 'use strict';
 
