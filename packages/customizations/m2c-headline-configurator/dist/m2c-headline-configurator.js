@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.m2cHeadlineConfigurator = global.m2cHeadlineConfigurator || {})));
+}(this, (function (exports) { 'use strict';
 
 /**
  * Headline configurator component.
@@ -61,5 +64,7 @@ var m2cHeadlineConfigurator = {
 
 exports['default'] = m2cHeadlineConfigurator;
 
-}((this.m2cHeadlineConfigurator = this.m2cHeadlineConfigurator || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=m2c-headline-configurator.js.map

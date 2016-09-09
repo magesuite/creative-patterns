@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.csFooter = global.csFooter || {})));
+}(this, (function (exports) { 'use strict';
 
 function add(a, b) {
     return a + b;
@@ -8,5 +11,7 @@ function add(a, b) {
 
 exports.add = add;
 
-}((this.csFooter = this.csFooter || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=cs-footer.js.map

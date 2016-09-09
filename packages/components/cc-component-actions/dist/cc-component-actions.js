@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.ccComponentActions = global.ccComponentActions || {})));
+}(this, (function (exports) { 'use strict';
 
 /**
  * Action button component version.
@@ -136,5 +139,7 @@ var componentActions = {
 
 exports['default'] = componentActions;
 
-}((this.ccComponentActions = this.ccComponentActions || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=cc-component-actions.js.map

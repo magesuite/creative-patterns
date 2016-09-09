@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.ccLayoutBuilder = global.ccLayoutBuilder || {})));
+}(this, (function (exports) { 'use strict';
 
 /**
  * Action button component version.
@@ -362,11 +365,13 @@ var layoutBuilder = {
         isLastComponent: function (index) {
             return index === this.components.length - 1;
         }
-    },
+    }
 };
 
 exports['default'] = layoutBuilder;
 exports.layoutBuilder = layoutBuilder;
 
-}((this.ccLayoutBuilder = this.ccLayoutBuilder || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=cc-layout-builder.js.map

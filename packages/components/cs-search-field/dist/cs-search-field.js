@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.csSearchField = global.csSearchField || {})));
+}(this, (function (exports) { 'use strict';
 
 var SearchField = (function () {
     function SearchField(settings) {
@@ -19,5 +22,7 @@ var SearchField = (function () {
 
 exports['default'] = SearchField;
 
-}((this.csSearchField = this.csSearchField || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=cs-search-field.js.map

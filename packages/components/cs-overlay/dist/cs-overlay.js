@@ -1,5 +1,8 @@
-(function (exports) {
-'use strict';
+(function (global, factory) {
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    (factory((global.csOverlay = global.csOverlay || {})));
+}(this, (function (exports) { 'use strict';
 
 //jQuery needed
 var Overlay = (function () {
@@ -41,5 +44,7 @@ var overlay = new Overlay({
 exports.Overlay = Overlay;
 exports.overlay = overlay;
 
-}((this.csOverlay = this.csOverlay || {})));
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
 //# sourceMappingURL=cs-overlay.js.map

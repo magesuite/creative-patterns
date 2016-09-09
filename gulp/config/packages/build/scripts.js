@@ -72,7 +72,7 @@ export default {
                  * JavaScript bundle destination directory.
                  */
                 dest: path.join( packageDir, 'dist', packageName + '.js' ),
-                format: 'iife',
+                format: 'umd',
                 moduleName: packageNameCamelCase,
                 globals: {
                     'jQuery': 'jQuery',
