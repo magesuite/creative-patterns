@@ -1,6 +1,3 @@
-<<<<<<< a10bbeff52ebbb26a088f31f3fc914ec908f0e5a
-.action-button{display:inline-block;text-decoration:none;font-size:1rem;padding:1.063em 3.125em;cursor:pointer;border:1px solid transparent;background:0 0;-webkit-transition:color .15s,border-color .15s,background-color .15s;transition:color .15s,border-color .15s,background-color .15s}.action-button__icon{width:1.25em;height:1.25em;position:relative;top:-2px;margin-right:.5em;line-height:1;vertical-align:middle;-webkit-transition:fill .15s;transition:fill .15s}.action-button__icon--size_100{height:.875em;width:.875em}.action-button__icon--size_300{width:1.063em;height:1.063em}.action-button__icon--primary{fill:#c20000}.action-button--look_default{border-color:#e5e5e5;background-color:#fff;color:#333;fill:#333}.action-button--look_default:focus,.action-button--look_default:hover{color:#007bdb;border-color:#007bdb;background-color:#e4f7fe;fill:#007bdb}.action-button--look_primary{border:0;background-color:#c20000;color:#fff;fill:#fff}.action-button--look_primary:focus,.action-button--look_primary:hover{background-color:#900}.action-button--look_important{background-color:#fff;border-color:#e5e5e5;color:#c20000;fill:#c20000}.action-button--look_warning{color:#c20000;background-color:#ffe6e6;border-color:#c20000;fill:#c20000}.action-button--look_disabled,.action-button--look_disabled:focus,.action-button--look_disabled:hover{border-color:#e5e5e5;background-color:#fff;fill:#e5e5e5;cursor:default}.action-button--type_icon-only{width:3.313em;height:3.313em;padding:.625em}.action-button--type_icon-only .action-button__icon{display:block;top:0;margin:auto}
-=======
 /**
  * Define block class using namespace.
  */
@@ -78,5 +75,4 @@
       top: 0;
       margin: auto; }
 
->>>>>>> [pattern-library] Refactored more tasks, updated scripts building strategy.
 /*# sourceMappingURL=action-button.css.map */

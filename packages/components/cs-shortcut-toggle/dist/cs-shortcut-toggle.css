@@ -1,2 +1,30 @@
-.cs-shortcut-toggle{font-size:1rem;position:relative;width:100px;display:block;color:#2C2C2C;fill:pink;text-decoration:none}.cs-shortcut-toggle__image{width:3em;height:3em;display:block;margin:0 auto}.cs-shortcut-toggle__badge{position:absolute;right:.5em;top:.5em;width:1.5em;height:1.5em;line-height:1.5em;text-align:center;border-radius:1.5em;background:red;color:#fff}.cs-shortcut-toggle__label{display:block;margin:0 auto;text-align:center}
+.cs-shortcut-toggle {
+  font-size: 1rem;
+  position: relative;
+  width: 100px;
+  display: block;
+  color: #2C2C2C;
+  fill: pink;
+  text-decoration: none; }
+  .cs-shortcut-toggle__image {
+    width: 3em;
+    height: 3em;
+    display: block;
+    margin: 0 auto; }
+  .cs-shortcut-toggle__badge {
+    position: absolute;
+    right: 0.5em;
+    top: 0.5em;
+    width: 1.5em;
+    height: 1.5em;
+    line-height: 1.5em;
+    text-align: center;
+    border-radius: 1.5em;
+    background: red;
+    color: #fff; }
+  .cs-shortcut-toggle__label {
+    display: block;
+    margin: 0 auto;
+    text-align: center; }
+
 /*# sourceMappingURL=cs-shortcut-toggle.css.map */

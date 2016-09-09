@@ -1,2 +1,26 @@
-.cs-color-picker{margin:0;padding:0;font-size:1rem;font-family:sans-serif;color:#fff}.cs-color-picker__item{display:inline-block;margin-right:1em}.cs-color-picker__input{display:none}.cs-color-picker__input:checked+.cs-color-picker__label{box-shadow:0 0 0 2px #314e6e}.cs-color-picker__label{display:block;text-align:center;border-radius:3em;width:3em;height:3em;border:4px solid #fff;box-shadow:0 0 0 2px #ddd;-webkit-transition:.3s;transition:.3s;cursor:pointer}
+.cs-color-picker {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-family: 'sans-serif';
+  color: #fff; }
+  .cs-color-picker__item {
+    display: inline-block;
+    margin-right: 1em; }
+  .cs-color-picker__input {
+    display: none; }
+    .cs-color-picker__input:checked + .cs-color-picker__label {
+      box-shadow: 0 0 0 2px #314e6e; }
+  .cs-color-picker__label {
+    display: block;
+    text-align: center;
+    border-radius: 3em;
+    width: 3em;
+    height: 3em;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 2px #ddd;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    cursor: pointer; }
+
 /*# sourceMappingURL=cs-color-picker.css.map */

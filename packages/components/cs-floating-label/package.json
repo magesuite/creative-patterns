@@ -1,8 +1,11 @@
 {
-    "name": "cs-floating-label",
-    "version": "0.0.1",
-    "description": "Floating label logic",
-    "main": "src/cs-floating-label.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
+  "name": "cs-floating-label",
+  "version": "0.0.1",
+  "description": "Floating label logic",
+  "main": "src/cs-floating-label.ts",
+  "author": "Lukasz Ostrowski",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^1.10.31"
+  }
 }

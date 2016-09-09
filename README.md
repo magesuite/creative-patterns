@@ -7,7 +7,7 @@ This is creativestyle's pattern library that will contain all of the awesome cod
 
 To install the local copy of the library:
 
-1. Make sure you have `node` installed on your computer, you can run `node -v` in console to check it.
+1. Make sure you have `node >=4.0.0` installed on your computer, you can run `node -v` in console to check it.
 2. Clone the repository.
 3. Run `npm install` in project's root to install all of the needed dependencies.
 4. Run `npm run serve` to build the library and start its website.
@@ -29,14 +29,10 @@ TODO: Write usage instructions
 ## Contributing
 
 1. Clone it!
-2. Create your feature branch: `git checkout -b feature/my-new-feature`
+2. Create your feature branch: `git checkout -b feature-my-new-feature`
 3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin feature/my-new-feature`
+4. Push to the branch: `git push origin feature-my-new-feature`
 5. Submit a merge request :D
-
-## History
-
-TODO: Write history
 
 ## Credits
 
