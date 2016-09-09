@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jQuery'), require('Swiper')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'jQuery', 'Swiper'], factory) :
-    (factory((global.hero = global.hero || {}),global.jQuery,global.Swiper));
-}(this, (function (exports,$,Swiper) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jQuery'), require('Swiper')) :
+    typeof define === 'function' && define.amd ? define('hero', ['jQuery', 'Swiper'], factory) :
+    (global.hero = factory(global.jQuery,global.Swiper));
+}(this, (function ($,Swiper) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
 Swiper = 'default' in Swiper ? Swiper['default'] : Swiper;
@@ -108,9 +108,7 @@ var hero = function ($element, settings) {
     };
 };
 
-exports['default'] = hero;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return hero;
 
 })));
 //# sourceMappingURL=hero.js.map

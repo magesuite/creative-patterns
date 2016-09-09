@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.ccComponentAdder = global.ccComponentAdder || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('ccComponentAdder', factory) :
+    (global.ccComponentAdder = factory());
+}(this, (function () { 'use strict';
 
 /**
  * Component controller component.
@@ -44,9 +44,7 @@ var componentAdder = {
     }
 };
 
-exports['default'] = componentAdder;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return componentAdder;
 
 })));
 //# sourceMappingURL=cc-component-adder.js.map

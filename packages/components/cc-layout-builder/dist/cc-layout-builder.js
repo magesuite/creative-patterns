@@ -1,6 +1,6 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
+    typeof define === 'function' && define.amd ? define('ccLayoutBuilder', ['exports'], factory) :
     (factory((global.ccLayoutBuilder = global.ccLayoutBuilder || {})));
 }(this, (function (exports) { 'use strict';
 

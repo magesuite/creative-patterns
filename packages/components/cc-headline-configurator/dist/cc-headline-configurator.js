@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.ccHeadlineConfigurator = global.ccHeadlineConfigurator || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('ccHeadlineConfigurator', factory) :
+    (global.ccHeadlineConfigurator = factory());
+}(this, (function () { 'use strict';
 
 /**
  * Headline configurator component.
@@ -56,9 +56,7 @@ var ccHeadlineConfigurator = {
     }
 };
 
-exports['default'] = ccHeadlineConfigurator;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return ccHeadlineConfigurator;
 
 })));
 //# sourceMappingURL=cc-headline-configurator.js.map

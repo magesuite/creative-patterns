@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.ccComponentActions = global.ccComponentActions || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define('ccComponentActions', factory) :
+    (global.ccComponentActions = factory());
+}(this, (function () { 'use strict';
 
 /**
  * Action button component version.
@@ -137,9 +137,7 @@ var componentActions = {
     }
 };
 
-exports['default'] = componentActions;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return componentActions;
 
 })));
 //# sourceMappingURL=cc-component-actions.js.map
