@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "text": "Personal",
+      "icon": {
+        "svgId": "icon-personal"
+      },
+      "isActive": true
+    },
+    {
+      "text": "Business",
+      "icon": {
+        "svgId": "icon-business"
+      }
+    }
+  ]
+}

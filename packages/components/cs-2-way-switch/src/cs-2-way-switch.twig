@@ -1,0 +1,19 @@
+<div class="{{ mix }} cs-2-way-switch">
+    {% for item in items %}
+        <a href="#" class="cs-2-way-switch__item {{ (item.isActive)? 'cs-2-way-switch__item--is-active' : '' }}">
+
+            {% if item.icon %}
+                <svg class="cs-2-way-switch__icon">
+                    <use xlink:href="/images/sprites.svg#{{ item.icon.svgId }}"></use>
+                </svg>
+
+            {% endif %}
+
+            {% if item.text %}
+                <span class="cs-2-way-switch__text">
+                   {{ item.text }}
+                </span>
+            {% endif %}
+        </a>
+    {% endfor %}
+</div>
