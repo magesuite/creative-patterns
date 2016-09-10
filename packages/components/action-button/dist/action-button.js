@@ -18,14 +18,14 @@ var actionButton = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
+            default: '',
         },
         iconId: {
-            type: String
+            type: String,
         },
         iconClasses: {
-            type: String
-        }
+            type: String,
+        },
     },
     methods: {
         /**
@@ -35,8 +35,8 @@ var actionButton = {
          */
         onClick: function (event) {
             this.$dispatch('action-button__click', event);
-        }
-    }
+        },
+    },
 };
 
 return actionButton;

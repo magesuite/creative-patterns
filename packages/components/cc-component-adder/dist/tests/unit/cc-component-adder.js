@@ -9926,14 +9926,14 @@ var componentAdder = {
             default: '',
             coerce: function (value) {
                 return value.replace('cc-component-adder', '');
-            }
+            },
         },
         /**
          * Property containing callback triggered when user clicks "add component" button.
          */
         createComponent: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     methods: {
         /**
@@ -9946,8 +9946,8 @@ var componentAdder = {
             if (typeof this.createComponent === 'function') {
                 this.createComponent(event);
             }
-        }
-    }
+        },
+    },
 };
 
 describe('Component controller object.', function () {
@@ -9964,12 +9964,14 @@ describe('Component controller object.', function () {
     });
 });
 describe('Component controller Vue component', function () {
-    var vm, spy, ref;
+    var vm;
+    var spy;
+    var ref;
     beforeEach(function () {
         // Create a spy that we will use to check if callbacks was called.
         spy = {
             propCallback: function () { return undefined; },
-            eventCallback: function () { return undefined; }
+            eventCallback: function () { return undefined; },
         };
         spyOn(spy, 'propCallback');
         spyOn(spy, 'eventCallback');
@@ -9977,11 +9979,11 @@ describe('Component controller Vue component', function () {
         vm = new vue_common({
             template: "<div>\n                <cc-component-adder v-ref:component :create-component=\"propCallback\">\n                    <div class=\"cc-component-controller__button\" slot=\"cc-component-controller__button-create\"></div>\n                </cc-component-adder>\n            </div>",
             components: {
-                'cc-component-adder': componentAdder
+                'cc-component-adder': componentAdder,
             },
             methods: {
-                propCallback: spy.propCallback
-            }
+                propCallback: spy.propCallback,
+            },
         }).$mount();
         // Get reference to component we want to test.
         ref = vm.$refs.component;
@@ -9989,7 +9991,7 @@ describe('Component controller Vue component', function () {
     it('triggers create component event.', function () {
         vm.$on('cc-component-adder__create-component', spy.eventCallback);
         ref.onCreateComponent();
-        expect(spy.callback).toHaveBeenCalled();
+        expect(spy.eventCallback).toHaveBeenCalled();
     });
     it('triggers create component callback.', function () {
         ref.onCreateComponent();

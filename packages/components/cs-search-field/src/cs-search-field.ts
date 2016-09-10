@@ -1,13 +1,13 @@
 interface ISearchField {
-    init(): void
+    init(): void;
 }
 
 interface ISearchFieldSettings {
-    dependencies: ISearchFieldDependency[]
+    dependencies: ISearchFieldDependency[];
 }
 
 interface ISearchFieldDependency {
-    init(): void
+    init(): void;
 }
 
 class SearchField implements ISearchField {

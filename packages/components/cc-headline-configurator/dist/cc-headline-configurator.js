@@ -17,25 +17,25 @@ var ccHeadlineConfigurator = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
+            default: '',
         },
         /**
          * Property containing callback triggered when user saves component.
          */
         save: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when configuration is changed.
          */
         change: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     data: function () {
         return {
             title: '',
-            subtitle: ''
+            subtitle: '',
         };
     },
     methods: {
@@ -52,8 +52,8 @@ var ccHeadlineConfigurator = {
             if (typeof this.save === 'function') {
                 this.save(data);
             }
-        }
-    }
+        },
+    },
 };
 
 return ccHeadlineConfigurator;

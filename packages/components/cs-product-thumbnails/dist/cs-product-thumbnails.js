@@ -63,21 +63,21 @@ var Thumbnails = (function () {
     return Thumbnails;
 }());
 
-//Demo
+// Demo
 var thumbnailsArray = [];
 $('.cs-product-thumbnails__item').each(function () {
     thumbnailsArray.push(new Thumbnail({
         element: $(this),
-        selectedClass: 'cs-product-thumbnails__item--is-selected'
+        selectedClass: 'cs-product-thumbnails__item--is-selected',
     }));
 });
 var thumbnailsComponent = new Thumbnails({ thumbnails: thumbnailsArray });
 thumbnailsComponent.init();
-/**
+/*
  TODO: Add events or callback?
  If events - on single Thumbnail or parent component?
  Use jQuery events, native js or something else?
- **/
+ */
 
 })));
 //# sourceMappingURL=cs-product-thumbnails.js.map

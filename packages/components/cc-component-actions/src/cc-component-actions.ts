@@ -21,7 +21,7 @@ const componentActions: vuejs.ComponentOption = {
         </div>
     </aside>`,
     components: {
-        'action-button': actionButton
+        'action-button': actionButton,
     },
     props: {
         /**
@@ -30,32 +30,32 @@ const componentActions: vuejs.ComponentOption = {
         class: {
             type: String,
             default: '',
-            coerce: ( value: String ): String => value.replace( 'cc-component-actions', '' )
+            coerce: ( value: String ): String => value.replace( 'cc-component-actions', '' ),
         },
         /**
          * Property containing callback triggered when user clicks move up button.
          */
         moveUp: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks move down button.
          */
         moveDown: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks settings button.
          */
         openSettings: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks delete button.
          */
         deleteComponent: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     methods: {
         /**
@@ -63,7 +63,7 @@ const componentActions: vuejs.ComponentOption = {
          * This handler triggers "cc-component-actions__move-up" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onMoveUp: function ( event: Event ): void {
+        onMoveUp( event: Event ): void {
             this.$dispatch( 'cc-component-actions__move-up', event );
             if ( typeof this.moveUp === 'function' ) {
                 this.moveUp( event );
@@ -74,7 +74,7 @@ const componentActions: vuejs.ComponentOption = {
          * This handler triggers "cc-component-actions__move-down" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onMoveDown: function ( event: Event ): void {
+        onMoveDown( event: Event ): void {
             this.$dispatch( 'cc-component-actions__move-down', event );
             if ( typeof this.moveDown === 'function' ) {
                 this.moveDown( event );
@@ -85,7 +85,7 @@ const componentActions: vuejs.ComponentOption = {
          * This handler triggers "cc-component-actions__open-settings" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onOpenSettings: function ( event: Event ): void {
+        onOpenSettings( event: Event ): void {
             this.$dispatch( 'cc-component-actions__open-settings', event );
             if ( typeof this.openSettings === 'function' ) {
                 this.openSettings( event );
@@ -96,13 +96,13 @@ const componentActions: vuejs.ComponentOption = {
          * This handler triggers "cc-component-actions__delete-component" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onDeleteComponent: function ( event: Event ): void {
+        onDeleteComponent( event: Event ): void {
             this.$dispatch( 'cc-component-actions__delete-component', event );
             if ( typeof this.deleteComponent === 'function' ) {
                 this.deleteComponent( event );
             }
-        }
-    }
+        },
+    },
 };
 
 export default componentActions;

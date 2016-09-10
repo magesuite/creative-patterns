@@ -1,4 +1,5 @@
-import Vue from 'vue';
+import Vue from '../../../node_modules/vue/dist/vue';
+
 import component from '../../cc-component-actions';
 
 describe( 'Component actions object.', function(): void {
@@ -44,12 +45,15 @@ describe( 'Component actions object.', function(): void {
 });
 
 describe( 'Component actions Vue component', function(): void {
-    let vm: any, spy: any, ref: any;
+    let vm: any;
+    let spy: any;
+    let ref: any;
+
     beforeEach( function(): void {
         // Create a spy that we will use to check if callbacks was called.
         spy = {
             propCallback: (): undefined => undefined,
-            eventCallback: (): undefined => undefined
+            eventCallback: (): undefined => undefined,
         };
         spyOn( spy, 'propCallback' );
         spyOn( spy, 'eventCallback' );
@@ -66,16 +70,15 @@ describe( 'Component actions Vue component', function(): void {
                 </cc-component-actions>
             </div>`,
             components: {
-                'cc-component-actions': component
+                'cc-component-actions': component,
             },
             methods: {
-                propCallback: spy.propCallback
-            }
+                propCallback: spy.propCallback,
+            },
         } ).$mount();
         // Get reference to component we want to test.
         ref = vm.$refs.component;
     } );
-
 
     it( 'triggers move up event.', function(): void {
         vm.$on( 'cc-component-actions__move-up', spy.eventCallback );

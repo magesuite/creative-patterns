@@ -9,9 +9,9 @@ import template from './m2c-component-picker.tpl';
  * @type {vuejs.ComponentOption} Vue component object.
  */
 const m2cComponentPicker: vuejs.ComponentOption = {
-    template: template,
+    template,
     components: {
-        'cc-component-picker': ccComponentPicker
+        'cc-component-picker': ccComponentPicker,
     },
     props: {
         /**
@@ -20,31 +20,31 @@ const m2cComponentPicker: vuejs.ComponentOption = {
         class: {
             type: String,
             default: '',
-            coerce: ( value: String ): String => value.replace( 'm2c-component-picker', '' )
+            coerce: ( value: String ): String => value.replace( 'm2c-component-picker', '' ),
         },
         /**
          * JSON stringified array containing available components.
          */
         components: {
             type: String,
-            default: ''
+            default: '',
         },
         /**
          * URL for API returning JSON stringified array containing available components.
          */
         componentsEndpoint: {
             type: String,
-            default: ''
-        }
+            default: '',
+        },
     },
     methods: {
         /**
          * Component pick Magento 2 custom click handler.
          * @param {Event} event Click event obj ect.
          */
-        onPickComponent: function ( componentType: String ): void {
+        onPickComponent( componentType: String ): void {
             console.log( componentType );
-        }
+        },
     },
 };
 

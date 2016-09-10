@@ -18,14 +18,14 @@ var actionButton = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
+            default: '',
         },
         iconId: {
-            type: String
+            type: String,
         },
         iconClasses: {
-            type: String
-        }
+            type: String,
+        },
     },
     methods: {
         /**
@@ -35,48 +35,8 @@ var actionButton = {
          */
         onClick: function (event) {
             this.$dispatch('action-button__click', event);
-        }
-    }
-};
-
-/**
- * Component controller component.
- * This component is responsible for displaying annd handling component adding button
- * @type {vuejs.ComponentOption} Vue component object.
- */
-var componentAdder = {
-    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-create\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
-    props: {
-        /**
-         * Class property support to enable BEM mixes.
-         */
-        class: {
-            type: String,
-            default: '',
-            coerce: function (value) {
-                return value.replace('cc-component-adder', '');
-            }
         },
-        /**
-         * Property containing callback triggered when user clicks "add component" button.
-         */
-        createComponent: {
-            type: Function
-        }
     },
-    methods: {
-        /**
-         * "Add component" button click handler.
-         * This handler triggers "cc-component-adder__create-component" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onCreateComponent: function (event) {
-            this.$dispatch('cc-component-adder__create-component', event);
-            if (typeof this.createComponent === 'function') {
-                this.createComponent(event);
-            }
-        }
-    }
 };
 
 /**
@@ -93,7 +53,7 @@ var componentAdder = {
 var componentActions = {
     template: "<aside class=\"cc-component-actions | {{ class }}\">\n        <div class=\"cc-component-actions__top\">\n            <slot name=\"cc-component-actions__top\"></slot>\n        </div>\n        <div class=\"cc-component-actions__bottom\">\n            <slot name=\"cc-component-actions__bottom\"></slot>\n        </div>\n    </aside>",
     components: {
-        'action-button': actionButton
+        'action-button': actionButton,
     },
     props: {
         /**
@@ -102,32 +62,32 @@ var componentActions = {
         class: {
             type: String,
             default: '',
-            coerce: function (value) { return value.replace('cc-component-actions', ''); }
+            coerce: function (value) { return value.replace('cc-component-actions', ''); },
         },
         /**
          * Property containing callback triggered when user clicks move up button.
          */
         moveUp: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks move down button.
          */
         moveDown: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks settings button.
          */
         openSettings: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when user clicks delete button.
          */
         deleteComponent: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     methods: {
         /**
@@ -173,15 +133,55 @@ var componentActions = {
             if (typeof this.deleteComponent === 'function') {
                 this.deleteComponent(event);
             }
-        }
-    }
+        },
+    },
+};
+
+/**
+ * Component controller component.
+ * This component is responsible for displaying annd handling component adding button
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var componentAdder = {
+    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-create\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: String,
+            default: '',
+            coerce: function (value) {
+                return value.replace('cc-component-adder', '');
+            },
+        },
+        /**
+         * Property containing callback triggered when user clicks "add component" button.
+         */
+        createComponent: {
+            type: Function,
+        },
+    },
+    methods: {
+        /**
+         * "Add component" button click handler.
+         * This handler triggers "cc-component-adder__create-component" event up the DOM chain when called.
+         * @param {Event} event Click event object.
+         */
+        onCreateComponent: function (event) {
+            this.$dispatch('cc-component-adder__create-component', event);
+            if (typeof this.createComponent === 'function') {
+                this.createComponent(event);
+            }
+        },
+    },
 };
 
 /**
  * Component placeholder component.
  */
 var componentPlaceholder = {
-    template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>"
+    template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>",
 };
 
 var template = "<section class=\"cc-layout-builder | {{ class }}\"> <cc-component-adder> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> <template v-for=\"component in components\"> <div class=\"cc-layout-builder__component\"> <div class=\"cc-layout-builder__component-actions\"> <cc-component-actions> <template slot=\"cc-component-actions__top\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use> </svg> </button> </template> <template slot=\"cc-component-actions__bottom\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_settings\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use> </svg> </button> </template> </cc-component-actions> </div> <div class=\"cc-layout-builder__component-wrapper\"> <cc-component-placeholder>{{ component.id }}</cc-component-placeholder> </div> </div> <cc-component-adder v-if=\"components.length\"> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> </template> </section> ";
@@ -193,7 +193,7 @@ var template = "<section class=\"cc-layout-builder | {{ class }}\"> <cc-componen
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var layoutBuilder = {
-    template: template,
+    template,
     /**
      * Get dependencies
      */
@@ -201,7 +201,7 @@ var layoutBuilder = {
         'action-button': actionButton,
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
-        'cc-component-placeholder': componentPlaceholder
+        'cc-component-placeholder': componentPlaceholder,
     },
     props: {
         /**
@@ -209,11 +209,11 @@ var layoutBuilder = {
          */
         class: {
             type: [String, Object, Array],
-            default: ''
+            default: '',
         },
         componentsConfiguration: {
             type: String,
-            default: ''
+            default: '',
         },
         /**
          * Callback invoked when edit component button is clicked.
@@ -222,7 +222,7 @@ var layoutBuilder = {
          */
         editComponent: {
             type: Function,
-            default: function (componentInfo) { return componentInfo; }
+            default: function (componentInfo) { return componentInfo; },
         },
         /**
          * Callback invoked when edit component button is clicked.
@@ -231,12 +231,12 @@ var layoutBuilder = {
          */
         addComponent: {
             type: Function,
-            default: function () { return undefined; }
-        }
+            default: function () { return undefined; },
+        },
     },
     data: function () {
         return {
-            components: []
+            components: [],
         };
     },
     ready: function () {
@@ -364,8 +364,8 @@ var layoutBuilder = {
          */
         isLastComponent: function (index) {
             return index === this.components.length - 1;
-        }
-    }
+        },
+    },
 };
 
 exports['default'] = layoutBuilder;

@@ -47,29 +47,29 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
          */
         class: {
             type: [ String, Object, Array ],
-            default: ''
+            default: '',
         },
         /**
          * Property containing callback triggered when user saves component.
          */
         save: {
-            type: Function
+            type: Function,
         },
         /**
          * Property containing callback triggered when configuration is changed.
          */
         change: {
-            type: Function
-        }
+            type: Function,
+        },
     },
-    data: function(): any {
+    data(): any {
         return {
             title: '',
-            subtitle: ''
+            subtitle: '',
         };
     },
     methods: {
-        onChange: function( event: Event ): void {
+        onChange( event: Event ): void {
             const data = JSON.parse( JSON.stringify( this.$data ) );
 
             this.$dispatch( 'cc-headline-configurator__change', data );
@@ -78,16 +78,16 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
                 this.change( data );
             }
         },
-        onSave: function( event: Event ): void {
-            const data = JSON.parse( JSON.stringify( this.$data ) );
+        onSave( event: Event ): void {
+            const data: any = JSON.parse( JSON.stringify( this.$data ) );
 
             this.$dispatch( 'cc-headline-configurator__save', data );
 
             if ( typeof this.save === 'function' ) {
                 this.save( data );
             }
-        }
-    }
+        },
+    },
 };
 
 export default ccHeadlineConfigurator;

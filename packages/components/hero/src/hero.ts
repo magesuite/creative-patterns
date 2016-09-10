@@ -1,7 +1,6 @@
 import $ from 'jQuery';
 import Swiper from 'Swiper';
 
-
 /*
 * Product teaser
 */
@@ -53,7 +52,7 @@ let hero = function( $element, settings ) {
         paginationBreakpoint: 5,
         pagination: $element.find( `${heroClass}__pagination`),
         paginationElement: 'li',
-        paginationBulletRender: function( index, className ) {
+        paginationBulletRender( index, className ) {
             return `<li class="${heroName}__pagination-item"><button class="${heroName}__pagination-button">${index + 1}</button></li>`;
         },
         bulletClass: `${heroName}__pagination-item`,
@@ -76,12 +75,12 @@ let hero = function( $element, settings ) {
      * Stop/Start autoplay on mouseover/mouseout
      */
     $element.on( {
-        mouseover: function() {
+        mouseover() {
             swiperInstance.stopAutoplay();
         },
-        mouseout: function() {
+        mouseout() {
             swiperInstance.startAutoplay();
-        }
+        },
     } );
 
     /**

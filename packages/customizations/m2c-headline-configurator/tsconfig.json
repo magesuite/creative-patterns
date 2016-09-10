@@ -19,8 +19,8 @@
     "rewriteTsconfig": true
   },
   "files": [
-    "src/seed.ts",
-    "src/tests/e2e/seed.ts",
-    "src/tests/unit/seed.ts"
+    "src/m2c-headline-configurator.ts",
+    "src/tests/e2e/m2c-headline-configurator.ts",
+    "src/tests/unit/m2c-headline-configurator.ts"
   ]
 }

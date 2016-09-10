@@ -8,7 +8,7 @@
  * Component placeholder component.
  */
 var componentPlaceholder = {
-    template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>"
+    template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>",
 };
 
 return componentPlaceholder;

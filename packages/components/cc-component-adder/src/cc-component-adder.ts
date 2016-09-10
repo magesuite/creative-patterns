@@ -17,16 +17,16 @@ const componentAdder: vuejs.ComponentOption = {
         class: {
             type: String,
             default: '',
-            coerce: function ( value: string ): string {
+            coerce( value: string ): string {
                 return value.replace( 'cc-component-adder', '' );
-            }
+            },
         },
         /**
          * Property containing callback triggered when user clicks "add component" button.
          */
         createComponent: {
-            type: Function
-        }
+            type: Function,
+        },
     },
     methods: {
         /**
@@ -34,13 +34,13 @@ const componentAdder: vuejs.ComponentOption = {
          * This handler triggers "cc-component-adder__create-component" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onCreateComponent: function( event: Event ): void {
+        onCreateComponent( event: Event ): void {
             this.$dispatch( 'cc-component-adder__create-component', event );
             if ( typeof this.createComponent === 'function' ) {
                 this.createComponent( event );
             }
-        }
-    }
+        },
+    },
 };
 
 export default componentAdder;
