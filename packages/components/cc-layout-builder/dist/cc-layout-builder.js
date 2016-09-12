@@ -20,12 +20,6 @@ var actionButton = {
             type: [String, Object, Array],
             default: '',
         },
-        iconId: {
-            type: String,
-        },
-        iconClasses: {
-            type: String,
-        },
     },
     methods: {
         /**
@@ -33,7 +27,7 @@ var actionButton = {
          * This handler triggers "action-button__click" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onClick: function (event) {
+        _onClick: function (event) {
             this.$dispatch('action-button__click', event);
         },
     },
@@ -52,9 +46,6 @@ var actionButton = {
  */
 var componentActions = {
     template: "<aside class=\"cc-component-actions | {{ class }}\">\n        <div class=\"cc-component-actions__top\">\n            <slot name=\"cc-component-actions__top\"></slot>\n        </div>\n        <div class=\"cc-component-actions__bottom\">\n            <slot name=\"cc-component-actions__bottom\"></slot>\n        </div>\n    </aside>",
-    components: {
-        'action-button': actionButton,
-    },
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -63,76 +54,6 @@ var componentActions = {
             type: String,
             default: '',
             coerce: function (value) { return value.replace('cc-component-actions', ''); },
-        },
-        /**
-         * Property containing callback triggered when user clicks move up button.
-         */
-        moveUp: {
-            type: Function,
-        },
-        /**
-         * Property containing callback triggered when user clicks move down button.
-         */
-        moveDown: {
-            type: Function,
-        },
-        /**
-         * Property containing callback triggered when user clicks settings button.
-         */
-        openSettings: {
-            type: Function,
-        },
-        /**
-         * Property containing callback triggered when user clicks delete button.
-         */
-        deleteComponent: {
-            type: Function,
-        },
-    },
-    methods: {
-        /**
-         * Move up button click handler.
-         * This handler triggers "cc-component-actions__move-up" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onMoveUp: function (event) {
-            this.$dispatch('cc-component-actions__move-up', event);
-            if (typeof this.moveUp === 'function') {
-                this.moveUp(event);
-            }
-        },
-        /**
-         * Move down button click handler.
-         * This handler triggers "cc-component-actions__move-down" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onMoveDown: function (event) {
-            this.$dispatch('cc-component-actions__move-down', event);
-            if (typeof this.moveDown === 'function') {
-                this.moveDown(event);
-            }
-        },
-        /**
-         * Settings button click handler.
-         * This handler triggers "cc-component-actions__open-settings" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onOpenSettings: function (event) {
-            this.$dispatch('cc-component-actions__open-settings', event);
-            if (typeof this.openSettings === 'function') {
-                this.openSettings(event);
-            }
-        },
-        /**
-         * Delete button click handler.
-         * This handler triggers "cc-component-actions__delete-component" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onDeleteComponent: function (event) {
-            this.$dispatch('cc-component-actions__delete-component', event);
-            if (typeof this.deleteComponent === 'function') {
-                this.deleteComponent(event);
-            }
         },
     },
 };
@@ -211,6 +132,9 @@ var layoutBuilder = {
             type: [String, Object, Array],
             default: '',
         },
+        /**
+         * Initial component configuration encoded as JSON string.
+         */
         componentsConfiguration: {
             type: String,
             default: '',

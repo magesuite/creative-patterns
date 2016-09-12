@@ -39,6 +39,9 @@ const layoutBuilder: vuejs.ComponentOption = {
             type: [ String, Object, Array ],
             default: '',
         },
+        /**
+         * Initial component configuration encoded as JSON string.
+         */
         componentsConfiguration: {
             type: String,
             default: '',

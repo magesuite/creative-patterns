@@ -16,12 +16,6 @@ const actionButton: vuejs.ComponentOption = {
             type: [ String, Object, Array ],
             default: '',
         },
-        iconId: {
-            type: String,
-        },
-        iconClasses: {
-            type: String,
-        },
     },
     methods: {
         /**
@@ -29,7 +23,7 @@ const actionButton: vuejs.ComponentOption = {
          * This handler triggers "action-button__click" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onClick( event: Event ): void {
+        _onClick( event: Event ): void {
             this.$dispatch( 'action-button__click', event );
         },
     },
