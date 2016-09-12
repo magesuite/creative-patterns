@@ -1,17 +1,27 @@
+import {ISubcategoriesFlyout} from './subcategoriesFlyout.class';
+
 interface INavigationToggle {
-    makeActive(): void,
-    makeInactive(): void,
-    isActive(): boolean,
-    getNavGroup(): string,
-    bindFlyout(flyout: Object): void,
-    getElement(): JQuery,
-    getFlyout(): Object
+    makeActive(): void;
+    makeInactive(): void;
+    isActive(): boolean;
+    getNavGroup(): string;
+    bindFlyout(flyout: ISubcategoriesFlyout): void;
+    getElement(): JQuery;
+    getFlyout(): ISubcategoriesFlyout;
+}
+
+interface INavigationToggleSettings {
+    classes: {
+        active: string
+    };
+    hasFlyout: boolean;
+    element: JQuery;
 }
 
 /**
  * Wraps single, first level category/link in navigation bar and handles its state
  */
-export class NavigationToggle implements INavigationToggle {
+class NavigationToggle implements INavigationToggle {
     private classes: {
         active: string
     };
@@ -20,9 +30,9 @@ export class NavigationToggle implements INavigationToggle {
     private _hasFlyout: boolean = false;
     private _dataNavGroupAttribute: string = '';
     private _navGroup: string = '';
-    private _flyout: Object;
+    private _flyout: ISubcategoriesFlyout;
 
-    constructor( settings ) {
+    constructor(settings: INavigationToggleSettings) {
         this.classes = {};
         this.classes.active = settings.classes.active;
 
@@ -30,7 +40,7 @@ export class NavigationToggle implements INavigationToggle {
 
         this._dataNavGroupAttribute = 'data-nav-group';
 
-        if ( settings.hasFlyout ) {
+        if (settings.hasFlyout) {
             this._hasFlyout = settings.hasFlyout;
         }
 
@@ -38,42 +48,40 @@ export class NavigationToggle implements INavigationToggle {
 
     }
 
-    private events () {
-
-    }
-
-    private _setNavGroup () {
-        this._navGroup = this._element.attr(this._dataNavGroupAttribute);
-    }
-
-    public makeActive ()  {
+    public makeActive(): void {
         this._element.addClass(this.classes.active);
         this._isActive = true;
     };
 
-    public makeInactive ()  {
+    public makeInactive(): void {
         this._element.removeClass(this.classes.active);
         this._isActive = false;
     };
 
-    public isActive () {
+    public isActive(): boolean {
         return this._isActive;
     }
 
-    public getNavGroup () {
+    public getNavGroup(): string {
         return this._navGroup;
     }
 
-    public bindFlyout (flyout: Object ) {
+    public bindFlyout(flyout: ISubcategoriesFlyout): void {
         this._flyout = flyout;
     }
 
-    public getElement () {
+    public getElement(): JQuery {
         return this._element;
     }
 
-    public getFlyout () {
+    public getFlyout(): Object {
         return this._flyout;
     }
 
+    private _setNavGroup(): void {
+        this._navGroup = this._element.attr(this._dataNavGroupAttribute);
+    }
 }
+
+export {NavigationToggle};
+export {INavigationToggle};

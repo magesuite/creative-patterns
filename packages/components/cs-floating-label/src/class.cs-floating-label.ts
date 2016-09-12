@@ -1,13 +1,13 @@
 interface IFloatingLabel {
-    float(): void,
-    unFloat(): void,
-    init(): void
+    float(): void;
+    unFloat(): void;
+    init(): void;
 }
 
 interface IFloatingLabelSettings {
-    input: JQuery,
-    label: JQuery,
-    labelFloatedClass: string
+    input: JQuery;
+    label: JQuery;
+    labelFloatedClass: string;
 }
 
 class FloatingLabel {
@@ -23,15 +23,20 @@ class FloatingLabel {
 
     }
 
-    float() {
+    public float(): void {
         this.label.addClass(this.labelFloatedClass);
     }
 
-    unFloat() {
+    public unFloat(): void {
         this.label.removeClass(this.labelFloatedClass);
     }
 
-    _events() {
+    public init(): void {
+        this._events();
+
+    }
+
+    private _events(): void {
         this.input.on('focus', () => {
             this.float();
         });
@@ -43,10 +48,7 @@ class FloatingLabel {
             }
         });
     }
-
-    init() {
-        this._events();
-
-    }
 }
-export default FloatingLabel;
+
+export {FloatingLabel};
+export {IFloatingLabel};
