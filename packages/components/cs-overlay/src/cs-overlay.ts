@@ -1,7 +1,4 @@
-//jQuery needed
-
-
-//demo
+// Demo
 
 import Overlay from './class.cs-overlay';
 import IOverlay from './class.cs-overlay';

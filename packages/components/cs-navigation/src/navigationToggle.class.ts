@@ -74,7 +74,7 @@ class NavigationToggle implements INavigationToggle {
         return this._element;
     }
 
-    public getFlyout(): Object {
+    public getFlyout(): ISubcategoriesFlyout {
         return this._flyout;
     }
 
