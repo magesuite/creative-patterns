@@ -11,7 +11,7 @@
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var actionButton = {
-    template: "<button class=\"action-button {{ class }}\" @click=\"onClick\">\n        <slot></slot>\n    </button>",
+    template: "<button class=\"action-button {{ class }}\" @click=\"_onClick\">\n        <slot></slot>\n    </button>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -170,6 +170,13 @@ var layoutBuilder = {
     },
     methods: {
         /**
+         * Returns components information currently stored within layout builder.
+         * @return {IComponentInformation[]} Components information array.
+         */
+        getComponentInformation: function () {
+            return JSON.parse(JSON.stringify(this.components));
+        },
+        /**
          * Sets provided component information on current index in components array.
          * If component exists on given index then this compoennt will be inserted before it.
          * @param {number}                index         Component index in components array.
@@ -192,13 +199,6 @@ var layoutBuilder = {
                 this.components.$set(index, componentInfo);
                 this.$dispatch('cc-layout-builder__update');
             }
-        },
-        /**
-         * Returns components information currently stored within layout builder.
-         * @return {IComponentInformation[]} Components information array.
-         */
-        getComponentInformation: function () {
-            return JSON.parse(JSON.stringify(this.components));
         },
         /**
          * Creates new component and adds it to a specified index.

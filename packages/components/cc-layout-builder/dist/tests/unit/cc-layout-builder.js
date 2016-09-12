@@ -10090,7 +10090,7 @@ var template = Object.freeze({
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var actionButton = {
-    template: "<button class=\"action-button {{ class }}\" @click=\"onClick\">\n        <slot></slot>\n    </button>",
+    template: "<button class=\"action-button {{ class }}\" @click=\"_onClick\">\n        <slot></slot>\n    </button>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -10249,6 +10249,13 @@ var layoutBuilder = {
     },
     methods: {
         /**
+         * Returns components information currently stored within layout builder.
+         * @return {IComponentInformation[]} Components information array.
+         */
+        getComponentInformation: function () {
+            return JSON.parse(JSON.stringify(this.components));
+        },
+        /**
          * Sets provided component information on current index in components array.
          * If component exists on given index then this compoennt will be inserted before it.
          * @param {number}                index         Component index in components array.
@@ -10271,13 +10278,6 @@ var layoutBuilder = {
                 this.components.$set(index, componentInfo);
                 this.$dispatch('cc-layout-builder__update');
             }
-        },
-        /**
-         * Returns components information currently stored within layout builder.
-         * @return {IComponentInformation[]} Components information array.
-         */
-        getComponentInformation: function () {
-            return JSON.parse(JSON.stringify(this.components));
         },
         /**
          * Creates new component and adds it to a specified index.
@@ -10371,22 +10371,6 @@ var layoutBuilder = {
     },
 };
 
-describe('Component controller object.', function () {
-    var methods = layoutBuilder.methods;
-    var props = layoutBuilder.props;
-    it('supports a class property.', function () {
-        expect(props.class).toEqual(jasmine.anything());
-    });
-    it('supports an edit component property.', function () {
-        expect(props.editComponent).toEqual(jasmine.anything());
-    });
-    it('supports an add component property.', function () {
-        expect(props.addComponent).toEqual(jasmine.anything());
-    });
-    it('supports an initial component configuration property.', function () {
-        expect(props.componentsConfiguration).toEqual(jasmine.anything());
-    });
-});
 describe('Component controller Vue component', function () {
     var vm;
     var spy;
@@ -10399,28 +10383,83 @@ describe('Component controller Vue component', function () {
         },
     ];
     beforeEach(function () {
+        vue.config.devtools = false;
+        document.body.insertAdjacentHTML('afterbegin', '<app></app>');
         // Create a spy that we will use to check if callbacks was called.
         spy = {
             eventCallback: function () { return undefined; },
-            propCallback: function () { return undefined; },
+            addCallback: function () { return undefined; },
+            editCallback: function () { return undefined; },
         };
         spyOn(spy, 'eventCallback');
-        spyOn(spy, 'propCallback');
+        spyOn(spy, 'addCallback');
+        spyOn(spy, 'editCallback');
         // Prepare Vue instance with a template.
         vm = new vue({
-            template: "<div>\n                <cc-layout-builder\n                    v-ref:component\n                    component-configuration=\"" + JSON.stringify(initialConfig) + "\"\n                >\n                </cc-layout-builder>\n            </div>",
+            template: "<div>\n                <cc-layout-builder\n                    v-ref:component\n                    components-configuration='" + JSON.stringify(initialConfig) + "',\n                    :add-component=\"addCallback\",\n                    :edit-component=\"editCallback\"\n                >\n                </cc-layout-builder>\n            </div>",
             components: {
                 'cc-layout-builder': layoutBuilder,
             },
-        }).$mount();
+            events: {
+                'cc-layout-builder__update': spy.eventCallback,
+            },
+            methods: {
+                propCallback: spy.propCallback,
+                editCallback: spy.editCallback,
+                addCallback: spy.addCallback,
+            },
+        }).$mount('app');
         // Get reference to component we want to test.
         ref = vm.$refs.component;
     });
     it('returns initial configuration when not changed.', function () {
         expect(ref.getComponentInformation()).toEqual(initialConfig);
     });
+    it('returns changed configuration when component is added.', function () {
+        var newComponent = {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        };
+        ref.addComponentInformation(0, newComponent);
+        expect(ref.getComponentInformation()).not.toEqual(initialConfig);
+    });
+    it('returns changed configuration when component is replaced.', function () {
+        var newComponent = {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        };
+        ref.setComponentInformation(0, JSON.parse(JSON.stringify(newComponent)));
+        expect(ref.getComponentInformation()).toEqual([newComponent]);
+    });
+    it('adds new component to collection.', function () {
+        var newComponent = {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        };
+        ref.addComponentInformation(0, newComponent);
+        expect(ref.getComponentInformation().length).toEqual(2);
+    });
+    it('replaces component in collection.', function () {
+        var newComponent = {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        };
+        ref.setComponentInformation(0, newComponent);
+        expect(ref.getComponentInformation().length).toEqual(1);
+    });
+    it('invokes add component callback.', function () {
+        ref.createNewComponent(0);
+        expect(spy.addCallback).toHaveBeenCalled();
+    });
+    it('invokes edit component callback.', function () {
+        ref.editComponentSettings(0);
+        expect(spy.editCallback).toHaveBeenCalled();
+    });
     it('triggers update event on init.', function () {
-        vm.$on('cc-layout-builder__update', spy.eventCallback);
         expect(spy.eventCallback).toHaveBeenCalled();
     });
 });

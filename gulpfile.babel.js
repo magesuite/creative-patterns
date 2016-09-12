@@ -46,7 +46,6 @@ gulp.task( 'lint', ( done ) => {
  */
 gulp.task( 'test', ( done ) => {
     sequence(
-        'build',
         'packages:build:unit',
         'packages:test:unit',
         done
@@ -55,7 +54,7 @@ gulp.task( 'test', ( done ) => {
 
 gulp.task( 'test:e2e', ( done ) => {
     sequence(
-        'build',
+        'packages:build:scripts',
         'packages:build:e2e',
         'packages:test:e2e',
         done
