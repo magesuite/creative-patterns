@@ -1,16 +1,14 @@
-//jQuery needed
-
 interface IOverlay {
-    show(): void,
-    hide(): void,
-    isVisible(): boolean
+    show(): void;
+    hide(): void;
+    isVisible(): boolean;
 }
 
 interface IOverlaySettings {
-    $element: JQuery,
-    visibleClass: string,
-    onShow?(): void,
-    onHide?(): void
+    $element: JQuery;
+    visibleClass: string;
+    onShow?(): void;
+    onHide?(): void;
 }
 
 class Overlay implements IOverlay {
@@ -18,9 +16,8 @@ class Overlay implements IOverlay {
     private $element: JQuery;
     private visibleClass: string;
 
-    private onShow = null;
-    private onHide = null;
-
+    private onShow: any = null;
+    private onHide: any = null;
 
     constructor(settings: IOverlaySettings) {
         this.$element = settings.$element;
@@ -31,7 +28,7 @@ class Overlay implements IOverlay {
 
     }
 
-    public hide() {
+    public hide(): void {
         this.$element.removeClass(this.visibleClass);
         this._visible = false;
         this.$element.trigger('overlay:hidden');
@@ -41,7 +38,7 @@ class Overlay implements IOverlay {
         }
     }
 
-    public show() {
+    public show(): void {
         this.$element.addClass(this.visibleClass);
         this._visible = true;
         this.$element.trigger('overlay:shown');
@@ -52,7 +49,7 @@ class Overlay implements IOverlay {
 
     }
 
-    public isVisible() {
+    public isVisible(): boolean {
         return this._visible;
     }
 

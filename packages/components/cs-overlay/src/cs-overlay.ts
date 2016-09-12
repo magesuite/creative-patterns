@@ -4,24 +4,24 @@
 //demo
 
 import Overlay from './class.cs-overlay';
+import IOverlay from './class.cs-overlay';
 
-const overlay = new Overlay({
+const overlay: IOverlay = new Overlay({
     $element: $('.cs-overlay'),
     visibleClass: 'cs-overlay--is-visible',
-    onShow: function () {
-        $('p').css('webkitFilter', 'blur(5px)')
+    onShow (): void {
+        $('p').css('webkitFilter', 'blur(5px)');
     },
-    onHide: function () {
+    onHide (): void {
         $('p').css('webkitFilter', 'none');
-    }
-
+    },
 });
 
-$('#show').on('click', function () {
+$('#show').on('click', function (): void {
     overlay.show();
 });
 
-$('.cs-overlay').on('click', function () {
+$('.cs-overlay').on('click', function (): void {
     overlay.hide();
 });
 

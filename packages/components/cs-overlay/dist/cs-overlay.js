@@ -1,32 +1,33 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jQuery')) :
-    typeof define === 'function' && define.amd ? define('csOverlay', ['exports', 'jQuery'], factory) :
-    (factory((global.csOverlay = global.csOverlay || {}),global.jQuery));
-}(this, (function (exports,$) { 'use strict';
-
-$ = 'default' in $ ? $['default'] : $;
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+    typeof define === 'function' && define.amd ? define('csOverlay', ['exports'], factory) :
+    (factory((global.csOverlay = global.csOverlay || {})));
+}(this, (function (exports) { 'use strict';
 
 var Overlay = (function () {
     function Overlay(settings) {
         this._visible = false;
-        this.classes = {};
-        this.allowBlurBackground = true;
+        this.onShow = null;
+        this.onHide = null;
         this.$element = settings.$element;
-        this.classes = settings.classes;
+        this.visibleClass = settings.visibleClass;
+        this.onShow = settings.onShow;
+        this.onHide = settings.onHide;
     }
-    Overlay.prototype._blurBackground = function () {
-    };
     Overlay.prototype.hide = function () {
-        this.$element.removeClass(this.classes.visible);
+        this.$element.removeClass(this.visibleClass);
         this._visible = false;
         this.$element.trigger('overlay:hidden');
+        if (this.onHide) {
+            this.onHide();
+        }
     };
     Overlay.prototype.show = function () {
-        this.$element.addClass(this.classes.visible);
+        this.$element.addClass(this.visibleClass);
         this._visible = true;
         this.$element.trigger('overlay:shown');
-        if (this.allowBlurBackground) {
-            this._blurBackground();
+        if (this.onShow) {
+            this.onShow();
         }
     };
     Overlay.prototype.isVisible = function () {
@@ -34,15 +35,25 @@ var Overlay = (function () {
     };
     return Overlay;
 }());
+
+//jQuery needed
 var overlay = new Overlay({
     $element: $('.cs-overlay'),
-    classes: {
-        visible: 'cs-overlay--is-visible',
+    visibleClass: 'cs-overlay--is-visible',
+    onShow: function () {
+        $('p').css('webkitFilter', 'blur(5px)');
     },
-    allowBlurBackground: true,
+    onHide: function () {
+        $('p').css('webkitFilter', 'none');
+    },
+});
+$('#show').on('click', function () {
+    overlay.show();
+});
+$('.cs-overlay').on('click', function () {
+    overlay.hide();
 });
 
-exports.Overlay = Overlay;
 exports.overlay = overlay;
 
 Object.defineProperty(exports, '__esModule', { value: true });
