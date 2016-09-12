@@ -10084,41 +10084,6 @@ var template = Object.freeze({
 });
 
 /**
- * Action button component version.
- * Small component that allows to set it's content.
- *
- * @type {vuejs.ComponentOption} Vue component object.
- */
-var actionButton = {
-    template: "<button class=\"action-button {{ class }}\" @click=\"onClick\">\n        <slot></slot>\n    </button>",
-    props: {
-        /**
-         * Class property support to enable BEM mixes.
-         */
-        class: {
-            type: [String, Object, Array],
-            default: '',
-        },
-        iconId: {
-            type: String,
-        },
-        iconClasses: {
-            type: String,
-        },
-    },
-    methods: {
-        /**
-         * Button click handler.
-         * This handler triggers "action-button__click" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onClick: function (event) {
-            this.$dispatch('action-button__click', event);
-        },
-    },
-};
-
-/**
  * Component actions component.
  * This component is responsible for displaying and handling user interactions of
  * side utility navigation for each component that supports:
@@ -10131,9 +10096,6 @@ var actionButton = {
  */
 var componentActions = {
     template: "<aside class=\"cc-component-actions | {{ class }}\">\n        <div class=\"cc-component-actions__top\">\n            <slot name=\"cc-component-actions__top\"></slot>\n        </div>\n        <div class=\"cc-component-actions__bottom\">\n            <slot name=\"cc-component-actions__bottom\"></slot>\n        </div>\n    </aside>",
-    components: {
-        'action-button': actionButton,
-    },
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -10143,170 +10105,17 @@ var componentActions = {
             default: '',
             coerce: function (value) { return value.replace('cc-component-actions', ''); },
         },
-        /**
-         * Property containing callback triggered when user clicks move up button.
-         */
-        moveUp: {
-            type: Function,
-        },
-        /**
-         * Property containing callback triggered when user clicks move down button.
-         */
-        moveDown: {
-            type: Function,
-        },
-        /**
-         * Property containing callback triggered when user clicks settings button.
-         */
-        openSettings: {
-            type: Function,
-        },
-        /**
-         * Property containing callback triggered when user clicks delete button.
-         */
-        deleteComponent: {
-            type: Function,
-        },
-    },
-    methods: {
-        /**
-         * Move up button click handler.
-         * This handler triggers "cc-component-actions__move-up" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onMoveUp: function (event) {
-            this.$dispatch('cc-component-actions__move-up', event);
-            if (typeof this.moveUp === 'function') {
-                this.moveUp(event);
-            }
-        },
-        /**
-         * Move down button click handler.
-         * This handler triggers "cc-component-actions__move-down" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onMoveDown: function (event) {
-            this.$dispatch('cc-component-actions__move-down', event);
-            if (typeof this.moveDown === 'function') {
-                this.moveDown(event);
-            }
-        },
-        /**
-         * Settings button click handler.
-         * This handler triggers "cc-component-actions__open-settings" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onOpenSettings: function (event) {
-            this.$dispatch('cc-component-actions__open-settings', event);
-            if (typeof this.openSettings === 'function') {
-                this.openSettings(event);
-            }
-        },
-        /**
-         * Delete button click handler.
-         * This handler triggers "cc-component-actions__delete-component" event up the DOM chain when called.
-         * @param {Event} event Click event object.
-         */
-        onDeleteComponent: function (event) {
-            this.$dispatch('cc-component-actions__delete-component', event);
-            if (typeof this.deleteComponent === 'function') {
-                this.deleteComponent(event);
-            }
-        },
     },
 };
 
-describe('Component actions object.', function () {
-    var methods = componentActions.methods;
-    var props = componentActions.props;
-    it('has a move up method.', function () {
-        expect(typeof methods.onMoveUp).toBe('function');
-    });
-    it('has a move down method.', function () {
-        expect(typeof methods.onMoveDown).toBe('function');
-    });
-    it('has an open settings method.', function () {
-        expect(typeof methods.onOpenSettings).toBe('function');
-    });
-    it('has a delete component method.', function () {
-        expect(typeof methods.onDeleteComponent).toBe('function');
-    });
-    it('has a class property.', function () {
-        expect(props.class).toEqual(jasmine.anything());
-    });
-    it('has a move up property.', function () {
-        expect(props.moveUp).toEqual(jasmine.anything());
-    });
-    it('has a move down property.', function () {
-        expect(props.moveDown).toEqual(jasmine.anything());
-    });
-    it('has an open settings property.', function () {
-        expect(props.openSettings).toEqual(jasmine.anything());
-    });
-    it('has a delete component property.', function () {
-        expect(props.deleteComponent).toEqual(jasmine.anything());
-    });
-});
-describe('Component actions Vue component', function () {
-    var vm;
-    var spy;
-    var ref;
-    beforeEach(function () {
-        // Create a spy that we will use to check if callbacks was called.
-        spy = {
-            propCallback: function () { return undefined; },
-            eventCallback: function () { return undefined; },
-        };
-        spyOn(spy, 'propCallback');
-        spyOn(spy, 'eventCallback');
-        // Prepare Vue instance with a template.
-        vm = new vue({
-            template: "<div>\n                <cc-component-actions v-ref:component :move-up=\"propCallback\" :move-down=\"propCallback\"\n                    :open-settings=\"propCallback\" :delete-component=\"propCallback\">\n                    <div class=\"cc-component-actions__button\" slot=\"cc-component-actions__button--up\"></div>\n                    <div class=\"cc-component-actions__button\" slot=\"cc-component-actions__button--down\"></div>\n                    <div class=\"cc-component-actions__button\" slot=\"cc-component-actions__button--settings\"></div>\n                    <div class=\"cc-component-actions__button\" slot=\"cc-component-actions__button--delete\"></div>\n                </cc-component-actions>\n            </div>",
+describe('Component actions component', function () {
+    it('is a valid Vue component.', function () {
+        new vue({
+            template: "<div>\n                <cc-component-actions class=\"test\"\n                </cc-component-actions>\n            </div>",
             components: {
                 'cc-component-actions': componentActions,
             },
-            methods: {
-                propCallback: spy.propCallback,
-            },
         }).$mount();
-        // Get reference to component we want to test.
-        ref = vm.$refs.component;
-    });
-    it('triggers move up event.', function () {
-        vm.$on('cc-component-actions__move-up', spy.eventCallback);
-        ref.onMoveUp();
-        expect(spy.eventCallback).toHaveBeenCalled();
-    });
-    it('triggers move up callback.', function () {
-        ref.onMoveUp();
-        expect(spy.propCallback).toHaveBeenCalled();
-    });
-    it('triggers move down event.', function () {
-        vm.$on('cc-component-actions__move-down', spy.eventCallback);
-        ref.onMoveDown();
-        expect(spy.eventCallback).toHaveBeenCalled();
-    });
-    it('triggers move down callback.', function () {
-        ref.onMoveDown();
-        expect(spy.propCallback).toHaveBeenCalled();
-    });
-    it('triggers open settings event.', function () {
-        vm.$on('cc-component-actions__open-settings', spy.eventCallback);
-        ref.onOpenSettings();
-        expect(spy.eventCallback).toHaveBeenCalled();
-    });
-    it('triggers open settings event.', function () {
-        ref.onOpenSettings();
-        expect(spy.propCallback).toHaveBeenCalled();
-    });
-    it('triggers delete component event.', function () {
-        vm.$on('cc-component-actions__delete-component', spy.eventCallback);
-        ref.onDeleteComponent();
-        expect(spy.eventCallback).toHaveBeenCalled();
-    });
-    it('triggers delete component callback.', function () {
-        ref.onDeleteComponent();
-        expect(spy.propCallback).toHaveBeenCalled();
     });
 });
 

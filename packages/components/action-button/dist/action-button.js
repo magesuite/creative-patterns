@@ -20,12 +20,6 @@ var actionButton = {
             type: [String, Object, Array],
             default: '',
         },
-        iconId: {
-            type: String,
-        },
-        iconClasses: {
-            type: String,
-        },
     },
     methods: {
         /**
@@ -33,7 +27,7 @@ var actionButton = {
          * This handler triggers "action-button__click" event up the DOM chain when called.
          * @param {Event} event Click event object.
          */
-        onClick: function (event) {
+        _onClick: function (event) {
             this.$dispatch('action-button__click', event);
         },
     },

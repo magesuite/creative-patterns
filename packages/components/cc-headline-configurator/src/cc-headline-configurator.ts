@@ -70,7 +70,7 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
     },
     methods: {
         onChange( event: Event ): void {
-            const data = JSON.parse( JSON.stringify( this.$data ) );
+            const data: any = JSON.parse( JSON.stringify( this.$data ) );
 
             this.$dispatch( 'cc-headline-configurator__change', data );
 

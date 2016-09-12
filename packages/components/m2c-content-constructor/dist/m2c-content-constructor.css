@@ -314,13 +314,13 @@
     -webkit-transform: translateY(-1px);
         -ms-transform: translateY(-1px);
             transform: translateY(-1px);
-    content: " "; }
+    content: ' '; }
   .cc-component-adder__button-create {
     display: inline-block; }
   .cc-component-adder__button {
     background-color: #fff;
-    -webkit-transition: border-color 0.25s linear;
-    transition: border-color 0.25s linear; }
+    -webkit-transition: border-color .25s linear;
+    transition: border-color .25s linear; }
     .cc-component-adder__button:hover {
       border-color: #c20000; }
 

@@ -23,7 +23,7 @@ let pickerModalOptions: any = {
         {
             text: $.mage.__( 'Cancel' ),
             class: '',
-            click: function (): void {
+            click(): void {
                 this.closeModal();
             },
         },
@@ -41,7 +41,7 @@ let configuratorModalOptions: any = {
         {
             text: $.mage.__( 'Cancel' ),
             class: '',
-            click: function (): void {
+            click(): void {
                 this.closeModal();
             },
         },
@@ -50,7 +50,7 @@ let configuratorModalOptions: any = {
             class: 'action-primary',
         },
     ],
-    closed: function(): void {
+    closed(): void {
         this.innerHTML = '';
     },
 };
@@ -87,7 +87,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             default: '',
         },
     },
-    ready: function(): void {
+    ready(): void {
         this.dumpConfiguration();
     },
     events: {
@@ -95,10 +95,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * We update provided input with new components information each time leyout
          * builder updates.
          */
-        'cc-layout-builder__update': function(): void {
+        'cc-layout-builder__update'(): void {
             this.dumpConfiguration();
         },
-        'cc-headline-configurator__change': function( data: any ): void {
+        'cc-headline-configurator__change'( data: any ): void {
             console.log( data );
             this._currentConfiguratorData = data;
         },
@@ -158,7 +158,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 settings: 'Nowe Jakieś ustawienia',
             } );
         },
-        dumpConfiguration: function(): void {
+        dumpConfiguration(): void {
             uiRegistry.get('cms_page_form.cms_page_form').source.set(
                 'data.components',
                 JSON.stringify(
