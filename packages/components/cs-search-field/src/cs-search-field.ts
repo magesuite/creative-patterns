@@ -17,17 +17,18 @@ class SearchField implements ISearchField {
         this._dependencies = settings.dependencies;
     }
 
-    _callDependencies() {
-        for (let i = 0; i < this._dependencies.length; i++) {
-            let dependency = this._dependencies[i];
+    public init(): void {
+        this._callDependencies();
+    }
+
+    private _callDependencies(): void {
+        for (let i: number = 0; i < this._dependencies.length; i++) {
+            let dependency: ISearchFieldDependency = this._dependencies[i];
 
             dependency.init();
         }
     }
 
-    init() {
-        this._callDependencies();
-    }
 }
 
 export default SearchField;
