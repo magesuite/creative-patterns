@@ -12,9 +12,14 @@ To install the local copy of the library:
 3. Run `npm install` in project's root to install all of the needed dependencies.
 4. Run `npm run serve` to build the library and start its website.
 
-## Usage
+## Essential commands
 
-TODO: Write usage instructions
+Since pattern library's build system is based on gulp, here are some most essential commands which are helpfull when working with it.
+
+- `npm run build` or `gulp build` - Builds entire pattern library.
+- `npm run serve` or `gulp serve` - Builds entire pattern library and fires up local dev server which let's you browse the files.
+- `npm run test` or `gulp test` - Build scripts and runs unit tests. When using gulp variant you can append optional ` --watch` argument to fire up tests each time the files are changed.
+- `npm run lint` or `gulp lint` - Lints scripts and styles accorging to our code style rules.
 
 ## Adding new components
 
@@ -33,15 +38,3 @@ TODO: Write usage instructions
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin feature/my-new-feature`
 5. Submit a merge request :D
-
-## History
-
-TODO: Write history
-
-## Credits
-
-TODO: Write credits
-
-## License
-
-TODO: Write license
