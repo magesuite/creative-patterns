@@ -36,7 +36,7 @@ var Overlay = (function () {
     return Overlay;
 }());
 
-//jQuery needed
+// Demo
 var overlay = new Overlay({
     $element: $('.cs-overlay'),
     visibleClass: 'cs-overlay--is-visible',
