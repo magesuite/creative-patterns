@@ -1,10 +1,9 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define('csProductThumbnails', factory) :
-    (factory());
+    (global.csProductThumbnails = factory());
 }(this, (function () { 'use strict';
 
-//JQuery needed
 var Thumbnail = (function () {
     function Thumbnail(settings) {
         this.selected = false;
@@ -12,9 +11,6 @@ var Thumbnail = (function () {
         this.selectedClass = settings.selectedClass;
         this.selected = this._detectIfSelected();
     }
-    Thumbnail.prototype._detectIfSelected = function () {
-        return this.element.hasClass(this.selectedClass) ? true : false;
-    };
     Thumbnail.prototype.select = function () {
         this.element.addClass(this.selectedClass);
         this.selected = true;
@@ -27,14 +23,22 @@ var Thumbnail = (function () {
     Thumbnail.prototype.isSelected = function () {
         return this.selected;
     };
+    Thumbnail.prototype.getElement = function () {
+        return this.element;
+    };
+    Thumbnail.prototype._detectIfSelected = function () {
+        return this.element.hasClass(this.selectedClass) ? true : false;
+    };
     return Thumbnail;
 }());
 
-//JQuery needed
 var Thumbnails = (function () {
     function Thumbnails(settings) {
         this.thumbnails = settings.thumbnails;
     }
+    Thumbnails.prototype.init = function () {
+        this._events();
+    };
     Thumbnails.prototype._resetSelected = function () {
         $.each(this.thumbnails, function (i, elem) {
             elem.unSelect();
@@ -44,7 +48,7 @@ var Thumbnails = (function () {
         var _this = this;
         var _loop_1 = function(i) {
             var thumbnail = this_1.thumbnails[i];
-            var $thumbnail = $(thumbnail.element);
+            var $thumbnail = $(thumbnail.getElement());
             $thumbnail.on('click', function () {
                 if (!thumbnail.isSelected()) {
                     _this._resetSelected();
@@ -56,9 +60,6 @@ var Thumbnails = (function () {
         for (var i = 0; i < this.thumbnails.length; i++) {
             _loop_1(i);
         }
-    };
-    Thumbnails.prototype.init = function () {
-        this._events();
     };
     return Thumbnails;
 }());
@@ -73,11 +74,8 @@ $('.cs-product-thumbnails__item').each(function () {
 });
 var thumbnailsComponent = new Thumbnails({ thumbnails: thumbnailsArray });
 thumbnailsComponent.init();
-/*
- TODO: Add events or callback?
- If events - on single Thumbnail or parent component?
- Use jQuery events, native js or something else?
- */
+
+return thumbnailsComponent;
 
 })));
 //# sourceMappingURL=cs-product-thumbnails.js.map
