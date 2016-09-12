@@ -1,65 +1,28 @@
-import $ from 'jQuery';
+//jQuery needed
 
-interface IOverlay {
-    show(): void;
-    hide(): void;
-    isVisible(): boolean;
-}
 
-interface IOverlaySettings {
-    $element: JQuery;
-    classes: {
-        visible: string
-    };
-}
+//demo
 
-class Overlay implements IOverlay {
-    private _visible: boolean = false;
-    private $element: JQuery;
-    private classes: Object = {};
-    private allowBlurBackground: boolean = true;
+import Overlay from './class.cs-overlay';
+import IOverlay from './class.cs-overlay';
 
-    constructor(settings: IOverlaySettings) {
-        this.$element = settings.$element;
-        this.classes = settings.classes;
-    }
-
-    private _blurBackground() {
-
-    }
-
-    public hide() {
-        this.$element.removeClass( this.classes.visible );
-        this._visible = false;
-        this.$element.trigger( 'overlay:hidden' );
-    }
-
-    public show() {
-        this.$element.addClass( this.classes.visible );
-        this._visible = true;
-        this.$element.trigger( 'overlay:shown' );
-
-        if (this.allowBlurBackground) {
-            this._blurBackground();
-        }
-
-    }
-
-    public isVisible() {
-        return this._visible;
-    }
-
-}
-
-const overlay = new Overlay({
+const overlay: IOverlay = new Overlay({
     $element: $('.cs-overlay'),
-    classes: {
-        visible: 'cs-overlay--is-visible',
+    visibleClass: 'cs-overlay--is-visible',
+    onShow (): void {
+        $('p').css('webkitFilter', 'blur(5px)');
     },
-    allowBlurBackground: true,
+    onHide (): void {
+        $('p').css('webkitFilter', 'none');
+    },
 });
 
-export {
-    Overlay,
-    overlay,
-};
+$('#show').on('click', function (): void {
+    overlay.show();
+});
+
+$('.cs-overlay').on('click', function (): void {
+    overlay.hide();
+});
+
+export {overlay};

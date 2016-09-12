@@ -1,8 +1,11 @@
 {
-    "name": "cs-overlay",
-    "version": "0.0.1",
-    "description": "Full-screen overlay for modals etc",
-    "main": "src/cs-overlay.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
+  "name": "cs-overlay",
+  "version": "0.0.1",
+  "description": "Full-screen overlay for modals etc",
+  "main": "src/cs-overlay.ts",
+  "author": "Lukasz Ostrowski",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.0"
+  }
 }
