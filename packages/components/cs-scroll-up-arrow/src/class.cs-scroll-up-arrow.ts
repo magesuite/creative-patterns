@@ -1,17 +1,18 @@
 interface IScrollUpArrow {
-    show(): void,
-    hide(): void,
-    isVisible(): boolean,
-    init(): void
+    show(): void;
+    hide(): void;
+    isVisible(): boolean;
+    init(): void;
 }
 
-
 interface IScrollUpArrowSettings {
-    scrollTo: number,
-    scrollingSpeed: number,
+    scrollTo: number;
+    scrollingSpeed: number;
     classes?: {
         visible: string
-    }
+    };
+    onClickCallback?(): void;
+    onFinishCallback?(): void;
 }
 
 /**
@@ -21,47 +22,53 @@ class ScrollUpArrow implements IScrollUpArrow {
     private $element: JQuery;
     private settings: IScrollUpArrowSettings;
     private _visible: boolean = false;
+    private onClickCallback: Function = null;
+    private onFinishCallback: Function = null;
 
     constructor($element: JQuery, settings: IScrollUpArrowSettings) {
         this.$element = $element;
         this.settings = settings;
+        this.onClickCallback = settings.onClickCallback;
+        this.onFinishCallback = settings.onFinishCallback;
     }
 
-    private _onClick() {
-        $('body, html').animate({
-            scrollTop: this.settings.scrollTo
-        }, this.settings.scrollingSpeed, () => {
-            this._onFinish();
-        });
-    }
-
-    private _onFinish() {
-    }
-
-    private _events() {
-        this.$element.on('click', (e) => {
-            e.preventDefault();
-
-            this._onClick();
-        });
-    }
-
-    public show() {
+    public show(): void {
         this.$element.addClass(this.settings.classes.visible);
         this._visible = true;
     }
 
-    public hide() {
+    public hide(): void {
         this.$element.removeClass(this.settings.classes.visible);
         this._visible = false;
     }
 
-    public isVisible () {
+    public isVisible(): boolean {
         return this._visible;
     }
 
-    public init() {
+    public init(): void {
         this._events();
+    }
+
+    private _onClick(): void {
+        $('body, html').animate({
+            scrollTop: this.settings.scrollTo,
+        }, this.settings.scrollingSpeed, () => {
+            if (this.onFinishCallback) {
+                this.onFinishCallback();
+            }
+        });
+    }
+
+    private _events(): void {
+        this.$element.on('click', (e: Event) => {
+            e.preventDefault();
+
+            this._onClick();
+            if (this.onClickCallback) {
+                this.onClickCallback();
+            }
+        });
     }
 }
 

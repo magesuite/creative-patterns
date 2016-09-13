@@ -10,26 +10,13 @@
 var ScrollUpArrow = (function () {
     function ScrollUpArrow($element, settings) {
         this._visible = false;
+        this.onClickCallback = null;
+        this.onFinishCallback = null;
         this.$element = $element;
         this.settings = settings;
+        this.onClickCallback = settings.onClickCallback;
+        this.onFinishCallback = settings.onFinishCallback;
     }
-    ScrollUpArrow.prototype._onClick = function () {
-        var _this = this;
-        $('body, html').animate({
-            scrollTop: this.settings.scrollTo
-        }, this.settings.scrollingSpeed, function () {
-            _this._onFinish();
-        });
-    };
-    ScrollUpArrow.prototype._onFinish = function () {
-    };
-    ScrollUpArrow.prototype._events = function () {
-        var _this = this;
-        this.$element.on('click', function (e) {
-            e.preventDefault();
-            _this._onClick();
-        });
-    };
     ScrollUpArrow.prototype.show = function () {
         this.$element.addClass(this.settings.classes.visible);
         this._visible = true;
@@ -43,6 +30,26 @@ var ScrollUpArrow = (function () {
     };
     ScrollUpArrow.prototype.init = function () {
         this._events();
+    };
+    ScrollUpArrow.prototype._onClick = function () {
+        var _this = this;
+        $('body, html').animate({
+            scrollTop: this.settings.scrollTo,
+        }, this.settings.scrollingSpeed, function () {
+            if (_this.onFinishCallback) {
+                _this.onFinishCallback();
+            }
+        });
+    };
+    ScrollUpArrow.prototype._events = function () {
+        var _this = this;
+        this.$element.on('click', function (e) {
+            e.preventDefault();
+            _this._onClick();
+            if (_this.onClickCallback) {
+                _this.onClickCallback();
+            }
+        });
     };
     return ScrollUpArrow;
 }());
