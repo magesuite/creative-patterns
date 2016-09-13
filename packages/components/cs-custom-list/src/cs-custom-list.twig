@@ -8,7 +8,7 @@
 
                 {% if contentItem.icon.type == "sprite" %}
                     <svg class="cs-custom-list__icon">
-                        <use xlink:href="/images/sprites.svg#{{ contentItem.icon.content }}"></use>
+                        <use xlink:href="../images/sprites.svg#{{ contentItem.icon.content }}"></use>
                     </svg>
                 {% elseif contentItem.icon.type == "character" %}
                     <span class="cs-custom-list__prefix-character">
