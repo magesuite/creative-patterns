@@ -1,8 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define('csScrollUpArrow', ['exports'], factory) :
-    (factory((global.csScrollUpArrow = global.csScrollUpArrow || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jQuery')) :
+    typeof define === 'function' && define.amd ? define('csScrollUpArrow', ['jQuery'], factory) :
+    (global.csScrollUpArrow = factory(global.jQuery));
+}(this, (function ($$1) { 'use strict';
+
+$$1 = 'default' in $$1 ? $$1['default'] : $$1;
 
 /**
  * Logic containing scrolling to the part of the page by clicking on the component
@@ -25,6 +27,23 @@ var ScrollUpArrow = (function () {
         this.$element.removeClass(this.settings.classes.visible);
         this._visible = false;
     };
+    ScrollUpArrow.prototype.scroll = function (to) {
+        var _this = this;
+        var scrollingTo = null;
+        if (to) {
+            scrollingTo = to;
+        }
+        else {
+            scrollingTo = this.settings.scrollTo;
+        }
+        $$1('body, html').animate({
+            scrollTop: scrollingTo,
+        }, this.settings.scrollingSpeed, function () {
+            if (_this.onFinishCallback) {
+                _this.onFinishCallback();
+            }
+        });
+    };
     ScrollUpArrow.prototype.isVisible = function () {
         return this._visible;
     };
@@ -32,14 +51,7 @@ var ScrollUpArrow = (function () {
         this._events();
     };
     ScrollUpArrow.prototype._onClick = function () {
-        var _this = this;
-        $('body, html').animate({
-            scrollTop: this.settings.scrollTo,
-        }, this.settings.scrollingSpeed, function () {
-            if (_this.onFinishCallback) {
-                _this.onFinishCallback();
-            }
-        });
+        this.scroll();
     };
     ScrollUpArrow.prototype._events = function () {
         var _this = this;
@@ -54,28 +66,31 @@ var ScrollUpArrow = (function () {
     return ScrollUpArrow;
 }());
 
-exports.arrow = new ScrollUpArrow($('.cs-scroll-up-arrow'), {
+//demo
+var arrow;
+arrow = new ScrollUpArrow($('.cs-scroll-up-arrow'), {
     scrollingSpeed: 500,
     scrollTo: 0,
     classes: {
         visible: 'cs-scroll-up-arrow--is-visible'
     }
 });
-exports.arrow.init();
+arrow.init();
 $(window).on('scroll', function () {
     if ($(window).scrollTop() > 250) {
-        if (!exports.arrow.isVisible()) {
-            exports.arrow.show();
+        if (!arrow.isVisible()) {
+            arrow.show();
         }
     }
     else {
-        if (exports.arrow.isVisible()) {
-            exports.arrow.hide();
+        if (arrow.isVisible()) {
+            arrow.hide();
         }
     }
 });
+var arrow$1 = arrow;
 
-Object.defineProperty(exports, '__esModule', { value: true });
+return arrow$1;
 
 })));
 //# sourceMappingURL=cs-scroll-up-arrow.js.map

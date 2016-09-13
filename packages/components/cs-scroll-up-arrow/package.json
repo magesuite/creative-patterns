@@ -4,5 +4,8 @@
   "description": "Arrow component that scrolls the page",
   "main": "src/cs-scroll-up-arrow.ts",
   "author": "Lukasz Ostrowski",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.0"
+  }
 }

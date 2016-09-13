@@ -1,17 +1,15 @@
-import {ScrollUpArrow} from './class.cs-scroll-up-arrow';
+import {IScrollUpArrow, ScrollUpArrow} from './class.cs-scroll-up-arrow';
 
+// demo
 
-//demo
-
-
-let arrow;
+let arrow: IScrollUpArrow = null;
 
 arrow = new ScrollUpArrow($('.cs-scroll-up-arrow'), {
     scrollingSpeed: 500,
     scrollTo: 0,
     classes: {
-        visible: 'cs-scroll-up-arrow--is-visible'
-    }
+        visible: 'cs-scroll-up-arrow--is-visible',
+    },
 });
 
 arrow.init();
@@ -24,11 +22,10 @@ $(window).on('scroll', () => {
         }
     } else {
         if (arrow.isVisible()) {
-            arrow.hide()
+            arrow.hide();
 
         }
     }
 });
 
-
-export {arrow};
+export default arrow;

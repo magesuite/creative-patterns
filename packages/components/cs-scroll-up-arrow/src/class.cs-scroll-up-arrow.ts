@@ -1,8 +1,11 @@
+import $ from 'jQuery';
+
 interface IScrollUpArrow {
     show(): void;
     hide(): void;
     isVisible(): boolean;
     init(): void;
+    scroll(to?: number): void;
 }
 
 interface IScrollUpArrowSettings {
@@ -42,6 +45,23 @@ class ScrollUpArrow implements IScrollUpArrow {
         this._visible = false;
     }
 
+    public scroll(to?: number): void {
+        let scrollingTo: number = null;
+        if (to) {
+            scrollingTo = to;
+        } else {
+            scrollingTo = this.settings.scrollTo;
+        }
+
+        $('body, html').animate({
+            scrollTop: scrollingTo,
+        }, this.settings.scrollingSpeed, () => {
+            if (this.onFinishCallback) {
+                this.onFinishCallback();
+            }
+        });
+    }
+
     public isVisible(): boolean {
         return this._visible;
     }
@@ -51,13 +71,7 @@ class ScrollUpArrow implements IScrollUpArrow {
     }
 
     private _onClick(): void {
-        $('body, html').animate({
-            scrollTop: this.settings.scrollTo,
-        }, this.settings.scrollingSpeed, () => {
-            if (this.onFinishCallback) {
-                this.onFinishCallback();
-            }
-        });
+        this.scroll();
     }
 
     private _events(): void {
@@ -74,3 +88,4 @@ class ScrollUpArrow implements IScrollUpArrow {
 
 export {ScrollUpArrow};
 export {IScrollUpArrow};
+export {IScrollUpArrowSettings};
