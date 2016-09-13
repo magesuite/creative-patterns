@@ -11,7 +11,7 @@
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var actionButton = {
-    template: "<button class=\"action-button {{ class }}\" @click=\"onClick\">\n        <slot></slot>\n    </button>",
+    template: "<button class=\"action-button {{ class }}\" @click=\"_onClick\">\n        <slot></slot>\n    </button>",
     props: {
         /**
          * Class property support to enable BEM mixes.

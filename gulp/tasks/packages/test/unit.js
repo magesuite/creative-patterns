@@ -7,17 +7,16 @@ import settings from '../../../config/packages/test/unit';
 import environment from '../../../environment';
 
 let firstRun = true;
-const generatedSettings = settings.generate();
 
 module.exports = function( callback ) {
     if ( firstRun && environment.watch === true ) {
         firstRun = false;
         this.gulp.watch(
             [
-                generatedSettings.watch,
+                settings.watch,
             ],
             [
-                'packages:test:unit',
+                'packages:build:unit',
                 browserSync.reload,
             ]
         );
@@ -26,5 +25,5 @@ module.exports = function( callback ) {
     // Don't break build when not on production environment.
     const done = environment.production ? callback : () => callback();
 
-    new Server( generatedSettings.server, done ).start();
+    new Server( settings.server, done ).start();
 };

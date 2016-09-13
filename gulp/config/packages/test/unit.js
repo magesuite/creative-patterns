@@ -15,12 +15,8 @@ export default {
         'packages/*/*/src/**/*.ts',
         'packages/*/*/src/**/*.{html,tpl}',
     ],
-    generate: function() {
-        return {
-            server: {
-                configFile: path.resolve( 'karma.conf.js' ),
-                singleRun: !environment.watch,
-            },
-        };
+    server: {
+        configFile: path.resolve( 'karma.conf.js' ),
+        singleRun: !environment.watch,
     },
 };

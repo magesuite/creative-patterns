@@ -5,7 +5,7 @@
  * @type {vuejs.ComponentOption} Vue component object.
  */
 const actionButton: vuejs.ComponentOption = {
-    template: `<button class="action-button {{ class }}" @click="onClick">
+    template: `<button class="action-button {{ class }}" @click="_onClick">
         <slot></slot>
     </button>`,
     props: {

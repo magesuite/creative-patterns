@@ -12,30 +12,16 @@ module.exports = function( config ) {
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
         frameworks: [
             'jasmine',
-            'detectBrowsers',
         ],
 
         plugins: [
             'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-ie-launcher',
-            'karma-safari-launcher',
-            'karma-detect-browsers',
             'karma-jasmine',
         ],
 
-        detectBrowsers: {
-            enabled: true,
-            usePhantomJS: false,
-        },
-
         // list of files / patterns to load in the browser
         files: [
-            {
-                pattern: 'packages/*/*/dist/tests/unit/*.js',
-                included: true,
-                watched: true,
-            },
+            'packages/*/*/dist/tests/unit/*.js',
         ],
 
 
@@ -70,22 +56,19 @@ module.exports = function( config ) {
 
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: false,
+        autoWatch: true,
 
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        // browsers: [
-        //     'Chrome',
-        //     'Safari',
-        //     'Firefox',
-        //     'IE'
-        // ],
+        browsers: [
+            'Chrome',
+        ],
 
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: true,
+        singleRun: false,
 
         // Concurrency level
         // how many browser should be started simultaneous
