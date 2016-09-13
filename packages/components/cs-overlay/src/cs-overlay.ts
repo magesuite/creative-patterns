@@ -1,7 +1,6 @@
 // Demo
 
-import Overlay from './class.cs-overlay';
-import IOverlay from './class.cs-overlay';
+import {IOverlay, Overlay} from './class.cs-overlay';
 
 const overlay: IOverlay = new Overlay({
     $element: $('.cs-overlay'),

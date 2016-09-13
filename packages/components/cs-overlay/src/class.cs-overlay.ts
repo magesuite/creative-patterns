@@ -55,5 +55,6 @@ class Overlay implements IOverlay {
 
 }
 
-export default Overlay;
+export {Overlay};
 export {IOverlay};
+export {IOverlaySettings};
