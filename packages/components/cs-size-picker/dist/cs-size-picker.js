@@ -1,12 +1,10 @@
-(function (exports) {
-    'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof define === 'function' && define.amd ? define('csSizePicker', factory) :
+	(factory());
+}(this, (function () { 'use strict';
 
-    function add(a, b) {
-        return a + b;
-    }
-    ;
 
-    exports.add = add;
 
-}((this.csSizePicker = this.csSizePicker || {})));
+})));
 //# sourceMappingURL=cs-size-picker.js.map

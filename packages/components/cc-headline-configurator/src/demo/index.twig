@@ -1,0 +1,27 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>CC Headline Configurator component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-headline-configurator.css">
+    </head>
+    <body>
+        <h1>CC Headline Configurator Component Demo</h1>
+
+        {% include '../cc-headline-configurator.twig' %}
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+        <script src="../cc-headline-configurator.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'cc-headline-configurator': ccHeadlineConfigurator
+                }
+            } );
+        </script>
+    </body>
+</html>

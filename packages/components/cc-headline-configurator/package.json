@@ -1,0 +1,11 @@
+{
+  "name": "cc-headline-configurator",
+  "version": "0.0.1",
+  "description": "Creative constructor headline component configurator.",
+  "main": "src/cc-headline-configurator.ts",
+  "author": "Mateusz Krzeszowiak",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/requirejs": "^2.1.26"
+  }
+}

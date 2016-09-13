@@ -5,8 +5,12 @@
 // Version 0.0.1
 
 @import '../../cc-layout-builder/src/cc-layout-builder';
+@import '../../cc-component-picker/src/cc-component-picker';
+@import '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
 
 
 .m2c-content-constructor {
-
+    &__modal {
+        display: none;
+    }
 }

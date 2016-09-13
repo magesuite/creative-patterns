@@ -1,4 +1,5 @@
 import Vue from 'vue';
+
 import component from '../../cc-component-adder';
 
 describe( 'Component controller object.', function(): void {
@@ -19,12 +20,14 @@ describe( 'Component controller object.', function(): void {
 });
 
 describe( 'Component controller Vue component', function(): void {
-    let vm: any, spy: any, ref: any;
+    let vm: any;
+    let spy: any;
+    let ref: any;
     beforeEach( function(): void {
         // Create a spy that we will use to check if callbacks was called.
         spy = {
             propCallback: (): undefined => undefined,
-            eventCallback: (): undefined => undefined
+            eventCallback: (): undefined => undefined,
         };
         spyOn( spy, 'propCallback' );
         spyOn( spy, 'eventCallback' );
@@ -37,11 +40,11 @@ describe( 'Component controller Vue component', function(): void {
                 </cc-component-adder>
             </div>`,
             components: {
-                'cc-component-adder': component
+                'cc-component-adder': component,
             },
             methods: {
-                propCallback: spy.propCallback
-            }
+                propCallback: spy.propCallback,
+            },
         } ).$mount();
 
         // Get reference to component we want to test.
@@ -52,7 +55,7 @@ describe( 'Component controller Vue component', function(): void {
         vm.$on( 'cc-component-adder__create-component', spy.eventCallback );
         ref.onCreateComponent();
 
-        expect( spy.callback ).toHaveBeenCalled();
+        expect( spy.eventCallback ).toHaveBeenCalled();
     } );
 
     it( 'triggers create component callback.', function(): void {

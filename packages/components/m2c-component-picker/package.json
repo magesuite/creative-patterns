@@ -1,0 +1,11 @@
+{
+  "name": "cc-component-picker",
+  "version": "0.0.1",
+  "description": "Lists all types of components available in m2c in the grid/list mode",
+  "main": "src/cc-component-picker.ts",
+  "author": "Maciej Borkowski",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/vue-resource": "^0.9.28"
+  }
+}

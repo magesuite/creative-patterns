@@ -1,12 +1,10 @@
-(function (exports) {
-    'use strict';
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
+	typeof define === 'function' && define.amd ? define('csReviewsSummary', factory) :
+	(factory());
+}(this, (function () { 'use strict';
 
-    function add(a, b) {
-        return a + b;
-    }
-    ;
 
-    exports.add = add;
 
-}((this.csReviewsSummary = this.csReviewsSummary || {})));
+})));
 //# sourceMappingURL=cs-reviews-summary.js.map

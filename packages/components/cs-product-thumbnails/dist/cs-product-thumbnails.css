@@ -1,2 +1,24 @@
-.cs-product-thumbnails{list-style:none;padding:0;margin:0;font-size:1em}.cs-product-thumbnails__item{display:block;width:3em;height:3em;margin-bottom:1em;cursor:pointer;border:1px solid transparent;-webkit-transition:border .4s;transition:border .4s}.cs-product-thumbnails__item--is-selected{border:1px solid #ddd;border-radius:.5em}.cs-product-thumbnails__image{display:block;max-width:100%;max-height:100%;margin:0 auto}
+.cs-product-thumbnails {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1em; }
+  .cs-product-thumbnails__item {
+    display: block;
+    width: 3em;
+    height: 3em;
+    margin-bottom: 1em;
+    cursor: pointer;
+    border: 1px solid transparent;
+    -webkit-transition: border 0.4s;
+    transition: border 0.4s; }
+    .cs-product-thumbnails__item--is-selected {
+      border: 1px solid #ddd;
+      border-radius: 0.5em; }
+  .cs-product-thumbnails__image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    margin: 0 auto; }
+
 /*# sourceMappingURL=cs-product-thumbnails.css.map */

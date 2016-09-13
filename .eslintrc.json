@@ -25,6 +25,10 @@
         ],
         "callback-return": 2,
         "camelcase": 2,
+        "comma-dangle": [
+            2,
+            "always-multiline"
+        ],
         "comma-spacing": [
             2,
             {

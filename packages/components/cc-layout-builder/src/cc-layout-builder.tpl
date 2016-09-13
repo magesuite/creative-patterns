@@ -6,7 +6,7 @@
             </svg>
         </button>
     </cc-component-adder>
-    <template v-for="addedComponent in addedComponents">
+    <template v-for="component in components">
         <div class="cc-layout-builder__component">
             <div class="cc-layout-builder__component-actions">
                 <cc-component-actions>
@@ -37,10 +37,10 @@
                 </cc-component-actions>
             </div>
             <div class="cc-layout-builder__component-wrapper">
-                <cc-component-placeholder>{{ addedComponent.id }}</cc-component-placeholder>
+                <cc-component-placeholder>{{ component.id }}</cc-component-placeholder>
             </div>
         </div>
-        <cc-component-adder v-if="addedComponents.length">
+        <cc-component-adder v-if="components.length">
             <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only" @click="createNewComponent( $index + 1 )">
                 <svg class="action-button__icon action-button__icon--size_300">
                     <use xlink:href="/images/sprites.svg#icon_plus"></use>

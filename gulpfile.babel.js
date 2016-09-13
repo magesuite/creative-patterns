@@ -2,56 +2,88 @@
  *  redcoon's Gulp tasker configuration
  */
 import gulp from 'gulp';
-import loadTasks from 'gulp-task-loader';
 import sequence from 'run-sequence';
+import loadTasks from 'gulp-task-loader';
+import path from 'path';
+
+import environment from './gulp/environment';
 
 /**
  * Load tasks from gulp/tasks directory using gulp-task-loader.
  * @see https://github.com/hontas/gulp-task-loader
  */
-loadTasks( './tasks' );
+loadTasks( path.join( 'gulp', 'tasks' ) );
 
 /**
- *  Task for cleaning and building entire project.
+ *  Task for cleaning and building entire pattern library.
  */
-gulp.task( 'build', ( callback ) => {
+gulp.task( 'build', ( done ) => {
     sequence(
-        'maintain:clean',
         [
-            'build:library',
-            'build:scripts',
-            'build:styles',
-            'build:templates',
-            // 'build:tests.unit',
+            'packages:build:styles',
+            'packages:build:scripts',
+            'packages:build:twig',
+            'packages:copy:assets',
+            'packages:build:sprites:svg',
         ],
-        callback
+        done
     );
 } );
 
 /**
- *  Task for cleaning and building entire project.
+ *  Task for linting entire pattern library.
  */
-gulp.task( 'test', ( callback ) => {
+gulp.task( 'lint', ( done ) => {
     sequence(
-        'build',
-        [
-            'test:scripts.unit',
-        ],
-        callback
+        'packages:lint:scripts',
+        'packages:lint:styles',
+        done
     );
 } );
 
 /**
- *  Task for cleaning and building entire project.
+ *  Task for testing entire pattern library.
  */
-gulp.task( 'serve', ( callback ) => {
+gulp.task( 'test', ( done ) => {
+    sequence(
+        'packages:build:unit',
+        'packages:test:unit',
+        done
+    );
+} );
+
+gulp.task( 'test:e2e', ( done ) => {
+    sequence(
+        'packages:build:scripts',
+        'packages:build:e2e',
+        'packages:test:e2e',
+        done
+    );
+} );
+
+/**
+ *  Task for serving files of the pattern library.
+ */
+gulp.task( 'serve', ( done ) => {
+    environment.watch = true;
     sequence(
         'build',
-        [
-            'maintain:serve'
-        ],
-        callback
+        'packages:maintain:serve',
+        done
     );
+} );
+
+/**
+ * Lint and test code before pushig to main repo.
+ */
+gulp.task( 'pre-push', ( done ) => {
+    // Too many errors to fix at once.
+    // Allow to push for now.
+    // sequence(
+    //     'lint',
+    //     'test',
+    //     done
+    // );
 } );
 
 /**

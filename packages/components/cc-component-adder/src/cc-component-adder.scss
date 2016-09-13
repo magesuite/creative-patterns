@@ -14,8 +14,8 @@
         width: 100%;
         height: 1px;
         border-top: 1px dashed #e5e5e5;
-        transform: translateY(-1px);
-        content: " ";
+        transform: translateY( -1px );
+        content: ' ';
     }
 
     // this is just wrapper but event will be set to this element
@@ -26,7 +26,7 @@
     // component specific button styles
     &__button {
         background-color: #fff;
-        transition: border-color 0.25s linear;
+        transition: border-color .25s linear;
 
         &:hover {
             border-color: #c20000;

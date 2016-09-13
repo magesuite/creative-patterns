@@ -1,24 +1,23 @@
 interface ISubcategoriesFlyoutClasses {
-    visible: string
+    visible: string;
 }
 
 interface ISubcategoriesFlyoutSettings {
-    element: JQuery,
-    classes: ISubcategoriesFlyoutClasses
+    element: JQuery;
+    classes: ISubcategoriesFlyoutClasses;
 }
 
 interface ISubcategoriesFlyout {
-    _element: JQuery,
-    show(): void,
-    hide(): void,
-    isVisible(): boolean,
-    getNavGroup(): string
+    show(): void;
+    hide(): void;
+    isVisible(): boolean;
+    getNavGroup(): string;
 }
 
 /**
  * Wraps flyout with subcategories, by default shown on hover of main category toggle
  */
-export class SubcategoriesFlyout implements ISubcategoriesFlyout {
+class SubcategoriesFlyout implements ISubcategoriesFlyout {
     private _element: JQuery;
     private classes: {
         visible: string
@@ -37,30 +36,32 @@ export class SubcategoriesFlyout implements ISubcategoriesFlyout {
         this._setNavGroup();
     }
 
-    /**
-     * Detects group which binds flyout with toggle. Its set in data attribute in template
-     * @private
-     */
-    private _setNavGroup () {
-        this._navGroup = this._element.attr(this._dataNavGroupAttribute);
-    }
-
-    public show() {
+    public show(): void {
         this._element.addClass(this.classes.visible);
         this._isVisible = true;
     }
 
-    public hide() {
+    public hide(): void {
         this._element.removeClass(this.classes.visible);
         this._isVisible = false;
 
     }
 
-    public isVisible () {
+    public isVisible(): boolean {
         return this._isVisible;
     }
 
-    public getNavGroup () {
+    public getNavGroup(): string {
         return this._navGroup;
     }
+    /**
+     * Detects group which binds flyout with toggle. Its set in data attribute in template
+     * @private
+     */
+    private _setNavGroup(): void {
+        this._navGroup = this._element.attr(this._dataNavGroupAttribute);
+    }
 }
+
+export {SubcategoriesFlyout};
+export {ISubcategoriesFlyout};

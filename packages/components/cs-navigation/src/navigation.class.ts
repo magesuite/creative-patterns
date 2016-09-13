@@ -1,17 +1,20 @@
+import {INavigationToggle} from './navigationToggle.class';
+import {ISubcategoriesFlyout} from './subcategoriesFlyout.class';
+
 interface INavigation {
-    close():void,
-    show(index:number):void,
-    init():void
+    close(): void;
+    show(index: number): void;
+    init(): void;
 }
 
 interface INavigationSettings {
-    toggles: Array<Object>,
-    flyouts: Array<Object>
+    toggles: INavigationToggle[];
+    flyouts: ISubcategoriesFlyout[];
 }
 
-export class Navigation implements INavigation{
-    private _toggles: Array<Object>;
-    private _flyouts: Array<Object>;
+export class Navigation implements INavigation {
+    private _toggles: INavigationToggle[];
+    private _flyouts: ISubcategoriesFlyout[];
 
     constructor(settings: INavigationSettings) {
         this._toggles = settings.toggles;
@@ -21,48 +24,31 @@ export class Navigation implements INavigation{
     }
 
     /**
-     * Conntects toggles with flyouts via data attribute in template
-     * @private
+     * Close any open flyout
      */
-    _bindItems () {
-        let toggles = this._toggles;
-        let flyouts = this._flyouts;
-        $.each(toggles, (i, toggle)=> {
-            let toggleGroup = toggle.getNavGroup();
-            $.each(flyouts, function (i, flyout) {
-                let flyoutGroup = flyout.getNavGroup();
-
-                if (toggleGroup === flyoutGroup) {
-                    toggle.bindFlyout(flyout);
-
-                    return;
-                }
-            })
-        });
+    public close(): void {
+        return;
     }
 
     /**
-     * Bind events between toggles and flyouts
-     * @private
+     * Show flyout with provided index
+     * @param index
      */
-    private _events(){
-        $.each(this._toggles, (index, elem) => {
-            let toggle = elem;
-            let $element = toggle.getElement();
+    public show(index: number): void {
+        return;
+    }
 
-            $element.on('click', (e) => {
-                this._onClick(e, toggle);
-            });
-        })
+    public init(): void {
+        this._bindItems();
+        this._events();
     }
 
     /**
      * Click action
      * @private
      */
-    _onClick(e, toggle) {
-        console.log('clicked');
-
+    protected _onClick(event: Event, toggle: INavigationToggle): void {
+        event.preventDefault();
         toggle.getFlyout().show();
 
         this.close();
@@ -70,22 +56,38 @@ export class Navigation implements INavigation{
     }
 
     /**
-     * Close any open flyout
+     * Conntects toggles with flyouts via data attribute in template
+     * @private
      */
-    public close() {
+    private _bindItems(): void {
+        let toggles: Array<Object> = this._toggles;
+        let flyouts: Array<Object> = this._flyouts;
+        $.each(toggles, (i: number, toggle: any) => {
+            let toggleGroup: string = toggle.getNavGroup();
+            $.each(flyouts, function (index: number, flyout: ISubcategoriesFlyout): void {
+                let flyoutGroup: string = flyout.getNavGroup();
 
+                if (toggleGroup === flyoutGroup) {
+                    toggle.bindFlyout(flyout);
+
+                    return;
+                }
+            });
+        });
     }
 
     /**
-     * Show flyout with provided index
-     * @param index
+     * Bind events between toggles and flyouts
+     * @private
      */
-    public show(index) {
+    private _events(): void {
+        $.each(this._toggles, (index: number, elem: INavigationToggle) => {
+            let toggle: INavigationToggle = elem;
+            let $element: JQuery = toggle.getElement();
 
-    }
-
-    public init () {
-        this._bindItems();
-        this._events();
+            $element.on('click', (event: Event) => {
+                this._onClick(event, toggle);
+            });
+        });
     }
 }

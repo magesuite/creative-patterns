@@ -1,29 +1,33 @@
-//JQuery needed
+import {IThumbnail} from './thumbnail.class';
 
 interface IThumbnailsSettings {
-    thumbnails: Object[]
+    thumbnails: IThumbnail[];
 }
 interface IThumbnails {
-    init(): void
+    init(): void;
 }
 
-class Thumbnails implements IThumbnails{
-    private thumbnails: Array;
+class Thumbnails implements IThumbnails {
+    private thumbnails: IThumbnail[];
 
     constructor(settings: IThumbnailsSettings) {
-        this.thumbnails = settings.thumbnails
+        this.thumbnails = settings.thumbnails;
     }
 
-    private _resetSelected() {
-        $.each(this.thumbnails, function (i, elem) {
+    public init(): void {
+        this._events();
+    }
+
+    private _resetSelected(): void {
+        $.each(this.thumbnails, function (i: number, elem: IThumbnail): void {
             elem.unSelect();
         });
     }
 
-    private _events() {
-        for (let i = 0; i < this.thumbnails.length; i++) {
-            let thumbnail = this.thumbnails[i];
-            let $thumbnail = $(thumbnail.element);
+    private _events(): void {
+        for (let i: number = 0; i < this.thumbnails.length; i++) {
+            let thumbnail: IThumbnail = this.thumbnails[i];
+            let $thumbnail: JQuery = $(thumbnail.getElement());
 
             $thumbnail.on('click', () => {
                 if (!thumbnail.isSelected()) {
@@ -34,10 +38,6 @@ class Thumbnails implements IThumbnails{
             });
         }
     }
-
-    public init() {
-        this._events();
-    }
 }
 
-export default Thumbnails;
+export {IThumbnails, Thumbnails};

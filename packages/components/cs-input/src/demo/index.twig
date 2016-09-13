@@ -1,0 +1,242 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ title }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cs-input.css">
+        <style>
+            html { font-family: Arial, sans-serif;}
+            section > div { margin: 0 0 30px; }
+            section { margin: 0 0 60px; }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>cs-inputs component demo</h1>
+
+            <h2>Base</h2>
+
+            <section>
+                <h3>Text inputs</h3>
+                <div>
+                    <div class="cs-input">
+                        <input type="text" name="name" class="cs-input__input" value="Standard input">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <input type="text" name="name" class="cs-input__input" placeholder="Standard input with placeholder">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <input type="text" name="name" class="cs-input__input" value="Disabled input with value" disabled>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <input type="text" name="name" class="cs-input__input" placeholder="Disabled input with placeholder" disabled>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <label for="input1" class="cs-input__label">Label:</label>
+                        <input type="text" name="name" id="input1" class="cs-input__input" value="Standard input with label">
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input cs-input--type-inline cs-input--type-required">
+                        <label for="input2" class="cs-input__label">Label:</label>
+                        <input type="text" name="name" id="input2" class="cs-input__input" value="Inline input with label (required)">
+                    </div>
+                    <div class="cs-input cs-input--type-inline">
+                        <label for="input3" class="cs-input__label">Multiline label example:</label>
+                        <input type="text" name="name" id="input3" class="cs-input__input" value="Input with label inline">
+                    </div>
+                </div>
+            </section>
+
+
+            <section>
+                <h3>Textareas</h3>
+
+                <div>
+                    <div class="cs-input">
+                        <textarea name="textarea" class="cs-input__textarea">Standard textarea</textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <textarea name="textarea" class="cs-input__textarea" placeholder="Standard textarea with placeholder"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <textarea name="name" class="cs-input__textarea" disabled>Disabled textarea with content</textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <textarea name="name" class="cs-input__textarea" placeholder="Disabled textarea with placeholder" disabled></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <label for="textarea1" class="cs-input__label">Label:</label>
+                        <textarea name="name" id="textarea1" class="cs-input__textarea">Standard textarea with label</textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input cs-input--type-inline">
+                        <label for="textarea2" class="cs-input__label cs-input__label--look-top-align">Label:</label>
+                        <textarea name="name" id="textarea2" class="cs-input__textarea">Textarea with label inline</textarea>
+                    </div>
+                </div>
+            </section>
+
+
+            <section>
+                <h3>Select</h3>
+                <div>
+                    <div class="cs-input">
+                        <select name="select" class="cs-input__select">
+                            <option value="1">Standard select</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <select name="select" class="cs-input__select" disabled>
+                            <option value="1">Disabled select</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input">
+                        <label for="select1" class="cs-input__label">Label:</label>
+                        <select name="select" id="select1" class="cs-input__select">
+                            <option value="1">Select with label and some onger option text</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input cs-input--type-inline">
+                        <label for="select2" class="cs-input__label">Label:</label>
+                        <select name="select" id="select2" class="cs-input__select">
+                            <option value="1">Select with label inline</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                            <option value="5">Option 5</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3>Checkbox</h3>
+                <div>
+                    <div class="cs-input cs-input--type-checkbox">
+                        <input type="checkbox" class="cs-input__checkbox" id="cb1" name="cb-name" value="0">
+                        <label for="cb1" class="cs-input__label">
+                            Standard checkbox
+                        </label>
+                    </div>
+                    <div class="cs-input cs-input--type-checkbox">
+                        <input type="checkbox" class="cs-input__checkbox" id="cb2" name="cb-name" value="1" checked>
+                        <label for="cb2" class="cs-input__label">
+                            Standard checkbox
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input cs-input--type-checkbox">
+                        <input type="checkbox" class="cs-input__checkbox" id="cb3" name="cb-name" value="0" disabled>
+                        <label for="cb3" class="cs-input__label">
+                            Disabled
+                        </label>
+                    </div>
+                    <div class="cs-input cs-input--type-checkbox">
+                        <input type="checkbox" class="cs-input__checkbox" id="cb4" name="cb-name" value="1" disabled checked>
+                        <label for="cb4" class="cs-input__label">
+                            Disabled
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3>Radios</h3>
+                <div>
+                    <div class="cs-input cs-input--type-radio">
+                        <input type="radio" class="cs-input__radio" id="r1" name="r-name" value="0">
+                        <label for="r1" class="cs-input__label">
+                            Standard radio
+                        </label>
+                    </div>
+                    <div class="cs-input cs-input--type-radio">
+                        <input type="radio" class="cs-input__radio" id="r2" name="r-name" value="1" checked>
+                        <label for="r2" class="cs-input__label">
+                            Standard radio
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="cs-input cs-input--type-radio">
+                        <input type="radio" class="cs-input__radio" id="r3" name="r-name2" value="0" disabled>
+                        <label for="r3" class="cs-input__label">
+                            Disabled
+                        </label>
+                    </div>
+                    <div class="cs-input cs-input--type-radio">
+                        <input type="radio" class="cs-input__radio" id="r4" name="r-name2" value="1" disabled checked>
+                        <label for="r4" class="cs-input__label">
+                            Disabled
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+        <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+        <script src="../cs-inputs.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'cs-inputs': csInputs
+                }
+            } );
+        </script>-->
+    </body>
+</html>

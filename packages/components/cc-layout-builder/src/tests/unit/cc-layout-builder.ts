@@ -1,34 +1,114 @@
-import component from '../../cc-layout-builder';
+import Vue from '../../../node_modules/vue/dist/vue';
 
-describe( 'Component controller object.', function(): void {
-    const methods: any = component.methods;
-    const props: any = component.props;
+import { IComponentInformation, layoutBuilder } from '../../cc-layout-builder';
 
-    it( 'has a create new component method.', function(): void {
-        expect( typeof methods.createNewComponent ).toBe( 'function' );
+describe( 'Component controller Vue component', function(): void {
+    let vm: any;
+    let spy: any;
+    let ref: any;
+    const initialConfig: IComponentInformation[] = [
+        {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        },
+    ];
+
+    beforeEach( function(): void {
+        Vue.config.devtools = false;
+        document.body.insertAdjacentHTML('afterbegin', '<app></app>');
+        // Create a spy that we will use to check if callbacks was called.
+        spy = {
+            eventCallback: (): undefined => undefined,
+            addCallback: (): undefined => undefined,
+            editCallback: (): undefined => undefined,
+        };
+        spyOn( spy, 'eventCallback' );
+        spyOn( spy, 'addCallback' );
+        spyOn( spy, 'editCallback' );
+
+        // Prepare Vue instance with a template.
+        vm = new Vue( {
+            template: `<div>
+                <cc-layout-builder
+                    v-ref:component
+                    components-configuration='${JSON.stringify( initialConfig )}',
+                    :add-component="addCallback",
+                    :edit-component="editCallback"
+                >
+                </cc-layout-builder>
+            </div>`,
+            components: {
+                'cc-layout-builder': layoutBuilder,
+            },
+            events: {
+                'cc-layout-builder__update': spy.eventCallback,
+            },
+            methods: {
+                propCallback: spy.propCallback,
+                editCallback: spy.editCallback,
+                addCallback: spy.addCallback,
+            },
+        } ).$mount( 'app' );
+        // Get reference to component we want to test.
+        ref = vm.$refs.component;
     } );
 
-    it( 'has a move component up method.', function(): void {
-        expect( typeof methods.moveComponentUp ).toBe( 'function' );
+    it( 'returns initial configuration when not changed.', function(): void {
+        expect( ref.getComponentInformation() ).toEqual( initialConfig );
     } );
 
-    it( 'has a move component down method.', function(): void {
-        expect( typeof methods.moveComponentDown ).toBe( 'function' );
+    it( 'returns changed configuration when component is added.', function(): void {
+        const newComponent: IComponentInformation = {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        };
+        ref.addComponentInformation( 0, newComponent );
+        expect( ref.getComponentInformation() ).not.toEqual( initialConfig );
     } );
 
-    it( 'has a delete component method.', function(): void {
-        expect( typeof methods.deleteComponent ).toBe( 'function' );
+    it( 'returns changed configuration when component is replaced.', function(): void {
+        const newComponent: IComponentInformation = {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        };
+        ref.setComponentInformation( 0, JSON.parse( JSON.stringify( newComponent ) ) );
+        expect( ref.getComponentInformation() ).toEqual( [ newComponent ] );
     } );
 
-    it( 'has a class property.', function(): void {
-        expect( props.class ).toEqual( jasmine.anything() );
+    it( 'adds new component to collection.', function(): void {
+        const newComponent: IComponentInformation = {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        };
+        ref.addComponentInformation( 0, newComponent );
+        expect( ref.getComponentInformation().length ).toEqual( 2 );
     } );
 
-    it( 'has an edit component property.', function(): void {
-        expect( props.editComponent ).toEqual( jasmine.anything() );
+    it( 'replaces component in collection.', function(): void {
+        const newComponent: IComponentInformation = {
+            name: 'foo',
+            id: 'bar',
+            settings: null,
+        };
+        ref.setComponentInformation( 0, newComponent );
+        expect( ref.getComponentInformation().length ).toEqual( 1 );
     } );
 
-    it( 'has an add component property.', function(): void {
-        expect( props.addComponent ).toEqual( jasmine.anything() );
+    it( 'invokes add component callback.', function(): void {
+        ref.createNewComponent( 0 );
+        expect( spy.addCallback ).toHaveBeenCalled();
     } );
-});
+
+    it( 'invokes edit component callback.', function(): void {
+        ref.editComponentSettings( 0 );
+        expect( spy.editCallback ).toHaveBeenCalled();
+    } );
+
+    it( 'triggers update event on init.', function(): void {
+        expect( spy.eventCallback ).toHaveBeenCalled();
+    } );
+} );
