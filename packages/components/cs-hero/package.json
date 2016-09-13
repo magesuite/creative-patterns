@@ -1,0 +1,8 @@
+{
+    "name": "cs-hero",
+    "version": "0.0.1",
+    "description": "Hero image banner",
+    "main": "src/cs-hero.ts",
+    "author": "Lukasz Ostrowski",
+    "license": "ISC"
+}

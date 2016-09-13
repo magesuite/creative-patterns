@@ -1,0 +1,125 @@
+/**
+ * Define block class using namespace.
+ */
+.action-button {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 1.063em 3.125em;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: none;
+  -webkit-transition: color .15s, border-color .15s, background-color .15s;
+  transition: color .15s, border-color .15s, background-color .15s; }
+  .action-button__icon {
+    width: 1.25em;
+    height: 1.25em;
+    position: relative;
+    top: -2px;
+    margin-right: .5em;
+    line-height: 1;
+    vertical-align: middle;
+    -webkit-transition: fill .15s;
+    transition: fill .15s; }
+    .action-button__icon--size_100 {
+      height: .875em;
+      width: .875em; }
+    .action-button__icon--size_300 {
+      width: 1.063em;
+      height: 1.063em; }
+    .action-button__icon--primary {
+      fill: #c20000; }
+  .action-button--look_default {
+    border-color: #e5e5e5;
+    background-color: #fff;
+    color: #333;
+    fill: #333; }
+    .action-button--look_default:hover, .action-button--look_default:focus {
+      color: #007bdb;
+      border-color: #007bdb;
+      background-color: #e4f7fe;
+      fill: #007bdb; }
+  .action-button--look_primary {
+    border: 0;
+    background-color: #c20000;
+    color: #fff;
+    fill: #fff; }
+    .action-button--look_primary:hover, .action-button--look_primary:focus {
+      background-color: #990000; }
+  .action-button--look_important {
+    background-color: #fff;
+    border-color: #e5e5e5;
+    color: #c20000;
+    fill: #c20000; }
+  .action-button--look_warning {
+    color: #c20000;
+    background-color: #ffe6e6;
+    border-color: #c20000;
+    fill: #c20000; }
+  .action-button--look_disabled {
+    border-color: #e5e5e5;
+    background-color: #fff;
+    fill: #e5e5e5;
+    cursor: default; }
+    .action-button--look_disabled:hover, .action-button--look_disabled:focus {
+      border-color: #e5e5e5;
+      background-color: #fff;
+      fill: #e5e5e5;
+      cursor: default; }
+  .action-button--type_icon-only {
+    width: 3.313em;
+    height: 3.313em;
+    padding: .625em; }
+    .action-button--type_icon-only .action-button__icon {
+      display: block;
+      top: 0;
+      margin: auto; }
+
+.cs-hero {
+  height: 100%;
+  width: 100%;
+  font-size: 1rem;
+  font-family: 'sans-serif';
+  color: #fff;
+  box-sizing: border-box;
+  padding: 2em;
+  background-size: cover;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  width: 800px;
+  height: 400px; }
+  .cs-hero__content {
+    width: 50%;
+    box-sizing: border-box; }
+    .cs-hero__content--align_left {
+      -webkit-align-self: flex-start;
+          -ms-flex-item-align: start;
+              align-self: flex-start; }
+    .cs-hero__content--align_center {
+      -webkit-align-self: center;
+          -ms-flex-item-align: center;
+              align-self: center; }
+    .cs-hero__content--align_right {
+      -webkit-align-self: flex-end;
+          -ms-flex-item-align: end;
+              align-self: flex-end; }
+  .cs-hero__text {
+    margin: 0;
+    margin-bottom: 1em; }
+  .cs-hero__button {
+    background-color: #b60000;
+    color: #fff;
+    text-transform: uppercase; }
+
+/*# sourceMappingURL=cs-hero.css.map */
