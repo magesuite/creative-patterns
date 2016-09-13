@@ -1,0 +1,20 @@
+<div class="cs-hero" style="background-image: url('{{ image.src }}')">
+    {% set contentAlign = 'cs-hero__content--align_left' %}
+    {% if content.align %}
+        {% set contentAlign = 'cs-hero__content--align_' ~ content.align %}
+    {% endif %}
+
+    <div class="cs-hero__content {{ contentAlign }}">
+        <!-- You can add elements here-->
+
+        <p class="cs-hero__text">
+            {{ content.text }}
+        </p>
+
+        {% include "../../action-button/src/action-button.twig" with {
+        "mix": "cs-hero__button",
+        "text": "Zum login",
+        "href": "#"
+        } %}
+    </div>
+</div>

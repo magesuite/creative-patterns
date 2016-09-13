@@ -1,0 +1,52 @@
+// cs-hero
+// Hero image banner
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@import "../../action-button/src/action-button";
+
+.cs-hero {
+    height: 100%;
+    width: 100%;
+    font-size: 1rem;
+    font-family: 'sans-serif';
+    color: #fff;
+    box-sizing: border-box;
+    padding: 2em;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    width: 800px;
+    height: 400px;
+
+    &__content {
+        width: 50%;
+        box-sizing: border-box;
+
+        &--align {
+            &_left {
+                align-self: flex-start;
+            }
+            &_center {
+                align-self: center;
+            }
+            &_right {
+                align-self: flex-end;
+            }
+        }
+    }
+
+    &__text {
+        margin: 0;
+        margin-bottom: 1em;
+
+    }
+
+    &__button {
+        background-color: #b60000;
+        color: #fff;
+        text-transform: uppercase;
+    }
+}
