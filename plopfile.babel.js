@@ -176,7 +176,7 @@ module.exports = ( plop ) => {
         ],
     } );
     // Generator for customization package.
-    plop.setGenerator( 'Utility', {
+    plop.setGenerator( 'Customization', {
         description: 'Create a new awesome customization.',
         prompts: [
             {
