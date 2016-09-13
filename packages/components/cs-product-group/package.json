@@ -1,0 +1,13 @@
+{
+    "name": "cs-product-group",
+    "version": "0.0.1",
+    "description": "group with separated items with custom background",
+    "main": "src/cs-product-group.ts",
+    "author": "Lukasz Ostrowski",
+    "license": "ISC",
+    "scripts": {
+        "build": "gulp build",
+        "selenium": "selenium-standalone install && selenium-standalone start",
+        "test": "gulp test"
+    }
+}

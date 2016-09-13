@@ -1,0 +1,35 @@
+.cs-product-group {
+  font-size: 1rem;
+  font-family: "sans-serif";
+  background-size: cover; }
+  .cs-product-group__content {
+    padding: 1em; }
+  .cs-product-group__headline {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2em; }
+  .cs-product-group__products {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    width: 100%; }
+  .cs-product-group__product {
+    background-color: #fff;
+    -webkit-flex-basis: 25%;
+        -ms-flex-preferred-size: 25%;
+            flex-basis: 25%;
+    width: 25%;
+    margin-right: 0.5em;
+    height: 200px; }
+    .cs-product-group__product:last-of-type {
+      margin-right: 0; }
+
+/*# sourceMappingURL=cs-product-group.css.map */
