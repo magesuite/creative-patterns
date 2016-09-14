@@ -1,0 +1,26 @@
+.cs-scroll-up-arrow {
+  font-size: 1rem;
+  box-sizing: border-box;
+  border-radius: 5em;
+  width: 5em;
+  height: 5em;
+  fill: #ccc;
+  padding: 1em;
+  background: #eee;
+  border: 1px solid #ccc;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  position: fixed;
+  right: 5em;
+  bottom: 5em;
+  display: none; }
+  .cs-scroll-up-arrow--is-visible {
+    display: block; }
+  .cs-scroll-up-arrow:hover {
+    fill: #bbb;
+    border: 1px solid #bbb; }
+  .cs-scroll-up-arrow__icon {
+    width: 100%;
+    height: 100%; }
+
+/*# sourceMappingURL=cs-scroll-up-arrow.css.map */
