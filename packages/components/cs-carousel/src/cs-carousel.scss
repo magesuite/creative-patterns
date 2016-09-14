@@ -1,0 +1,96 @@
+// cs-carousel
+// Basic carousel component based on SWIPER 
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@import "../node_modules/swiper/dist/css/swiper";
+@import "../../cs-hero/src/cs-hero";
+
+.cs-carousel {
+    max-width: 90em;
+
+    margin: 50px auto;
+
+    font-size: 1rem;
+    font-family: sans-serif;
+
+    &__container {
+        @extend .swiper-container;
+    }
+
+    &__wrapper {
+        @extend .swiper-wrapper;
+    }
+
+    &__slide {
+        @extend .swiper-slide;
+        max-width: 50em;
+        height: 30em;
+        transition: opacity 0.3s;
+
+        &--next {
+            @extend .swiper-slide-next;
+            opacity: 0.7;
+            filter: blur(2px);
+        }
+
+        &--prev {
+            @extend .swiper-slide-next;
+            opacity: 0.7;
+            filter: blur(2px);
+        }
+
+        &--active {
+            @extend .swiper-slide-active;
+        }
+
+    }
+
+    &__pagination {
+        @extend .swiper-pagination;
+        padding: 0;
+    }
+
+    &__pagination-item {
+        @extend .swiper-pagination-bullet;
+        opacity: 1;
+        background: rgba(#000, 0.5);
+        border: 2px solid rgba(#fff, 0.7);
+
+        &--is-active {
+            border: 2px solid #fff;
+        }
+
+    }
+
+    // Allows to set buttons inside swiper
+    &__buttons-container {
+        margin: 0 auto;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        max-width: 50em;
+        transform: translateY(-50%) translateX(-50%);
+        z-index: 9;
+    }
+
+    &__button {
+        fill: #000;
+        background-color: #fff;
+        width: 3em;
+        height: 3em;
+        border-radius: 3em;
+        background-size: 1em;
+        box-shadow: 1px 1px 3px 1px rgba(50, 50, 50, 0.5);
+
+        &--prev {
+            @extend .swiper-button-prev;
+            left: -2em;
+        }
+        &--next {
+            @extend .swiper-button-next;
+            right: -2em;
+        }
+    }
+}

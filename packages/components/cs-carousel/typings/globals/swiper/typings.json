@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/WarriorRocker/DefinitelyTyped/35bb1d7b9ad7d42069e188f980c3b0a26f0ece4b/swiper/swiper.d.ts",
+    "raw": "github:WarriorRocker/DefinitelyTyped/swiper/swiper.d.ts#35bb1d7b9ad7d42069e188f980c3b0a26f0ece4b",
+    "typings": "https://raw.githubusercontent.com/WarriorRocker/DefinitelyTyped/35bb1d7b9ad7d42069e188f980c3b0a26f0ece4b/swiper/swiper.d.ts"
+  }
+}

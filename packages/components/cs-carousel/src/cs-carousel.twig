@@ -1,0 +1,50 @@
+<div class="{{ mix }} cs-carousel">
+    <div class="cs-carousel__container ">
+        <div class="cs-carousel__wrapper">
+            <div class="cs-carousel__slide ">
+                {% include "../../cs-hero/src/cs-hero.twig" with {
+                "image": {
+                "src": "../images/1.jpg"
+                },
+                "content": {
+                "align": "left",
+                "text": "Look how awesome hero image I am. You can pass <code>content.align: left | center | right</code> also to set content's place"
+                }
+                } %}
+            </div>
+            <div class="cs-carousel__slide">
+                {% include "../../cs-hero/src/cs-hero.twig" with {
+                "image": {
+                "src": "../images/2.jpg"
+                },
+                "content": {
+                "align": "center",
+                "text": "I am abstract class based on SWIPER, so dont use me directly. Instead extend me f.e. as Hero Carousel"
+                }
+                } %}
+            </div>
+            <div class="cs-carousel__slide">
+                {% include "../../cs-hero/src/cs-hero.twig" with {
+                "image": {
+                "src": "../images/3.jpg"
+                },
+                "content": {
+                "align": "left",
+                "text": "By extending you can overwrite every swiper parameter and you have access to few basic carousel mathods"
+                }
+                } %}
+            </div>
+
+
+        </div>
+
+        <ul class="cs-carousel__pagination">
+
+        </ul>
+        <div class="cs-carousel__buttons-container">
+            <div class="cs-carousel__button cs-carousel__button--prev"></div>
+            <div class="cs-carousel__button cs-carousel__button--next"></div>
+        </div>
+
+    </div>
+</div>
