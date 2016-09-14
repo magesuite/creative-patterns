@@ -4,7 +4,20 @@
     (factory((global.ccLayoutBuilder = global.ccLayoutBuilder || {})));
 }(this, (function (exports) { 'use strict';
 
+/**
+ * Small utility function that lets you specify custom paths to asset directory
+ * by setting "data-cs-asset-dir" attribute for body tag.
+ */
+/**
+ * Path to asset directory.
+ * @type {string}
+ */
 var assetDir = null;
+/**
+ * Returns path to given asset prepended with asset directory path.
+ * @param  {string} assetPath Path to the asset relative to assets directory e.g. "dist/" folder.
+ * @return {string}           Formated path to given asset.
+ */
 function asset (assetPath) {
     if (assetDir === null) {
         assetDir = document.querySelector('body').getAttribute('data-cs-asset-dir');

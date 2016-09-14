@@ -12,6 +12,8 @@ export default {
         // JSON
         'packages/*/*/src/**/*.json',
         '!packages/*/*/src/**/*.data.json',
+        // JavaScript and CSS from vendors directory
+        'packages/*/*/src/vendors/**/*.{js,css}',
     ],
     /**
      * Generates additional configuration for copying various files based on package's dir.

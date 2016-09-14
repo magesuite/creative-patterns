@@ -7,6 +7,7 @@ const firstComponentMoveUp: string = '.cc-layout-builder__component:first-of-typ
 const firstComponentMoveDown: string = '.cc-layout-builder__component:first-of-type .cc-component-actions__button--down';
 const lastComponentMoveUp: string = '.cc-layout-builder__component:last-of-type .cc-component-actions__button--up';
 const lastComponentMoveDown: string = '.cc-layout-builder__component:last-of-type .cc-component-actions__button--down';
+const alertWaitTime = 500;
 
 export default {
     'Adding new component'( browser: any ): void {
@@ -14,9 +15,9 @@ export default {
             .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
             .waitForElementVisible( '.cc-layout-builder__component', 1000 )
             .end();
@@ -26,9 +27,9 @@ export default {
             .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
             .waitForElementVisible( '.cc-layout-builder__component', 1000 );
         browser.expect.element( firstComponentMoveUp ).to.not.be.enabled;
@@ -40,15 +41,15 @@ export default {
             .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
             .waitForElementVisible( '.cc-layout-builder__component', 1000 )
             .click( adderButton )
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
             .waitForElementVisible( '.cc-layout-builder__component:nth-of-type(2)', 1000 );
         browser.expect.element( firstComponentMoveUp ).to.not.be.enabled;
@@ -64,15 +65,15 @@ export default {
             .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
             .waitForElementVisible( '.cc-layout-builder__component', 1000 );
         browser.getText( placeholderContent, function( oldText: any ): void {
             browser
                 .click( settingsButton )
-                .pause( 1000 )
+                .pause( alertWaitTime )
                 .acceptAlert();
             browser.expect.element( placeholderContent ).text.to.not.equal( oldText.value ).after( 1000 );
         } );
@@ -84,14 +85,14 @@ export default {
             .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert()
             .waitForElementVisible( '.cc-layout-builder__component', 1000 );
         browser
             .click( deleteButton )
-            .pause( 1000 )
+            .pause( alertWaitTime )
             .acceptAlert();
         browser.expect.element( '.cc-layout-builder__component' ).to.not.be.present.after( 1000 );
         browser.end();

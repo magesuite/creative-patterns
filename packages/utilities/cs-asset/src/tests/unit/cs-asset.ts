@@ -1,7 +1,18 @@
-import { add } from '../../cs-asset';
+import asset from '../../cs-asset';
 
-describe( 'A suite is just a function', function(): void {
-  it( 'and so is a spec', function(): void {
-    expect( add( 1, 2 ) ).toBe( 3 );
-  } );
+describe( 'Asset helper function', function(): void {
+    it( 'returns unchanged path for missing attribute.', function(): void {
+        const assetPath: string = 'test/test.txt';
+        expect( asset( assetPath, true ) ).toEqual( assetPath );
+    } );
+    it( 'returns unchanged path for empty attribute.', function(): void {
+        document.querySelector( 'body' ).setAttribute( 'data-cs-asset-dir', '' );
+        const assetPath: string = 'test/test.txt';
+        expect( asset( assetPath, true ) ).toEqual( assetPath );
+    } );
+    it( 'returns prepended path when attribute is given.', function(): void {
+        document.querySelector( 'body' ).setAttribute( 'data-cs-asset-dir', 'assets/' );
+        const assetPath: string = 'test/test.txt';
+        expect( asset( assetPath, true ) ).toEqual( 'assets/' + assetPath );
+    } );
 } );

@@ -6,5 +6,7 @@
 /**
  * Returns path to given asset prepended with asset directory path.
  */
+body {
+  background: url("/utilities/cs-asset/dist/demo/background.png"); }
 
-/*# sourceMappingURL=cs-asset.css.map */
+/*# sourceMappingURL=index.css.map */
