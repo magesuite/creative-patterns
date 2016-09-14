@@ -41,8 +41,14 @@ module.exports = function() {
                 let data = {};
                 try {
                     data = require( template );
-                } catch ( e ) {
-                    // Package doesn't have .data.json file.
+                } catch ( error ) {
+                    if ( error.code !== 'MODULE_NOT_FOUND' ) {
+                        if ( environment.watch ) {
+                            util.log( error.message );
+                        } else {
+                            throw error;
+                        }
+                    }
                 }
 
                 return data;
