@@ -1,0 +1,12 @@
+{
+  "label": "Farbe",
+  "icon": {
+    "expanded": {
+      "svgId": "icon_arrow-up"
+    },
+    "collapsed": {
+      "svgId": "icon_arrow-down"
+    }
+  },
+  "isExpanded": true
+}

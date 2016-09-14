@@ -1,0 +1,52 @@
+<div class="{{ mix }} cs-filter-container">
+    <div class="cs-filter-container__top-bar">
+        <span class="cs-filter-container__label">{{ label }}</span>
+        <div class="cs-filter-container__toggle">
+            <svg class="cs-filter-container__icon cs-filter-container__icon--expanded {% if isExpanded %} cs-filter-container__icon--is-visible {% endif %}">
+                <use xlink:href="../images/sprites.svg#{{ icon.expanded.svgId }}"></use>
+            </svg>
+            <svg class="cs-filter-container__icon cs-filter-container__icon--collapsed {% if not isExpanded %} cs-filter-container__icon--is-visible {% endif %}">
+                <use xlink:href="../images/sprites.svg#{{ icon.collapsed.svgId }}"></use>
+            </svg>
+        </div>
+    </div>
+    <div class="cs-filter-container__filter-wrapper {% if isExpanded %}cs-filter-container__filter-wrapper--is-visible {% endif %}">
+        {% include "../../cs-color-picker/src/cs-color-picker.twig" with
+        {
+        "mix": "cs-filter-container__filter",
+        "name": "colors",
+        "items": [
+        {
+        "name": "red",
+        "color": "red",
+        "id": "1"
+        },
+        {
+        "name": "green",
+        "color": "green",
+        "id": "2"
+        },
+        {
+        "name": "blue",
+        "color": "blue",
+        "id": "3"
+        },
+        {
+        "name": "black",
+        "color": "#000",
+        "id": "4"
+        },
+        {
+        "name": "yellow",
+        "color": "yellow",
+        "id": "5"
+        },
+        {
+        "name": "orange",
+        "color": "orange",
+        "id": "6"
+        }
+        ]
+        } %}
+    </div>
+</div>
