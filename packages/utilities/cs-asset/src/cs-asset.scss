@@ -1,0 +1,10 @@
+// cs-asset
+// Simple asset locator that helps with handling paths on different backends.
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+$assetDir: '' !default;
+
+@function asset( $assetPath ) {
+    @return $assetDir + $assetPath;
+}

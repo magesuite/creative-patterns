@@ -10,7 +10,7 @@ describe( 'Component controller Vue component', function(): void {
         {
             name: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         },
     ];
 
@@ -62,7 +62,7 @@ describe( 'Component controller Vue component', function(): void {
         const newComponent: IComponentInformation = {
             name: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         };
         ref.addComponentInformation( 0, newComponent );
         expect( ref.getComponentInformation() ).not.toEqual( initialConfig );
@@ -72,7 +72,7 @@ describe( 'Component controller Vue component', function(): void {
         const newComponent: IComponentInformation = {
             name: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         };
         ref.setComponentInformation( 0, JSON.parse( JSON.stringify( newComponent ) ) );
         expect( ref.getComponentInformation() ).toEqual( [ newComponent ] );
@@ -82,7 +82,7 @@ describe( 'Component controller Vue component', function(): void {
         const newComponent: IComponentInformation = {
             name: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         };
         ref.addComponentInformation( 0, newComponent );
         expect( ref.getComponentInformation().length ).toEqual( 2 );
@@ -90,9 +90,9 @@ describe( 'Component controller Vue component', function(): void {
 
     it( 'replaces component in collection.', function(): void {
         const newComponent: IComponentInformation = {
-            name: 'foo',
+            type: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         };
         ref.setComponentInformation( 0, newComponent );
         expect( ref.getComponentInformation().length ).toEqual( 1 );

@@ -1,6 +1,7 @@
 /**
  * E2E test using nightwatch.js.
  */
+const demoUrl: string = 'http://localhost:9000/components/cc-layout-builder/dist/demo/index.html';
 const adderButton: string = '.cc-component-adder__button-create';
 const firstComponentMoveUp: string = '.cc-layout-builder__component:first-of-type .cc-component-actions__button--up';
 const firstComponentMoveDown: string = '.cc-layout-builder__component:first-of-type .cc-component-actions__button--down';
@@ -10,7 +11,7 @@ const lastComponentMoveDown: string = '.cc-layout-builder__component:last-of-typ
 export default {
     'Adding new component'( browser: any ): void {
         browser
-            .url( 'http://localhost:9000/demo/index.html' )
+            .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
             .waitForElementVisible( '.cc-layout-builder__component', 1000 )
@@ -18,7 +19,7 @@ export default {
     },
     'Single component has properly enabled moving controls'( browser: any ): void {
         browser
-            .url( 'http://localhost:9000/demo/index.html' )
+            .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( '.cc-component-adder__button-create' )
             .waitForElementVisible( '.cc-layout-builder__component', 1000 );
@@ -28,7 +29,7 @@ export default {
     },
     'First component has disabled up and last has disabled down control'( browser: any ): void {
         browser
-            .url( 'http://localhost:9000/demo/index.html' )
+            .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
             .waitForElementVisible( '.cc-layout-builder__component', 1000 )
@@ -44,7 +45,7 @@ export default {
         const settingsButton: string = '.cc-component-actions__button--settings';
         const placeholderContent: string = '.cc-component-placeholder__content';
         browser
-            .url( 'http://localhost:9000/demo/index.html' )
+            .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
             .waitForElementVisible( '.cc-layout-builder__component', 1000 );
@@ -57,7 +58,7 @@ export default {
     'Component is deleted on remove button click'( browser: any ): void {
         const deleteButton: string = '.cc-component-actions__button--delete';
         browser
-            .url( 'http://localhost:9000/demo/index.html' )
+            .url( demoUrl )
             .waitForElementVisible( 'body', 1000 )
             .click( adderButton )
             .waitForElementVisible( '.cc-layout-builder__component', 1000 );

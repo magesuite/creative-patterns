@@ -29,7 +29,11 @@ export default {
                          */
                         name: 'asset',
                         func: function( assetPath ) {
-                            return assetPath;
+                            return path.join(
+                                packageDir.replace( 'packages', '' ),
+                                'dist/',
+                                assetPath
+                            );
                         },
                     },
                 ],

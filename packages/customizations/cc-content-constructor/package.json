@@ -1,0 +1,8 @@
+{
+    "name": "cc-content-constructor",
+    "version": "0.0.1",
+    "description": "Simple dummy example of Content Constructor with no backend.",
+    "main": "src/cc-content-constructor.ts",
+    "author": "Mateusz Krzeszowiak",
+    "license": "ISC"
+}

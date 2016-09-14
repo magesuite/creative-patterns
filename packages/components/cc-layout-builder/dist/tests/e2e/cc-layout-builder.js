@@ -1,4 +1,5 @@
 "use strict";
+var demoUrl = 'http://localhost:9000/components/cc-layout-builder/dist/demo/index.html';
 var adderButton = '.cc-component-adder__button-create';
 var firstComponentMoveUp = '.cc-layout-builder__component:first-of-type .cc-component-actions__button--up';
 var firstComponentMoveDown = '.cc-layout-builder__component:first-of-type .cc-component-actions__button--down';
@@ -8,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     'Adding new component': function (browser) {
         browser
-            .url('http://localhost:9000/demo/index.html')
+            .url(demoUrl)
             .waitForElementVisible('body', 1000)
             .click(adderButton)
             .waitForElementVisible('.cc-layout-builder__component', 1000)
@@ -16,7 +17,7 @@ exports.default = {
     },
     'Single component has properly enabled moving controls': function (browser) {
         browser
-            .url('http://localhost:9000/demo/index.html')
+            .url(demoUrl)
             .waitForElementVisible('body', 1000)
             .click('.cc-component-adder__button-create')
             .waitForElementVisible('.cc-layout-builder__component', 1000);
@@ -26,7 +27,7 @@ exports.default = {
     },
     'First component has disabled up and last has disabled down control': function (browser) {
         browser
-            .url('http://localhost:9000/demo/index.html')
+            .url(demoUrl)
             .waitForElementVisible('body', 1000)
             .click(adderButton)
             .waitForElementVisible('.cc-layout-builder__component', 1000)
@@ -42,7 +43,7 @@ exports.default = {
         var settingsButton = '.cc-component-actions__button--settings';
         var placeholderContent = '.cc-component-placeholder__content';
         browser
-            .url('http://localhost:9000/demo/index.html')
+            .url(demoUrl)
             .waitForElementVisible('body', 1000)
             .click(adderButton)
             .waitForElementVisible('.cc-layout-builder__component', 1000);
@@ -55,7 +56,7 @@ exports.default = {
     'Component is deleted on remove button click': function (browser) {
         var deleteButton = '.cc-component-actions__button--delete';
         browser
-            .url('http://localhost:9000/demo/index.html')
+            .url(demoUrl)
             .waitForElementVisible('body', 1000)
             .click(adderButton)
             .waitForElementVisible('.cc-layout-builder__component', 1000);

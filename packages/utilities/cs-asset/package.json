@@ -1,0 +1,8 @@
+{
+    "name": "cs-asset",
+    "version": "0.0.1",
+    "description": "Simple asset locator that helps with handling paths on different backends.",
+    "main": "src/cs-asset.ts",
+    "author": "Mateusz Krzeszowiak",
+    "license": "ISC"
+}
