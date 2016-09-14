@@ -16,10 +16,12 @@ var assetDir = null;
 /**
  * Returns path to given asset prepended with asset directory path.
  * @param  {string} assetPath Path to the asset relative to assets directory e.g. "dist/" folder.
+ * @param  {boolean} recheck  Tells if function should recheck for data attribute.
  * @return {string}           Formated path to given asset.
  */
-function asset (assetPath) {
-    if (assetDir === null) {
+function asset (assetPath, recheck) {
+    if (recheck === void 0) { recheck = false; }
+    if (assetDir === null || recheck) {
         assetDir = document.querySelector('body').getAttribute('data-cs-asset-dir');
         if (!assetDir) {
             assetDir = '';

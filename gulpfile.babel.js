@@ -19,7 +19,6 @@ loadTasks( path.join( 'gulp', 'tasks' ) );
  */
 gulp.task( 'build', ( done ) => {
     sequence(
-        'packages:maintain:clean',
         [
             'packages:build:styles',
             'packages:build:scripts',
