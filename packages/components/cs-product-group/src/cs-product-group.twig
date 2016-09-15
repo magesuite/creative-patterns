@@ -1,0 +1,22 @@
+<div class="cs-product-group" style="background-image: url('{{ background.path }}');">
+    <div class="cs-product-group__content">
+
+        {% set primaryHeadline = headline.primary %}
+        {% set primarySecondary = headline.secondary %}
+
+        {% include "../../headline/src/headline.twig" with {
+        "mix": "cs-product-group__headline",
+        "tag": "h3",
+        "title": primaryHeadline,
+        "subtitle": primarySecondary
+        } %}
+
+        <ul class="cs-product-group__products">
+            <li class="cs-product-group__product">prod</li>
+            <li class="cs-product-group__product">prod</li>
+            <li class="cs-product-group__product">prod</li>
+        </ul>
+
+    </div>
+
+</div>

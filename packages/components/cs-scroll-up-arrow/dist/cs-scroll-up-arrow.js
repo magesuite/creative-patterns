@@ -66,14 +66,14 @@ var ScrollUpArrow = (function () {
     return ScrollUpArrow;
 }());
 
-//demo
-var arrow;
+// demo
+var arrow = null;
 arrow = new ScrollUpArrow($('.cs-scroll-up-arrow'), {
     scrollingSpeed: 500,
     scrollTo: 0,
     classes: {
-        visible: 'cs-scroll-up-arrow--is-visible'
-    }
+        visible: 'cs-scroll-up-arrow--is-visible',
+    },
 });
 arrow.init();
 $(window).on('scroll', function () {

@@ -1,0 +1,45 @@
+// cs-product-group
+// group with separated items with custom background
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@import "../../headline/src/headline";
+
+.cs-product-group {
+    font-size: 1rem;
+    font-family: "sans-serif";
+
+    background-size: cover;
+
+    &__content {
+        padding: 1em;
+    }
+
+    &__headline {
+        color: #fff;
+        text-align: center;
+        margin-bottom: 2em;
+    }
+
+    &__products {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+    &__product {
+        background-color: #fff;
+        flex-basis: 25%;
+        width: 25%;
+        margin-right: 0.5em;
+
+        height: 200px;
+
+        &:last-of-type {
+            margin-right: 0;
+        }
+    }
+}
