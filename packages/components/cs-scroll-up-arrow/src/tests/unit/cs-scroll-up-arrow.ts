@@ -80,7 +80,12 @@ describe('Scrollup arrow component: ', function (): void {
 
         scrollupArrow.scroll();
 
-        expect($win.scrollTop()).toEqual(scrollToParameter);
+
+        setTimeout(() => {
+            expect($win.scrollTop()).toEqual(scrollToParameter);
+
+        }, scrollingSpeedParameter);
+
 
     });
 
@@ -91,7 +96,10 @@ describe('Scrollup arrow component: ', function (): void {
 
         scrollupArrow.scroll(x);
 
-        expect($win.scrollTop()).toEqual(x);
+        setTimeout(() => {
+            expect($win.scrollTop()).toEqual(x);
+
+        }, scrollingSpeedParameter);
 
     });
 

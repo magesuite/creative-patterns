@@ -20273,14 +20273,18 @@ describe('Scrollup arrow component: ', function () {
         var $win = jquery(window);
         $win.scrollTop(500);
         scrollupArrow.scroll();
-        expect($win.scrollTop()).toEqual(scrollToParameter);
+        setTimeout(function () {
+            expect($win.scrollTop()).toEqual(scrollToParameter);
+        }, scrollingSpeedParameter);
     });
     it('is scrolling to X point after scroll(X) method', function () {
         var $win = jquery(window);
         var x = 300;
         $win.scrollTop(100);
         scrollupArrow.scroll(x);
-        expect($win.scrollTop()).toEqual(x);
+        setTimeout(function () {
+            expect($win.scrollTop()).toEqual(x);
+        }, scrollingSpeedParameter);
     });
 });
 
