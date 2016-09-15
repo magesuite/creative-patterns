@@ -1,3 +1,4 @@
+import asset from '../../../utilities/cs-asset/src/cs-asset';
 import actionButton from '../../action-button/src/action-button';
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
 import componentAdder from '../../cc-component-adder/src/cc-component-adder';
@@ -11,7 +12,8 @@ import template from './cc-layout-builder.tpl';
 interface IComponentInformation {
     name: string;
     id: string;
-    settings: any;
+    type: string;
+    data?: any;
 }
 
 /**
@@ -76,6 +78,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         this.$dispatch( 'cc-layout-builder__update' );
     },
     methods: {
+        asset,
         /**
          * Returns components information currently stored within layout builder.
          * @return {IComponentInformation[]} Components information array.

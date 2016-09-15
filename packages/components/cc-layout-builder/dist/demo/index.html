@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="../cc-layout-builder.css">
     </head>
-    <body>
+    <body data-cs-asset-dir="/components/cc-layout-builder/dist/">
         <main>
             <cc-layout-builder class="cc-layout-builder" :add-component="generateComponent" :edit-component="generateComponent">
             </cc-layout-builder>
@@ -17,10 +17,11 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
         <script src="../cc-layout-builder.js"></script>
         <script>
+            console.log(ccLayoutBuilder);
             new Vue( {
                 el: 'body',
                 components: {
-                    'cc-layout-builder': ccLayoutBuilder
+                    'cc-layout-builder': ccLayoutBuilder.default
                 },
                 methods: {
                     /**

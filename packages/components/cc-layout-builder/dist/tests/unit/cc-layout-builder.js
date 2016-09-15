@@ -10084,6 +10084,33 @@ var template = Object.freeze({
 });
 
 /**
+ * Small utility function that lets you specify custom paths to asset directory
+ * by setting "data-cs-asset-dir" attribute for body tag.
+ */
+/**
+ * Path to asset directory.
+ * @type {string}
+ */
+var assetDir = null;
+/**
+ * Returns path to given asset prepended with asset directory path.
+ * @param  {string} assetPath Path to the asset relative to assets directory e.g. "dist/" folder.
+ * @param  {boolean} recheck  Tells if function should recheck for data attribute.
+ * @return {string}           Formated path to given asset.
+ */
+function asset (assetPath, recheck) {
+    if (recheck === void 0) { recheck = false; }
+    if (assetDir === null || recheck) {
+        assetDir = document.querySelector('body').getAttribute('data-cs-asset-dir');
+        if (!assetDir) {
+            assetDir = '';
+        }
+    }
+    return assetDir + assetPath;
+}
+;
+
+/**
  * Action button component version.
  * Small component that allows to set it's content.
  *
@@ -10184,7 +10211,7 @@ var componentPlaceholder = {
     template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>",
 };
 
-var template = "<section class=\"cc-layout-builder | {{ class }}\"> <cc-component-adder> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> <template v-for=\"component in components\"> <div class=\"cc-layout-builder__component\"> <div class=\"cc-layout-builder__component-actions\"> <cc-component-actions> <template slot=\"cc-component-actions__top\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-up\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xlink:href=\"/images/sprites.svg#icon_arrow-down\"></use> </svg> </button> </template> <template slot=\"cc-component-actions__bottom\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_settings\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\"> <svg class=\"action-button__icon\"> <use xlink:href=\"/images/sprites.svg#icon_trash-can\"></use> </svg> </button> </template> </cc-component-actions> </div> <div class=\"cc-layout-builder__component-wrapper\"> <cc-component-placeholder>{{ component.id }}</cc-component-placeholder> </div> </div> <cc-component-adder v-if=\"components.length\"> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use xlink:href=\"/images/sprites.svg#icon_plus\"></use> </svg> </button> </cc-component-adder> </template> </section> ";
+var template = "<div class=\"cc-layout-builder | {{ class }}\"> <cc-component-adder> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use v-bind=\"{ 'xlink:href': asset( 'images/sprites.svg#icon_plus' ) }\"></use> </svg> </button> </cc-component-adder> <template v-for=\"component in components\"> <div class=\"cc-layout-builder__component\"> <div class=\"cc-layout-builder__component-actions\"> <cc-component-actions> <template slot=\"cc-component-actions__top\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use xv-bind=\"{ 'xlink:href': asset( 'images/sprites.svg#icon_arrow-up' ) }\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use v-bind=\"{ 'xlink:href': asset( 'images/sprites.svg#icon_arrow-down' ) }\"></use> </svg> </button> </template> <template slot=\"cc-component-actions__bottom\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\"> <svg class=\"action-button__icon\"> <use v-bind=\"{ 'xlink:href': asset( 'images/sprites.svg#icon_settings' ) }\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\"> <svg class=\"action-button__icon\"> <use v-bind=\"{ 'xlink:href': asset( 'images/sprites.svg#icon_trash-can' ) }\"></use> </svg> </button> </template> </cc-component-actions> </div> <div class=\"cc-layout-builder__component-wrapper\"> <cc-component-placeholder>{{ component.id }}</cc-component-placeholder> </div> </div> <cc-component-adder v-if=\"components.length\"> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use v-bind=\"{ 'xlink:href': asset( 'images/sprites.svg#icon_plus' ) }\"></use> </svg> </button> </cc-component-adder> </template> </div> ";
 
 /**
  * Layout builder component.
@@ -10248,6 +10275,7 @@ var layoutBuilder = {
         this.$dispatch('cc-layout-builder__update');
     },
     methods: {
+        asset,
         /**
          * Returns components information currently stored within layout builder.
          * @return {IComponentInformation[]} Components information array.
@@ -10379,7 +10407,7 @@ describe('Component controller Vue component', function () {
         {
             name: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         },
     ];
     beforeEach(function () {
@@ -10419,7 +10447,7 @@ describe('Component controller Vue component', function () {
         var newComponent = {
             name: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         };
         ref.addComponentInformation(0, newComponent);
         expect(ref.getComponentInformation()).not.toEqual(initialConfig);
@@ -10428,7 +10456,7 @@ describe('Component controller Vue component', function () {
         var newComponent = {
             name: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         };
         ref.setComponentInformation(0, JSON.parse(JSON.stringify(newComponent)));
         expect(ref.getComponentInformation()).toEqual([newComponent]);
@@ -10437,16 +10465,16 @@ describe('Component controller Vue component', function () {
         var newComponent = {
             name: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         };
         ref.addComponentInformation(0, newComponent);
         expect(ref.getComponentInformation().length).toEqual(2);
     });
     it('replaces component in collection.', function () {
         var newComponent = {
-            name: 'foo',
+            type: 'foo',
             id: 'bar',
-            settings: null,
+            data: {},
         };
         ref.setComponentInformation(0, newComponent);
         expect(ref.getComponentInformation().length).toEqual(1);

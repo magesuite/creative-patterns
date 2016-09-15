@@ -54,10 +54,10 @@ export default {
                     html( {
                         // Required to be specified
                         include: '**/*.{html,tpl}',
-                        htmlMinifierOptions: {
-                            collapseWhitespace: true,
-                            conservativeCollapse: true,
-                        },
+                        // htmlMinifierOptions: {
+                        //     collapseWhitespace: true,
+                        //     conservativeCollapse: true,
+                        // },
                     } ),
                 ],
                 onwarn: ( message ) => {

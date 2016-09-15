@@ -1,0 +1,19 @@
+// cs-asset
+// Simple asset locator that helps with handling paths on different backends.
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+/**
+ * Default asset directory path. Set this variable in your main bundle depending
+ * on actual backend you're using.
+ * @type {String}
+ */
+$assetDir: '' !default;
+
+/**
+ * Returns path to given asset prepended with asset directory path.
+ */
+@function asset( $assetPath ) {
+    @return $assetDir + $assetPath;
+}

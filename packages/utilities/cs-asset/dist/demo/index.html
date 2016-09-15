@@ -1,0 +1,27 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cs-asset component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <!-- Set our path to asset directory using Twig helper function. -->
+    <body data-cs-asset-dir="/utilities/cs-asset/dist/">
+        <h1>CS Asset Component Demo</h1>
+        <h2>Path to demo/background.png with Twig helper</h2>
+        <p>/utilities/cs-asset/dist/demo/background.png</p>
+        <h2>Path to demo/background.png with JS helper</h2>
+        <p></p>
+        <h2>Background set using Sass helper</h2>
+
+        <script src="../cs-asset.js"></script>
+        <script>
+            console.log( csAsset( 'demo/background.png' ) );
+            document.querySelector( 'h2:nth-of-type(2) + p' ).innerHTML = csAsset( 'demo/background.png' );
+
+        </script>
+    </body>
+</html>

@@ -54,7 +54,7 @@ gulp.task( 'test', ( done ) => {
 
 gulp.task( 'test:e2e', ( done ) => {
     sequence(
-        'packages:build:scripts',
+        'build',
         'packages:build:e2e',
         'packages:test:e2e',
         done

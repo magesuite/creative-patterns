@@ -1,1 +1,0 @@
-{"version":3,"file":null,"sources":["../src/cs-breadcrumbs.ts"],"sourcesContent":["\r\nexport function add(a: number, b: number): number {\n  return a + b;\r\n};\r\n"],"names":[],"mappings":";;;iBACoB,CAAS,EAAE,CAAS;QACtC,OAAO,CAAC,GAAG,CAAC,CAAC;AACf,IAAA,CAAC;AAAA,IAAA,CAAC;;;;"}
