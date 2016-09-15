@@ -1,0 +1,60 @@
+// cs-filter-container
+// categorypage/product list filter container with small accordion logic
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@import "../../cs-color-picker/src/cs-color-picker";
+
+.cs-filter-container {
+    font-size: 1rem;
+    font-family: sans-serif;
+
+    color: #444;
+    fill: #444;
+
+    width: 320px;
+    margin: 50px auto;
+    border: 1px solid #ddd;
+
+
+    &__top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        padding: 1em 0;
+
+    }
+
+    &__label {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    &__toggle {
+
+    }
+
+    &__icon {
+        width: 1em;
+        height: 1em;
+        display: none;
+
+        &--is-visible {
+            display: block;
+        }
+
+    }
+
+    &__filter-wrapper {
+        display: none;
+
+        &--is-visible {
+            display: block;
+        }
+    }
+
+    &__filter {
+        font-size: 0.5em;
+    }
+}

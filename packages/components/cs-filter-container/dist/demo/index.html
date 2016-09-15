@@ -1,0 +1,56 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>cs-filter-container component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../cs-filter-container.css">
+</head>
+<body>
+
+<div class=" cs-filter-container">
+    <div class="cs-filter-container__top-bar">
+        <span class="cs-filter-container__label">Farbe</span>
+        <div class="cs-filter-container__toggle">
+            <svg class="cs-filter-container__icon cs-filter-container__icon--expanded  cs-filter-container__icon--is-visible ">
+                <use xlink:href="../images/sprites.svg#icon_arrow-up"></use>
+            </svg>
+            <svg class="cs-filter-container__icon cs-filter-container__icon--collapsed ">
+                <use xlink:href="../images/sprites.svg#icon_arrow-down"></use>
+            </svg>
+        </div>
+    </div>
+    <div class="cs-filter-container__filter-wrapper cs-filter-container__filter-wrapper--is-visible ">
+        <ul class="cs-filter-container__filter cs-color-picker">
+            <li class="cs-color-picker__item">
+            <input name="colors" id="1" class="cs-color-picker__input" type="radio">
+            <label for="1" class="cs-color-picker__label" style="background-color: red"></label>
+        </li>
+            <li class="cs-color-picker__item">
+            <input name="colors" id="2" class="cs-color-picker__input" type="radio">
+            <label for="2" class="cs-color-picker__label" style="background-color: green"></label>
+        </li>
+            <li class="cs-color-picker__item">
+            <input name="colors" id="3" class="cs-color-picker__input" type="radio">
+            <label for="3" class="cs-color-picker__label" style="background-color: blue"></label>
+        </li>
+            <li class="cs-color-picker__item">
+            <input name="colors" id="4" class="cs-color-picker__input" type="radio">
+            <label for="4" class="cs-color-picker__label" style="background-color: #000"></label>
+        </li>
+            <li class="cs-color-picker__item">
+            <input name="colors" id="5" class="cs-color-picker__input" type="radio">
+            <label for="5" class="cs-color-picker__label" style="background-color: yellow"></label>
+        </li>
+            <li class="cs-color-picker__item">
+            <input name="colors" id="6" class="cs-color-picker__input" type="radio">
+            <label for="6" class="cs-color-picker__label" style="background-color: orange"></label>
+        </li>
+    </ul>    </div>
+</div>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../cs-filter-container.js"></script>
+</body>
+</html>
