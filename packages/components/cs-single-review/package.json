@@ -1,0 +1,8 @@
+{
+    "name": "cs-single-review",
+    "version": "0.0.1",
+    "description": "Single review component ",
+    "main": "src/cs-single-review.ts",
+    "author": "Lukasz Ostrowski",
+    "license": "ISC"
+}
