@@ -1,0 +1,15 @@
+// cs-responsive-banner
+// Banner with multiple sources, depending on screen width/device
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-responsive-banner {
+    display: block;
+
+    box-shadow: 0 0 2px 2px #ddd;
+
+    &__image {
+        display: block;
+        width: 100%;
+    }
+}

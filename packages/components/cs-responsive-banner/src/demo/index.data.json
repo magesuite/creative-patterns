@@ -1,0 +1,7 @@
+{
+  "tabletSrc": "../images/banner-dummy_tablet.png",
+  "desktopSrc": "../images/banner-dummy_desktop.png",
+  "mobileSrc": "../images/banner-dummy_mobile.png",
+  "alt": "banner",
+  "url": "#"
+}

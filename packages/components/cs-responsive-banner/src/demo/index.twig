@@ -1,0 +1,98 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>cs-responsive-banner component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../cs-responsive-banner.css">
+</head>
+<body>
+
+<h2>Here is banner demo</h2>
+<p>It will change source depending on screen reslution. It saves data, dynamically adding source, downloading proper
+    image on proper device. </p>
+<p>ResponsiveBanner class is managing sizes array and gives you methods to change them how you like. You can do it
+    manually, add new sources and trigger them. TODO: Write feature for auto detect data attribute sources, write
+    feature to auto change them according to resolution</p>
+<h3>Methods</h3>
+<pre>
+interface IResponsiveBanner {
+    setSize(sizeName: string): void;
+    getCurrentSize(): string;
+    addNewSource(name: string, size: ISize): void;
+}
+</pre>
+<pre>
+interface ISize {
+    sourceUrl: string;
+}
+</pre>
+<h3>Settings</h3>
+<p>By default class needs only banner $ element. It will find img tag inside to change its src. You can overwrite its
+    selector manually in constructor</p>
+<pre>
+constructor($element: JQuery, settings?: IResponsiveBannerSettings)
+
+interface IResponsiveBannerSettings {
+    $image: JQuery;
+}
+</pre>
+<h3>This demo:</h3>
+<p>Resize the screen to see effects of banner below</p>
+<pre>
+import {IResponsiveBanner, IResponsiveBannerSettings, ResponsiveBanner} from './class.cs-responsive-banner';
+
+// Demo usage
+
+const $banner: JQuery = $('.cs-responsive-banner');
+
+const banner: IResponsiveBanner = new ResponsiveBanner($banner);
+
+const tabletSrc: string = $banner.attr('data-src-tablet');
+const desktopSrc: string = $banner.attr('data-src-desktop');
+const mobileSrc: string = $banner.attr('data-src-mobile');
+
+banner.addNewSource('desktop', {
+    sourceUrl: desktopSrc,
+});
+
+banner.addNewSource('tablet', {
+    sourceUrl: tabletSrc,
+});
+
+banner.addNewSource('mobile', {
+    sourceUrl: mobileSrc,
+});
+
+function setSize(width) {
+    if (width > 1024) {
+        banner.setSize('desktop');
+    } else if (width >= 768) {
+        banner.setSize('tablet');
+    } else {
+        banner.setSize('mobile');
+    }
+}
+
+$(window).on('resize', function () {
+    let width: number = $(window).width();
+
+    setSize(width);
+
+});
+
+setSize($(window).width());
+
+export default banner;
+
+</pre>
+
+
+{% include "../cs-responsive-banner.twig" %}
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../cs-responsive-banner.js"></script>
+</body>
+</html>

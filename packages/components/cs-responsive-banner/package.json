@@ -1,0 +1,11 @@
+{
+  "name": "cs-responsive-banner",
+  "version": "0.0.1",
+  "description": "Banner with multiple sources, depending on screen width/device",
+  "main": "src/cs-responsive-banner.ts",
+  "author": "Lukasz Ostrowski",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.0"
+  }
+}
