@@ -1,0 +1,38 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>cs-sticky-element component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../cs-sticky-element.css">
+</head>
+<body style="height: 1500px">
+
+<div style="margin: 50px auto; width: 600px; border: 1px solid #555; height: 500px;">
+    <div id="sticky" style="">
+        <a href="http://leafo.net/sticky-kit/#reference">Based on Sticky Kit, see options</a>
+        <pre>
+    const sticky = new StickyElement( $( '#sticky' ), {offset_top: 20} );
+    sticky.init();
+            </pre>
+        also methods:
+        <pre>
+        sticky.detach();
+        sticky.recalc();
+        </pre>
+        To cancel and to recalculate
+    </div>
+</div>
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../../node_modules/sticky-kit/dist/sticky-kit.min.js"></script>
+<script src="../cs-sticky-element.js"></script>
+
+<script>
+    const sticky = new StickyElement( $( '#sticky' ), { offset_top: 20 } );
+    sticky.init();
+</script>
+</body>
+</html>

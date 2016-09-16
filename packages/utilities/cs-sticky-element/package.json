@@ -1,0 +1,12 @@
+{
+  "name": "cs-sticky-element",
+  "version": "0.0.1",
+  "description": "Sticky element/column based on StickyKit vendor class",
+  "main": "src/cs-sticky-element.ts",
+  "author": "Lukasz Ostrowski",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "sticky-kit": "^1.1.3"
+  }
+}
