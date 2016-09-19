@@ -1,0 +1,39 @@
+// cs-notifications
+// Notifications component 
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-notifications {
+
+    font-size: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    font-family: sans-serif;
+    position: relative;
+
+    //temp
+    width: 800px;
+    padding: 1em;
+    border: 1px solid black;
+    margin-top: 2em;
+
+    &__item {
+        display: block;
+
+    }
+    &__item-text {
+        color: #444;
+        &--negative {
+            color: red;
+        }
+    }
+    &__item-icon {
+    }
+
+    &__close {
+        position: absolute;
+        top: 1em;
+        right: 1em;
+    }
+}

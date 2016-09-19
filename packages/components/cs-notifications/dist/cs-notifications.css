@@ -1,0 +1,23 @@
+.cs-notifications {
+  font-size: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  font-family: sans-serif;
+  position: relative;
+  width: 800px;
+  padding: 1em;
+  border: 1px solid black;
+  margin-top: 2em; }
+  .cs-notifications__item {
+    display: block; }
+  .cs-notifications__item-text {
+    color: #444; }
+    .cs-notifications__item-text--negative {
+      color: red; }
+  .cs-notifications__close {
+    position: absolute;
+    top: 1em;
+    right: 1em; }
+
+/*# sourceMappingURL=cs-notifications.css.map */

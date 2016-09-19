@@ -1,0 +1,11 @@
+{
+  "name": "cs-notifications",
+  "version": "0.0.1",
+  "description": "Notifications component ",
+  "main": "src/cs-notifications.ts",
+  "author": "Lukasz Ostrowski",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.1.0"
+  }
+}
