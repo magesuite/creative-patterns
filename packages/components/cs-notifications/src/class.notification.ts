@@ -3,17 +3,17 @@ import $ from 'jQuery';
 interface INotification {
     getMessage(): string;
     getType(): string;
-    remove(): string;
+    remove(): void;
     setType(type: INotificationType): void;
     hide(hiddenClassName?: string): void;
     show(): void;
-    getTemplate(): HTMLElement;
+    getTemplate(): JQuery;
 }
 
 interface INotificationSettings {
     notificationHTML: string|JQuery;
     textSelector: string|JQuery;
-    iconSelector: string|JQuery;
+    iconSelector?: string|JQuery;
     onClose?(): any;
     onAdd?(): any;
 }
@@ -95,24 +95,28 @@ class Notification {
 
     public getTemplate(): JQuery {
         if (!this._$template) {
-            this._$template = this._compileTemplate.call(this);
+            this._$template = this._compileTemplate();
         }
         return this._$template;
     }
 
-    private _compileTemplate(): HTMLElement {
+    private _compileTemplate(): JQuery {
         let $html: JQuery = $(this._settings.notificationHTML).clone();
         let $text: JQuery = $html.find(this._settings.textSelector);
-        let $iconPlaceholder: JQuery = $html.find(this._settings.iconSelector);
+        let $iconPlaceholder: JQuery = null;
 
         $text.text(this.message);
         $text.addClass(this._type.textClass);
-        $iconPlaceholder.after(this._type.iconHTML);
-        $iconPlaceholder.remove();
+
+        if (this._settings.iconSelector) {
+            $iconPlaceholder = $html.find(this._settings.iconSelector);
+            $iconPlaceholder.after(this._type.iconHTML);
+            $iconPlaceholder.remove();
+        }
 
         this._$template = $html;
 
-        return $html.get(0);
+        return $html;
 
     }
 }

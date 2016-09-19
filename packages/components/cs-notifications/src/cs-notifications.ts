@@ -38,7 +38,7 @@ class NegativeNotification extends Notification {
 
 let not1: Notification = new Notification('notification message default style', notificationConfig);
 let not2: Notification = new NegativeNotification('negative message via extended notification class with another "Type"', notificationConfig);
-
+window.n = not1;
 notificationsManager.addNotification(not1);
 notificationsManager.addNotification(not2);
 

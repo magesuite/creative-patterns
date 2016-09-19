@@ -130,20 +130,23 @@ var Notification = (function () {
     };
     Notification.prototype.getTemplate = function () {
         if (!this._$template) {
-            this._$template = this._compileTemplate.call(this);
+            this._$template = this._compileTemplate();
         }
         return this._$template;
     };
     Notification.prototype._compileTemplate = function () {
         var $html = $$1(this._settings.notificationHTML).clone();
         var $text = $html.find(this._settings.textSelector);
-        var $iconPlaceholder = $html.find(this._settings.iconSelector);
+        var $iconPlaceholder = null;
         $text.text(this.message);
         $text.addClass(this._type.textClass);
-        $iconPlaceholder.after(this._type.iconHTML);
-        $iconPlaceholder.remove();
+        if (this._settings.iconSelector) {
+            $iconPlaceholder = $html.find(this._settings.iconSelector);
+            $iconPlaceholder.after(this._type.iconHTML);
+            $iconPlaceholder.remove();
+        }
         this._$template = $html;
-        return $html.get(0);
+        return $html;
     };
     return Notification;
 }());
@@ -179,6 +182,7 @@ var NegativeNotification = (function (_super) {
 }(Notification));
 var not1 = new Notification('notification message default style', notificationConfig);
 var not2 = new NegativeNotification('negative message via extended notification class with another "Type"', notificationConfig);
+window.n = not1;
 notificationsManager.addNotification(not1);
 notificationsManager.addNotification(not2);
 $('#newNot').click(function () {
