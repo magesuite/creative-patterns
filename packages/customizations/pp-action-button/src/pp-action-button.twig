@@ -1,0 +1,16 @@
+{% if href is defined %}
+<a href="{{ href }}" class="pp-action-button {{ classes }} | {{ mix }}" {{ attributes }}>
+    {% else %}
+    <button class="pp-action-button {{ classes }} | {{ mix }}" {{ attributes }}>
+        {% endif %}
+        {% if icon.svgId %}
+            <svg class="pp-action-button__icon {{ icon.classes }}">
+                <use xlink:href="../images/sprites.svg#{{ icon.svgId }}"></use>
+            </svg>
+        {% endif %}
+        {{ text }}
+        {% if href is defined %}
+</a>
+{% else %}
+    </button>
+{% endif %}
