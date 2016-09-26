@@ -75,11 +75,15 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 components='[{"type":"static-block","cover":"http://placehold.it/350x185","coverAlt":"cover of static block","name":"Static block"},{"type":"headline","cover":"http://placehold.it/350x185","coverAlt":"cover of headline","name":"Headline"}]'>
             </cc-component-picker>
         </div>
-        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal></div>
+        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal><component :is="currentConfigurator"></component></div>
     </div>`,
+    data: {
+        currentConfigurator: ''
+    },
     components: {
         'cc-layout-builder': layoutBuilder,
         'cc-component-picker': ccComponentPicker,
+        'headline': m2cHeadlineConfigurator
     },
     props: {
         configuration: {
@@ -123,7 +127,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             // Open configurator modal.
             configuratorModalOptions.buttons[1].click = function (): void {
                 component._addComponentInformation(  {
-                    type: 'headline',
+                    type: componentType,
                     id: 'component' + Math.floor( ( 1 + Math.random() ) * 0x10000 ).toString( 16 ).substring( 1 ),
                     data: component._currentConfiguratorData,
                 } );
@@ -131,13 +135,11 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 this.closeModal();
                 $pickerModal.closeModal();
             };
+            // Configurator modal opened callback
             configuratorModalOptions.opened = function(): void {
-                const modal: HTMLElement = this;
-
-                const headlineConfigurator: any = Vue.extend( m2cHeadlineConfigurator );
-                new headlineConfigurator( {
-                    parent: component,
-                } ).$mount().$appendTo( modal );
+                // Set component type in currentConfigurator and fire it up
+                component.$set( 'currentConfigurator', componentType );
+                console.log( `${componentType} component applied to the modal.` );
             };
 
             $configuratorModal = modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
