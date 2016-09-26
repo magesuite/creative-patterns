@@ -13,7 +13,7 @@
                     <template slot="cc-component-actions__top">
                         <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up" @click="moveComponentUp( $index )" :class="[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isFirstComponent( $index )">
                             <svg class="action-button__icon action-button__icon--size_100">
-                                <use xv-bind="{ 'xlink:href': asset( 'images/sprites.svg#icon_arrow-up' ) }"></use>
+                                <use v-bind="{ 'xlink:href': asset( 'images/sprites.svg#icon_arrow-up' ) }"></use>
                             </svg>
                         </button>
                         <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down" @click="moveComponentDown( $index )" :class="[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isLastComponent( $index )">
