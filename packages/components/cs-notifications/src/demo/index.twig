@@ -1,0 +1,69 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>cs-notifications component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../cs-notifications.css">
+</head>
+<body>
+
+{% include "../cs-notifications.twig" %}
+<button id="newNot">new</button>
+<h3>Notifications manager singleton</h3>
+<pre>
+interface INotificationsManager {
+    init(): void;
+    addNotification(notification: Notification): void;
+    removeNotification(notification: Notification): void;
+    getNotifications(): Notification[];
+
+}
+
+interface INotificationsManagerSettings {
+    callback?: {
+        notificationAdded?(): any;
+        notificationRemoved?(): any;
+        notificationClosed?(): any;
+    };
+    $componentSelector: JQuery;
+    $closeComponentSelector?: JQuery;
+    deleteOnClose?: boolean;
+}
+
+new NotificationsManager(settings: INotificationsManagerSettings);
+</pre>
+<h3>Single notification class</h3>
+<pre>
+interface INotification {
+    getMessage(): string;
+    getType(): string;
+    remove(): string;
+    setType(type: INotificationType): void;
+    hide(hiddenClassName?: string): void;
+    show(): void;
+    getTemplate(): HTMLElement;
+}
+
+interface INotificationSettings {
+    notificationHTML: string|JQuery;
+    textSelector: string|JQuery;
+    iconSelector: string|JQuery;
+    onClose?(): any;
+    onAdd?(): any;
+}
+
+interface INotificationType {
+    name: string;
+    iconHTML?: string;
+    textClass?: string;
+}
+
+new Notification(message: string, settings: INotificationSettings);
+</pre>
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../cs-notifications.js"></script>
+</body>
+</html>
