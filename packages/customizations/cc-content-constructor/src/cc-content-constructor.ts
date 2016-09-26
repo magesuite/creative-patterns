@@ -8,6 +8,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
     template: `<div class="cc-content-constructor">
         <cc-layout-builder
             v-ref:layout-builder
+            :assets-src="assetsSrc"
             :add-component="pickRandomComponent"
             :edit-component="editRandomComponent"
             :components-configuration="configuration">
@@ -18,6 +19,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
     },
     props: {
         configuration: {
+            type: String,
+            default: '',
+        },
+        assetsSrc: {
             type: String,
             default: '',
         },

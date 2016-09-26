@@ -1,4 +1,3 @@
-import asset from '../../../utilities/cs-asset/src/cs-asset';
 import actionButton from '../../action-button/src/action-button';
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
 import componentAdder from '../../cc-component-adder/src/cc-component-adder';
@@ -41,6 +40,10 @@ const layoutBuilder: vuejs.ComponentOption = {
             type: [ String, Object, Array ],
             default: '',
         },
+        assetsSrc: {
+            type: String,
+            default: '',
+        },
         /**
          * Initial component configuration encoded as JSON string.
          */
@@ -78,7 +81,6 @@ const layoutBuilder: vuejs.ComponentOption = {
         this.$dispatch( 'cc-layout-builder__update' );
     },
     methods: {
-        asset,
         /**
          * Returns components information currently stored within layout builder.
          * @return {IComponentInformation[]} Components information array.
