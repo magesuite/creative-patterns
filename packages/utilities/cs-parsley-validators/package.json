@@ -1,0 +1,11 @@
+{
+  "name": "cs-parsley-validators",
+  "version": "0.0.1",
+  "description": "Group of parsley custom validators for general usage",
+  "main": "src/cs-parsley-validators.ts",
+  "author": "Lukasz Ostrowski",
+  "license": "ISC",
+  "dependencies": {
+    "parsleyjs": "^2.4.4"
+  }
+}
