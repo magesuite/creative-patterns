@@ -1,0 +1,8 @@
+{
+    "name": "pp-action-button",
+    "version": "0.0.1",
+    "description": "Poppen button based on action-button",
+    "main": "src/pp-action-button.ts",
+    "author": "Lukasz Ostrowski",
+    "license": "ISC"
+}
