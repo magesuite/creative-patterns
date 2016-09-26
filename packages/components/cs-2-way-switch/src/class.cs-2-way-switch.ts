@@ -1,17 +1,17 @@
-//JQuery needed
+import $ from 'jQuery';
 
 interface ITwoWaySwitch {
-    init(): void,
-    setActive($element: JQuery): void
+    init(): void;
+    setActive($element: JQuery): void;
 }
 
 interface ITwoWaySwitchSettings {
-    $element: JQuery,
-    $items: JQuery,
-    activeClass: string,
-    onChange?(): void,
-    onFirst?(): void,
-    onSecond?(): void
+    $element: JQuery;
+    $items: JQuery;
+    activeClass: string;
+    onChange?(): void;
+    onFirst?(): void;
+    onSecond?(): void;
 }
 
 class TwoWaySwitch implements ITwoWaySwitch {
@@ -24,9 +24,20 @@ class TwoWaySwitch implements ITwoWaySwitch {
         this.settings = settings;
     }
 
-    _getItemsState() {
-        this._$activeItem = this.settings.$items.each((index, element)=> {
-            let $element = $(element);
+    public setActive($element: JQuery): void {
+        $element.data('isActive', true);
+        $element.addClass(this.settings.activeClass);
+        this._activeItemNo = $element.data('switchIndex');
+    }
+
+    public init(): void {
+        this._getItemsState();
+        this._events();
+    }
+
+    private _getItemsState(): void {
+        this._$activeItem = this.settings.$items.each((index: number, element: HTMLElement) => {
+            let $element: JQuery = $(element);
             $element.data('switchIndex', index);
 
             if ($element.hasClass(this.settings.activeClass)) {
@@ -35,15 +46,14 @@ class TwoWaySwitch implements ITwoWaySwitch {
             }
         });
 
-
     }
 
-    _events() {
-        this.settings.$items.each((index, element)=> {
-            let $element = $(element);
-            let elementNo = $element.data('switchIndex');
+    private _events(): void {
+        this.settings.$items.each((index: number, element: HTMLElement) => {
+            let $element: JQuery = $(element);
+            let elementNo: number = $element.data('switchIndex');
 
-            $element.on('click', (e) => {
+            $element.on('click', (e: Event) => {
                 e.preventDefault();
 
                 if (this._isItemActive($element)) {
@@ -53,9 +63,10 @@ class TwoWaySwitch implements ITwoWaySwitch {
                 this._resetActive();
                 this.setActive($element);
 
-                //Callbacks
-                this.settings.onChange ? this.settings.onChange() : 'or no callback .(ツ)_/¯ ';
-
+                // Callbacks
+                if (this.settings.onChange) {
+                    this.settings.onChange();
+                }
                 if (elementNo === 0 && this.settings.onFirst) {
                     this.settings.onFirst();
 
@@ -71,25 +82,14 @@ class TwoWaySwitch implements ITwoWaySwitch {
         });
     }
 
-    _isItemActive($element: JQuery) {
+    private _isItemActive($element: JQuery): boolean {
         return $element.data('switchIndex') === this._activeItemNo;
     }
 
-    _resetActive() {
+    private _resetActive(): void {
         this.settings.$items.removeClass(this.settings.activeClass);
         this._whichActive = null;
         this.settings.$items.data('isActive', false);
-    }
-
-    setActive($element: JQuery) {
-        $element.data('isActive', true);
-        $element.addClass(this.settings.activeClass);
-        this._activeItemNo = $element.data('switchIndex');
-    }
-
-    init() {
-        this._getItemsState();
-        this._events();
     }
 
 }

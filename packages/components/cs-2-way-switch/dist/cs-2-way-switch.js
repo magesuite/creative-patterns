@@ -1,10 +1,11 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory() :
-    typeof define === 'function' && define.amd ? define('cs2WaySwitch', factory) :
-    (factory());
-}(this, (function () { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jQuery')) :
+    typeof define === 'function' && define.amd ? define('cs2WaySwitch', ['jQuery'], factory) :
+    (factory(global.jQuery));
+}(this, (function ($$1) { 'use strict';
 
-//JQuery needed
+$$1 = 'default' in $$1 ? $$1['default'] : $$1;
+
 var TwoWaySwitch = (function () {
     function TwoWaySwitch(settings) {
         this._whichActive = null;
@@ -12,10 +13,19 @@ var TwoWaySwitch = (function () {
         this._activeItemNo = null;
         this.settings = settings;
     }
+    TwoWaySwitch.prototype.setActive = function ($element) {
+        $element.data('isActive', true);
+        $element.addClass(this.settings.activeClass);
+        this._activeItemNo = $element.data('switchIndex');
+    };
+    TwoWaySwitch.prototype.init = function () {
+        this._getItemsState();
+        this._events();
+    };
     TwoWaySwitch.prototype._getItemsState = function () {
         var _this = this;
         this._$activeItem = this.settings.$items.each(function (index, element) {
-            var $element = $(element);
+            var $element = $$1(element);
             $element.data('switchIndex', index);
             if ($element.hasClass(_this.settings.activeClass)) {
                 _this._activeItemNo = index;
@@ -26,7 +36,7 @@ var TwoWaySwitch = (function () {
     TwoWaySwitch.prototype._events = function () {
         var _this = this;
         this.settings.$items.each(function (index, element) {
-            var $element = $(element);
+            var $element = $$1(element);
             var elementNo = $element.data('switchIndex');
             $element.on('click', function (e) {
                 e.preventDefault();
@@ -35,8 +45,10 @@ var TwoWaySwitch = (function () {
                 }
                 _this._resetActive();
                 _this.setActive($element);
-                //Callbacks
-                _this.settings.onChange ? _this.settings.onChange() : 'or no callback .(ツ)_/¯ ';
+                // Callbacks
+                if (_this.settings.onChange) {
+                    _this.settings.onChange();
+                }
                 if (elementNo === 0 && _this.settings.onFirst) {
                     _this.settings.onFirst();
                 }
@@ -56,15 +68,6 @@ var TwoWaySwitch = (function () {
         this.settings.$items.removeClass(this.settings.activeClass);
         this._whichActive = null;
         this.settings.$items.data('isActive', false);
-    };
-    TwoWaySwitch.prototype.setActive = function ($element) {
-        $element.data('isActive', true);
-        $element.addClass(this.settings.activeClass);
-        this._activeItemNo = $element.data('switchIndex');
-    };
-    TwoWaySwitch.prototype.init = function () {
-        this._getItemsState();
-        this._events();
     };
     return TwoWaySwitch;
 }());
