@@ -1,5 +1,5 @@
 // cs-notifications
-// Notifications component 
+// Notifications component
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
@@ -14,8 +14,8 @@
 
     //temp
     width: 800px;
-    padding: 1em;
-    border: 1px solid black;
+    padding: 1em; // stylelint-disable-line
+    border: 1px solid #000;
     margin-top: 2em;
 
     &__item {
@@ -25,7 +25,7 @@
     &__item-text {
         color: #444;
         &--negative {
-            color: red;
+            color: #f00;
         }
     }
     &__item-icon {

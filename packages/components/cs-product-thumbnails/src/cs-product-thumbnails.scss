@@ -16,11 +16,11 @@
         margin-bottom: 1em;
         cursor: pointer;
         border: 1px solid transparent;
-        transition: border 0.4s;
+        transition: border .4s;
 
         &--is-selected {
             border: 1px solid #ddd;
-            border-radius: 0.5em;
+            border-radius: .5em;
         }
     }
     &__image {

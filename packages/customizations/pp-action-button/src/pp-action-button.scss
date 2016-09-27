@@ -4,8 +4,8 @@
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
 
-@import "../../../components/action-button/src/action-button";
-@import "../../../components/config-poppen/src/config-poppen";
+@import '../../../components/action-button/src/action-button';
+@import '../../../components/config-poppen/src/config-poppen';
 
 .pp-action-button {
     @extend .action-button;
@@ -37,6 +37,5 @@
 
         vertical-align: middle;
     }
-
 
 }

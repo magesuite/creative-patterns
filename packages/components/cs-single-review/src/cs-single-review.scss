@@ -1,9 +1,9 @@
 // cs-single-review
-// Single review component 
+// Single review component
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-@import "../../cs-stars/src/cs-stars";
+@import '../../cs-stars/src/cs-stars';
 
 .cs-single-review {
     font-size: 1rem;
@@ -11,8 +11,8 @@
 
     &__title {
         display: block;
-        font-weight: bold;
-        margin-bottom: 0.5em;
+        font-weight: 700;
+        margin-bottom: .5em;
     }
 
     &__meta {
@@ -20,7 +20,7 @@
 
     &__meta-item {
         vertical-align: middle;
-        padding: 0 0.5em;
+        padding: 0 .5em;
         border-right: 1px solid #ddd;
 
         &:first-child {
