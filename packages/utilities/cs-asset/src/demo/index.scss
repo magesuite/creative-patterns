@@ -1,8 +1,0 @@
-// cs-asset helper usage example.
-//
-$assetDir: '/utilities/cs-asset/dist/';
-@import '../cs-asset';
-
-body {
-    background: url( asset( 'demo/background.png' ) );
-}
