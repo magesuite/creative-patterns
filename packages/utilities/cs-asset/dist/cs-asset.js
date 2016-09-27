@@ -4,6 +4,14 @@
     (factory((global.csAsset = global.csAsset || {})));
 }(this, (function (exports) { 'use strict';
 
+/**
+ * Small utility function that lets you specify custom paths to asset directory
+ * by setting "data-cs-asset-dir" attribute for body tag.
+ */
+/**
+ * Path to asset directory.
+ * @type {string}
+ */
 exports.assetDir = null;
 /**
  * Returns path to given asset prepended with asset directory path.
@@ -11,7 +19,7 @@ exports.assetDir = null;
  * @param  {boolean} recheck  Tells if function should recheck for data attribute.
  * @return {string}           Formated path to given asset.
  */
-function csAsset (assetPath, recheck) {
+var csAsset = function (assetPath, recheck) {
     if (recheck === void 0) { recheck = false; }
     if (exports.assetDir === null || recheck) {
         exports.assetDir = document.querySelector('body').getAttribute('data-cs-asset-dir');
@@ -21,7 +29,6 @@ function csAsset (assetPath, recheck) {
     }
     return exports.assetDir + assetPath;
 }
-;
 
 exports['default'] = csAsset;
 

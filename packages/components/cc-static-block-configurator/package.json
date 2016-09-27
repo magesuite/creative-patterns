@@ -1,0 +1,8 @@
+{
+    "name": "cc-static-block-configurator",
+    "version": "0.0.1",
+    "description": "Creative constructor static block configurator",
+    "main": "src/cc-static-block-configurator.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

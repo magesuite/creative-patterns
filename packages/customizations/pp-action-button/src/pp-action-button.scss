@@ -1,0 +1,42 @@
+// pp-action-button
+// Poppen button based on action-button
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+@import "../../../components/action-button/src/action-button";
+@import "../../../components/config-poppen/src/config-poppen";
+
+.pp-action-button {
+    @extend .action-button;
+
+    text-transform: uppercase;
+    color: #fff;
+    fill: #fff;
+    font-family: $base-font-family;
+    font-weight: $font-weight-bold;
+    letter-spacing: 1px;
+
+    font-size: 13px;
+    border-radius: 4px;
+
+    &--cta {
+        background-color: $color-red;
+    }
+
+    &--cta-alternative {
+        background-color: #fff;
+        color: $color-red;
+        fill: $color-red;
+        border: 1px solid $color-red;
+    }
+
+    &__icon {
+        height: 1em;
+        width: 1em;
+
+        vertical-align: middle;
+    }
+
+
+}
