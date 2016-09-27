@@ -1,0 +1,27 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cc-static-block-configurator component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-static-block-configurator.css">
+    </head>
+    <body>
+        <h1>cc-static-block-configurator Component Demo</h1>
+
+        {% include '../cc-static-block-configurator.twig' %}
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+        <script src="../cc-static-block-configurator.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'cc-static-block-configurator': ccStaticBlockConfigurator
+                }
+            } );
+        </script>
+    </body>
+</html>

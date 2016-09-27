@@ -1,0 +1,1 @@
+import { ccStaticBlockConfigurator } from '../../cc-static-block-configurator';

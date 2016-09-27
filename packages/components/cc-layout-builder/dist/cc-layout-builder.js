@@ -19,7 +19,7 @@ var assetDir = null;
  * @param  {boolean} recheck  Tells if function should recheck for data attribute.
  * @return {string}           Formated path to given asset.
  */
-function asset (assetPath, recheck) {
+var asset = function (assetPath, recheck) {
     if (recheck === void 0) { recheck = false; }
     if (assetDir === null || recheck) {
         assetDir = document.querySelector('body').getAttribute('data-cs-asset-dir');
@@ -29,7 +29,6 @@ function asset (assetPath, recheck) {
     }
     return assetDir + assetPath;
 }
-;
 
 /**
  * Action button component version.
