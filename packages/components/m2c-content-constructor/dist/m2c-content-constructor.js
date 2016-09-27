@@ -158,7 +158,7 @@ var assetDir = null;
  * @param  {boolean} recheck  Tells if function should recheck for data attribute.
  * @return {string}           Formated path to given asset.
  */
-function asset (assetPath, recheck) {
+var asset = function (assetPath, recheck) {
     if (recheck === void 0) { recheck = false; }
     if (assetDir === null || recheck) {
         assetDir = document.querySelector('body').getAttribute('data-cs-asset-dir');
@@ -168,7 +168,6 @@ function asset (assetPath, recheck) {
     }
     return assetDir + assetPath;
 }
-;
 
 /**
  * Action button component version.
@@ -509,10 +508,14 @@ var $configuratorModal;
  * of the M2C admin panel logic.
  */
 var m2cContentConstructor = {
-    template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal>\n            <cc-component-picker\n                :pick-component=\"getComponentConfigurator\"\n                components='[{\"type\":\"static-block\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of static block\",\"name\":\"Static block\"},{\"type\":\"headline\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of headline\",\"name\":\"Headline\"}]'>\n            </cc-component-picker>\n        </div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal></div>\n    </div>",
+    template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal>\n            <cc-component-picker\n                :pick-component=\"getComponentConfigurator\"\n                components='[{\"type\":\"static-block\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of static block\",\"name\":\"Static block\"},{\"type\":\"headline\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of headline\",\"name\":\"Headline\"}]'>\n            </cc-component-picker>\n        </div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal><component :is=\"currentConfigurator\"></component></div>\n    </div>",
+    data: {
+        currentConfigurator: ''
+    },
     components: {
         'cc-layout-builder': layoutBuilder,
         'cc-component-picker': ccComponentPicker,
+        'headline': m2cHeadlineConfigurator
     },
     props: {
         configuration: {
@@ -556,19 +559,18 @@ var m2cContentConstructor = {
             // Open configurator modal.
             configuratorModalOptions.buttons[1].click = function () {
                 component._addComponentInformation({
-                    type: 'headline',
+                    type: componentType,
                     id: 'component' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
                     data: component._currentConfiguratorData,
                 });
                 this.closeModal();
                 $pickerModal.closeModal();
             };
+            // Configurator modal opened callback
             configuratorModalOptions.opened = function () {
-                var modal = this;
-                var headlineConfigurator = Vue.extend(m2cHeadlineConfigurator);
-                new headlineConfigurator({
-                    parent: component,
-                }).$mount().$appendTo(modal);
+                // Set component type in currentConfigurator and fire it up
+                component.$set('currentConfigurator', componentType);
+                console.log(componentType + " component applied to the modal.");
             };
             $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
         },
