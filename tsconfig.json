@@ -117,9 +117,6 @@
     "packages/components/cs-size-picker/src/tests/e2e/cs-size-picker.ts",
     "packages/components/cs-size-picker/src/tests/unit/cs-size-picker.ts",
     "packages/components/hero/src/hero.ts",
-    "packages/components/m2c-component-picker/src/m2c-component-picker.ts",
-    "packages/components/m2c-component-picker/src/tests/e2e/m2c-component-picker.ts",
-    "packages/components/m2c-component-picker/src/tests/unit/m2c-component-picker.ts",
     "packages/components/m2c-content-constructor/src/m2c-content-constructor.ts",
     "packages/components/m2c-content-constructor/src/tests/e2e/m2c-content-constructor.ts",
     "packages/components/m2c-content-constructor/src/tests/unit/m2c-content-constructor.ts",
@@ -149,8 +146,6 @@
     "packages/components/cc-layout-builder/node_modules/@types/vue/index.d.ts",
     "packages/components/cs-button/node_modules/@types/vue/index.d.ts",
     "packages/components/cs-floating-label/node_modules/@types/jquery/index.d.ts",
-    "packages/components/m2c-component-picker/node_modules/@types/vue-resource/index.d.ts",
-    "packages/components/m2c-component-picker/node_modules/@types/vue/index.d.ts",
     "packages/components/m2c-content-constructor/node_modules/@types/vue-resource/index.d.ts",
     "packages/components/m2c-content-constructor/node_modules/@types/vue/index.d.ts"
   ]

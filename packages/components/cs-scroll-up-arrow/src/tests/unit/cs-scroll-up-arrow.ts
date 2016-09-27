@@ -80,12 +80,10 @@ describe('Scrollup arrow component: ', function (): void {
 
         scrollupArrow.scroll();
 
-
         setTimeout(() => {
             expect($win.scrollTop()).toEqual(scrollToParameter);
 
         }, scrollingSpeedParameter);
-
 
     });
 

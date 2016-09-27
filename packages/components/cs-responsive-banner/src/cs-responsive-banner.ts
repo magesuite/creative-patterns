@@ -1,7 +1,6 @@
-import {IResponsiveBanner, IResponsiveBannerSettings, ResponsiveBanner} from './class.cs-responsive-banner';
+import {IResponsiveBanner, ResponsiveBanner} from './class.cs-responsive-banner';
 
 // Demo usage
-
 const $banner: JQuery = $('.cs-responsive-banner');
 
 const banner: IResponsiveBanner = new ResponsiveBanner($banner);
@@ -22,7 +21,7 @@ banner.addNewSource('mobile', {
     sourceUrl: mobileSrc,
 });
 
-function setSize(width) {
+function setSize(width: number): void {
     if (width > 1024) {
         banner.setSize('desktop');
     } else if (width >= 768) {
@@ -32,11 +31,10 @@ function setSize(width) {
     }
 }
 
-$(window).on('resize', function () {
+$(window).on('resize', function(): void {
     let width: number = $(window).width();
 
     setSize(width);
-
 });
 
 setSize($(window).width());

@@ -1,3 +1,3 @@
-import {StickyElement} from './class.cs-sticky-element';
+import { StickyElement } from './class.cs-sticky-element';
 
-window.StickyElement = StickyElement;
+export default StickyElement;

@@ -1,5 +1,3 @@
-import csInputs from '../../cs-inputs/src/cs-inputs';
-
 /**
  * Single component information object.
  */

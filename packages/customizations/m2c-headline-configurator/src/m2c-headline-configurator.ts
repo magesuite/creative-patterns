@@ -1,5 +1,5 @@
 import ccHeadlineConfigurator from '../../../components/cc-headline-configurator/src/cc-headline-configurator';
-//import m2Iinput from '../../m2-input/src/m2-input';
+// TODO: Use m2-input component the Vue way.
 
 const m2cHeadlineConfigurator: vuejs.ComponentOption = {
     template: `<form class="m2c-headline-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">

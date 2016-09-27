@@ -1,5 +1,6 @@
 import $ from 'jQuery';
-import {INotification, INotificationSettings, INotificationType, Notification} from './class.notification';
+
+import { Notification } from './class.notification';
 
 interface INotificationsManager {
     init(): void;

@@ -1,5 +1,3 @@
-import csInputs from '../../cs-inputs/src/cs-inputs';
-
 /**
  * Single component information object.
  */
@@ -63,7 +61,7 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
     },
     data(): any {
         return {
-            staticBlock: ''
+            staticBlock: '',
         };
     },
     methods: {

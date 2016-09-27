@@ -1,5 +1,5 @@
-import {NotificationsManager, INotificationsManagerSettings, INotificationsManager} from './class.notifications';
-import {Notification, INotificationType, INotificationSettings} from './class.notification';
+import { INotificationSettings, INotificationType, Notification } from './class.notification';
+import { INotificationsManager, INotificationsManagerSettings, NotificationsManager } from './class.notifications';
 
 let nmSettings: INotificationsManagerSettings = {
     $componentSelector: $('.cs-notifications'),
@@ -42,6 +42,6 @@ window.n = not1;
 notificationsManager.addNotification(not1);
 notificationsManager.addNotification(not2);
 
-$('#newNot').click(function () {
+$('#newNot').click(function (): void {
     notificationsManager.addNotification(new Notification('new notification added', notificationConfig));
 });

@@ -1,5 +1,3 @@
-import $ from 'jQuery';
-
 interface IFilterContainer {
     expand(): void;
     collapse(): void;

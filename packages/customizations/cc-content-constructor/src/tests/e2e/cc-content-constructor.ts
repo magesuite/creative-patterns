@@ -7,7 +7,7 @@ const firstComponentMoveUp: string = '.cc-layout-builder__component:first-of-typ
 const firstComponentMoveDown: string = '.cc-layout-builder__component:first-of-type .cc-component-actions__button--down';
 const lastComponentMoveUp: string = '.cc-layout-builder__component:last-of-type .cc-component-actions__button--up';
 const lastComponentMoveDown: string = '.cc-layout-builder__component:last-of-type .cc-component-actions__button--down';
-const alertWaitTime = 500;
+const alertWaitTime: number = 500;
 
 export default {
     'Adding new component'( browser: any ): void {

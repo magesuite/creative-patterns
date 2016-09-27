@@ -1,7 +1,7 @@
 import $ from '../../../node_modules/jquery/dist/jquery.min.js';
 
 import {INotification, INotificationSettings, INotificationType, Notification} from '../../class.notification';
-import {INotificationsManager, INotificationsManagerSettings, NotificationsManager} from '../../class.notifications';
+import {INotificationsManagerSettings, NotificationsManager} from '../../class.notifications';
 
 let notificationConfig: INotificationSettings = {
     notificationHTML: '<li class="cs-notifications__item"><div class="cs-notifications__item-icon"></div><span class="cs-notifications__item-text"></span></li>',
