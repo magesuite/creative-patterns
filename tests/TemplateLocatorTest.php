@@ -6,7 +6,7 @@ class TemplateLocatorTest extends PHPUnit_Framework_TestCase {
 
         $baseDirectory = realpath(__DIR__.'/../');
 
-        $result = $templateLocator->locate('headline', 'headline.twig');
+        $result = $templateLocator->locate('components', 'headline', 'headline.twig');
         $expectedResult = $baseDirectory . '/packages/components/headline/src/headline.twig';
 
         $this->assertEquals($expectedResult, $result);

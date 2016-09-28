@@ -8,8 +8,8 @@ class TemplateLocator implements Locator
         return realpath(__DIR__.'/../');
     }
 
-    public function locate($componentName, $templateName) {
-        $path = self::getBasePath().'/packages/components/'.$componentName.'/src/'.$templateName;
+    public function locate($package, $componentName, $templateName) {
+        $path = self::getBasePath().'/packages/'.$package.'/'.$componentName.'/src/'.$templateName;
 
         return $path;
     }
