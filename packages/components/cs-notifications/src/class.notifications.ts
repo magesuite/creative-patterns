@@ -1,6 +1,8 @@
-import $ from 'jQuery';
+import jQuery from 'jQuery';
 
-import { Notification } from './class.notification';
+$ = jQuery;
+
+import {Notification} from './class.notification';
 
 interface INotificationsManager {
     init(): void;

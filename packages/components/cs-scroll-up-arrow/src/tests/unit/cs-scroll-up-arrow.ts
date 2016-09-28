@@ -74,7 +74,7 @@ describe('Scrollup arrow component: ', function (): void {
 
     });
 
-    it('is scrolling after scroll() method', function (): void {
+    it('is scrolling after scroll() method', function (done: Function): void {
         let $win: JQuery = $(window);
         $win.scrollTop(500);
 
@@ -82,12 +82,12 @@ describe('Scrollup arrow component: ', function (): void {
 
         setTimeout(() => {
             expect($win.scrollTop()).toEqual(scrollToParameter);
-
+            done();
         }, scrollingSpeedParameter);
 
     });
 
-    it('is scrolling to X point after scroll(X) method', function (): void {
+    it('is scrolling to X point after scroll(X) method', function (done: Function): void {
         let $win: JQuery = $(window);
         let x: number = 300;
         $win.scrollTop(100);
@@ -96,6 +96,7 @@ describe('Scrollup arrow component: ', function (): void {
 
         setTimeout(() => {
             expect($win.scrollTop()).toEqual(x);
+            done();
 
         }, scrollingSpeedParameter);
 

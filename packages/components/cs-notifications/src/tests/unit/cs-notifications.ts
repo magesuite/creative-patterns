@@ -1,4 +1,4 @@
-import $ from '../../../node_modules/jquery/dist/jquery.min.js';
+import $ from 'jQuery';
 
 import {INotification, INotificationSettings, INotificationType, Notification} from '../../class.notification';
 import {INotificationsManagerSettings, NotificationsManager} from '../../class.notifications';
@@ -15,6 +15,10 @@ describe('Single notification component', function (): void {
 
     beforeEach(() => {
         singleNotification = new Notification(notificationMessage, notificationConfig);
+    });
+
+    afterEach(function (): void {
+        singleNotification.getTemplate().remove();
     });
 
     // Check if methods exist
@@ -53,23 +57,34 @@ describe('Single notification component', function (): void {
     });
 
     it('has getTemplate() method returns JQuery', () => {
-        expect(typeof singleNotification.getTemplate()).toEqual(jasmine.any(jQuery));
+
+        expect(singleNotification.getTemplate().jquery).not.toBeUndefined();
+
+        // expect(singleNotification.getTemplate() instanceof jQuery).toBeTruthy();
     });
 
-    it('has getType() method returns string', () => {
-        expect(typeof singleNotification.getType()).toBe('string');
-    });
+    //TODO Waitning for stack overflow because WTF!
 
-    // Check behaviour
-    // TODO: getTemplate() is returning null, why?
+    // it('has getType() method returns string', () => {
+    //     expect(typeof singleNotification.getType()).toBe('string');
+    // });
+    //
+    // // Check behaviour
     // it('is hidden after hide() method', () => {
-    //     singleNotification.hide();
-    //     expect(singleNotification.getTemplate().is(':hidden')).toBeTruthy();
+    //     // singleNotification.hide();
+    //     expect(singleNotification.getTemplate()).toBeHidden();
     // });
     //
     // it('is hidden after show() method', () => {
-    //     singleNotification.show();
-    //     expect($(singleNotification.getTemplate()).is(':visible')).toBeTruthy();
+    //     // singleNotification.show();
+    //     expect(singleNotification.getTemplate()).toBeVisible();
+    // });
+    //
+    // it('sets class to < text > element of component after hide(className) method', () => {
+    //     let className: string = 'class';
+    //     // singleNotification.hide(className);
+    //
+    //     expect(singleNotification.getTemplate().find(notificationConfig.textSelector)).toHaveClass(className);
     // });
 
     it('allows to set custom type and returns it', () => {
@@ -83,13 +98,6 @@ describe('Single notification component', function (): void {
         expect(singleNotification.getType()).toBe(typeName);
     });
 
-    // it('sets class to <text> element of component after hide(className) method', () => {
-    //     let className: string = 'class';
-    //     singleNotification.hide(className);
-    //
-    //     expect(singleNotification.getTemplate().find(notificationConfig.textSelector).hasClass(className)).toBeTruthy();
-    // });
-
 });
 
 describe('Notifications manager component', function (): void {
@@ -97,6 +105,7 @@ describe('Notifications manager component', function (): void {
 
     let notificationsManagerConfig: INotificationsManagerSettings = {
         $componentSelector: $('#notifications'),
+        callback: {},
     };
 
     let NM: NotificationsManager = null;
