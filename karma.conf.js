@@ -15,6 +15,7 @@ module.exports = function( config ) {
         ],
 
         plugins: [
+            'karma-spec-reporter',
             'karma-firefox-launcher',
             'karma-jasmine',
         ],
@@ -40,9 +41,17 @@ module.exports = function( config ) {
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         reporters: [
-            'progress',
+            'spec',
         ],
 
+        specReporter: {
+            maxLogLines: 5,         // limit number of lines logged per test
+            suppressErrorSummary: true,  // do not print error summary
+            suppressFailed: false,  // do not print information about failed tests
+            suppressPassed: true,  // do not print information about passed tests
+            suppressSkipped: false,  // do not print information about skipped tests
+            showSpecTiming: false, // print the time elapsed for each spec
+        },
 
         // web server port
         port: 9876,

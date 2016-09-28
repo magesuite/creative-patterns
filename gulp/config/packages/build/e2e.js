@@ -1,6 +1,4 @@
 import path from 'path';
-import autoprefixer from 'autoprefixer';
-import flexbugs from 'postcss-flexbugs-fixes';
 
 /**
  * Returns information for styles building.

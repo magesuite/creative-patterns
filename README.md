@@ -14,12 +14,14 @@ To install the local copy of the library:
 
 ## Essential commands
 
-Since pattern library's build system is based on gulp, here are some most essential commands which are helpfull when working with it.
+Since pattern library's build system is based on gulp, here are some most essential commands which are helpful when working with it.
 
 - `npm run build` or `gulp build` - Builds entire pattern library.
 - `npm run serve` or `gulp serve` - Builds entire pattern library and fires up local dev server which let's you browse the files.
-- `npm run test` or `gulp test` - Build scripts and runs unit tests. When using gulp variant you can append optional ` --watch` argument to fire up tests each time the files are changed.
-- `npm run lint` or `gulp lint` - Lints scripts and styles accorging to our code style rules.
+- `npm run test` or `gulp test` - Build scripts and runs unit tests.
+  - Use `-w` or `--watch` flag to rerun tests each time files change.
+  - Use `-p package_path` or `--package package_path` to run tests for single package where `package_path` is a path relative to `packages` directory.
+- `npm run lint` or `gulp lint` - Lints scripts and styles according to our code style rules.
 
 ## Adding new components
 

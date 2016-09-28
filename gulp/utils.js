@@ -1,4 +1,5 @@
 import glob from 'glob';
+import path from 'path';
 
 /**
  * Converts space separated string to camelCase format.
@@ -17,4 +18,27 @@ export function camelCase( string ) {
  */
 export function getPackages() {
     return glob.sync( 'packages/*/*', {} );
+}
+
+/**
+ * Filters given packages to leave only the ones that contain JavaScript.
+ * @param  {[String]} packages Array of paths to packages.
+ * @param  {Object} settings Packages settings object.
+ * @return {[String]}        Packages that contain JavaScript.
+ */
+export function filterPackagesWithJs( packages, settings ) {
+    return packages.filter( ( packageDir ) => {
+        const packageSettings = settings.generate( packageDir );
+        return glob.sync( packageSettings.rollup.entry ).length > 0;
+    } );
+}
+
+/**
+ * Filters given packages to leave only a wanted one in collection.
+ * @param  {[String]} packages       Array of paths to packages.
+ * @param  {String} wantedPackageDir Path to package directory.
+ * @return {[String]}                Collection only with wanted package.
+ */
+export function filterSinglePackage( packages, wantedPackageDir ) {
+    return packages.filter( ( packageDir ) => packageDir === path.join( 'packages', wantedPackageDir ) );
 }

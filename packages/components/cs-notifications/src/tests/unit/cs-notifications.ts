@@ -63,7 +63,7 @@ describe('Single notification component', function (): void {
         // expect(singleNotification.getTemplate() instanceof jQuery).toBeTruthy();
     });
 
-    //TODO Waitning for stack overflow because WTF!
+    // TODO Waitning for stack overflow because WTF!
 
     // it('has getType() method returns string', () => {
     //     expect(typeof singleNotification.getType()).toBe('string');

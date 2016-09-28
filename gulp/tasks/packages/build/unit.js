@@ -2,16 +2,16 @@
 /* eslint no-sync: 0 */
 import { rollup } from 'rollup';
 import notifier from 'node-notifier';
-// import fs from 'fs';
+
 import util from 'gulp-util';
 import path from 'path';
 import browserSync from 'browser-sync';
 
-import { getPackages } from '../../../utils';
+import { filterPackagesWithJs, filterSinglePackage, getPackages } from '../../../utils';
 import environment from '../../../environment';
 import settings from '../../../config/packages/build/unit';
 
-const packages = getPackages();
+let packages = getPackages();
 let firstRun = true;
 
 /**
@@ -22,7 +22,6 @@ let firstRun = true;
  * @return {Promise} Promise used to properly time task execution completition.
  */
 module.exports = function() {
-
     if ( firstRun && environment.watch === true ) {
         firstRun = false;
         this.gulp.watch(
@@ -36,30 +35,40 @@ module.exports = function() {
         );
     }
 
-    const tasks = packages.map( ( packageDir ) => {
+    // Filter the packages to handle only the ones with existing entry files.
+    const packagesWithJS = filterPackagesWithJs( packages, settings );
+
+    // If someone specified a certain package than handle only this one.
+    const wantedPackageDir = util.env.p || util.env.package;
+    if ( wantedPackageDir ) {
+        packages = filterSinglePackage( packages, wantedPackageDir );
+        if ( packages.length === 0 ) {
+            throw new Error( `Cannot find package "${wantedPackageDir}" to test!` );
+        }
+    }
+
+
+    /**
+     * Prepare tasks for scripts compilation.
+     * @type {[Promise]} Array of tasks' promises.
+     */
+    const tasks = packagesWithJS.map( ( packageDir ) => {
         const packageSettings = settings.generate( packageDir );
         const packageName = path.basename( packageDir );
         if ( util.env.verbose ) {
             util.log( 'Compiling', util.colors.cyan( packageName ), 'unit tests...' );
         }
-        // Check if JS entry file exists.
-        try {
-            // Entry file exists.
-            return rollup( packageSettings.rollup ).then( ( bundle ) =>
-                bundle.write( packageSettings.bundle )
-            ).catch( ( error ) => {
-                notifier.notify( {
-                    'title': 'JS Error',
-                    'message': error.message,
-                } );
 
-                return Promise.reject( error );
+        return rollup( packageSettings.rollup ).then( ( bundle ) =>
+            bundle.write( packageSettings.bundle )
+        ).catch( ( error ) => {
+            notifier.notify( {
+                'title': 'JS Error',
+                'message': error.message,
             } );
-        } catch ( e ) {
-            // util.log( 'No scripts entry file found. Assuming component has no JavaScript.' );
-        }
 
-        return Promise.resolve();
+            return Promise.reject( error );
+        } );
     } );
 
     return Promise.all( tasks );

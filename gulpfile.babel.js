@@ -77,13 +77,12 @@ gulp.task( 'serve', ( done ) => {
  * Lint and test code before pushig to main repo.
  */
 gulp.task( 'pre-push', ( done ) => {
-    // Too many errors to fix at once.
-    // Allow to push for now.
-    // sequence(
-    //     'lint',
-    //     'test',
-    //     done
-    // );
+    sequence(
+        'build',
+        'lint',
+        'test',
+        done
+    );
 } );
 
 /**

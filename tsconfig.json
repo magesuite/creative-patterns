@@ -61,6 +61,7 @@
     "packages/components/cs-2-way-switch/src/tests/e2e/cs-2-way-switch.ts",
     "packages/components/cs-2-way-switch/src/tests/unit/cs-2-way-switch.ts",
     "packages/components/cs-button/src/cs-button.ts",
+    "packages/components/cs-button/src/tests/unit.ts",
     "packages/components/cs-carousel/src/class.cs-carousel.ts",
     "packages/components/cs-carousel/src/cs-carousel.ts",
     "packages/components/cs-carousel/src/tests/e2e/cs-carousel.ts",

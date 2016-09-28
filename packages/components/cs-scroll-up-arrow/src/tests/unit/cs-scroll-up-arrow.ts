@@ -9,7 +9,7 @@ describe('Scrollup arrow component: ', function (): void {
     let $scrollupArrowNode: JQuery = null;
 
     let scrollToParameter: number = 0;
-    let scrollingSpeedParameter: number = 500;
+    let scrollingSpeedParameter: number = 100;
     let visibleClass: string = 'cs-scroll-up-arrow--is-visible';
 
     let scrollupArrowSettings: IScrollUpArrowSettings = {
@@ -83,7 +83,7 @@ describe('Scrollup arrow component: ', function (): void {
         setTimeout(() => {
             expect($win.scrollTop()).toEqual(scrollToParameter);
             done();
-        }, scrollingSpeedParameter);
+        }, scrollingSpeedParameter + 100);
 
     });
 
@@ -98,7 +98,7 @@ describe('Scrollup arrow component: ', function (): void {
             expect($win.scrollTop()).toEqual(x);
             done();
 
-        }, scrollingSpeedParameter);
+        }, scrollingSpeedParameter + 100);
 
     });
 
