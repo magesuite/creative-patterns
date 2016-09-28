@@ -34,7 +34,7 @@ var ccStaticBlockConfigurator = {
     },
     data: function () {
         return {
-            staticBlock: ''
+            staticBlock: '',
         };
     },
     methods: {

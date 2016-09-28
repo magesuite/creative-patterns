@@ -1,9 +1,9 @@
 .cs-availability-info {
   display: inline-block;
-  font-family: "sans-serif";
+  font-family: 'sans-serif';
   font-size: 1rem; }
   .cs-availability-info--type_positive {
-    color: green; }
+    color: #0f0; }
   .cs-availability-info--type_negative {
     color: #666; }
   .cs-availability-info__text {

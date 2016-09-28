@@ -1,4 +1,3 @@
-import StickyKit from '../node_modules/sticky-kit/dist/sticky-kit.js';
 import $ from 'jquery';
 
 interface IStickyElement {
@@ -47,4 +46,3 @@ class StickyElement implements IStickyElement {
 }
 
 export {IStickyElement, IStickyElementSettings, StickyElement};
-

@@ -68,7 +68,7 @@ $namespace: 'm2c-';
 
         &--center {
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX( -50% );
             text-align: center;
         }
     }
@@ -102,7 +102,7 @@ $namespace: 'm2c-';
     &__nav {
         position: absolute;
         top: 50%;
-        transform: translateY(-50%);
+        transform: translateY( -50% );
         z-index: 2;
 
         &--prev {
@@ -121,7 +121,7 @@ $namespace: 'm2c-';
         z-index: 2;
         bottom: 15px;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX( -50% );
     }
 
     &__pagination-item {
@@ -141,8 +141,8 @@ $namespace: 'm2c-';
             overflow: visible;
         }
 
-        #{$root}__slide:not(#{$root}__slide--active) {
-            opacity: 0.5;
+        #{$root}__slide:not( #{$root}__slide--active ) {
+            opacity: .5;
         }
     }
 }

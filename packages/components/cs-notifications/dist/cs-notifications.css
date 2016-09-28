@@ -7,14 +7,14 @@
   position: relative;
   width: 800px;
   padding: 1em;
-  border: 1px solid black;
+  border: 1px solid #000;
   margin-top: 2em; }
   .cs-notifications__item {
     display: block; }
   .cs-notifications__item-text {
     color: #444; }
     .cs-notifications__item-text--negative {
-      color: red; }
+      color: #f00; }
   .cs-notifications__close {
     position: absolute;
     top: 1em;

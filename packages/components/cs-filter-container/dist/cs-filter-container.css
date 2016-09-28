@@ -19,8 +19,8 @@
     height: 3em;
     border: 4px solid #fff;
     box-shadow: 0 0 0 2px #ddd;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
+    -webkit-transition: .3s;
+    transition: .3s;
     cursor: pointer; }
 
 .cs-filter-container {
@@ -48,7 +48,7 @@
     padding: 1em 0; }
   .cs-filter-container__label {
     text-transform: uppercase;
-    font-weight: bold; }
+    font-weight: 700; }
   .cs-filter-container__icon {
     width: 1em;
     height: 1em;
@@ -60,6 +60,6 @@
     .cs-filter-container__filter-wrapper--is-visible {
       display: block; }
   .cs-filter-container__filter {
-    font-size: 0.5em; }
+    font-size: .5em; }
 
 /*# sourceMappingURL=cs-filter-container.css.map */

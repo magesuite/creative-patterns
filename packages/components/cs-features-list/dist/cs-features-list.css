@@ -13,20 +13,20 @@
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
-  font-family: "sans-serif";
+  font-family: 'sans-serif';
   font-size: 1rem;
-  fill: blue;
+  fill: #00f;
   color: #777; }
   .cs-features-list__item {
     white-space: nowrap;
-    margin-right: 0.5em;
-    margin-bottom: 0.5em; }
+    margin-right: .5em;
+    margin-bottom: .5em; }
   .cs-features-list__icon {
     display: inline-block;
     vertical-align: middle;
     width: 2em;
     height: 2em;
-    margin-right: 0.5em; }
+    margin-right: .5em; }
   .cs-features-list__text {
     display: inline-block;
     vertical-align: middle; }

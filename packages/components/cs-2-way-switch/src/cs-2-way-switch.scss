@@ -11,38 +11,38 @@
 
     //default skin
     background: #fff;
-    border: 1px solid #222222;
-    color: #222222;
-    fill: #222222;
-    border-radius: 0.5em;
+    border: 1px solid #222;
+    color: #222;
+    fill: #222;
+    border-radius: .5em;
 
     //temp
-    font-family: "sans-serif";
+    font-family: 'sans-serif';
     margin: 50px auto;
     width: 300px;
 
     &__item {
         flex: 1 1 auto;
         width: 50%;
-        transition: 0.3s;
+        transition: .3s;
 
         text-decoration: none;
         color: inherit;
         text-align: center;
 
         &:hover {
-            width: calc(50% + 1em);
+            width: calc( 50% + 1em );
         }
 
         &--is-active {
-            background: #88BB29;
+            background: #88bb29;
 
             color: #fff;
             fill: #fff;
-            width: calc(50% + 1em);
+            width: calc( 50% + 1em );
             cursor: default;
 
-            box-shadow: 0 0 8px 2px rgba(#333, 0.7);
+            box-shadow: 0 0 8px 2px rgba( #333, .7 );
         }
 
     }
@@ -50,14 +50,13 @@
         width: 2em;
         height: 2em;
         display: inline-block;
-        margin-right: 0.5em;
+        margin-right: .5em;
         vertical-align: middle;
     }
     &__text {
         line-height: 3em;
         display: inline-block;
         vertical-align: middle;
-        font-weight: bold;
+        font-weight: 700;
     }
-
 }

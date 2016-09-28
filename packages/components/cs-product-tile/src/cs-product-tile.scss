@@ -1,13 +1,13 @@
 // cs-product-tile
-// Single product tile for home/category/sliders 
+// Single product tile for home/category/sliders
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-@import "../../cs-price/src/cs-price";
-@import "../../cs-stars/src/cs-stars";
-@import "../../cs-product-label/src/cs-product-label";
-@import "../../cs-availability-info/src/cs-availability-info";
-@import "../../cs-product-thumbnails/src/cs-product-thumbnails";
+@import '../../cs-price/src/cs-price';
+@import '../../cs-stars/src/cs-stars';
+@import '../../cs-product-label/src/cs-product-label';
+@import '../../cs-availability-info/src/cs-availability-info';
+@import '../../cs-product-thumbnails/src/cs-product-thumbnails';
 
 .cs-product-tile {
     width: 100%;
@@ -19,9 +19,9 @@
 
     //temp
     padding-bottom: 300px;
-    width: 300px;
+    width: 300px; // stylelint-disable-line
     margin: 50px auto;
-    font-family: "sans-serif";
+    font-family: 'sans-serif';
 
     &__wrapper {
         position: absolute;
@@ -40,7 +40,7 @@
             margin-bottom: -1em;
             padding: 2em;
 
-            box-shadow: 0 0 4px 2px rgba(0, 0, 0, .5);
+            box-shadow: 0 0 4px 2px rgba( 0, 0, 0, .5 );
 
             & > #{$root}__photos > #{$root}__slider {
                 display: block;
@@ -59,7 +59,7 @@
     }
 
     &__photos {
-        height: calc(100% - 5em);
+        height: calc( 100% - 5em );
         position: relative;
     }
     &__image {
@@ -76,7 +76,7 @@
         top: 0;
         width: 2em;
         height: 4em;
-        font-size: 0.9em;
+        font-size: .9em;
     }
     &__label {
         position: absolute;
@@ -84,8 +84,7 @@
         right: 0;
         display: block;
         line-height: 2em;
-        background-color: red;
-
+        background-color: #f00;
     }
     &__price {
         height: 2em;
@@ -97,13 +96,11 @@
     }
     &__reviews {
         height: 2em;
-        font-size: 0.8em;
-
+        font-size: .8em;
     }
 
     &__availability {
-        font-size: 0.8em;
-
+        font-size: .8em;
     }
 
 }

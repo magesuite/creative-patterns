@@ -14,7 +14,7 @@
         display: inline-block;
         color: #888;
 
-        &::after {
+        &:after {
             content: '/';
             display: inline-block;
             margin: 0 1rem;

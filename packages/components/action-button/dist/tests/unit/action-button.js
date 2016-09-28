@@ -3,6 +3,10 @@
 
 var commonjsGlobal = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
+
+
+
+
 function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
@@ -1024,7 +1028,7 @@ var text = Object.freeze({
   var warn = undefined;
   var formatComponentName = undefined;
 
-  if ('development' !== 'production') {
+  {
     (function () {
       var hasConsole = typeof console !== 'undefined';
 
@@ -1561,7 +1565,7 @@ var transition = Object.freeze({
   var reservedTagRE = /^(slot|partial|component)$/i;
 
   var isUnknownElement = undefined;
-  if ('development' !== 'production') {
+  {
     isUnknownElement = function (el, tag) {
       if (tag.indexOf('-') > -1) {
         // http://stackoverflow.com/a/28210364/1070244
@@ -1596,7 +1600,7 @@ var transition = Object.freeze({
         var is = hasAttrs && getIsBinding(el, options);
         if (is) {
           return is;
-        } else if ('development' !== 'production') {
+        } else {
           var expectedTag = options._componentNameMap && options._componentNameMap[tag];
           if (expectedTag) {
             warn('Unknown custom element: <' + tag + '> - ' + 'did you mean <' + expectedTag + '>? ' + 'HTML is case-insensitive, remember to use kebab-case in templates.');
@@ -1800,7 +1804,7 @@ var transition = Object.freeze({
       var components = options.components = guardArrayAssets(options.components);
       var ids = Object.keys(components);
       var def;
-      if ('development' !== 'production') {
+      {
         var map = options._componentNameMap = {};
       }
       for (var i = 0, l = ids.length; i < l; i++) {
@@ -1811,7 +1815,7 @@ var transition = Object.freeze({
         }
         // record a all lowercase <-> kebab-case mapping for
         // possible custom element case error warning
-        if ('development' !== 'production') {
+        {
           map[key.replace(/-/g, '').toLowerCase()] = hyphenate(key);
         }
         def = components[key];
@@ -1895,7 +1899,7 @@ var transition = Object.freeze({
   function mergeOptions(parent, child, vm) {
     guardComponents(child);
     guardProps(child);
-    if ('development' !== 'production') {
+    {
       if (child.propsData && !vm) {
         warn('propsData can only be used as an instantiation option.');
       }
@@ -2016,13 +2020,7 @@ var transition = Object.freeze({
   };
 
   var arrayProto = Array.prototype;
-  var arrayMethods = Object.create(arrayProto)
-
-  /**
-   * Intercept mutating methods and emit events
-   */
-
-  ;['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
+  var arrayMethods = Object.create(arrayProto);['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
     // cache original method
     var original = arrayProto[method];
     def(arrayMethods, method, function mutator() {
@@ -2756,7 +2754,7 @@ var transition = Object.freeze({
    */
 
   var warnNonExistent;
-  if ('development' !== 'production') {
+  {
     warnNonExistent = function (path, vm) {
       warn('You are setting a non-existent path "' + path.raw + '" ' + 'on a vm instance. Consider pre-initializing the property ' + 'with the "data" option for more reliable reactivity ' + 'and better performance.', vm);
     };
@@ -2936,7 +2934,7 @@ var path = Object.freeze({
       return new Function('scope', 'return ' + body + ';');
       /* eslint-enable no-new-func */
     } catch (e) {
-      if ('development' !== 'production') {
+      {
         /* istanbul ignore if */
         if (e.toString().match(/unsafe-eval|CSP/)) {
           warn('It seems you are using the default build of Vue.js in an environment ' + 'with Content Security Policy that prohibits unsafe-eval. ' + 'Use the CSP-compliant build instead: ' + 'http://vuejs.org/guide/installation.html#CSP-compliant-build');
@@ -4389,7 +4387,7 @@ var template = Object.freeze({
           }
         } else if (Object.isExtensible(value)) {
           def(value, id, frag);
-        } else if ('development' !== 'production') {
+        } else {
           warn('Frozen v-for objects cannot be automatically tracked, make sure to ' + 'provide a track-by key.');
         }
       }
@@ -4600,7 +4598,7 @@ var template = Object.freeze({
     return trackByKey ? trackByKey === '$index' ? index : trackByKey.charAt(0).match(/\w/) ? getPath(value, trackByKey) : value[trackByKey] : key || value;
   }
 
-  if ('development' !== 'production') {
+  {
     vFor.warnDuplicate = function (value) {
       warn('Duplicate value found in v-for="' + this.descriptor.raw + '": ' + JSON.stringify(value) + '. Use track-by="$index" if ' + 'you are expecting duplicate values.', this.vm);
     };
@@ -5289,7 +5287,7 @@ var template = Object.freeze({
         var isImportant = importantRE.test(value) ? 'important' : '';
         if (isImportant) {
           /* istanbul ignore if */
-          if ('development' !== 'production') {
+          {
             warn('It\'s probably a bad idea to use !important with inline rules. ' + 'This feature will be deprecated in a future version of Vue.');
           }
           value = value.replace(importantRE, '').trim();
@@ -5406,7 +5404,7 @@ var template = Object.freeze({
         }
 
         /* istanbul ignore if */
-        if ('development' !== 'production') {
+        {
           var raw = attr + '="' + descriptor.raw + '": ';
           // warn src
           if (attr === 'src') {
@@ -6086,7 +6084,7 @@ var template = Object.freeze({
       } else if ((value = getAttr(el, attr)) !== null) {
         // has literal binding!
         prop.raw = value;
-      } else if ('development' !== 'production') {
+      } else {
         // check possible camelCase prop usage
         var lowerCaseName = path.toLowerCase();
         value = /[A-Z\-]/.test(name) && (el.getAttribute(lowerCaseName) || el.getAttribute(':' + lowerCaseName) || el.getAttribute('v-bind:' + lowerCaseName) || el.getAttribute(':' + lowerCaseName + '.once') || el.getAttribute('v-bind:' + lowerCaseName + '.once') || el.getAttribute(':' + lowerCaseName + '.sync') || el.getAttribute('v-bind:' + lowerCaseName + '.sync'));
@@ -6277,7 +6275,7 @@ var template = Object.freeze({
       }
     }
     if (!valid) {
-      if ('development' !== 'production') {
+      {
         warn('Invalid prop: type check failed for prop "' + prop.name + '".' + ' Expected ' + expectedTypes.map(formatType).join(', ') + ', got ' + formatValue(value) + '.', vm);
       }
       return false;
@@ -6515,7 +6513,7 @@ var template = Object.freeze({
     // check css transition type
     this.type = hooks && hooks.type;
     /* istanbul ignore if */
-    if ('development' !== 'production') {
+    {
       if (this.type && this.type !== TYPE_TRANSITION && this.type !== TYPE_ANIMATION) {
         warn('invalid CSS transition type for transition="' + this.id + '": ' + this.type, vm);
       }
@@ -6926,7 +6924,6 @@ var template = Object.freeze({
 
   function linkAndCapture(linker, vm) {
     /* istanbul ignore if */
-    if ('development' === 'production') {}
     var originalDirCount = vm._directives.length;
     linker();
     var dirs = vm._directives.slice(originalDirCount);
@@ -7493,7 +7490,7 @@ var template = Object.freeze({
         arg = name;
         pushDir('bind', directives.bind, tokens);
         // warn against mixing mustaches with v-bind
-        if ('development' !== 'production') {
+        {
           if (name === 'class' && Array.prototype.some.call(attrs, function (attr) {
             return attr.name === ':class' || attr.name === 'v-bind:class';
           })) {
@@ -7913,7 +7910,7 @@ var template = Object.freeze({
         //    template prop present
         if (!props || !hasOwn(props, key)) {
           this._proxy(key);
-        } else if ('development' !== 'production') {
+        } else {
           warn('Data field "' + key + '" is already defined ' + 'as a prop. To provide default value for a prop, use the "default" ' + 'prop option; if you want to pass prop values to an instantiation ' + 'call, use the "propsData" option.', this);
         }
       }
@@ -8472,7 +8469,7 @@ var template = Object.freeze({
       this._withLock(function () {
         this._watcher.set(value);
       });
-    } else if ('development' !== 'production') {
+    } else {
       warn('Directive.set() can only be used inside twoWay' + 'directives.');
     }
   };
@@ -9950,7 +9947,7 @@ var template = Object.freeze({
         return extendOptions._Ctor;
       }
       var name = extendOptions.name || Super.options.name;
-      if ('development' !== 'production') {
+      {
         if (!/^[a-zA-Z][\w-]*$/.test(name)) {
           warn('Invalid component name: "' + name + '". Component names ' + 'can only contain alphanumeric characaters and the hyphen.');
           name = null;
@@ -10041,7 +10038,7 @@ var template = Object.freeze({
           return this.options[type + 's'][id];
         } else {
           /* istanbul ignore if */
-          if ('development' !== 'production') {
+          {
             if (type === 'component' && (commonTagRE.test(id) || reservedTagRE.test(id))) {
               warn('Do not use built-in or reserved HTML elements as component ' + 'id: ' + id);
             }

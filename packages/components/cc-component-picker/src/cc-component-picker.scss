@@ -9,8 +9,9 @@
         padding: 0;
         list-style: none;
 
-        &:before, &:after {
-            content: "";
+        &:before,
+        &:after {
+            content: '';
             display: table;
         }
         &:after {
@@ -36,6 +37,6 @@
         display: block;
         width: 100%;
         max-width: 100%;
-        box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 0 15px -5px rgba( 0, 0, 0, .3 );
     }
 }

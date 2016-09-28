@@ -22,11 +22,10 @@ var hero = function ($element, settings) {
      * Required variables initialization.
      */
     settings = settings || {};
-    var hero = this;
+    var component = this;
     var heroName = 'm2c-hero';
     var jsHeroName = 'js-hero';
     var heroClass = "." + heroName;
-    var $heroWrapper = $element.find("." + heroName + "__wrapper");
     /**
      * Holds current Swiper instance.
      */
@@ -88,22 +87,22 @@ var hero = function ($element, settings) {
      * Returns Swiper object.
      * @return {Swiper} Swiper object.
      */
-    hero.getSwiper = function () {
+    component.getSwiper = function () {
         return swiperInstance;
     };
     /**
      * Updates teaser with new settings.
      * @param  {Object} settings New settings to apply.
      */
-    hero.update = function (settings) {
-        settings = settings || {};
-        currentSettings = $.extend(currentSettings, settings);
+    component.update = function (options) {
+        options = options || {};
+        currentSettings = $.extend(currentSettings, options);
         swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
     };
     /**
      * Destroyes teaser.
      */
-    hero.destroy = function () {
+    component.destroy = function () {
         swiperInstance.destroy();
     };
 };

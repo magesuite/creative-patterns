@@ -1,6 +1,6 @@
 .cs-product-group {
   font-size: 1rem;
-  font-family: "sans-serif";
+  font-family: 'sans-serif';
   background-size: cover; }
   .cs-product-group__content {
     padding: 1em; }
@@ -27,7 +27,7 @@
         -ms-flex-preferred-size: 25%;
             flex-basis: 25%;
     width: 25%;
-    margin-right: 0.5em;
+    margin-right: .5em;
     height: 200px; }
     .cs-product-group__product:last-of-type {
       margin-right: 0; }

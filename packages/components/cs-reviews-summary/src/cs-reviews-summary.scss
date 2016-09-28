@@ -1,9 +1,9 @@
 // cs-reviews-summary
-// Contains summary of how many reviews are in each rating 
+// Contains summary of how many reviews are in each rating
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-@import "../../cs-progress-bar/src/cs-progress-bar";
+@import '../../cs-progress-bar/src/cs-progress-bar';
 
 .cs-reviews-summary {
     font-size: 1rem;
@@ -11,10 +11,10 @@
     padding: 0;
     margin: 0;
 
-    font-family: "sans-serif";
+    font-family: 'sans-serif';
 
     &__item {
-        margin-bottom: 0.5em;
+        margin-bottom: .5em;
     }
 
     &__label {

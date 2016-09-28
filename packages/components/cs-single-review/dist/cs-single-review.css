@@ -9,7 +9,7 @@
     fill: #444;
     vertical-align: middle; }
     .cs-stars__icon--active {
-      fill: orange; }
+      fill: #ffa500; }
   .cs-stars__text {
     display: inline-block;
     vertical-align: middle;
@@ -20,11 +20,11 @@
   font-family: sans-serif; }
   .cs-single-review__title {
     display: block;
-    font-weight: bold;
-    margin-bottom: 0.5em; }
+    font-weight: 700;
+    margin-bottom: .5em; }
   .cs-single-review__meta-item {
     vertical-align: middle;
-    padding: 0 0.5em;
+    padding: 0 .5em;
     border-right: 1px solid #ddd; }
     .cs-single-review__meta-item:first-child {
       padding-left: 0; }

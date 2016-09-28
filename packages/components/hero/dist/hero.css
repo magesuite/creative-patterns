@@ -628,6 +628,6 @@ body {
     .m2c-hero--truncated-siblings .m2c-hero__wrapper {
       overflow: visible; }
     .m2c-hero--truncated-siblings .m2c-hero__slide:not(.m2c-hero__slide--active) {
-      opacity: 0.5; }
+      opacity: .5; }
 
 /*# sourceMappingURL=hero.css.map */

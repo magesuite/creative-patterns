@@ -1,14 +1,14 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('Magento_Ui/js/modal/modal'), require('Vue'), require('VueResource'), require('jquery'), require('mage/translate'), require('uiRegistry')) :
-    typeof define === 'function' && define.amd ? define('m2cContentConstructor', ['Magento_Ui/js/modal/modal', 'Vue', 'VueResource', 'jquery', 'mage/translate', 'uiRegistry'], factory) :
-    (global.m2cContentConstructor = factory(global.modal,global.Vue,global.vr,global.$,global.$t,global.uiRegistry));
-}(this, (function (modal,Vue,vr,$,$t,uiRegistry) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('Vue'), require('VueResource'), require('mage/translate'), require('Magento_Ui/js/modal/modal'), require('uiRegistry')) :
+    typeof define === 'function' && define.amd ? define('m2cContentConstructor', ['jquery', 'Vue', 'VueResource', 'mage/translate', 'Magento_Ui/js/modal/modal', 'uiRegistry'], factory) :
+    (global.m2cContentConstructor = factory(global.$,global.Vue,global.vr,global.$t,global.modal,global.uiRegistry));
+}(this, (function ($,Vue,vr,$t,modal,uiRegistry) { 'use strict';
 
-modal = 'default' in modal ? modal['default'] : modal;
+$ = 'default' in $ ? $['default'] : $;
 Vue = 'default' in Vue ? Vue['default'] : Vue;
 vr = 'default' in vr ? vr['default'] : vr;
-$ = 'default' in $ ? $['default'] : $;
 $t = 'default' in $t ? $t['default'] : $t;
+modal = 'default' in modal ? modal['default'] : modal;
 uiRegistry = 'default' in uiRegistry ? uiRegistry['default'] : uiRegistry;
 
 /**
@@ -63,7 +63,7 @@ var ccHeadlineConfigurator = {
     },
 };
 
-//import m2Iinput from '../../m2-input/src/m2-input';
+// TODO: Use m2-input component the Vue way.
 var m2cHeadlineConfigurator = {
     template: "<form class=\"m2c-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"m2-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"m2-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n    </form>",
     mixins: [
@@ -108,7 +108,7 @@ var ccComponentPicker = {
         componentsEndpoint: {
             type: String,
             default: '',
-        }
+        },
     },
     data: function () {
         return {
@@ -134,7 +134,6 @@ var ccComponentPicker = {
          * @param {Event} event Click event object.
          */
         onPickComponent: function (componentType) {
-            console.log("Component " + componentType + " picked.");
             this.$dispatch('cc-component-picker__pick', componentType);
             if (typeof this.pickComponent === 'function') {
                 this.pickComponent(componentType);
@@ -435,6 +434,7 @@ var layoutBuilder = {
     },
 };
 
+/* tslint:disable:no-console */
 // Use Vue resource
 Vue.use(vr);
 // Picker modal options
@@ -487,12 +487,12 @@ var $configuratorModal;
 var m2cContentConstructor = {
     template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :assets-src=\"assetsSrc\"\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal>\n            <cc-component-picker\n                :pick-component=\"getComponentConfigurator\"\n                components='[{\"type\":\"static-block\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of static block\",\"name\":\"Static block\"},{\"type\":\"headline\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of headline\",\"name\":\"Headline\"}]'>\n            </cc-component-picker>\n        </div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal><component :is=\"currentConfigurator\"></component></div>\n    </div>",
     data: {
-        currentConfigurator: ''
+        currentConfigurator: '',
     },
     components: {
         'cc-layout-builder': layoutBuilder,
         'cc-component-picker': ccComponentPicker,
-        'headline': m2cHeadlineConfigurator
+        headline: m2cHeadlineConfigurator,
     },
     props: {
         configuration: {
@@ -565,7 +565,7 @@ var m2cContentConstructor = {
             setComponentInformation({
                 name: 'Nowa Nazwa komponentu',
                 id: 'Nowe ID komponentu',
-                settings: 'Nowe Jakieś ustawienia',
+                type: 'Typ komponentu',
             });
         },
         dumpConfiguration: function () {

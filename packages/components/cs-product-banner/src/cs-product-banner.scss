@@ -3,7 +3,7 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-@import "../../action-button/src/action-button";
+@import '../../action-button/src/action-button';
 
 .cs-product-banner {
     position: relative;
@@ -22,7 +22,7 @@
             margin-top: -1em;
             margin-bottom: -1em;
 
-            box-shadow: 0 0 3px 1px rgba(0,0,0,0.4);
+            box-shadow: 0 0 3px 1px rgba( 0, 0, 0, .4 );
         }
     }
 
@@ -39,10 +39,10 @@
         bottom: 1em;
         white-space: nowrap;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX( -50% );
 
-        background-color: lightpink;
-        border: 2px solid deeppink;
+        background-color: #ffb6c1;
+        border: 2px solid #ff1493;
 
     }
 }

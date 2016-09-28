@@ -1,8 +1,11 @@
-import modal from 'Magento_Ui/js/modal/modal';
+/* tslint:disable:no-console */
+
+import $ from 'jquery';
 import Vue from 'Vue';
 import vr from 'VueResource';
-import $ from 'jquery';
+
 import $t from 'mage/translate';
+import modal from 'Magento_Ui/js/modal/modal';
 import uiRegistry from 'uiRegistry';
 
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
@@ -79,12 +82,12 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal><component :is="currentConfigurator"></component></div>
     </div>`,
     data: {
-        currentConfigurator: ''
+        currentConfigurator: '',
     },
     components: {
         'cc-layout-builder': layoutBuilder,
         'cc-component-picker': ccComponentPicker,
-        'headline': m2cHeadlineConfigurator
+        headline: m2cHeadlineConfigurator,
     },
     props: {
         configuration: {
@@ -162,7 +165,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             setComponentInformation( {
                 name: 'Nowa Nazwa komponentu',
                 id: 'Nowe ID komponentu',
-                settings: 'Nowe Jakieś ustawienia',
+                type: 'Typ komponentu',
             } );
         },
         dumpConfiguration(): void {

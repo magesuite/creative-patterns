@@ -12,7 +12,7 @@ let buttons: TwoWaySwitch = new TwoWaySwitch({
     },
     onChange (): void {
         $('body').append('<strong>any</strong> button changed callback<br><br>');
-    }
+    },
 });
 
 buttons.init();

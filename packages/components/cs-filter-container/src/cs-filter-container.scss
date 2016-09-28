@@ -3,7 +3,7 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-@import "../../cs-color-picker/src/cs-color-picker";
+@import '../../cs-color-picker/src/cs-color-picker';
 
 .cs-filter-container {
     font-size: 1rem;
@@ -28,7 +28,7 @@
 
     &__label {
         text-transform: uppercase;
-        font-weight: bold;
+        font-weight: 700;
     }
 
     &__toggle {
@@ -55,6 +55,6 @@
     }
 
     &__filter {
-        font-size: 0.5em;
+        font-size: .5em;
     }
 }

@@ -3,11 +3,11 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-@import "../../headline/src/headline";
+@import '../../headline/src/headline';
 
 .cs-product-group {
     font-size: 1rem;
-    font-family: "sans-serif";
+    font-family: 'sans-serif';
 
     background-size: cover;
 
@@ -34,7 +34,7 @@
         background-color: #fff;
         flex-basis: 25%;
         width: 25%;
-        margin-right: 0.5em;
+        margin-right: .5em;
 
         height: 200px;
 

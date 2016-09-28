@@ -7,31 +7,31 @@
     font-size: 2rem;
     color: #111;
     display: block;
-    font-family: "sans-serif";
+    font-family: 'sans-serif';
 
     &__old {
         display: block;
-        font-size: 0.7em;
+        font-size: .7em;
         color: #aaa;
         text-decoration: line-through;
     }
     &__base {
         display: block;
-        font-weight: bold;
+        font-weight: 700;
 
         &--promo {
-            color: red;
+            color: #f00;
         }
     }
 
     &__currency {
         display: inline-block;
-        font-size: 0.7em;
+        font-size: .7em;
 
     }
 
     &__subtext {
-        font-size: 0.5em;
+        font-size: .5em;
         display: block;
         color: #777;
     }

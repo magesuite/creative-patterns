@@ -11,20 +11,19 @@ import Swiper from 'Swiper';
  * @param  {Object} settings Custom settings that will be passed along to Swiper.
  * @return {Object} New product slider object instance.
  */
-let hero = function( $element, settings ) {
+let hero: any = function( $element: JQuery, settings: Object ): any {
     /**
      * Required variables initialization.
      */
     settings = settings || {};
-    let hero = this;
-    const heroName = 'm2c-hero';
-    const jsHeroName = 'js-hero';
-    const heroClass = `.${heroName}`;
-    const $heroWrapper = $element.find( `.${heroName}__wrapper` );
+    let component: any = this;
+    const heroName: string = 'm2c-hero';
+    const jsHeroName: string = 'js-hero';
+    const heroClass: string = `.${heroName}`;
     /**
      * Holds current Swiper instance.
      */
-    let swiperInstance;
+    let swiperInstance: any;
 
     /**
      * Attaches component to HTML element.
@@ -34,12 +33,12 @@ let hero = function( $element, settings ) {
     /**
      * Contains current settings of slider.
      */
-    let currentSettings;
+    let currentSettings: any;
     /**
      * Default settings for Swiper.
      * @type {Object}
      */
-    const defaultSettings = {
+    const defaultSettings: any = {
         slideClass: `${heroName}__slide`,
         slideActiveClass: `${heroName}__slide--active`,
         slideVisibleClass: `${heroName}__slide--visible`,
@@ -52,7 +51,7 @@ let hero = function( $element, settings ) {
         paginationBreakpoint: 5,
         pagination: $element.find( `${heroClass}__pagination`),
         paginationElement: 'li',
-        paginationBulletRender( index, className ) {
+        paginationBulletRender( index: number, className: string ): string {
             return `<li class="${heroName}__pagination-item"><button class="${heroName}__pagination-button">${index + 1}</button></li>`;
         },
         bulletClass: `${heroName}__pagination-item`,
@@ -75,10 +74,10 @@ let hero = function( $element, settings ) {
      * Stop/Start autoplay on mouseover/mouseout
      */
     $element.on( {
-        mouseover() {
+        mouseover(): void {
             swiperInstance.stopAutoplay();
         },
-        mouseout() {
+        mouseout(): void {
             swiperInstance.startAutoplay();
         },
     } );
@@ -87,7 +86,7 @@ let hero = function( $element, settings ) {
      * Returns Swiper object.
      * @return {Swiper} Swiper object.
      */
-    hero.getSwiper = function() {
+    component.getSwiper = function(): any {
         return swiperInstance;
     };
 
@@ -95,16 +94,16 @@ let hero = function( $element, settings ) {
      * Updates teaser with new settings.
      * @param  {Object} settings New settings to apply.
      */
-    hero.update = function( settings ) {
-        settings = settings || {};
-        currentSettings = $.extend( currentSettings, settings );
+    component.update = function( options?: Object ): void {
+        options = options || {};
+        currentSettings = $.extend( currentSettings, options );
         swiperInstance.params = $.extend( swiperInstance.params, currentSettings );
     };
 
     /**
      * Destroyes teaser.
      */
-    hero.destroy = function() {
+    component.destroy = function(): void {
         swiperInstance.destroy();
     };
 };

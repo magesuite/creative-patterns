@@ -60,7 +60,7 @@ const ccComponentPicker: vuejs.ComponentOption = {
         componentsEndpoint: {
             type: String,
             default: '',
-        }
+        },
     },
     data(): any {
         return {
@@ -85,7 +85,6 @@ const ccComponentPicker: vuejs.ComponentOption = {
          * @param {Event} event Click event object.
          */
         onPickComponent( componentType: String ): void {
-            console.log( `Component ${componentType} picked.` );
             this.$dispatch( 'cc-component-picker__pick', componentType );
 
             if ( typeof this.pickComponent === 'function' ) {

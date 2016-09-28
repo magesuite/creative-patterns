@@ -12,68 +12,6 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
-var NotificationsManager = (function () {
-    function NotificationsManager(settings) {
-        this._defaults = {
-            callback: {
-                notificationAdded: null,
-                notificationRemoved: null,
-                notificationClosed: null,
-            },
-            $componentSelector: null,
-            $closeComponentSelector: null,
-        };
-        this._settings = null;
-        this._notificationsList = [];
-        this._settings = $$1.extend(this._defaults, settings, true);
-    }
-    NotificationsManager.prototype.init = function () {
-        this._bindEvents();
-    };
-    NotificationsManager.prototype.addNotification = function (notification) {
-        this._notificationsList.push(notification);
-        this._printNotification(notification.getTemplate());
-    };
-    NotificationsManager.prototype.removeNotification = function (notification) {
-        notification.remove();
-        var arrayPos = this._notificationsList.indexOf(notification);
-        this._notificationsList.splice(arrayPos, 1);
-        if (this._settings.callback.notificationRemoved) {
-            this._settings.callback.notificationRemoved();
-        }
-    };
-    NotificationsManager.prototype.getNotifications = function () {
-        return this._notificationsList;
-    };
-    NotificationsManager.prototype._printNotification = function (template) {
-        this._settings.$componentSelector.append(template);
-        if (this._settings.callback.notificationAdded) {
-            this._settings.callback.notificationAdded();
-        }
-    };
-    NotificationsManager.prototype._close = function () {
-        if (this._settings.callback.notificationClosed) {
-            this._settings.callback.notificationClosed();
-        }
-        if (this._settings.deleteOnClose) {
-            for (var _i = 0, _a = this._notificationsList; _i < _a.length; _i++) {
-                var notification = _a[_i];
-                notification.remove();
-            }
-        }
-    };
-    NotificationsManager.prototype._bindEvents = function () {
-        var _this = this;
-        if (this._settings.$closeComponentSelector) {
-            this._settings.$closeComponentSelector.on('click', function (e) {
-                e.preventDefault();
-                _this._close();
-            });
-        }
-    };
-    return NotificationsManager;
-}());
-
 var Notification = (function () {
     function Notification(message, settings) {
         this.message = null;
@@ -149,6 +87,68 @@ var Notification = (function () {
         return $html;
     };
     return Notification;
+}());
+
+var NotificationsManager = (function () {
+    function NotificationsManager(settings) {
+        this._defaults = {
+            callback: {
+                notificationAdded: null,
+                notificationRemoved: null,
+                notificationClosed: null,
+            },
+            $componentSelector: null,
+            $closeComponentSelector: null,
+        };
+        this._settings = null;
+        this._notificationsList = [];
+        this._settings = $$1.extend(this._defaults, settings, true);
+    }
+    NotificationsManager.prototype.init = function () {
+        this._bindEvents();
+    };
+    NotificationsManager.prototype.addNotification = function (notification) {
+        this._notificationsList.push(notification);
+        this._printNotification(notification.getTemplate());
+    };
+    NotificationsManager.prototype.removeNotification = function (notification) {
+        notification.remove();
+        var arrayPos = this._notificationsList.indexOf(notification);
+        this._notificationsList.splice(arrayPos, 1);
+        if (this._settings.callback.notificationRemoved) {
+            this._settings.callback.notificationRemoved();
+        }
+    };
+    NotificationsManager.prototype.getNotifications = function () {
+        return this._notificationsList;
+    };
+    NotificationsManager.prototype._printNotification = function (template) {
+        this._settings.$componentSelector.append(template);
+        if (this._settings.callback.notificationAdded) {
+            this._settings.callback.notificationAdded();
+        }
+    };
+    NotificationsManager.prototype._close = function () {
+        if (this._settings.callback.notificationClosed) {
+            this._settings.callback.notificationClosed();
+        }
+        if (this._settings.deleteOnClose) {
+            for (var _i = 0, _a = this._notificationsList; _i < _a.length; _i++) {
+                var notification = _a[_i];
+                notification.remove();
+            }
+        }
+    };
+    NotificationsManager.prototype._bindEvents = function () {
+        var _this = this;
+        if (this._settings.$closeComponentSelector) {
+            this._settings.$closeComponentSelector.on('click', function (e) {
+                e.preventDefault();
+                _this._close();
+            });
+        }
+    };
+    return NotificationsManager;
 }());
 
 var nmSettings = {

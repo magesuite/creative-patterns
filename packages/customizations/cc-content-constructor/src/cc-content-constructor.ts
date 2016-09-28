@@ -1,3 +1,5 @@
+/* tslint:disable:no-console */
+
 import { IComponentInformation, layoutBuilder } from '../../../components/cc-layout-builder/src/cc-layout-builder';
 
 /**
@@ -40,7 +42,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 'headline',
                 'static-block',
                 'hero',
-            ]
+            ];
             const componentType: string = componentTypes[ Math.floor( Math.random() * componentTypes.length ) ];
             if ( window.confirm( `Randomly picked "${componentType}" component, ok?` ) ) {
                 this.getRandomConfigurator( componentType );

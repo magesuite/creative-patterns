@@ -84,7 +84,7 @@ var buttons = new TwoWaySwitch({
     },
     onChange: function () {
         $('body').append('<strong>any</strong> button changed callback<br><br>');
-    }
+    },
 });
 buttons.init();
 
