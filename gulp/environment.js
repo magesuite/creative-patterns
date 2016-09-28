@@ -13,7 +13,7 @@ const environment = {
     // CI environment, same as production but with custom reporting.
     ci: false,
     // Special watch environment, disables breaking build on errors.
-    watch: Boolean( util.env.watch ),
+    watch: Boolean( util.env.w ) || Boolean( util.env.watch ),
 };
 
 // Check "--env" task param.
