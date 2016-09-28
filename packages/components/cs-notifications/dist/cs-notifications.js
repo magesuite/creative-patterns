@@ -73,7 +73,7 @@ var Notification = (function () {
         return this._$template;
     };
     Notification.prototype._compileTemplate = function () {
-        var $html = $$1(this._settings.notificationHTML).clone();
+        var $html = $$1(this._settings.notificationHTML);
         var $text = $html.find(this._settings.textSelector);
         var $iconPlaceholder = null;
         $text.text(this.message);
@@ -89,6 +89,7 @@ var Notification = (function () {
     return Notification;
 }());
 
+$ = $$1;
 var NotificationsManager = (function () {
     function NotificationsManager(settings) {
         this._defaults = {
@@ -102,7 +103,7 @@ var NotificationsManager = (function () {
         };
         this._settings = null;
         this._notificationsList = [];
-        this._settings = $$1.extend(this._defaults, settings, true);
+        this._settings = $.extend(this._defaults, settings, true);
     }
     NotificationsManager.prototype.init = function () {
         this._bindEvents();
@@ -157,6 +158,8 @@ var nmSettings = {
     callback: {
         notificationClosed: function () {
             $('.cs-notifications').hide();
+        },
+        notificationAdded: function () {
         },
     },
     deleteOnClose: true,

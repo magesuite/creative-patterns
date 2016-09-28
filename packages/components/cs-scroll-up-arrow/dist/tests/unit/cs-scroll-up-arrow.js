@@ -20522,7 +20522,7 @@ describe('Scrollup arrow component: ', function () {
     var scrollupArrowHtml = "<div class=\"cs-scroll-up-arrow\"></div>";
     var $scrollupArrowNode = null;
     var scrollToParameter = 0;
-    var scrollingSpeedParameter = 500;
+    var scrollingSpeedParameter = 100;
     var visibleClass = 'cs-scroll-up-arrow--is-visible';
     var scrollupArrowSettings = {
         scrollTo: scrollToParameter,
@@ -20565,22 +20565,24 @@ describe('Scrollup arrow component: ', function () {
         scrollupArrow.show();
         expect(scrollupArrow.isVisible());
     });
-    it('is scrolling after scroll() method', function () {
+    it('is scrolling after scroll() method', function (done) {
         var $win = jquery(window);
         $win.scrollTop(500);
         scrollupArrow.scroll();
         setTimeout(function () {
             expect($win.scrollTop()).toEqual(scrollToParameter);
-        }, scrollingSpeedParameter);
+            done();
+        }, scrollingSpeedParameter + 100);
     });
-    it('is scrolling to X point after scroll(X) method', function () {
+    it('is scrolling to X point after scroll(X) method', function (done) {
         var $win = jquery(window);
         var x = 300;
         $win.scrollTop(100);
         scrollupArrow.scroll(x);
         setTimeout(function () {
             expect($win.scrollTop()).toEqual(x);
-        }, scrollingSpeedParameter);
+            done();
+        }, scrollingSpeedParameter + 100);
     });
 });
 
