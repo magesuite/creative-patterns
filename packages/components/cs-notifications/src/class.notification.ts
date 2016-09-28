@@ -97,11 +97,12 @@ class Notification {
         if (!this._$template) {
             this._$template = this._compileTemplate();
         }
+
         return this._$template;
     }
 
     private _compileTemplate(): JQuery {
-        let $html: JQuery = $(this._settings.notificationHTML).clone();
+        let $html: JQuery = $(this._settings.notificationHTML);
         let $text: JQuery = $html.find(this._settings.textSelector);
         let $iconPlaceholder: JQuery = null;
 

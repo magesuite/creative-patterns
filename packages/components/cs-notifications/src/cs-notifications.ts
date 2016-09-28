@@ -8,6 +8,8 @@ let nmSettings: INotificationsManagerSettings = {
         notificationClosed(): void {
             $('.cs-notifications').hide();
         },
+        notificationAdded(): void {
+        },
     },
     deleteOnClose: true,
 };
