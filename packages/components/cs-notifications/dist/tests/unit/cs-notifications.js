@@ -10415,6 +10415,7 @@ describe('Single notification component', function () {
     });
     // Check if return values of methods are correct
     it('has getMessage() method returns string', function () {
+        expect('<input type="submit" disabled="disabled"/>').toBeDisabled();
         expect(typeof singleNotification.getMessage()).toBe('string');
     });
     it('has getTemplate() method returns JQuery', function () {

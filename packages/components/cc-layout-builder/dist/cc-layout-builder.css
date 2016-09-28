@@ -214,11 +214,11 @@
     position: absolute;
     top: 10px;
     left: 10px;
-    width: calc(100% - (2 * 11px));
-    height: calc(100% - (2 * 11px));
+    width: calc( 100% - ( 2 * 11px ));
+    height: calc( 100% - ( 2 * 11px ));
     z-index: -1;
     border: 1px dashed rgba(191, 191, 191, 0.5);
-    content: " "; }
+    content: ' '; }
   .cc-component-placeholder--look_white-bg {
     background-color: #fff; }
 

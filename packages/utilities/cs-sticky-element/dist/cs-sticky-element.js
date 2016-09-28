@@ -1,12 +1,12 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('jquery')) :
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
     typeof define === 'function' && define.amd ? define('csStickyElement', ['jquery'], factory) :
-    (factory(global.$));
+    (global.csStickyElement = factory(global.$));
 }(this, (function ($) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
 
-var StickyElement = (function () {
+var StickyElement$1 = (function () {
     function StickyElement($element, settings) {
         this._settings = {};
         this._$element = null;
@@ -29,7 +29,7 @@ var StickyElement = (function () {
     return StickyElement;
 }());
 
-window.StickyElement = StickyElement;
+return StickyElement$1;
 
 })));
 //# sourceMappingURL=cs-sticky-element.js.map

@@ -296,6 +296,7 @@ var layoutBuilder = {
     },
 };
 
+/* tslint:disable:no-console */
 /**
  * CC Content Constructor component.
  * Dummy example on how to implement custom Content Constructor logic.

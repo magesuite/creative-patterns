@@ -7,7 +7,7 @@
   .cs-breadcrumbs__step {
     display: inline-block;
     color: #888; }
-    .cs-breadcrumbs__step::after {
+    .cs-breadcrumbs__step:after {
       content: '/';
       display: inline-block;
       margin: 0 1rem; }

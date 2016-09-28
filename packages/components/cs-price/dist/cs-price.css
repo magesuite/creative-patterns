@@ -2,22 +2,22 @@
   font-size: 2rem;
   color: #111;
   display: block;
-  font-family: "sans-serif"; }
+  font-family: 'sans-serif'; }
   .cs-price__old {
     display: block;
-    font-size: 0.7em;
+    font-size: .7em;
     color: #aaa;
     text-decoration: line-through; }
   .cs-price__base {
     display: block;
-    font-weight: bold; }
+    font-weight: 700; }
     .cs-price__base--promo {
-      color: red; }
+      color: #f00; }
   .cs-price__currency {
     display: inline-block;
-    font-size: 0.7em; }
+    font-size: .7em; }
   .cs-price__subtext {
-    font-size: 0.5em;
+    font-size: .5em;
     display: block;
     color: #777; }
 

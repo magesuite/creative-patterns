@@ -5,18 +5,17 @@
 // Version 0.0.1
 .cs-availability-info {
     display: inline-block;
-    font-family: "sans-serif";
+    font-family: 'sans-serif';
     font-size: 1rem;
 
     //Add types depending on project requirements
     &--type {
         &_positive {
-            color: green;
+            color: #0f0;
         }
         &_negative {
             color: #666;
         }
-
     }
 
     &__text {

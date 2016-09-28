@@ -10,16 +10,16 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    font-family:"sans-serif";
+    font-family: 'sans-serif';
     font-size: 1rem;
 
-    fill: blue;
+    fill: #00f;
     color: #777;
 
     &__item {
         white-space: nowrap;
-        margin-right: 0.5em;
-        margin-bottom: 0.5em;
+        margin-right: .5em;
+        margin-bottom: .5em;
     }
 
     &__icon {
@@ -27,7 +27,7 @@
         vertical-align: middle;
         width: 2em;
         height: 2em;
-        margin-right: 0.5em;
+        margin-right: .5em;
     }
     &__text {
         display: inline-block;

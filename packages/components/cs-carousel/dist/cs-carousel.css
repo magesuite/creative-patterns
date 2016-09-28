@@ -664,14 +664,14 @@ button.swiper-pagination-bullet, button.cs-carousel__pagination-item {
   .cs-carousel__slide {
     max-width: 50em;
     height: 30em;
-    -webkit-transition: opacity 0.3s;
-    transition: opacity 0.3s; }
+    -webkit-transition: opacity .3s;
+    transition: opacity .3s; }
     .cs-carousel__slide--next {
-      opacity: 0.7;
+      opacity: .7;
       -webkit-filter: blur(2px);
               filter: blur(2px); }
     .cs-carousel__slide--prev {
-      opacity: 0.7;
+      opacity: .7;
       -webkit-filter: blur(2px);
               filter: blur(2px); }
   .cs-carousel__pagination {

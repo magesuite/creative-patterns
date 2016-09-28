@@ -3,7 +3,7 @@
   padding: 0;
   list-style: none; }
   .cc-component-picker__list:before, .cc-component-picker__list:after {
-    content: "";
+    content: '';
     display: table; }
   .cc-component-picker__list:after {
     clear: both; }

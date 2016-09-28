@@ -41,7 +41,7 @@ var ccComponentPicker = {
         componentsEndpoint: {
             type: String,
             default: '',
-        }
+        },
     },
     data: function () {
         return {
@@ -67,7 +67,6 @@ var ccComponentPicker = {
          * @param {Event} event Click event object.
          */
         onPickComponent: function (componentType) {
-            console.log("Component " + componentType + " picked.");
             this.$dispatch('cc-component-picker__pick', componentType);
             if (typeof this.pickComponent === 'function') {
                 this.pickComponent(componentType);

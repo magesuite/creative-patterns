@@ -1,10 +1,10 @@
 // cs-carousel
-// Basic carousel component based on SWIPER 
+// Basic carousel component based on SWIPER
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-@import "../node_modules/swiper/dist/css/swiper";
-@import "../../cs-hero/src/cs-hero";
+@import '../node_modules/swiper/dist/css/swiper';
+@import '../../cs-hero/src/cs-hero';
 
 .cs-carousel {
     max-width: 90em;
@@ -26,18 +26,18 @@
         @extend .swiper-slide;
         max-width: 50em;
         height: 30em;
-        transition: opacity 0.3s;
+        transition: opacity .3s;
 
         &--next {
             @extend .swiper-slide-next;
-            opacity: 0.7;
-            filter: blur(2px);
+            opacity: .7;
+            filter: blur( 2px );
         }
 
         &--prev {
             @extend .swiper-slide-next;
-            opacity: 0.7;
-            filter: blur(2px);
+            opacity: .7;
+            filter: blur( 2px );
         }
 
         &--active {
@@ -54,8 +54,8 @@
     &__pagination-item {
         @extend .swiper-pagination-bullet;
         opacity: 1;
-        background: rgba(#000, 0.5);
-        border: 2px solid rgba(#fff, 0.7);
+        background: rgba( #000, .5 );
+        border: 2px solid rgba( #fff, .7 );
 
         &--is-active {
             border: 2px solid #fff;
@@ -71,7 +71,7 @@
         left: 50%;
         width: 100%;
         max-width: 50em;
-        transform: translateY(-50%) translateX(-50%);
+        transform: translateY( -50% ) translateX( -50% );
         z-index: 9;
     }
 
@@ -82,7 +82,7 @@
         height: 3em;
         border-radius: 3em;
         background-size: 1em;
-        box-shadow: 1px 1px 3px 1px rgba(50, 50, 50, 0.5);
+        box-shadow: 1px 1px 3px 1px rgba( 50, 50, 50, .5 );
 
         &--prev {
             @extend .swiper-button-prev;

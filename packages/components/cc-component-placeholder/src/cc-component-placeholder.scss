@@ -16,11 +16,11 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        width: calc(100% - (2 * 11px));
-        height: calc(100% - (2 * 11px));
+        width: calc( 100% - ( 2 * 11px ) );
+        height: calc( 100% - ( 2 * 11px ) );
         z-index: -1;
-        border: 1px dashed rgba(#bfbfbf, .5);
-        content: " ";
+        border: 1px dashed rgba( #bfbfbf, .5 );
+        content: ' ';
     }
 
     &--look_white-bg {

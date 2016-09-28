@@ -3,8 +3,8 @@
   position: relative;
   width: 100px;
   display: block;
-  color: #2C2C2C;
-  fill: pink;
+  color: #2c2c2c;
+  fill: #ffc0cb;
   text-decoration: none; }
   .cs-shortcut-toggle__image {
     width: 3em;
@@ -13,14 +13,14 @@
     margin: 0 auto; }
   .cs-shortcut-toggle__badge {
     position: absolute;
-    right: 0.5em;
-    top: 0.5em;
+    right: .5em;
+    top: .5em;
     width: 1.5em;
     height: 1.5em;
     line-height: 1.5em;
     text-align: center;
     border-radius: 1.5em;
-    background: red;
+    background: #f00;
     color: #fff; }
   .cs-shortcut-toggle__label {
     display: block;
