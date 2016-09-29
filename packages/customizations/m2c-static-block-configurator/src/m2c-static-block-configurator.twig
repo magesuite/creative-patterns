@@ -1,1 +1,17 @@
-<m2c-static-block-configurator class="m2c-static-block-configurator {{ classes }}"></m2c-static-block-configurator>
+<template id="m2c-static-blocks-form">
+    <form class="m2c-static-block-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
+        <div class="m2-input m2-input--type-inline">
+            <label for="cfg-static-block" class="m2-input__label">Static block:</label>
+            <select name="select" class="m2-input__select" id="cfg-static-block" v-model="staticBlock" @change="onChange">
+                <option value="">-- Select CMS Block --</option>
+                {% for block in blocks %}
+                    <option value="{{ block.identifier }}"
+                            {{  block.identifier == configuration.identifier ? 'selected="selected"' : '' }}
+                    >{{ block.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+</template>
+
+<m2c-static-block-configurator></m2c-static-block-configurator>

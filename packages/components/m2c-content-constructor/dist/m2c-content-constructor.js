@@ -71,6 +71,64 @@ var m2cHeadlineConfigurator = {
     ],
 };
 
+/**
+ * Static block configurator component.
+ * This component is responsible for displaying static block's configuration form
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccStaticBlockConfigurator = {
+    template: "<form class=\"cc-static-block-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-static-block\" class=\"cs-input__label\">Static block:</label>\n            <select name=\"select\" class=\"cs-input__select\" id=\"cfg-static-block\" v-model=\"staticBlock\" @change=\"onChange\">\n                <option value=\"1\" selected>Foo</option>\n                <option value=\"2\">Bar</option>\n            </select>\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+        /**
+         * Property containing callback triggered when user saves component.
+         */
+        save: {
+            type: Function,
+        },
+        /**
+         * Property containing callback triggered when configuration is changed.
+         */
+        change: {
+            type: Function,
+        },
+    },
+    data: function () {
+        return {
+            staticBlock: '',
+        };
+    },
+    methods: {
+        onChange: function (event) {
+            var data = JSON.parse(JSON.stringify(this.$data));
+            this.$dispatch('cc-static-block-configurator__change', data);
+            if (typeof this.change === 'function') {
+                this.change(data);
+            }
+        },
+        onSave: function (event) {
+            var data = JSON.parse(JSON.stringify(this.$data));
+            this.$dispatch('cc-static-block-configurator__save', data);
+            if (typeof this.save === 'function') {
+                this.save(data);
+            }
+        },
+    },
+};
+
+var m2cStaticBlockConfigurator = {
+    template: '#m2c-static-blocks-form',
+    mixins: [
+        ccStaticBlockConfigurator,
+    ],
+};
+
 var template = "<section class=\"cc-component-picker | {{ class }}\">\n    <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\">\n        <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\">\n            <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\">\n                <figure class=\"cc-component-picker__component-figure\">\n                    <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\">\n                    <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption>\n                </figure>\n            </a>\n        </li>\n    </ul>\n    <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\">\n        No components available.\n    </p>\n</section>\n";
 
 /**
@@ -474,9 +532,6 @@ var configuratorModalOptions = {
             class: 'action-primary',
         },
     ],
-    closed: function () {
-        this.innerHTML = '';
-    },
 };
 var $configuratorModal;
 /**
@@ -485,14 +540,12 @@ var $configuratorModal;
  * of the M2C admin panel logic.
  */
 var m2cContentConstructor = {
-    template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :assets-src=\"assetsSrc\"\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal>\n            <cc-component-picker\n                :pick-component=\"getComponentConfigurator\"\n                components='[{\"type\":\"static-block\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of static block\",\"name\":\"Static block\"},{\"type\":\"headline\",\"cover\":\"http://placehold.it/350x185\",\"coverAlt\":\"cover of headline\",\"name\":\"Headline\"}]'>\n            </cc-component-picker>\n        </div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal><component :is=\"currentConfigurator\"></component></div>\n    </div>",
-    data: {
-        currentConfigurator: '',
-    },
+    template: "<div class=\"m2c-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :assets-src=\"assetsSrc\"\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal></div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal></div>\n    </div>",
     components: {
         'cc-layout-builder': layoutBuilder,
         'cc-component-picker': ccComponentPicker,
-        headline: m2cHeadlineConfigurator,
+        'm2c-headline-configurator': m2cHeadlineConfigurator,
+        'm2c-static-block-configurator': m2cStaticBlockConfigurator,
     },
     props: {
         configuration: {
@@ -503,9 +556,15 @@ var m2cContentConstructor = {
             type: String,
             default: '',
         },
+        configuratorEndpoint: {
+            type: String,
+            default: '',
+        },
     },
     ready: function () {
         this.dumpConfiguration();
+        this.isPickerLoaded = false;
+        this.cleanupConfiguratorModal;
     },
     events: {
         /**
@@ -516,8 +575,11 @@ var m2cContentConstructor = {
             this.dumpConfiguration();
         },
         'cc-headline-configurator__change': function (data) {
-            console.log(data);
             this._currentConfiguratorData = data;
+        },
+        'cc-static-block-configurator__change': function (data) {
+            this._currentConfiguratorData = data;
+            console.log(data);
         },
     },
     methods: {
@@ -527,14 +589,33 @@ var m2cContentConstructor = {
          * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
          */
         getComponentPicker: function (addComponentInformation) {
-            console.log('Getting component picker.');
+            var component = this;
             // Save adding callback for async use.
             this._addComponentInformation = addComponentInformation;
-            // Open picker modal.
-            $pickerModal = modal(pickerModalOptions, $(this.$els.pickerModal));
+            pickerModalOptions.opened = function () {
+                if (!component.isPickerLoaded) {
+                    // Get picker via AJAX
+                    component.$http.get(component.configuratorEndpoint + "picker").then(function (response) {
+                        component.$els.pickerModal.innerHTML = response.body;
+                        component.$compile(component.$els.pickerModal);
+                        component.isPickerLoaded = true;
+                    });
+                }
+            };
+            // Create or Show picker modal depending if exists
+            if ($pickerModal) {
+                $pickerModal.openModal();
+            }
+            else {
+                $pickerModal = modal(pickerModalOptions, $(this.$els.pickerModal));
+            }
         },
+        /**
+         * Callback that will be invoked when user choses component in picker.
+         * This method should open magento modal with component configurator.
+         * @param {componentType} String - type of component chosen
+         */
         getComponentConfigurator: function (componentType) {
-            console.log("Getting configurator for " + componentType + " component.");
             var component = this;
             component._currentConfiguratorData = {};
             // Open configurator modal.
@@ -549,10 +630,21 @@ var m2cContentConstructor = {
             };
             // Configurator modal opened callback
             configuratorModalOptions.opened = function () {
-                // Set component type in currentConfigurator and fire it up
-                component.$set('currentConfigurator', componentType);
-                console.log(componentType + " component applied to the modal.");
+                // Get twig component
+                component.$http.get(component.configuratorEndpoint + componentType).then(function (response) {
+                    component.$els.configuratorModal.innerHTML = response.body;
+                    // compile fetched component
+                    component.cleanupConfiguratorModal = component.$compile(component.$els.configuratorModal);
+                });
             };
+            configuratorModalOptions.closed = function () {
+                // Cleanup configurator component and then remove modal
+                if (typeof component.cleanupConfiguratorModal === 'function') {
+                    component.cleanupConfiguratorModal();
+                }
+                $configuratorModal.modal[0].parentNode.removeChild($configuratorModal.modal[0]);
+            };
+            // Create & Show $configuratorModal
             $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
         },
         /**

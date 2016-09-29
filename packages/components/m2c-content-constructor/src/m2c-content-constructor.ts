@@ -9,6 +9,7 @@ import modal from 'Magento_Ui/js/modal/modal';
 import uiRegistry from 'uiRegistry';
 
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
+import m2cStaticBlockConfigurator from '../../../customizations/m2c-static-block-configurator/src/m2c-static-block-configurator';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
 import { IComponentInformation, layoutBuilder } from '../../cc-layout-builder/src/cc-layout-builder';
 
@@ -53,9 +54,6 @@ let configuratorModalOptions: any = {
             class: 'action-primary',
         },
     ],
-    closed(): void {
-        this.innerHTML = '';
-    },
 };
 let $configuratorModal: any;
 
@@ -73,21 +71,14 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             :edit-component="editComponent"
             :components-configuration="configuration">
         </cc-layout-builder>
-        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--picker" v-el:picker-modal>
-            <cc-component-picker
-                :pick-component="getComponentConfigurator"
-                components='[{"type":"static-block","cover":"http://placehold.it/350x185","coverAlt":"cover of static block","name":"Static block"},{"type":"headline","cover":"http://placehold.it/350x185","coverAlt":"cover of headline","name":"Headline"}]'>
-            </cc-component-picker>
-        </div>
-        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal><component :is="currentConfigurator"></component></div>
+        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--picker" v-el:picker-modal></div>
+        <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal></div>
     </div>`,
-    data: {
-        currentConfigurator: '',
-    },
     components: {
         'cc-layout-builder': layoutBuilder,
         'cc-component-picker': ccComponentPicker,
-        headline: m2cHeadlineConfigurator,
+        'm2c-headline-configurator': m2cHeadlineConfigurator,
+        'm2c-static-block-configurator': m2cStaticBlockConfigurator,
     },
     props: {
         configuration: {
@@ -98,9 +89,15 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        configuratorEndpoint: {
+            type: String,
+            default: '',
+        },
     },
     ready(): void {
         this.dumpConfiguration();
+        this.isPickerLoaded = false;
+        this.cleanupConfiguratorModal = '';
     },
     events: {
         /**
@@ -111,8 +108,11 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             this.dumpConfiguration();
         },
         'cc-headline-configurator__change'( data: any ): void {
-            console.log( data );
             this._currentConfiguratorData = data;
+        },
+        'cc-static-block-configurator__change'( data: any ): void {
+            this._currentConfiguratorData = data;
+            console.log(data);
         },
     },
     methods: {
@@ -122,16 +122,38 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
          */
         getComponentPicker( addComponentInformation: ( componentInfo: IComponentInformation ) => void ): void {
-            console.log( 'Getting component picker.' );
+            const component: any = this;
+
             // Save adding callback for async use.
             this._addComponentInformation = addComponentInformation;
-            // Open picker modal.
-            $pickerModal = modal( pickerModalOptions, $( this.$els.pickerModal ) );
+
+            pickerModalOptions.opened = function(): void {
+                if ( !component.isPickerLoaded ) {
+                    // Get picker via AJAX
+                    component.$http.get( `${component.configuratorEndpoint}picker` ).then( ( response: any ): void => {
+                        component.$els.pickerModal.innerHTML = response.body;
+                        component.$compile( component.$els.pickerModal );
+                        component.isPickerLoaded = true;
+                    } );
+                }
+            };
+            // Create or Show picker modal depending if exists
+            if ( $pickerModal ) {
+                $pickerModal.openModal();
+            } else {
+                $pickerModal = modal( pickerModalOptions, $( this.$els.pickerModal ) );
+            }
         },
+
+        /**
+         * Callback that will be invoked when user choses component in picker.
+         * This method should open magento modal with component configurator.
+         * @param {componentType} String - type of component chosen
+         */
         getComponentConfigurator( componentType: string ): void {
-            console.log( `Getting configurator for ${componentType} component.` );
             const component: any = this;
             component._currentConfiguratorData = {};
+
             // Open configurator modal.
             configuratorModalOptions.buttons[1].click = function (): void {
                 component._addComponentInformation(  {
@@ -143,13 +165,25 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 this.closeModal();
                 $pickerModal.closeModal();
             };
+
             // Configurator modal opened callback
             configuratorModalOptions.opened = function(): void {
-                // Set component type in currentConfigurator and fire it up
-                component.$set( 'currentConfigurator', componentType );
-                console.log( `${componentType} component applied to the modal.` );
+                // Get twig component
+                component.$http.get( component.configuratorEndpoint + componentType ).then( ( response: any ): void => {
+                    component.$els.configuratorModal.innerHTML = response.body;
+                    // compile fetched component
+                    component.cleanupConfiguratorModal = component.$compile( component.$els.configuratorModal );
+                } );
             };
 
+            configuratorModalOptions.closed = function(): void {
+                // Cleanup configurator component and then remove modal
+                if ( typeof component.cleanupConfiguratorModal === 'function' ) {
+                    component.cleanupConfiguratorModal();
+                }
+                $configuratorModal.modal[ 0 ].parentNode.removeChild( $configuratorModal.modal[ 0 ] );
+            };
+            // Create & Show $configuratorModal
             $configuratorModal = modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
         },
         /**

@@ -56,7 +56,7 @@ var ccStaticBlockConfigurator = {
 };
 
 var m2cStaticBlockConfigurator = {
-    template: "<form class=\"m2c-static-block-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-static-block\" class=\"m2-input__label\">Static block:</label>\n            <select name=\"select\" class=\"m2-input__select\" id=\"cfg-static-block\" v-model=\"staticBlock\" @change=\"onChange\">\n                <option value=\"1\" selected>Foo</option>\n                <option value=\"2\">Bar</option>\n            </select>\n        </div>\n    </form>",
+    template: '#m2c-static-blocks-form',
     mixins: [
         ccStaticBlockConfigurator,
     ],
