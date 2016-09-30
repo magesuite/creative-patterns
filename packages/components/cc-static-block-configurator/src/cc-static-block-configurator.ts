@@ -1,3 +1,4 @@
+
 /**
  * Single component information object.
  */
@@ -31,7 +32,7 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
     template: `<form class="cc-static-block-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <div class="cs-input cs-input--type-inline">
             <label for="cfg-static-block" class="cs-input__label">Static block:</label>
-            <select name="select" class="cs-input__select" id="cfg-static-block" v-model="staticBlock" @change="onChange">
+            <select name="select" class="cs-input__select" id="cfg-static-block" v-model="configuration.staticBlock" @change="onChange">
                 <option value="1" selected>Foo</option>
                 <option value="2">Bar</option>
             </select>
@@ -58,15 +59,16 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
         change: {
             type: Function,
         },
-    },
-    data(): any {
-        return {
-            staticBlock: '',
-        };
+        configuration: {
+            type: Object,
+            default: {
+                staticBlock: '',
+            },
+        },
     },
     methods: {
         onChange( event: Event ): void {
-            const data: any = JSON.parse( JSON.stringify( this.$data ) );
+            const data: any = JSON.parse( JSON.stringify( this.configuration ) );
 
             this.$dispatch( 'cc-static-block-configurator__change', data );
 
@@ -75,7 +77,7 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
             }
         },
         onSave( event: Event ): void {
-            const data: any = JSON.parse( JSON.stringify( this.$data ) );
+            const data: any = JSON.parse( JSON.stringify( this.configuration ) );
 
             this.$dispatch( 'cc-static-block-configurator__save', data );
 
