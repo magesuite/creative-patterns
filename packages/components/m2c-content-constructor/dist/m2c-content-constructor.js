@@ -11,13 +11,14 @@ $t = 'default' in $t ? $t['default'] : $t;
 modal = 'default' in modal ? modal['default'] : modal;
 uiRegistry = 'default' in uiRegistry ? uiRegistry['default'] : uiRegistry;
 
+/* tslint:disable:no-console */
 /**
  * Headline configurator component.
  * This component is responsible for displaying headlines configuration form
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccHeadlineConfigurator = {
-    template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"configuration.title\" id=\"cfg-headline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"configuration.subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -38,23 +39,24 @@ var ccHeadlineConfigurator = {
         change: {
             type: Function,
         },
-    },
-    data: function () {
-        return {
-            title: '',
-            subtitle: '',
-        };
+        configuration: {
+            type: Object,
+            default: {
+                title: '',
+                subtitle: '',
+            },
+        },
     },
     methods: {
         onChange: function (event) {
-            var data = JSON.parse(JSON.stringify(this.$data));
+            var data = JSON.parse(JSON.stringify(this.configuration));
             this.$dispatch('cc-headline-configurator__change', data);
             if (typeof this.change === 'function') {
                 this.change(data);
             }
         },
         onSave: function (event) {
-            var data = JSON.parse(JSON.stringify(this.$data));
+            var data = JSON.parse(JSON.stringify(this.configuration));
             this.$dispatch('cc-headline-configurator__save', data);
             if (typeof this.save === 'function') {
                 this.save(data);
@@ -63,9 +65,10 @@ var ccHeadlineConfigurator = {
     },
 };
 
+/* tslint:disable:no-console */
 // TODO: Use m2-input component the Vue way.
 var m2cHeadlineConfigurator = {
-    template: "<form class=\"m2c-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"m2-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"title\" id=\"cfg-headline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"m2-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"subtitle\" id=\"cfg-subheadline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n    </form>",
+    template: "<form class=\"m2c-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"m2-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"configuration.title\" id=\"cfg-headline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"m2-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"configuration.subtitle\" id=\"cfg-subheadline\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n    </form>",
     mixins: [
         ccHeadlineConfigurator,
     ],
@@ -77,7 +80,7 @@ var m2cHeadlineConfigurator = {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccStaticBlockConfigurator = {
-    template: "<form class=\"cc-static-block-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-static-block\" class=\"cs-input__label\">Static block:</label>\n            <select name=\"select\" class=\"cs-input__select\" id=\"cfg-static-block\" v-model=\"staticBlock\" @change=\"onChange\">\n                <option value=\"1\" selected>Foo</option>\n                <option value=\"2\">Bar</option>\n            </select>\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    template: "<form class=\"cc-static-block-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-static-block\" class=\"cs-input__label\">Static block:</label>\n            <select name=\"select\" class=\"cs-input__select\" id=\"cfg-static-block\" v-model=\"configuration.staticBlock\" @change=\"onChange\">\n                <option value=\"1\" selected>Foo</option>\n                <option value=\"2\">Bar</option>\n            </select>\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -98,22 +101,23 @@ var ccStaticBlockConfigurator = {
         change: {
             type: Function,
         },
-    },
-    data: function () {
-        return {
-            staticBlock: '',
-        };
+        configuration: {
+            type: Object,
+            default: {
+                staticBlock: '',
+            },
+        },
     },
     methods: {
         onChange: function (event) {
-            var data = JSON.parse(JSON.stringify(this.$data));
+            var data = JSON.parse(JSON.stringify(this.configuration));
             this.$dispatch('cc-static-block-configurator__change', data);
             if (typeof this.change === 'function') {
                 this.change(data);
             }
         },
         onSave: function (event) {
-            var data = JSON.parse(JSON.stringify(this.$data));
+            var data = JSON.parse(JSON.stringify(this.configuration));
             this.$dispatch('cc-static-block-configurator__save', data);
             if (typeof this.save === 'function') {
                 this.save(data);
@@ -451,6 +455,7 @@ var layoutBuilder = {
                 var previousComponent = this.components[index - 1];
                 this.components.$set(index - 1, this.components[index]);
                 this.components.$set(index, previousComponent);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**
@@ -462,6 +467,7 @@ var layoutBuilder = {
                 var previousComponent = this.components[index + 1];
                 this.components.$set(index + 1, this.components[index]);
                 this.components.$set(index, previousComponent);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**
@@ -471,6 +477,7 @@ var layoutBuilder = {
         deleteComponent: function (index) {
             if (confirm("Are you sure you want to remove this component?")) {
                 this.components.splice(index, 1);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**
@@ -561,10 +568,15 @@ var m2cContentConstructor = {
             default: '',
         },
     },
+    data: function () {
+        return {
+            currentComponentConfiguration: null,
+        };
+    },
     ready: function () {
         this.dumpConfiguration();
         this.isPickerLoaded = false;
-        this.cleanupConfiguratorModal;
+        this.cleanupConfiguratorModal = '';
     },
     events: {
         /**
@@ -575,6 +587,9 @@ var m2cContentConstructor = {
             this.dumpConfiguration();
         },
         'cc-headline-configurator__change': function (data) {
+            this._currentConfiguratorData = data;
+        },
+        'cc-static-block-configurator__change': function (data) {
             this._currentConfiguratorData = data;
         },
         'cc-static-block-configurator__change': function (data) {
@@ -618,7 +633,7 @@ var m2cContentConstructor = {
         getComponentConfigurator: function (componentType) {
             var component = this;
             component._currentConfiguratorData = {};
-            // Open configurator modal.
+            // On save component:
             configuratorModalOptions.buttons[1].click = function () {
                 component._addComponentInformation({
                     type: componentType,
@@ -652,13 +667,37 @@ var m2cContentConstructor = {
          * This method should open magento modal with component editor.
          * @param  {IComponentInformation} setComponentInformation Callback that let's us add component asynchronously.
          */
-        editComponent: function (currentInfo, setComponentInformation) {
-            // Open magento modal and invoke given callback with component information like below.
-            setComponentInformation({
-                name: 'Nowa Nazwa komponentu',
-                id: 'Nowe ID komponentu',
-                type: 'Typ komponentu',
-            });
+        editComponent: function (currentComponentConfiguration, setComponentInformation) {
+            var component = this;
+            configuratorModalOptions.buttons[1].click = function () {
+                setComponentInformation({
+                    type: currentComponentConfiguration.type,
+                    id: currentComponentConfiguration.id,
+                    data: component._currentConfiguratorData,
+                });
+                this.closeModal();
+            };
+            // Configurator modal opened callback
+            configuratorModalOptions.opened = function () {
+                // Get twig component
+                component.$http.get(component.configuratorEndpoint + currentComponentConfiguration.type).then(function (response) {
+                    component.$els.configuratorModal.innerHTML = response.body;
+                    // Set current component configuration data
+                    component.currentComponentConfiguration = currentComponentConfiguration.data;
+                    // compile fetched component
+                    component.cleanupConfiguratorModal = component.$compile(component.$els.configuratorModal);
+                });
+            };
+            configuratorModalOptions.closed = function () {
+                // Cleanup configurator component and then remove modal
+                if (typeof component.cleanupConfiguratorModal === 'function') {
+                    component.cleanupConfiguratorModal();
+                }
+                $configuratorModal.modal[0].parentNode.removeChild($configuratorModal.modal[0]);
+                component.currentComponentConfiguration = null;
+            };
+            // Create & Show $configuratorModal
+            $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
         },
         dumpConfiguration: function () {
             uiRegistry.get('cms_page_form.cms_page_form').source.set('data.components', JSON.stringify(this.$refs.layoutBuilder.getComponentInformation()));

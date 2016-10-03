@@ -1,3 +1,5 @@
+/* tslint:disable:no-console */
+
 /**
  * Single component information object.
  */
@@ -31,11 +33,11 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
     template: `<form class="cc-headline-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <div class="cs-input cs-input--type-inline">
             <label for="cfg-headline" class="cs-input__label">Headline:</label>
-            <input type="text" v-model="title" id="cfg-headline" class="cs-input__input" @change="onChange">
+            <input type="text" v-model="configuration.title" id="cfg-headline" class="cs-input__input" @change="onChange">
         </div>
         <div class="cs-input cs-input--type-inline">
             <label for="cfg-subheadline" class="cs-input__label">Subheadline:</label>
-            <input type="text" v-model="subtitle" id="cfg-subheadline" class="cs-input__input" @change="onChange">
+            <input type="text" v-model="configuration.subtitle" id="cfg-subheadline" class="cs-input__input" @change="onChange">
         </div>
         <button type="submit">Save</button>
     </form>`,
@@ -59,16 +61,17 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
         change: {
             type: Function,
         },
-    },
-    data(): any {
-        return {
-            title: '',
-            subtitle: '',
-        };
+        configuration: {
+            type: Object,
+            default: {
+                title: '',
+                subtitle: '',
+            },
+        },
     },
     methods: {
         onChange( event: Event ): void {
-            const data: any = JSON.parse( JSON.stringify( this.$data ) );
+            const data: any = JSON.parse( JSON.stringify( this.configuration ) );
 
             this.$dispatch( 'cc-headline-configurator__change', data );
 
@@ -77,7 +80,7 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
             }
         },
         onSave( event: Event ): void {
-            const data: any = JSON.parse( JSON.stringify( this.$data ) );
+            const data: any = JSON.parse( JSON.stringify( this.configuration ) );
 
             this.$dispatch( 'cc-headline-configurator__save', data );
 

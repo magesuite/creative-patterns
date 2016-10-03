@@ -94,6 +94,11 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             default: '',
         },
     },
+    data(): Object {
+        return {
+            currentComponentConfiguration: null,
+        };
+    },
     ready(): void {
         this.dumpConfiguration();
         this.isPickerLoaded = false;
@@ -112,7 +117,6 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         },
         'cc-static-block-configurator__change'( data: any ): void {
             this._currentConfiguratorData = data;
-            console.log(data);
         },
     },
     methods: {
@@ -154,7 +158,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             const component: any = this;
             component._currentConfiguratorData = {};
 
-            // Open configurator modal.
+            // On save component:
             configuratorModalOptions.buttons[1].click = function (): void {
                 component._addComponentInformation(  {
                     type: componentType,
@@ -192,15 +196,45 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * @param  {IComponentInformation} setComponentInformation Callback that let's us add component asynchronously.
          */
         editComponent(
-            currentInfo: IComponentInformation,
+            currentComponentConfiguration: IComponentInformation,
             setComponentInformation: ( componentInfo: IComponentInformation ) => void
         ): void {
-            // Open magento modal and invoke given callback with component information like below.
-            setComponentInformation( {
-                name: 'Nowa Nazwa komponentu',
-                id: 'Nowe ID komponentu',
-                type: 'Typ komponentu',
-            } );
+            const component: any = this;
+
+            configuratorModalOptions.buttons[1].click = function (): void {
+                setComponentInformation( {
+                    type: currentComponentConfiguration.type,
+                    id: currentComponentConfiguration.id,
+                    data: component._currentConfiguratorData,
+                } );
+
+                this.closeModal();
+            };
+
+            // Configurator modal opened callback
+            configuratorModalOptions.opened = function(): void {
+                // Get twig component
+                component.$http.get( component.configuratorEndpoint + currentComponentConfiguration.type ).then( ( response: any ): void => {
+                    component.$els.configuratorModal.innerHTML = response.body;
+
+                    // Set current component configuration data
+                    component.currentComponentConfiguration = currentComponentConfiguration.data;
+
+                    // compile fetched component
+                    component.cleanupConfiguratorModal = component.$compile( component.$els.configuratorModal );
+                } );
+            };
+
+            configuratorModalOptions.closed = function(): void {
+                // Cleanup configurator component and then remove modal
+                if ( typeof component.cleanupConfiguratorModal === 'function' ) {
+                    component.cleanupConfiguratorModal();
+                }
+                $configuratorModal.modal[ 0 ].parentNode.removeChild( $configuratorModal.modal[ 0 ] );
+                component.currentComponentConfiguration = null;
+            };
+            // Create & Show $configuratorModal
+            $configuratorModal = modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
         },
         dumpConfiguration(): void {
             uiRegistry.get('cms_page_form.cms_page_form').source.set(

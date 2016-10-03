@@ -255,6 +255,7 @@ var layoutBuilder = {
                 var previousComponent = this.components[index - 1];
                 this.components.$set(index - 1, this.components[index]);
                 this.components.$set(index, previousComponent);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**
@@ -266,6 +267,7 @@ var layoutBuilder = {
                 var previousComponent = this.components[index + 1];
                 this.components.$set(index + 1, this.components[index]);
                 this.components.$set(index, previousComponent);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**
@@ -275,6 +277,7 @@ var layoutBuilder = {
         deleteComponent: function (index) {
             if (confirm("Are you sure you want to remove this component?")) {
                 this.components.splice(index, 1);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**

@@ -10,7 +10,7 @@
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccStaticBlockConfigurator = {
-    template: "<form class=\"cc-static-block-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-static-block\" class=\"cs-input__label\">Static block:</label>\n            <select name=\"select\" class=\"cs-input__select\" id=\"cfg-static-block\" v-model=\"staticBlock\" @change=\"onChange\">\n                <option value=\"1\" selected>Foo</option>\n                <option value=\"2\">Bar</option>\n            </select>\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    template: "<form class=\"cc-static-block-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-static-block\" class=\"cs-input__label\">Static block:</label>\n            <select name=\"select\" class=\"cs-input__select\" id=\"cfg-static-block\" v-model=\"configuration.staticBlock\" @change=\"onChange\">\n                <option value=\"1\" selected>Foo</option>\n                <option value=\"2\">Bar</option>\n            </select>\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -31,22 +31,23 @@ var ccStaticBlockConfigurator = {
         change: {
             type: Function,
         },
-    },
-    data: function () {
-        return {
-            staticBlock: '',
-        };
+        configuration: {
+            type: Object,
+            default: {
+                staticBlock: '',
+            },
+        },
     },
     methods: {
         onChange: function (event) {
-            var data = JSON.parse(JSON.stringify(this.$data));
+            var data = JSON.parse(JSON.stringify(this.configuration));
             this.$dispatch('cc-static-block-configurator__change', data);
             if (typeof this.change === 'function') {
                 this.change(data);
             }
         },
         onSave: function (event) {
-            var data = JSON.parse(JSON.stringify(this.$data));
+            var data = JSON.parse(JSON.stringify(this.configuration));
             this.$dispatch('cc-static-block-configurator__save', data);
             if (typeof this.save === 'function') {
                 this.save(data);

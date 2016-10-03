@@ -170,6 +170,7 @@ const layoutBuilder: vuejs.ComponentOption = {
                 let previousComponent: IComponentInformation = this.components[ index - 1 ];
                 this.components.$set( index - 1, this.components[ index ] );
                 this.components.$set( index, previousComponent );
+                this.$dispatch( 'cc-layout-builder__update' );
             }
         },
         /**
@@ -181,6 +182,7 @@ const layoutBuilder: vuejs.ComponentOption = {
                 let previousComponent: IComponentInformation = this.components[ index + 1 ];
                 this.components.$set( index + 1, this.components[ index ] );
                 this.components.$set(  index, previousComponent );
+                this.$dispatch( 'cc-layout-builder__update' );
             }
         },
         /**
@@ -190,6 +192,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         deleteComponent( index: number ): void {
              if ( confirm( `Are you sure you want to remove this component?` ) ) {
                 this.components.splice( index, 1 );
+                this.$dispatch( 'cc-layout-builder__update' );
             }
         },
         /**
