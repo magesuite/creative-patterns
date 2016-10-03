@@ -1,0 +1,84 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>cs-toggler component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../cs-toggler.css">
+</head>
+<body>
+
+<style>
+    #readme {
+        margin: 50px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        width: 600px;
+        font-family: sans-serif;
+    }
+
+    em {
+        color: forestgreen;
+    }
+
+    pre {
+        color: forestgreen;
+    }
+</style>
+
+<div id="readme"><h1>Toggler utility</h1>
+    <h2>Description</h2>
+    <p>Many times you need to hide, show, toggle some components. No need to do it manually and repeat yourself in
+        another
+        objects. Also no need to use jQuery hide() or show(). With Toggler class you can hide, show, toggle your node
+        with
+        BEM friendly way. <strong>Works both with jQuery and HTMLElement, Toggler will detect type</strong></p>
+    <h2>Sass</h2>
+    <p>No styles needed, but you need to provide one class to constructor</p>
+    <h2>Javascript</h2>
+    <h3>Init constructor</h3>
+    <p>You need to create object, constructor looks like this, settings are required</p>
+    <pre>
+    new Toggler( element: JQuery|HTMLElement, settings: ITogglerSettings );
+    </pre>
+    <h3>Settings</h3>
+    <p>Settings interface. You must provide only <em>visibleClass</em> <strong>OR</strong> <em>hiddenClass</em> to make
+        this work. It's
+        needed to detect if you element is hidden by default or not. If its hidden, pass <em>visibleClass</em>,
+        otherwise <em>hiddenClass</em>.</p>
+    <p>You can also pass callback <em>onShow</em> and <em>onHide</em></p>
+    <pre>
+    interface ITogglerSettings {
+        visibleClass?: string;
+        hiddenClass?: string;
+        onShow?: Function;
+        onHide?: Function;
+    }
+    </pre>
+    <h3>Initializer demo</h3>
+    <p>Correctly initialized Toggler will look like this (assuming that your component is visible by default):</p>
+    <pre>
+    let componentToggler: IToggler;
+    let element: HTMLElement = document.getElementByClassName('element')[0];
+
+    componentToggler = new Toggler( element, {
+        hiddenClass: 'element--is-hidden'
+    } );
+    </pre>
+    <h3>Methods</h3>
+    <p>Toggler implements this interface:</p>
+    <pre>
+    interface IToggler {
+        show(): void;
+        hide(): void;
+        isVisible(): boolean;
+        isHidden(): boolean;
+        toggle(): void;
+    }
+    </pre>
+
+</div>
+</body>
+</html>
