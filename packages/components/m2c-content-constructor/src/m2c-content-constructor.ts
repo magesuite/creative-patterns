@@ -118,6 +118,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'cc-static-block-configurator__change'( data: any ): void {
             this._currentConfiguratorData = data;
         },
+        'cc-static-block-configurator__change'( data: any ): void {
+            this._currentConfiguratorData = data;
+            console.log(data);
+        },
     },
     methods: {
         /**

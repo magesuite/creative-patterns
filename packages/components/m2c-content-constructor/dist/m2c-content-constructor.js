@@ -592,6 +592,10 @@ var m2cContentConstructor = {
         'cc-static-block-configurator__change': function (data) {
             this._currentConfiguratorData = data;
         },
+        'cc-static-block-configurator__change': function (data) {
+            this._currentConfiguratorData = data;
+            console.log(data);
+        },
     },
     methods: {
         /**
