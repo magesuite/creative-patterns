@@ -1,0 +1,106 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>cs-validation-message component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../cs-validation-message.css">
+</head>
+<body>
+
+<style>
+    .demo-container {
+        margin: 50px auto;
+        width: 600px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        font-family: sans-serif;
+    }
+
+    em {
+        color: green;
+        font-family: monospace;
+    }
+
+    pre {
+        color: green;
+    }
+</style>
+
+<div class="demo-container">
+
+    <h1>Validation message component</h1>
+    <p>Basic validation for forms, like inputs, selects. Features:
+    <ul>
+        <li>Multiple types</li>
+        <li>Dynamic setting and getting types and messages</li>
+        <li>Usable inline with form's elements</li>
+    </ul>
+    </p>
+    <h2>Docs:</h2>
+    <h3>Sass</h3>
+    <p>Preferable types are <em>component--type_typeValue</em>, like <em>div.cs-validation-message__type_negative</em>.
+        You can add as many modifier as you like and inject them into js constructor
+    </p>
+    <h3>JS</h3>
+    <h4>Interfaces</h4>
+    <h5>constructor settings:</h5>
+    <pre>
+    interface IValidationMessageSettings {
+        types: Map<string, string>;
+    }
+    </pre>
+    <p>Component gets optional settings, containing types MAP, map entry should be <em>Key: typeName, Value:
+            typeClass</em>, example:
+    <pre>
+    let validationTypes: Map = new Map();
+    validationTypes.set('positive', 'cs-validation-message--type_positive');
+    validationTypes.set('warning', 'cs-validation-message--type_warning');
+    validationTypes.set('negative', 'cs-validation-message--type_negative');
+    </pre>
+    </p>
+    <hr>
+    <h5>class public interface</h5>
+
+    <pre>
+    interface IValidationMessage {
+        getMessage(): string;
+        setMessage(message: string): void;
+        getType(): string;
+        setType(type: string): void;
+    }
+    </pre>
+
+    <h4>Constructor</h4>
+
+    <pre>
+    constructor($component: JQuery, settings?: IValidationMessageSettings)
+    </pre>
+    <p>Example</p>
+    <pre>
+
+    new ValidationMessage($('.cs-validation-message'));
+
+    </pre>
+
+    <button id="setPositive">Set positive type</button>
+    <button id="setNegative">Set negative type</button>
+    <button id="setWarning">Set warning type</button>
+    <button id="getType">get type</button>
+    <button id="setText">set another text</button>
+    <button id="getText">get text</button>
+
+    {% include "../cs-validation-message.twig" with {
+    "text": "Validation message text",
+    "type": "negative"
+    } %}
+
+
+</div>
+
+<script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../cs-validation-message.js"></script>
+</body>
+</html>

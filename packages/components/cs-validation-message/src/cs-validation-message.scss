@@ -1,0 +1,34 @@
+// cs-validation-message
+// Validation message for form&#x27;s elements
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-validation-message {
+    font-size: 1rem;
+    padding: .5em 1em;
+
+    //temp
+    font-family: sans-serif;
+    letter-spacing: 1px;
+
+    &--type {
+        &_negative {
+            background-color: rgba( #b60000, .5 );
+            border: 2px solid rgba( #8b0807, .5 );
+            color: #fff;
+        }
+        &_positive {
+            background-color: rgba( #05ff2c, .5 );
+            border: 2px solid rgba( #05ff2c, .5 );
+            color: #fff;
+
+        }
+        &_warning {
+            background-color: rgba( #ff7d2d, .5 );
+            border: 2px solid rgba( #8b0807, .5 );
+            color: #8b0807;
+
+        }
+    }
+
+}
