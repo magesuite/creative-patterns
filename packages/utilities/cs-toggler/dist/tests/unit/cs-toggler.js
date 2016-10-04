@@ -1,26 +1,20 @@
-// import {ITogglerSettings, Toggler} from '../../class.cs-toggler';
+(function (exports) {
+'use strict';
 
-// Test makes page reload,why?
-
-describe('Toggler class', function (): void {
-    // let elem: string = '<div class="elem"></div>';
-    // let selector: string = '.elem';
-    // let togglerObj: Toggler = null;
-    // let elemNode: HTMLElement = null;
-    // let settings: ITogglerSettings = null;
-    //
-    // beforeEach(function (): void {
-    //     document.write(elem);
-    //     elemNode = document.querySelector(selector)[0];
-    //
-    // });
-    //
-    // afterEach(function (): void {
-    //     elemNode.remove();
-    // });
-
+describe('Toggler class', function () {
+    var elem = '<div class="elem"></div>';
+    var selector = '.elem';
+    var togglerObj = null;
+    var elemNode = null;
+    var settings = null;
+    beforeEach(function () {
+        document.write(elem);
+        elemNode = document.querySelector(selector)[0];
+    });
+    afterEach(function () {
+        elemNode.remove();
+    });
     // Check if component has methods
-
     // it('has show() method', function (): void {
     //     settings = {
     //         visibleClass: 'demoClass',
@@ -29,7 +23,6 @@ describe('Toggler class', function (): void {
     //
     //     expect(typeof togglerObj.show).toBe('function');
     // });
-
     // it('has hide() method', function (): void {
     //     settings = {
     //         visibleClass: 'demoClass',
@@ -76,5 +69,7 @@ describe('Toggler class', function (): void {
     //
     //     expect(typeof togglerObj.isHidden()).toBe('boolean');
     // });
-
 });
+
+}((this.csToggler = this.csToggler || {})));
+//# sourceMappingURL=cs-toggler.js.map
