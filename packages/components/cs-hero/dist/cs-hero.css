@@ -108,6 +108,7 @@
     .cs-hero__content--align_center {
       -webkit-align-self: center;
           -ms-flex-item-align: center;
+                  -ms-grid-row-align: center;
               align-self: center; }
     .cs-hero__content--align_right {
       -webkit-align-self: flex-end;
