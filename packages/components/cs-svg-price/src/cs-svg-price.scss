@@ -1,0 +1,30 @@
+// cs-svg-price
+// Price in SVG component with customization possibilites&#x27;
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cs-svg-price {
+    font-size: 1rem;
+
+    // Unfortunately you need to specify width :(
+    width: 6em;
+    height: 1em;
+
+    // temp
+    font-family: sans-serif;
+
+
+    &__text {
+        font-size: 1em;
+        font-weight: 700;
+        fill: #fff;
+        stroke: #000;
+        stroke-width: .04em;
+        height: 3em;
+    }
+
+    &__currency {
+        stroke: #000;
+        fill: #fff;
+    }
+}
