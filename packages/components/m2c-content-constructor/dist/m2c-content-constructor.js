@@ -502,6 +502,8 @@ var layoutBuilder = {
 /* tslint:disable:no-console */
 // Use Vue resource
 Vue.use(vr);
+// Set Vue's $http headers Accept to text/html
+Vue.http.headers.custom.Accept = 'text/html';
 // Picker modal options
 var pickerModalOptions = {
     type: 'slide',
@@ -570,7 +572,7 @@ var m2cContentConstructor = {
     },
     data: function () {
         return {
-            currentComponentConfiguration: null,
+            currentComponentConfiguration: undefined,
         };
     },
     ready: function () {
@@ -590,6 +592,9 @@ var m2cContentConstructor = {
             this._currentConfiguratorData = data;
         },
         'cc-static-block-configurator__change': function (data) {
+            this._currentConfiguratorData = data;
+        },
+        'cc-image-teaser-configurator__change': function (data) {
             this._currentConfiguratorData = data;
         },
     },
@@ -631,6 +636,7 @@ var m2cContentConstructor = {
             component._currentConfiguratorData = {};
             // On save component:
             configuratorModalOptions.buttons[1].click = function () {
+                console.log(component._currentConfiguratorData);
                 component._addComponentInformation({
                     type: componentType,
                     id: 'component' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
@@ -666,6 +672,7 @@ var m2cContentConstructor = {
         editComponent: function (currentComponentConfiguration, setComponentInformation) {
             var component = this;
             configuratorModalOptions.buttons[1].click = function () {
+                console.log(component._currentConfiguratorData);
                 setComponentInformation({
                     type: currentComponentConfiguration.type,
                     id: currentComponentConfiguration.id,

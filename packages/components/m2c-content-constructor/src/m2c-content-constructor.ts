@@ -10,11 +10,15 @@ import uiRegistry from 'uiRegistry';
 
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
 import m2cStaticBlockConfigurator from '../../../customizations/m2c-static-block-configurator/src/m2c-static-block-configurator';
+// import m2cImageTeaserConfigurator from '../../../customizations/m2c-image-teaser-configurator/src/m2c-image-teaser-configurator';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
 import { IComponentInformation, layoutBuilder } from '../../cc-layout-builder/src/cc-layout-builder';
 
 // Use Vue resource
 Vue.use( vr );
+
+// Set Vue's $http headers Accept to text/html
+Vue.http.headers.custom.Accept = 'text/html';
 
 // Picker modal options
 let pickerModalOptions: any = {
@@ -79,6 +83,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'cc-component-picker': ccComponentPicker,
         'm2c-headline-configurator': m2cHeadlineConfigurator,
         'm2c-static-block-configurator': m2cStaticBlockConfigurator,
+        // 'm2c-image-teaser-configurator': m2cImageTeaserConfigurator,
     },
     props: {
         configuration: {
@@ -93,10 +98,14 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        /* uploaderUrl: {
+            type: String,
+            default: '',
+        }, */
     },
     data(): Object {
         return {
-            currentComponentConfiguration: null,
+            currentComponentConfiguration: undefined,
         };
     },
     ready(): void {
@@ -116,6 +125,9 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             this._currentConfiguratorData = data;
         },
         'cc-static-block-configurator__change'( data: any ): void {
+            this._currentConfiguratorData = data;
+        },
+        'cc-image-teaser-configurator__change'( data: any ): void {
             this._currentConfiguratorData = data;
         },
     },
@@ -160,7 +172,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
 
             // On save component:
             configuratorModalOptions.buttons[1].click = function (): void {
-                component._addComponentInformation(  {
+
+                console.log( component._currentConfiguratorData );
+
+                component._addComponentInformation( {
                     type: componentType,
                     id: 'component' + Math.floor( ( 1 + Math.random() ) * 0x10000 ).toString( 16 ).substring( 1 ),
                     data: component._currentConfiguratorData,
@@ -202,6 +217,9 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             const component: any = this;
 
             configuratorModalOptions.buttons[1].click = function (): void {
+
+                console.log( component._currentConfiguratorData );
+
                 setComponentInformation( {
                     type: currentComponentConfiguration.type,
                     id: currentComponentConfiguration.id,
