@@ -32,7 +32,7 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
     template: `<form class="cc-static-block-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <div class="cs-input cs-input--type-inline">
             <label for="cfg-static-block" class="cs-input__label">Static block:</label>
-            <select name="select" class="cs-input__select" id="cfg-static-block" v-model="configuration.staticBlock" @change="onChange">
+            <select name="select" class="cs-input__select" id="cfg-static-block" v-model="configuration.identifier" @change="onChange">
                 <option value="1" selected>Foo</option>
                 <option value="2">Bar</option>
             </select>
@@ -62,7 +62,7 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
         configuration: {
             type: Object,
             default: {
-                staticBlock: '',
+                identifier: '',
             },
         },
     },

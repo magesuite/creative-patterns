@@ -17,8 +17,10 @@ var ValidationMessage = (function () {
         this._$component = $component;
         this._settings = Object.assign(this._settings, settings);
         this._message = this._$component.text();
-        this._typeClasses = this._getTypesClasses();
-        this._detectType();
+        if (this._settings.types) {
+            this._typeClasses = this._getTypesClasses();
+            this._detectType();
+        }
     }
     ValidationMessage.prototype.getMessage = function () {
         return this._message;

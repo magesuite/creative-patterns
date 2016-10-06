@@ -80,7 +80,7 @@ var m2cHeadlineConfigurator = {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccStaticBlockConfigurator = {
-    template: "<form class=\"cc-static-block-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-static-block\" class=\"cs-input__label\">Static block:</label>\n            <select name=\"select\" class=\"cs-input__select\" id=\"cfg-static-block\" v-model=\"configuration.staticBlock\" @change=\"onChange\">\n                <option value=\"1\" selected>Foo</option>\n                <option value=\"2\">Bar</option>\n            </select>\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    template: "<form class=\"cc-static-block-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-static-block\" class=\"cs-input__label\">Static block:</label>\n            <select name=\"select\" class=\"cs-input__select\" id=\"cfg-static-block\" v-model=\"configuration.identifier\" @change=\"onChange\">\n                <option value=\"1\" selected>Foo</option>\n                <option value=\"2\">Bar</option>\n            </select>\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -104,7 +104,7 @@ var ccStaticBlockConfigurator = {
         configuration: {
             type: Object,
             default: {
-                staticBlock: '',
+                identifier: '',
             },
         },
     },
@@ -502,6 +502,8 @@ var layoutBuilder = {
 /* tslint:disable:no-console */
 // Use Vue resource
 Vue.use(vr);
+// Set Vue's $http headers Accept to text/html
+Vue.http.headers.custom.Accept = 'text/html';
 // Picker modal options
 var pickerModalOptions = {
     type: 'slide',
@@ -570,7 +572,7 @@ var m2cContentConstructor = {
     },
     data: function () {
         return {
-            currentComponentConfiguration: null,
+            currentComponentConfiguration: undefined,
         };
     },
     ready: function () {
@@ -592,9 +594,8 @@ var m2cContentConstructor = {
         'cc-static-block-configurator__change': function (data) {
             this._currentConfiguratorData = data;
         },
-        'cc-static-block-configurator__change': function (data) {
+        'cc-image-teaser-configurator__change': function (data) {
             this._currentConfiguratorData = data;
-            console.log(data);
         },
     },
     methods: {
@@ -635,6 +636,7 @@ var m2cContentConstructor = {
             component._currentConfiguratorData = {};
             // On save component:
             configuratorModalOptions.buttons[1].click = function () {
+                console.log(component._currentConfiguratorData);
                 component._addComponentInformation({
                     type: componentType,
                     id: 'component' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
@@ -670,6 +672,7 @@ var m2cContentConstructor = {
         editComponent: function (currentComponentConfiguration, setComponentInformation) {
             var component = this;
             configuratorModalOptions.buttons[1].click = function () {
+                console.log(component._currentConfiguratorData);
                 setComponentInformation({
                     type: currentComponentConfiguration.type,
                     id: currentComponentConfiguration.id,
