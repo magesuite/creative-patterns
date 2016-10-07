@@ -1,0 +1,17 @@
+.cs-svg-price {
+  font-size: 1rem;
+  width: 6em;
+  height: 1em;
+  font-family: sans-serif; }
+  .cs-svg-price__text {
+    font-size: 1em;
+    font-weight: 700;
+    fill: #fff;
+    stroke: #000;
+    stroke-width: 0.04em;
+    height: 3em; }
+  .cs-svg-price__currency {
+    stroke: #000;
+    fill: #fff; }
+
+/*# sourceMappingURL=cs-svg-price.css.map */

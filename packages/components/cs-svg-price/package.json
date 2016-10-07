@@ -1,0 +1,8 @@
+{
+    "name": "cs-svg-price",
+    "version": "0.0.1",
+    "description": "Price in SVG component with customization possibilites&#x27;",
+    "main": "src/cs-svg-price.ts",
+    "author": "Lukasz Ostrowski",
+    "license": "ISC"
+}
