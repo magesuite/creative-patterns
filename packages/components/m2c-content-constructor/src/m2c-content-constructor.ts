@@ -9,8 +9,8 @@ import modal from 'Magento_Ui/js/modal/modal';
 import uiRegistry from 'uiRegistry';
 
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
+import m2cImageTeaserConfigurator from '../../../customizations/m2c-image-teaser-configurator/src/m2c-image-teaser-configurator';
 import m2cStaticBlockConfigurator from '../../../customizations/m2c-static-block-configurator/src/m2c-static-block-configurator';
-// import m2cImageTeaserConfigurator from '../../../customizations/m2c-image-teaser-configurator/src/m2c-image-teaser-configurator';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
 import { IComponentInformation, layoutBuilder } from '../../cc-layout-builder/src/cc-layout-builder';
 
@@ -83,7 +83,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'cc-component-picker': ccComponentPicker,
         'm2c-headline-configurator': m2cHeadlineConfigurator,
         'm2c-static-block-configurator': m2cStaticBlockConfigurator,
-        // 'm2c-image-teaser-configurator': m2cImageTeaserConfigurator,
+        'm2c-image-teaser-configurator': m2cImageTeaserConfigurator,
     },
     props: {
         configuration: {
@@ -98,10 +98,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
-        /* uploaderUrl: {
+        uploaderUrl: {
             type: String,
             default: '',
-        }, */
+        },
     },
     data(): Object {
         return {
@@ -172,8 +172,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
 
             // On save component:
             configuratorModalOptions.buttons[1].click = function (): void {
-
-                console.log( component._currentConfiguratorData );
+                component.$broadcast( 'm2cConfigurationSaved' );
 
                 component._addComponentInformation( {
                     type: componentType,
@@ -217,8 +216,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             const component: any = this;
 
             configuratorModalOptions.buttons[1].click = function (): void {
-
-                console.log( component._currentConfiguratorData );
+                component.$broadcast( 'm2cConfigurationSaved' );
 
                 setComponentInformation( {
                     type: currentComponentConfiguration.type,

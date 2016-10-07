@@ -1,0 +1,8 @@
+{
+    "name": "m2c-image-teaser-configurator",
+    "version": "0.0.1",
+    "description": "M2 implementation of cc-image-teaser-configurator",
+    "main": "src/m2c-image-teaser-configurator.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

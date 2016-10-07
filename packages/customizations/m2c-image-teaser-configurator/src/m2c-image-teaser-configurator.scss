@@ -1,0 +1,49 @@
+// m2c-image-teaser-configurator
+// M2 implementation of cc-image-teaser-configurator
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+$namespace: 'm2c-';
+@import '../../../components/cc-image-teaser-configurator/src/cc-image-teaser-configurator';
+
+.#{$namespace}image-teaser-configurator {
+    $root: &;
+
+    &__teaser-unit {
+        &:hover {
+            #{$root}__delete-button {
+                z-index: 3;
+                opacity: 1;
+            }
+        }
+    }
+
+    &__image {
+        position: absolute;
+        width: 100%;
+        max-height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    &__delete-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d( -50%, -50%, 0 );
+        margin-top: 10%;
+        white-space: nowrap;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity .25s linear;
+        will-change: z-index;
+    }
+
+    &__cta-actions {
+        display: flex;
+        justify-content: space-between;
+    }
+}
