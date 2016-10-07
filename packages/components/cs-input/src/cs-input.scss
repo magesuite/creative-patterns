@@ -60,6 +60,11 @@ $namespace: 'cs-' !default;
             opacity: .5;
         }
 
+        &[ readonly ] {
+            cursor: not-allowed;
+            color: #797979;
+        }
+
         &::-ms-clear {
             display: none;
         }
