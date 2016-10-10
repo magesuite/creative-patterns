@@ -916,7 +916,8 @@ var m2cContentConstructor = {
                 if (typeof component.cleanupConfiguratorModal === 'function') {
                     component.cleanupConfiguratorModal();
                 }
-                $configuratorModal.modal[0].parentNode.removeChild($configuratorModal.modal[0]);
+                component.$els.configuratorModal.innerHTML = '';
+                component.currentComponentConfiguration = null;
             };
             // Create & Show $configuratorModal
             $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
@@ -931,6 +932,7 @@ var m2cContentConstructor = {
             configuratorModalOptions.buttons[1].click = function () {
                 component.$broadcast('m2cConfigurationSaved');
                 setComponentInformation({
+                    name: currentComponentConfiguration.name,
                     type: currentComponentConfiguration.type,
                     id: currentComponentConfiguration.id,
                     data: component._currentConfiguratorData,
@@ -953,7 +955,7 @@ var m2cContentConstructor = {
                 if (typeof component.cleanupConfiguratorModal === 'function') {
                     component.cleanupConfiguratorModal();
                 }
-                $configuratorModal.modal[0].parentNode.removeChild($configuratorModal.modal[0]);
+                component.$els.configuratorModal.innerHTML = '';
                 component.currentComponentConfiguration = null;
             };
             // Create & Show $configuratorModal
