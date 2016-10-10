@@ -199,7 +199,8 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 if ( typeof component.cleanupConfiguratorModal === 'function' ) {
                     component.cleanupConfiguratorModal();
                 }
-                $configuratorModal.modal[ 0 ].parentNode.removeChild( $configuratorModal.modal[ 0 ] );
+                component.$els.configuratorModal.innerHTML = '';
+                component.currentComponentConfiguration = null;
             };
             // Create & Show $configuratorModal
             $configuratorModal = modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
@@ -219,6 +220,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 component.$broadcast( 'm2cConfigurationSaved' );
 
                 setComponentInformation( {
+                    name: currentComponentConfiguration.name,
                     type: currentComponentConfiguration.type,
                     id: currentComponentConfiguration.id,
                     data: component._currentConfiguratorData,
@@ -246,7 +248,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 if ( typeof component.cleanupConfiguratorModal === 'function' ) {
                     component.cleanupConfiguratorModal();
                 }
-                $configuratorModal.modal[ 0 ].parentNode.removeChild( $configuratorModal.modal[ 0 ] );
+                component.$els.configuratorModal.innerHTML = '';
                 component.currentComponentConfiguration = null;
             };
             // Create & Show $configuratorModal
