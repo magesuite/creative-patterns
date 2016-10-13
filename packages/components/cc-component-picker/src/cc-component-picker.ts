@@ -1,21 +1,14 @@
-import template from './cc-component-picker.tpl';
-
 /**
  * Single component information object.
  */
 interface IComponentInformation {
     type: string;
     /**
-     * Cover image url.
+     * Name of the component (will be displayed in front).
      * @type {string}
      */
-    cover: string;
-    /**
-     * Cover image alt attribute value.
-     * @type {string}
-     */
-    coverAlt: string;
     name: string;
+    description: string;
 }
 
 /**
@@ -31,7 +24,24 @@ interface IComponentsInformation {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 const ccComponentPicker: vuejs.ComponentOption = {
-    template,
+    template: `<section class="cc-component-picker | {{ class }}">
+        <ul class="cc-component-picker__list" v-if="availableComponents.length">
+            <li class="cc-component-picker__list-item cc-component-picker__list-item--{{component.type}}" v-for="component in availableComponents">
+                <a class="cc-component-picker__component-link" href="#" @click.prevent="onPickComponent( component.type )">
+                    <span class="cc-component-picker__component-figure">
+                        <svg class="cc-component-picker__component-icon">
+                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_component-' + component.type }"></use>
+                        </svg>
+                    </span>
+                    <span class="cc-component-picker__component-name">{{ component.name }}</span>
+                </a>
+                <p class="cc-component-picker__component-description">{{ component.description }}</p>
+            </li>
+        </ul>
+        <p class="cc-component-picker__no-components" v-if="!availableComponents.length">
+            No components available.
+        </p>
+    </section>`,
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -58,6 +68,13 @@ const ccComponentPicker: vuejs.ComponentOption = {
          * URL for API returning JSON stringified array containing available components.
          */
         componentsEndpoint: {
+            type: String,
+            default: '',
+        },
+        /**
+         * Assets src for icon
+         */
+        assetsSrc: {
             type: String,
             default: '',
         },

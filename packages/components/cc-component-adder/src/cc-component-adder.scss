@@ -2,6 +2,7 @@
 
 .cc-component-adder {
     position: relative;
+    margin-left: 78px;
     z-index: 2;
     text-align: center;
 
@@ -19,7 +20,7 @@
     }
 
     // this is just wrapper but event will be set to this element
-    &__button-create {
+    &__button-wrapper {
         display: inline-block;
     }
 

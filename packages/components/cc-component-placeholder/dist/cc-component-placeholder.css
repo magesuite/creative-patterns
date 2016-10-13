@@ -28,5 +28,9 @@
     content: ' '; }
   .cc-component-placeholder--look_white-bg {
     background-color: #fff; }
+  .cc-component-placeholder__headline {
+    margin: 0 0 1em;
+    text-align: center;
+    text-transform: uppercase; }
 
 /*# sourceMappingURL=cc-component-placeholder.css.map */

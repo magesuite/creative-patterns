@@ -80,7 +80,7 @@ var m2cHeadlineConfigurator = {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccImageTeaserConfigurator = {
-    template: "<form class=\"cc-image-teaser-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <section class=\"cc-image-teaser-configurator__section\">\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-it-width\" class=\"cs-input__label\">Teaser width:</label>\n                <select name=\"cfg-it-width-select\" class=\"cs-input__select\" id=\"cfg-it-width\" v-model=\"configuration.teaserWidth\" @change=\"onChange\">\n                    <option value=\"full-width\" selected>Full browser width</option>\n                    <option value=\"limited-width\">Breaking point width (1280px)</option>\n                </select>\n            </div>\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-it-images-per-slide\" class=\"cs-input__label\">Images per slide:</label>\n                <select name=\"cfg-it-images-per-slide\" class=\"cs-input__select\" id=\"cfg-it-images-per-slide\" v-model=\"configuration.itemsPerSlide\" @change=\"onChange\">\n                    <option value=\"1\">1</option>\n                    <option value=\"2\">2</option>\n                    <option value=\"3\">3</option>\n                    <option value=\"4\">4</option>\n                    <option value=\"5\">5</option>\n                    <option value=\"6\">6</option>\n                    <option value=\"7\">7</option>\n                    <option value=\"8\">8</option>\n                    <option value=\"9\">9</option>\n                </select>\n            </div>\n        </section>\n\n        <section class=\"cc-image-teaser-configurator__section\">\n            <div class=\"cc-image-teaser-configurator__teaser\">\n                <div v-for=\"item in configuration.items\" class=\"cc-image-teaser-configurator__teaser-unit\">\n                    <div class=\"cc-image-teaser-configurator__toolbar\">\n                        <span class=\"cc-image-teaser-configurator__teaser-unit-title\">Banner {{ $index+1 }}/{{ configuration.items.length }}</span>\n                        <a href=\"#\" class=\"cc-image-teaser-configurator__upload-link href=\"#\">Upload image</a>\n                    </div>\n                    <div class=\"cc-image-teaser-configurator__image-holder-outer\">\n                        <div class=\"cc-image-teaser-configurator__image-holder-inner\">\n                            <input type=\"hidden\" value=\"\" class=\"cc-image-teaser-configurator__image-url\" v-model=\"configuration.items[$index].image\" @change=\"onChange\"> \n                        </div>\n                    </div>\n                    <div class=\"cs-input cs-input--type-required\">\n                        <label for=\"cfg-it-teaser{{ $index+1 }}-headline\" class=\"cs-input__label\">Headline:</label>\n                        <input type=\"text\" v-model=\"configuration.items[$index].headline\" id=\"cfg-it-teaser{{ $index+1 }}-headline\" class=\"cs-input__input\" @change=\"onChange\">\n                    </div>\n                    <div class=\"cs-input cs-input--type-required\">\n                        <label for=\"cfg-it-teaser{{ $index+1 }}-paragraph\" class=\"cs-input__label\">Paragraph:</label>\n                        <textarea type=\"text\" v-model=\"configuration.items[$index].paragraph\" id=\"cfg-it-teaser{{ $index+1 }}-paragraph\" class=\"cs-input__textarea cs-input__textarea--look-thin\" @change=\"onChange\" placeholder=\"(max 200 characters)\" maxlength=\"200\"></textarea>\n                    </div>\n                    <div class=\"cs-input\">\n                        <label for=\"cfg-it-teaser{{ $index+1 }}-cta-label\" class=\"cs-input__label\">CTA label:</label>\n                        <input type=\"text\" v-model=\"configuration.items[$index].ctaLabel\" id=\"cfg-it-teaser{{ $index+1 }}-cta-label\" class=\"cs-input__input\" @change=\"onChange\">\n                    </div>\n                    <div class=\"cs-input\">\n                        <label for=\"cfg-it-teaser{{ $index+1 }}-cta-target\" class=\"cs-input__label\">CTA target link:</label>\n                        <input type=\"text\" v-model=\"item.ctaTarget\" id=\"cfg-it-teaser{{ $index+1 }}-cta-target\" class=\"cs-input__input\" @change=\"onChange\">\n                    </div>\n                </div>\n            </div>\n        </section>\n\n        <section class=\"cc-image-teaser-configurator__section cc-image-teaser-configurator__section--type-actions\">\n            <button type=\"submit\">Save</button>\n        </section>\n    </form>",
+    template: "<form class=\"cc-image-teaser-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <section class=\"cc-image-teaser-configurator__section\">\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-it-width\" class=\"cs-input__label\">Teaser width:</label>\n                <select name=\"cfg-it-width-select\" class=\"cs-input__select\" id=\"cfg-it-width\" v-model=\"configuration.teaserWidth\" @change=\"onChange\">\n                    <option value=\"full-width\" selected>Full browser width</option>\n                    <option value=\"limited-width\">Breaking point width (1280px)</option>\n                </select>\n            </div>\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-it-images-per-slide\" class=\"cs-input__label\">Images per slide:</label>\n                <select name=\"cfg-it-images-per-slide\" class=\"cs-input__select\" id=\"cfg-it-images-per-slide\" v-model=\"configuration.itemsPerSlide\" @change=\"onChange\">\n                    <option value=\"1\">1</option>\n                    <option value=\"2\">2</option>\n                    <option value=\"3\">3</option>\n                    <option value=\"4\">4</option>\n                    <option value=\"5\">5</option>\n                    <option value=\"6\">6</option>\n                    <option value=\"7\">7</option>\n                    <option value=\"8\">8</option>\n                    <option value=\"9\">9</option>\n                </select>\n            </div>\n        </section>\n\n        <section class=\"cc-image-teaser-configurator__section\">\n            <div class=\"cc-image-teaser-configurator__teaser\">\n                <template v-for=\"item in configuration.items\">\n                    <div class=\"cc-image-teaser-configurator__teaser-item\" id=\"cc-image-teaser-item-{{ $index }}\">\n                        <div class=\"cc-image-teaser-configurator__toolbar\">\n                            <span class=\"cc-image-teaser-configurator__teaser-item-title\">Banner {{ $index+1 }}/{{ configuration.items.length }}</span>\n                            <a href=\"#\" class=\"cc-image-teaser-configurator__upload-link href=\"#\">Upload image</a>\n                        </div>\n                        <div class=\"cc-image-teaser-configurator__image-holder-outer\">\n                            <div class=\"cc-image-teaser-configurator__image-holder-inner\">\n                                <input type=\"hidden\" value=\"\" class=\"cc-image-teaser-configurator__image-url\" v-model=\"configuration.items[$index].image\" @change=\"onChange\"> \n                            </div>\n                        </div>\n                        <div class=\"cs-input cs-input--type-required\">\n                            <label for=\"cfg-it-teaser{{ $index+1 }}-headline\" class=\"cs-input__label\">Headline:</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].headline\" id=\"cfg-it-teaser{{ $index+1 }}-headline\" class=\"cs-input__input\" @change=\"onChange\">\n                        </div>\n                        <div class=\"cs-input cs-input--type-required\">\n                            <label for=\"cfg-it-teaser{{ $index+1 }}-paragraph\" class=\"cs-input__label\">Paragraph:</label>\n                            <textarea type=\"text\" v-model=\"configuration.items[$index].paragraph\" id=\"cfg-it-teaser{{ $index+1 }}-paragraph\" class=\"cs-input__textarea cs-input__textarea--look-thin\" @change=\"onChange\" placeholder=\"(max 200 characters)\" maxlength=\"200\"></textarea>\n                        </div>\n                        <div class=\"cs-input\">\n                            <label for=\"cfg-it-teaser{{ $index+1 }}-cta-label\" class=\"cs-input__label\">CTA label:</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].ctaLabel\" id=\"cfg-it-teaser{{ $index+1 }}-cta-label\" class=\"cs-input__input\" @change=\"onChange\">\n                        </div>\n                        <div class=\"cs-input\">\n                            <label for=\"cfg-it-teaser{{ $index+1 }}-cta-target\" class=\"cs-input__label\">CTA target link:</label>\n                            <input type=\"text\" v-model=\"item.ctaTarget\" id=\"cfg-it-teaser{{ $index+1 }}-cta-target\" class=\"cs-input__input\" @change=\"onChange\">\n                        </div>\n                    </div>\n                </template>\n            </div>\n        </section>\n\n        <section class=\"cc-image-teaser-configurator__section cc-image-teaser-configurator__section--type-actions\">\n            <button type=\"submit\">Save</button>\n        </section>\n    </form>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -101,12 +101,14 @@ var ccImageTeaserConfigurator = {
         change: {
             type: Function,
         },
+        /**
+         * Single's component configuration
+         */
         configuration: {
             type: Object,
             default: function () {
                 return {
                     teaserWidth: 'full-width',
-                    itemsPerSlide: '5',
                     items: [
                         {
                             image: '',
@@ -169,9 +171,11 @@ var teaserItemDataPattern = {
  * This component is responsible for managing image teasers including image upload and widget chooser
  */
 var m2cImageTeaserConfigurator = {
-    template: "<form class=\"m2c-image-teaser-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <section class=\"m2c-image-teaser-configurator__section\">\n            <div class=\"m2-input m2-input--type-inline\">\n                <label for=\"cfg-it-width\" class=\"m2-input__label\">" + $t('Teaser width') + ":</label>\n                <select name=\"cfg-it-width-select\" class=\"m2-input__select\" id=\"cfg-it-width\" v-model=\"configuration.teaserWidth\" @change=\"onChange\">\n                    <option value=\"full-width\">" + $t('Full browser width') + "</option>\n                    <option value=\"limited-width\">" + $t('Breaking point width (1280px)') + "</option>\n                </select>\n            </div>\n        </section>\n\n        <section class=\"m2c-image-teaser-configurator__section\">\n            <div class=\"m2c-image-teaser-configurator__teaser\">\n                <div v-for=\"item in configuration.items\" class=\"m2c-image-teaser-configurator__teaser-unit\">\n                    <div class=\"m2c-image-teaser-configurator__toolbar\">\n                        <span class=\"m2c-image-teaser-configurator__teaser-unit-title\">\n                            " + $t('Banner') + " {{ $index+1 }}/{{ configuration.items.length }}\n                        </span>\n                        <template v-if=\"configuration.items[$index].image\">\n                            <a href=\"#\" href=\"#\" @click=\"getImageUploader( $index )\">" + $t('Change image') + "</a>\n                        </template>\n                        <template v-else>\n                            <a href=\"#\" href=\"#\" @click=\"getImageUploader( $index )\">" + $t('Upload image') + "</a>\n                        </template>\n                    </div>\n                    <div class=\"m2c-image-teaser-configurator__image-holder-outer\">\n                        <div class=\"m2c-image-teaser-configurator__image-holder-inner\">\n                            <img :src=\"configuration.items[$index].image\" class=\"m2c-image-teaser-configurator__image\" v-show=\"configuration.items[$index].image\">\n                            <template v-if=\"isPossibleToDelete( $index )\">\n                                <button class=\"action-button action-button--look_default action-button--type_icon | m2c-image-teaser-configurator__delete-button\" @click=\"deleteTeaserItem( $index )\">\n                                    <svg class=\"action-button__icon action-button__icon--size_300\">\n                                        <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use>\n                                    </svg>\n                                    " + $t('Delete banner') + "\n                                </button>\n                            </template>\n                            <input type=\"hidden\" class=\"m2c-image-teaser-configurator__image-url\" v-model=\"configuration.items[$index].image\" id=\"img-{{$index}}\"> \n                        </div>\n                    </div>\n                    <div class=\"m2-input m2-input--type-required\">\n                        <label for=\"cfg-it-teaser{{ $index+1 }}-headline\" class=\"m2-input__label\">" + $t('Headline') + ":</label>\n                        <input type=\"text\" v-model=\"configuration.items[$index].headline\" id=\"cfg-it-teaser{{ $index+1 }}-headline\" class=\"m2-input__input\" @change=\"onChange\">\n                    </div>\n                    <div class=\"m2-input m2-input--type-required\">\n                        <label for=\"cfg-it-teaser{{ $index+1 }}-paragraph\" class=\"m2-input__label\">" + $t('Paragraph') + ":</label>\n                        <textarea type=\"text\" v-model=\"configuration.items[$index].paragraph\" id=\"cfg-it-teaser{{ $index+1 }}-paragraph\" class=\"m2-input__textarea m2-input__textarea--look-thin\" @change=\"onChange\" placeholder=\"(" + $t('max 200 characters') + ")\" maxlength=\"200\"></textarea>\n                    </div>\n                    <div class=\"m2-input\">\n                        <label for=\"cfg-it-teaser{{ $index+1 }}-cta-label\" class=\"m2-input__label\">" + $t('CTA label') + ":</label>\n                        <input type=\"text\" v-model=\"configuration.items[$index].ctaLabel\" id=\"cfg-it-teaser{{ $index+1 }}-cta-label\" class=\"m2-input__input\" @change=\"onChange\">\n                    </div>\n                    <div class=\"m2-input\">\n                        <div class=\"m2c-image-teaser-configurator__cta-actions\">\n                            <label class=\"m2-input__label\">" + $t('CTA target link') + ":</label>\n                            <template v-if=\"item.ctaTarget\">\n                                <a href=\"#\" @click=\"openCtaTargetModal( $index )\">" + $t('Edit') + "</a>\n                            </template>\n                            <template v-else>\n                                <a href=\"#\" @click=\"openCtaTargetModal( $index )\">" + $t('Add') + "</a>\n                            </template>\n                        </div>\n                        <input type=\"text\" class=\"m2-input__input m2-input--type-readonly | m2c-image-teaser-configurator__cta-target-link\" readonly v-model=\"configuration.items[$index].ctaTarget\" id=\"ctatarget-output-{{ $index }}\">\n                    </div>\n                </div>\n            </div>\n        </section>\n    </form>",
+    template: "<form class=\"m2c-image-teaser-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <section class=\"m2c-image-teaser-configurator__section\">\n            <div class=\"m2-input m2-input--type-inline\">\n                <label for=\"cfg-it-width\" class=\"m2-input__label\">" + $t('Teaser width') + ":</label>\n                <select name=\"cfg-it-width-select\" class=\"m2-input__select\" id=\"cfg-it-width\" v-model=\"configuration.teaserWidth\" @change=\"onChange\">\n                    <option value=\"full-width\">" + $t('Full browser width') + "</option>\n                    <option value=\"limited-width\">" + $t('Breaking point width (1280px)') + "</option>\n                </select>\n            </div>\n        </section>\n\n        <section class=\"m2c-image-teaser-configurator__section\">\n            <div class=\"m2c-image-teaser-configurator__teaser\">\n                <template v-for=\"item in configuration.items\">\n                    <div class=\"m2c-image-teaser-configurator__teaser-item\" id=\"m2c-image-teaser-item-{{ $index }}\">\n                        <div class=\"m2c-image-teaser-configurator__toolbar\">\n                            <span class=\"m2c-image-teaser-configurator__teaser-item-title\">\n                                " + $t('Banner') + " {{ $index+1 }}/{{ configuration.items.length }}\n                            </span>\n                            <template v-if=\"configuration.items[$index].image\">\n                                <a href=\"#\" href=\"#\" @click=\"getImageUploader( $index )\">" + $t('Change image') + "</a>\n                            </template>\n                            <template v-else>\n                                <a href=\"#\" href=\"#\" @click=\"getImageUploader( $index )\">" + $t('Upload image') + "</a>\n                            </template>\n                        </div>\n                        <div class=\"m2c-image-teaser-configurator__image-holder-outer\">\n                            <div class=\"m2c-image-teaser-configurator__image-holder-inner\">\n                                <img :src=\"configuration.items[$index].image\" class=\"m2c-image-teaser-configurator__image\" v-show=\"configuration.items[$index].image\">\n                                <template v-if=\"isPossibleToDelete( $index )\">\n                                    <button class=\"action-button action-button--look_default action-button--type_icon | m2c-image-teaser-configurator__delete-button\" @click=\"deleteTeaserItem( $index )\">\n                                        <svg class=\"action-button__icon action-button__icon--size_300\">\n                                            <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use>\n                                        </svg>\n                                        " + $t('Delete banner') + "\n                                    </button>\n                                </template>\n                                <input type=\"hidden\" class=\"m2c-image-teaser-configurator__image-url\" v-model=\"configuration.items[$index].image\" id=\"img-{{$index}}\"> \n                            </div>\n                        </div>\n                        <div class=\"m2-input\">\n                            <label for=\"cfg-it-teaser{{ $index+1 }}-headline\" class=\"m2-input__label\">" + $t('Headline') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].headline\" id=\"cfg-it-teaser{{ $index+1 }}-headline\" class=\"m2-input__input\" @change=\"onChange\">\n                        </div>\n                        <div class=\"m2-input\">\n                            <label for=\"cfg-it-teaser{{ $index+1 }}-paragraph\" class=\"m2-input__label\">" + $t('Paragraph') + ":</label>\n                            <textarea type=\"text\" v-model=\"configuration.items[$index].paragraph\" id=\"cfg-it-teaser{{ $index+1 }}-paragraph\" class=\"m2-input__textarea m2-input__textarea--look-thin\" @change=\"onChange\" placeholder=\"(" + $t('max 200 characters') + ")\" maxlength=\"200\"></textarea>\n                        </div>\n                        <div class=\"m2-input\">\n                            <label for=\"cfg-it-teaser{{ $index+1 }}-cta-label\" class=\"m2-input__label\">" + $t('CTA label') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].ctaLabel\" id=\"cfg-it-teaser{{ $index+1 }}-cta-label\" class=\"m2-input__input\" @change=\"onChange\">\n                        </div>\n                        <div class=\"m2-input\">\n                            <div class=\"m2c-image-teaser-configurator__cta-actions\">\n                                <label class=\"m2-input__label\">" + $t('CTA target link') + ":</label>\n                                <template v-if=\"item.ctaTarget\">\n                                    <a href=\"#\" @click=\"openCtaTargetModal( $index )\">" + $t('Edit') + "</a>\n                                </template>\n                                <template v-else>\n                                    <a href=\"#\" @click=\"openCtaTargetModal( $index )\">" + $t('Add') + "</a>\n                                </template>\n                            </div>\n                            <input type=\"text\" class=\"m2-input__input m2-input--type-readonly | m2c-image-teaser-configurator__cta-target-link\" readonly v-model=\"configuration.items[$index].ctaTarget\" id=\"ctatarget-output-{{ $index }}\">\n                        </div>\n                    </div>\n                </template>\n            </div>\n        </section>\n    </form>",
     props: {
-        /* Configuration of image teaser */
+        /*
+         * Single's component configuration
+         */
         configuration: {
             type: Object,
             default: function () {
@@ -229,15 +233,15 @@ var m2cImageTeaserConfigurator = {
          */
         onImageUploaded: function (input) {
             var itemIndex = input.id.substr(input.id.length - 1);
-            var base64 = input.value.substring(input.value.lastIndexOf('___directive/') + 13, input.value.lastIndexOf(',/') - 1);
-            this.configuration.items[itemIndex].decodedImage = atob(base64);
+            var encodedImage = input.value.match('___directive\/([a-zA-Z0-9]*)')[1];
+            this.configuration.items[itemIndex].decodedImage = Base64 ? Base64.decode(encodedImage) : window.atob(encodedImage);
             this.updateConfig();
             this.createTeaserItem();
         },
         /* Creates another teaser item using teaserItemDataPattern */
         createTeaserItem: function () {
             /* If image of last array item in this.configuration.items is not empty, add another teaser item */
-            if (this.configuration.items.slice(-1)[0].image !== '') {
+            if (this.configuration.items && this.configuration.items.slice(-1)[0].image !== '') {
                 this.configuration.items.push(JSON.parse(JSON.stringify(teaserItemDataPattern)));
             }
         },
@@ -385,15 +389,13 @@ var m2cStaticBlockConfigurator = {
     ],
 };
 
-var template = "<section class=\"cc-component-picker | {{ class }}\">\n    <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\">\n        <li class=\"cc-component-picker__list-item cc-component-picker--{{component.type}}\" v-for=\"component in availableComponents\">\n            <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\">\n                <figure class=\"cc-component-picker__component-figure\">\n                    <img v-bind:src=\"component.cover\" alt=\"{{ component.coverAlt }}\" class=\"cc-component-picker__component-cover\">\n                    <figcaption class=\"cc-component-picker__component-description\">{{ component.name }}</figcaption>\n                </figure>\n            </a>\n        </li>\n    </ul>\n    <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\">\n        No components available.\n    </p>\n</section>\n";
-
 /**
  * Componen picker.
  * Lists all types of components available in m2c in the grid/list mode
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccComponentPicker = {
-    template,
+    template: "<section class=\"cc-component-picker | {{ class }}\">\n        <ul class=\"cc-component-picker__list\" v-if=\"availableComponents.length\">\n            <li class=\"cc-component-picker__list-item cc-component-picker__list-item--{{component.type}}\" v-for=\"component in availableComponents\">\n                <a class=\"cc-component-picker__component-link\" href=\"#\" @click.prevent=\"onPickComponent( component.type )\">\n                    <span class=\"cc-component-picker__component-figure\">\n                        <svg class=\"cc-component-picker__component-icon\">\n                            <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_component-' + component.type }\"></use>\n                        </svg>\n                    </span>\n                    <span class=\"cc-component-picker__component-name\">{{ component.name }}</span>\n                </a>\n                <p class=\"cc-component-picker__component-description\">{{ component.description }}</p>\n            </li>\n        </ul>\n        <p class=\"cc-component-picker__no-components\" v-if=\"!availableComponents.length\">\n            No components available.\n        </p>\n    </section>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -420,6 +422,13 @@ var ccComponentPicker = {
          * URL for API returning JSON stringified array containing available components.
          */
         componentsEndpoint: {
+            type: String,
+            default: '',
+        },
+        /**
+         * Assets src for icon
+         */
+        assetsSrc: {
             type: String,
             default: '',
         },
@@ -486,6 +495,75 @@ var actionButton = {
 };
 
 /**
+ * Headline preview component.
+ * This component is responsible for displaying preview of headline component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentHeadlinePreview = {
+    template: "<div class=\"cc-component-headline-preview\">\n        <h1 class=\"cc-component-headline-preview__headline\">{{ configuration.title }}</h1>\n        <h2 class=\"cc-component-headline-preview__subheadline\">{{ configuration.subtitle }}</h2>\n    </div>",
+    props: {
+        /**
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+};
+
+/**
+ * Image teaser preview component.
+ * This component is responsible for displaying preview of image teaser component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentImageTeaserPreview = {
+    template: "<div class=\"cc-component-image-teaser-preview\">\n        <div class=\"cc-component-image-teaser-preview__items\">\n            <template v-for=\"item in configuration.items\">\n                <div class=\"cc-component-image-teaser-preview__item-wrapper-outer\" id=\"cc-image-teaser-item-{{ $index }}\" v-show=\"configuration.items[$index].image\">\n                    <div class=\"cc-component-image-teaser-preview__item-wrapper-inner\">\n                        <div class=\"cc-component-image-teaser-preview__item\">\n                            <img :src=\"configuration.items[$index].image\" class=\"cc-component-image-teaser-preview__item-image\">\n                            <h3 class=\"cc-component-image-teaser-preview__item-index\">Banner {{ $index+1 }}/{{ configuration.items.length }}</h3>\n                        </div>\n                    </div>\n                </div>\n            </template>\n        </div>\n    </div>",
+    props: {
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+};
+
+/**
+ * CMS block preview component.
+ * This component is responsible for displaying preview of CMS block component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentStaticCmsBlockPreview = {
+    template: "<div class=\"cc-component-static-cms-block-preview\">\n        <h2 class=\"cc-component-static-cms-block-preview__block-id\">CMS Block ID: {{ configuration.identifier }}</h2>\n    </div>",
+    props: {
+        /**
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+};
+
+/**
  * Component actions component.
  * This component is responsible for displaying and handling user interactions of
  * side utility navigation for each component that supports:
@@ -516,7 +594,7 @@ var componentActions = {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var componentAdder = {
-    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-create\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
+    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-wrapper\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -557,7 +635,7 @@ var componentPlaceholder = {
     template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>",
 };
 
-var template$1 = "<div class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"component in components\">\n        <div class=\"cc-layout-builder__component\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_settings' }\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>{{ component.id }}</cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"components.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</div>\n";
+var template = "<div class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"component in components\">\n        <div class=\"cc-layout-builder__component\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_settings' }\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>\n                    <h3 class=\"cc-component-placeholder__headline\" v-text=\"transformComponentTypeToText( component.type )\"></h3>\n                    <div class=\"cc-component-placeholder__component\">\n\n                        <component :is=\"'cc-component-' + component.type + '-preview'\" :configuration=\"component.data\" :index=\"$index\"></component>\n\n                    </div>\n                </cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"components.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</div>\n";
 
 /**
  * Layout builder component.
@@ -566,7 +644,7 @@ var template$1 = "<div class=\"cc-layout-builder | {{ class }}\">\n    <cc-compo
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var layoutBuilder = {
-    template: template$1,
+    template,
     /**
      * Get dependencies
      */
@@ -575,6 +653,9 @@ var layoutBuilder = {
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
         'cc-component-placeholder': componentPlaceholder,
+        'cc-component-headline-preview': ccComponentHeadlinePreview,
+        'cc-component-image-teaser-preview': ccComponentImageTeaserPreview,
+        'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
     },
     props: {
         /**
@@ -748,6 +829,9 @@ var layoutBuilder = {
         isLastComponent: function (index) {
             return index === this.components.length - 1;
         },
+        transformComponentTypeToText: function (componentType) {
+            return componentType.replace('-', ' ');
+        },
     },
 };
 
@@ -906,7 +990,7 @@ var m2cContentConstructor = {
             configuratorModalOptions.opened = function () {
                 // Get twig component
                 component.$http.get(component.configuratorEndpoint + componentType).then(function (response) {
-                    component.$els.configuratorModal.innerHTML = response.body;
+                    $(component.$els.configuratorModal).html(response.body);
                     // compile fetched component
                     component.cleanupConfiguratorModal = component.$compile(component.$els.configuratorModal);
                 });
@@ -916,8 +1000,7 @@ var m2cContentConstructor = {
                 if (typeof component.cleanupConfiguratorModal === 'function') {
                     component.cleanupConfiguratorModal();
                 }
-                component.$els.configuratorModal.innerHTML = '';
-                component.currentComponentConfiguration = null;
+                $configuratorModal.modal[0].parentNode.removeChild($configuratorModal.modal[0]);
             };
             // Create & Show $configuratorModal
             $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
@@ -932,7 +1015,6 @@ var m2cContentConstructor = {
             configuratorModalOptions.buttons[1].click = function () {
                 component.$broadcast('m2cConfigurationSaved');
                 setComponentInformation({
-                    name: currentComponentConfiguration.name,
                     type: currentComponentConfiguration.type,
                     id: currentComponentConfiguration.id,
                     data: component._currentConfiguratorData,
@@ -955,7 +1037,7 @@ var m2cContentConstructor = {
                 if (typeof component.cleanupConfiguratorModal === 'function') {
                     component.cleanupConfiguratorModal();
                 }
-                component.$els.configuratorModal.innerHTML = '';
+                $configuratorModal.modal[0].parentNode.removeChild($configuratorModal.modal[0]);
                 component.currentComponentConfiguration = null;
             };
             // Create & Show $configuratorModal

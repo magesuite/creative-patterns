@@ -56,33 +56,35 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
 
         <section class="cc-image-teaser-configurator__section">
             <div class="cc-image-teaser-configurator__teaser">
-                <div v-for="item in configuration.items" class="cc-image-teaser-configurator__teaser-unit">
-                    <div class="cc-image-teaser-configurator__toolbar">
-                        <span class="cc-image-teaser-configurator__teaser-unit-title">Banner {{ $index+1 }}/{{ configuration.items.length }}</span>
-                        <a href="#" class="cc-image-teaser-configurator__upload-link href="#">Upload image</a>
-                    </div>
-                    <div class="cc-image-teaser-configurator__image-holder-outer">
-                        <div class="cc-image-teaser-configurator__image-holder-inner">
-                            <input type="hidden" value="" class="cc-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" @change="onChange"> 
+                <template v-for="item in configuration.items">
+                    <div class="cc-image-teaser-configurator__teaser-item" id="cc-image-teaser-item-{{ $index }}">
+                        <div class="cc-image-teaser-configurator__toolbar">
+                            <span class="cc-image-teaser-configurator__teaser-item-title">Banner {{ $index+1 }}/{{ configuration.items.length }}</span>
+                            <a href="#" class="cc-image-teaser-configurator__upload-link href="#">Upload image</a>
+                        </div>
+                        <div class="cc-image-teaser-configurator__image-holder-outer">
+                            <div class="cc-image-teaser-configurator__image-holder-inner">
+                                <input type="hidden" value="" class="cc-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" @change="onChange"> 
+                            </div>
+                        </div>
+                        <div class="cs-input cs-input--type-required">
+                            <label for="cfg-it-teaser{{ $index+1 }}-headline" class="cs-input__label">Headline:</label>
+                            <input type="text" v-model="configuration.items[$index].headline" id="cfg-it-teaser{{ $index+1 }}-headline" class="cs-input__input" @change="onChange">
+                        </div>
+                        <div class="cs-input cs-input--type-required">
+                            <label for="cfg-it-teaser{{ $index+1 }}-paragraph" class="cs-input__label">Paragraph:</label>
+                            <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-it-teaser{{ $index+1 }}-paragraph" class="cs-input__textarea cs-input__textarea--look-thin" @change="onChange" placeholder="(max 200 characters)" maxlength="200"></textarea>
+                        </div>
+                        <div class="cs-input">
+                            <label for="cfg-it-teaser{{ $index+1 }}-cta-label" class="cs-input__label">CTA label:</label>
+                            <input type="text" v-model="configuration.items[$index].ctaLabel" id="cfg-it-teaser{{ $index+1 }}-cta-label" class="cs-input__input" @change="onChange">
+                        </div>
+                        <div class="cs-input">
+                            <label for="cfg-it-teaser{{ $index+1 }}-cta-target" class="cs-input__label">CTA target link:</label>
+                            <input type="text" v-model="item.ctaTarget" id="cfg-it-teaser{{ $index+1 }}-cta-target" class="cs-input__input" @change="onChange">
                         </div>
                     </div>
-                    <div class="cs-input cs-input--type-required">
-                        <label for="cfg-it-teaser{{ $index+1 }}-headline" class="cs-input__label">Headline:</label>
-                        <input type="text" v-model="configuration.items[$index].headline" id="cfg-it-teaser{{ $index+1 }}-headline" class="cs-input__input" @change="onChange">
-                    </div>
-                    <div class="cs-input cs-input--type-required">
-                        <label for="cfg-it-teaser{{ $index+1 }}-paragraph" class="cs-input__label">Paragraph:</label>
-                        <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-it-teaser{{ $index+1 }}-paragraph" class="cs-input__textarea cs-input__textarea--look-thin" @change="onChange" placeholder="(max 200 characters)" maxlength="200"></textarea>
-                    </div>
-                    <div class="cs-input">
-                        <label for="cfg-it-teaser{{ $index+1 }}-cta-label" class="cs-input__label">CTA label:</label>
-                        <input type="text" v-model="configuration.items[$index].ctaLabel" id="cfg-it-teaser{{ $index+1 }}-cta-label" class="cs-input__input" @change="onChange">
-                    </div>
-                    <div class="cs-input">
-                        <label for="cfg-it-teaser{{ $index+1 }}-cta-target" class="cs-input__label">CTA target link:</label>
-                        <input type="text" v-model="item.ctaTarget" id="cfg-it-teaser{{ $index+1 }}-cta-target" class="cs-input__input" @change="onChange">
-                    </div>
-                </div>
+                </template>
             </div>
         </section>
 
@@ -110,12 +112,14 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
         change: {
             type: Function,
         },
+        /**
+         * Single's component configuration 
+         */
         configuration: {
             type: Object,
             default(): Object {
                 return {
                     teaserWidth: 'full-width',
-                    itemsPerSlide: '5',
                     items: [
                         {
                             image: '',

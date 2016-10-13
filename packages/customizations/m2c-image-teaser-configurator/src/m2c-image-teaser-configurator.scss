@@ -10,7 +10,7 @@ $namespace: 'm2c-';
 .#{$namespace}image-teaser-configurator {
     $root: &;
 
-    &__teaser-unit {
+    &__teaser-item {
         &:hover {
             #{$root}__delete-button {
                 z-index: 3;

@@ -1,0 +1,8 @@
+{
+    "name": "cc-component-image-teaser-preview",
+    "version": "0.0.1",
+    "description": "Preview of image teasaer component in CC panel",
+    "main": "src/cc-component-image-teaser-preview.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

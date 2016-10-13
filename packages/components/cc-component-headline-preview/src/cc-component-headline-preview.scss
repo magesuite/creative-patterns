@@ -1,0 +1,19 @@
+// cc-component-headline-preview
+// Preview of headline component for cc-layout-builder
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cc-component-headline-preview {
+    text-align: center;
+
+    &__headline,
+    &__subheadline {
+        margin: 0 0 .25em;
+        color: #e1e1e1 !important;
+        font-weight: 300 !important;
+    }
+
+    &__headline {
+        margin-top: 1em;
+    }
+}

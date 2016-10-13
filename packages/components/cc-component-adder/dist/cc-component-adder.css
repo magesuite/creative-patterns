@@ -77,6 +77,7 @@
 
 .cc-component-adder {
   position: relative;
+  margin-left: 78px;
   z-index: 2;
   text-align: center; }
   .cc-component-adder:before {
@@ -91,7 +92,7 @@
         -ms-transform: translateY(-1px);
             transform: translateY(-1px);
     content: ' '; }
-  .cc-component-adder__button-create {
+  .cc-component-adder__button-wrapper {
     display: inline-block; }
   .cc-component-adder__button {
     background-color: #fff;

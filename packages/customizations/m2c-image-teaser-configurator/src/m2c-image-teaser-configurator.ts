@@ -30,62 +30,66 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
 
         <section class="m2c-image-teaser-configurator__section">
             <div class="m2c-image-teaser-configurator__teaser">
-                <div v-for="item in configuration.items" class="m2c-image-teaser-configurator__teaser-unit">
-                    <div class="m2c-image-teaser-configurator__toolbar">
-                        <span class="m2c-image-teaser-configurator__teaser-unit-title">
-                            ${$t( 'Banner' )} {{ $index+1 }}/{{ configuration.items.length }}
-                        </span>
-                        <template v-if="configuration.items[$index].image">
-                            <a href="#" href="#" @click="getImageUploader( $index )">${$t( 'Change image' )}</a>
-                        </template>
-                        <template v-else>
-                            <a href="#" href="#" @click="getImageUploader( $index )">${$t( 'Upload image' )}</a>
-                        </template>
-                    </div>
-                    <div class="m2c-image-teaser-configurator__image-holder-outer">
-                        <div class="m2c-image-teaser-configurator__image-holder-inner">
-                            <img :src="configuration.items[$index].image" class="m2c-image-teaser-configurator__image" v-show="configuration.items[$index].image">
-                            <template v-if="isPossibleToDelete( $index )">
-                                <button class="action-button action-button--look_default action-button--type_icon | m2c-image-teaser-configurator__delete-button" @click="deleteTeaserItem( $index )">
-                                    <svg class="action-button__icon action-button__icon--size_300">
-                                        <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }"></use>
-                                    </svg>
-                                    ${$t( 'Delete banner' )}
-                                </button>
-                            </template>
-                            <input type="hidden" class="m2c-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" id="img-{{$index}}"> 
-                        </div>
-                    </div>
-                    <div class="m2-input m2-input--type-required">
-                        <label for="cfg-it-teaser{{ $index+1 }}-headline" class="m2-input__label">${$t( 'Headline' )}:</label>
-                        <input type="text" v-model="configuration.items[$index].headline" id="cfg-it-teaser{{ $index+1 }}-headline" class="m2-input__input" @change="onChange">
-                    </div>
-                    <div class="m2-input m2-input--type-required">
-                        <label for="cfg-it-teaser{{ $index+1 }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
-                        <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-it-teaser{{ $index+1 }}-paragraph" class="m2-input__textarea m2-input__textarea--look-thin" @change="onChange" placeholder="(${$t( 'max 200 characters' )})" maxlength="200"></textarea>
-                    </div>
-                    <div class="m2-input">
-                        <label for="cfg-it-teaser{{ $index+1 }}-cta-label" class="m2-input__label">${$t( 'CTA label' )}:</label>
-                        <input type="text" v-model="configuration.items[$index].ctaLabel" id="cfg-it-teaser{{ $index+1 }}-cta-label" class="m2-input__input" @change="onChange">
-                    </div>
-                    <div class="m2-input">
-                        <div class="m2c-image-teaser-configurator__cta-actions">
-                            <label class="m2-input__label">${$t( 'CTA target link' )}:</label>
-                            <template v-if="item.ctaTarget">
-                                <a href="#" @click="openCtaTargetModal( $index )">${$t( 'Edit' )}</a>
+                <template v-for="item in configuration.items">
+                    <div class="m2c-image-teaser-configurator__teaser-item" id="m2c-image-teaser-item-{{ $index }}">
+                        <div class="m2c-image-teaser-configurator__toolbar">
+                            <span class="m2c-image-teaser-configurator__teaser-item-title">
+                                ${$t( 'Banner' )} {{ $index+1 }}/{{ configuration.items.length }}
+                            </span>
+                            <template v-if="configuration.items[$index].image">
+                                <a href="#" href="#" @click="getImageUploader( $index )">${$t( 'Change image' )}</a>
                             </template>
                             <template v-else>
-                                <a href="#" @click="openCtaTargetModal( $index )">${$t( 'Add' )}</a>
+                                <a href="#" href="#" @click="getImageUploader( $index )">${$t( 'Upload image' )}</a>
                             </template>
                         </div>
-                        <input type="text" class="m2-input__input m2-input--type-readonly | m2c-image-teaser-configurator__cta-target-link" readonly v-model="configuration.items[$index].ctaTarget" id="ctatarget-output-{{ $index }}">
+                        <div class="m2c-image-teaser-configurator__image-holder-outer">
+                            <div class="m2c-image-teaser-configurator__image-holder-inner">
+                                <img :src="configuration.items[$index].image" class="m2c-image-teaser-configurator__image" v-show="configuration.items[$index].image">
+                                <template v-if="isPossibleToDelete( $index )">
+                                    <button class="action-button action-button--look_default action-button--type_icon | m2c-image-teaser-configurator__delete-button" @click="deleteTeaserItem( $index )">
+                                        <svg class="action-button__icon action-button__icon--size_300">
+                                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }"></use>
+                                        </svg>
+                                        ${$t( 'Delete banner' )}
+                                    </button>
+                                </template>
+                                <input type="hidden" class="m2c-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" id="img-{{$index}}"> 
+                            </div>
+                        </div>
+                        <div class="m2-input">
+                            <label for="cfg-it-teaser{{ $index+1 }}-headline" class="m2-input__label">${$t( 'Headline' )}:</label>
+                            <input type="text" v-model="configuration.items[$index].headline" id="cfg-it-teaser{{ $index+1 }}-headline" class="m2-input__input" @change="onChange">
+                        </div>
+                        <div class="m2-input">
+                            <label for="cfg-it-teaser{{ $index+1 }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
+                            <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-it-teaser{{ $index+1 }}-paragraph" class="m2-input__textarea m2-input__textarea--look-thin" @change="onChange" placeholder="(${$t( 'max 200 characters' )})" maxlength="200"></textarea>
+                        </div>
+                        <div class="m2-input">
+                            <label for="cfg-it-teaser{{ $index+1 }}-cta-label" class="m2-input__label">${$t( 'CTA label' )}:</label>
+                            <input type="text" v-model="configuration.items[$index].ctaLabel" id="cfg-it-teaser{{ $index+1 }}-cta-label" class="m2-input__input" @change="onChange">
+                        </div>
+                        <div class="m2-input">
+                            <div class="m2c-image-teaser-configurator__cta-actions">
+                                <label class="m2-input__label">${$t( 'CTA target link' )}:</label>
+                                <template v-if="item.ctaTarget">
+                                    <a href="#" @click="openCtaTargetModal( $index )">${$t( 'Edit' )}</a>
+                                </template>
+                                <template v-else>
+                                    <a href="#" @click="openCtaTargetModal( $index )">${$t( 'Add' )}</a>
+                                </template>
+                            </div>
+                            <input type="text" class="m2-input__input m2-input--type-readonly | m2c-image-teaser-configurator__cta-target-link" readonly v-model="configuration.items[$index].ctaTarget" id="ctatarget-output-{{ $index }}">
+                        </div>
                     </div>
-                </div>
+                </template>
             </div>
         </section>
     </form>`,
     props: {
-        /* Configuration of image teaser */
+        /*
+         * Single's component configuration 
+         */
         configuration: {
             type: Object,
             default(): Object {
@@ -154,11 +158,9 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
          */
         onImageUploaded( input: any ): void {
             const itemIndex: any = input.id.substr( input.id.length - 1 );
+            const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
 
-            const base64: string = input.value.substring( input.value.lastIndexOf( '___directive/' ) + 13, input.value.lastIndexOf( ',/' ) - 1
-            );
-
-            this.configuration.items[ itemIndex ].decodedImage = atob( base64 );
+            this.configuration.items[ itemIndex ].decodedImage = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
             this.updateConfig();
             this.createTeaserItem();
         },
@@ -166,7 +168,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
         /* Creates another teaser item using teaserItemDataPattern */
         createTeaserItem(): void {
             /* If image of last array item in this.configuration.items is not empty, add another teaser item */
-            if ( this.configuration.items.slice( -1 )[ 0 ].image !== '' ) {
+            if ( this.configuration.items && this.configuration.items.slice( -1 )[ 0 ].image !== '' ) {
                 this.configuration.items.push( JSON.parse( JSON.stringify( teaserItemDataPattern ) ) );
             }
         },
@@ -229,7 +231,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
          */
         isPossibleToDelete( index: number ): Boolean {
             if ( ( index !== 0 || this.configuration.items.length > 1 ) && this.configuration.items[ index ].image !== '' ) {
-                    return true;
+                return true;
             }
 
             return false;

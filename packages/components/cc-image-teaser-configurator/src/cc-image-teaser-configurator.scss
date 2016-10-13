@@ -16,7 +16,7 @@ $namespace: 'cc-' !default;
         overflow: hidden;
     }
 
-    &__teaser-unit {
+    &__teaser-item {
         width: calc( 100% / 3 );
         min-width: 250px;
         margin: 0 0 10px;
@@ -54,7 +54,7 @@ $namespace: 'cc-' !default;
         justify-content: space-between;
     }
 
-    &__teaser-unit-title {
+    &__teaser-item-title {
         margin: 0 0 .39rem;
         padding-right: 10px;
         font-weight: 600;

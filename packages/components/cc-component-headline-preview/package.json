@@ -1,0 +1,8 @@
+{
+    "name": "cc-component-headline-preview",
+    "version": "0.0.1",
+    "description": "Preview of headline component for cc-layout-builder",
+    "main": "src/cc-component-headline-preview.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
