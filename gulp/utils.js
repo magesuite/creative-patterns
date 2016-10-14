@@ -2,7 +2,7 @@ import glob from 'glob';
 import path from 'path';
 
 /**
- * Converts space separated string to camelCase format.
+ * Converts dash separated string to camelCase format.
  * @param  {string} string Normal space separated string to convert.
  * @return {string}        String converted to camelCase.
  */
@@ -10,6 +10,15 @@ export function camelCase( string ) {
     return string.toLowerCase().replace( /-(.)/g, ( match, firstLetter ) =>
         firstLetter.toUpperCase()
     );
+}
+
+/**
+ * Converts space separated string to dash-case format.
+ * @param  {string} string Normal space separated string to convert.
+ * @return {string}        String converted to camelCase.
+ */
+export function dashCase( string ) {
+    return string.toLowerCase().replace( /\s+/g, '-' );
 }
 
 /**

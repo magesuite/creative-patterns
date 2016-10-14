@@ -1,0 +1,1 @@
+{"version":3,"file":null,"sources":["../../../src/tests/unit/m2c-image-teaser-configurator.ts"],"sourcesContent":["describe( 'm2c-image-teaser-configurator', function(): void {\n    xit( 'should have tests either implemented or removed if it has no scripts.');\n} );\n"],"names":[],"mappings":";;;AAAA,QAAQ,CAAE,+BAA+B,EAAE;IACvC,GAAG,CAAE,uEAAuE,CAAC,CAAC;CACjF,CAAE,CAAC;;"}
