@@ -10,6 +10,7 @@ import uiRegistry from 'uiRegistry';
 
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
 import m2cImageTeaserConfigurator from '../../../customizations/m2c-image-teaser-configurator/src/m2c-image-teaser-configurator';
+// import m2cProductCarouselConfigurator from '../../../customizations/m2c-product-carousel-configurator/src/m2c-product-carousel-configurator';
 import m2cStaticBlockConfigurator from '../../../customizations/m2c-static-block-configurator/src/m2c-static-block-configurator';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
 import { IComponentInformation, layoutBuilder } from '../../cc-layout-builder/src/cc-layout-builder';
@@ -84,6 +85,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'm2c-headline-configurator': m2cHeadlineConfigurator,
         'm2c-static-block-configurator': m2cStaticBlockConfigurator,
         'm2c-image-teaser-configurator': m2cImageTeaserConfigurator,
+        // 'm2c-product-carousel-configurator': m2cProductCarouselConfigurator,
     },
     props: {
         configuration: {
@@ -188,7 +190,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             configuratorModalOptions.opened = function(): void {
                 // Get twig component
                 component.$http.get( component.configuratorEndpoint + componentType ).then( ( response: any ): void => {
-                    component.$els.configuratorModal.innerHTML = response.body;
+                    $( component.$els.configuratorModal ).html( response.body );
                     // compile fetched component
                     component.cleanupConfiguratorModal = component.$compile( component.$els.configuratorModal );
                 } );
@@ -199,8 +201,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 if ( typeof component.cleanupConfiguratorModal === 'function' ) {
                     component.cleanupConfiguratorModal();
                 }
-                component.$els.configuratorModal.innerHTML = '';
-                component.currentComponentConfiguration = null;
+                $configuratorModal.modal[ 0 ].parentNode.removeChild( $configuratorModal.modal[ 0 ] );
             };
             // Create & Show $configuratorModal
             $configuratorModal = modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
@@ -220,7 +221,6 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 component.$broadcast( 'm2cConfigurationSaved' );
 
                 setComponentInformation( {
-                    name: currentComponentConfiguration.name,
                     type: currentComponentConfiguration.type,
                     id: currentComponentConfiguration.id,
                     data: component._currentConfiguratorData,
@@ -248,7 +248,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 if ( typeof component.cleanupConfiguratorModal === 'function' ) {
                     component.cleanupConfiguratorModal();
                 }
-                component.$els.configuratorModal.innerHTML = '';
+                $configuratorModal.modal[ 0 ].parentNode.removeChild( $configuratorModal.modal[ 0 ] );
                 component.currentComponentConfiguration = null;
             };
             // Create & Show $configuratorModal

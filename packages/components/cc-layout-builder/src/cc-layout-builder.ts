@@ -1,4 +1,9 @@
 import actionButton from '../../action-button/src/action-button';
+
+import ccComponentHeadlinePreview from '../../cc-component-headline-preview/src/cc-component-headline-preview';
+import ccComponentImageTeaserPreview from '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
+import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
+
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
 import componentAdder from '../../cc-component-adder/src/cc-component-adder';
 import componentPlaceholder from '../../cc-component-placeholder/src/cc-component-placeholder';
@@ -31,6 +36,9 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
         'cc-component-placeholder': componentPlaceholder,
+        'cc-component-headline-preview': ccComponentHeadlinePreview,
+        'cc-component-image-teaser-preview': ccComponentImageTeaserPreview,
+        'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
     },
     props: {
         /**
@@ -210,6 +218,10 @@ const layoutBuilder: vuejs.ComponentOption = {
          */
         isLastComponent( index: number ): boolean {
             return index === this.components.length - 1;
+        },
+
+        transformComponentTypeToText( componentType: string ): string {
+            return componentType.replace( '-', ' ' );
         },
     },
 };

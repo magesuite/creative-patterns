@@ -1,0 +1,14 @@
+// cc-component-static-cms-block-preview
+// Preview of CMS block component for layout builder
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cc-component-static-cms-block-preview {
+    text-align: center;
+
+    &__block-id {
+        margin: 1em 0 0;
+        color: #e1e1e1 !important;
+        font-weight: 300 !important;
+    }
+}

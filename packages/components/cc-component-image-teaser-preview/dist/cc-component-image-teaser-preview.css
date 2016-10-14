@@ -1,0 +1,43 @@
+.cc-component-image-teaser-preview {
+  overflow: hidden; }
+  .cc-component-image-teaser-preview__items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    overflow-x: auto; }
+  .cc-component-image-teaser-preview__item-wrapper-outer {
+    width: calc( 100% / 3);
+    min-width: 250px; }
+  .cc-component-image-teaser-preview__item-wrapper-inner {
+    position: relative;
+    margin: 0 10px 0 0;
+    padding: 10px;
+    border: 1px dashed #bfbfbf; }
+    .cc-component-image-teaser-preview__item-wrapper-inner:before {
+      content: '';
+      display: block;
+      padding-top: 56.25%; }
+    .cc-component-image-teaser-preview__item-wrapper-outer:last-child .cc-component-image-teaser-preview__item-wrapper-inner {
+      margin-right: 0; }
+  .cc-component-image-teaser-preview__item-image {
+    position: absolute;
+    width: calc( 100% - 20px);
+    max-height: calc( 100% - 20px);
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px; }
+  .cc-component-image-teaser-preview__item-index {
+    position: absolute;
+    top: 10px;
+    width: calc( 100% - 20px);
+    text-align: center;
+    color: #000 !important;
+    padding: .5em 0; }
+
+/*# sourceMappingURL=cc-component-image-teaser-preview.css.map */

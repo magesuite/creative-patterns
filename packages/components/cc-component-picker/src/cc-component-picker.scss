@@ -4,8 +4,15 @@
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
 .cc-component-picker {
+    $root: &;
+
+    overflow: hidden;
+
     &__list {
-        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        width: calc( 100% + 20px );
+        margin: 0 -10px;
         padding: 0;
         list-style: none;
 
@@ -20,23 +27,68 @@
     }
 
     &__list-item {
-        float: left;
-        width: 300px;
+        width: calc( ( 100% / 3 ) - 20px );
+        min-width: 250px;
         margin: 10px;
     }
 
     &__component-link {
         display: block;
+
+        &:hover {
+            text-decoration: none;
+            color: #007bdb;
+
+            #{$root}__component-figure {
+                border-color: #007bdb;
+            }
+        }
     }
 
     &__component-figure {
-        margin: 0;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin: 0 0 1.15rem;
+        padding: 7% 0;
+        border: 1px dashed #cac3b4;
+        transition: border-color .25s linear;
+
+        &:hover {
+            text-decoration: none;
+            border-color: #007bdb;
+            color: #007bdb;
+        }
     }
 
-    &__component-cover {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        box-shadow: 0 0 15px -5px rgba( 0, 0, 0, .3 );
+    &__component-icon {
+        width: auto;
+        height: auto;
+        max-width: 80%;
+        max-height: 130px;
+    }
+
+    &__component-name {
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: #303030;
+        font-size: 1.43rem;
+        font-weight: 600;
+    }
+
+    &__component-description {
+        margin: 1rem 0;
+    }
+
+    @media screen and ( max-width: 990px ) {
+        &__list-item {
+            width: calc( ( 100% / 2 ) - 20px );
+        }
+    }
+    @media screen and ( min-width: 1400px ) {
+        &__list-item {
+            width: calc( ( 100% / 4 ) - 20px );
+        }
     }
 }

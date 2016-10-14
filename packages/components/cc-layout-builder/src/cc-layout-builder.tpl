@@ -37,7 +37,14 @@
                 </cc-component-actions>
             </div>
             <div class="cc-layout-builder__component-wrapper">
-                <cc-component-placeholder>{{ component.id }}</cc-component-placeholder>
+                <cc-component-placeholder>
+                    <h3 class="cc-component-placeholder__headline" v-text="transformComponentTypeToText( component.type )"></h3>
+                    <div class="cc-component-placeholder__component">
+
+                        <component :is="'cc-component-' + component.type + '-preview'" :configuration="component.data" :index="$index"></component>
+
+                    </div>
+                </cc-component-placeholder>
             </div>
         </div>
         <cc-component-adder v-if="components.length">
