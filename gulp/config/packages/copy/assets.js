@@ -6,7 +6,8 @@ import path from 'path';
 export default {
     watch: [
         // Images
-        'packages/*/*/src/**/*.{gif,png,jpg,webp}',
+        'packages/*/*/src/**/*.{gif,png,jpg,webp,svg}',
+        '!packages/*/*/src/sprites/**/*.{png,svg}',
         // Fonts
         'packages/*/*/src/**/*.{ttf,woff,woff2,eot}',
         // JSON
@@ -24,7 +25,8 @@ export default {
         return {
             src: [
                 // Images
-                path.join( packageDir, 'src', '**/*.{gif,png,jpg,webp}' ),
+                path.join( packageDir, 'src', '**/*.{gif,png,jpg,webp,svg}' ),
+                '!' + path.join( packageDir, 'src/sprites', '**/*.{png,svg}' ),
                 // Fonts
                 path.join( packageDir, 'src', '**/*.{ttf,woff,woff2,eot}' ),
                 // JSON

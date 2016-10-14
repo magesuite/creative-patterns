@@ -81,7 +81,8 @@
   -webkit-box-align: start;
   -ms-flex-align: start;
   -webkit-align-items: flex-start;
-  align-items: flex-start;
+  -ms-grid-row-align: flex-start;
+      align-items: flex-start;
   -webkit-transition-property: -webkit-transform, height;
   -webkit-transition-property: height, -webkit-transform;
   transition-property: height, -webkit-transform;

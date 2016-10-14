@@ -1,0 +1,1 @@
+{"version":3,"file":null,"sources":["../../../src/tests/unit/cc-image-teaser-configurator.ts"],"sourcesContent":["describe( 'cc-image-teaser-configurator', function(): void {\n    xit( 'should have tests either implemented or removed if it has no scripts.');\n} );\n"],"names":[],"mappings":";;;AAAA,QAAQ,CAAE,8BAA8B,EAAE;IACtC,GAAG,CAAE,uEAAuE,CAAC,CAAC;CACjF,CAAE,CAAC;;"}

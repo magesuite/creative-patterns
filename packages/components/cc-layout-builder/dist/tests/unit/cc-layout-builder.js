@@ -10110,6 +10110,75 @@ var actionButton = {
 };
 
 /**
+ * Headline preview component.
+ * This component is responsible for displaying preview of headline component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentHeadlinePreview = {
+    template: "<div class=\"cc-component-headline-preview\">\n        <h1 class=\"cc-component-headline-preview__headline\">{{ configuration.title }}</h1>\n        <h2 class=\"cc-component-headline-preview__subheadline\">{{ configuration.subtitle }}</h2>\n    </div>",
+    props: {
+        /**
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+};
+
+/**
+ * Image teaser preview component.
+ * This component is responsible for displaying preview of image teaser component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentImageTeaserPreview = {
+    template: "<div class=\"cc-component-image-teaser-preview\">\n        <div class=\"cc-component-image-teaser-preview__items\">\n            <template v-for=\"item in configuration.items\">\n                <div class=\"cc-component-image-teaser-preview__item-wrapper-outer\" id=\"cc-image-teaser-item-{{ $index }}\" v-show=\"configuration.items[$index].image\">\n                    <div class=\"cc-component-image-teaser-preview__item-wrapper-inner\">\n                        <div class=\"cc-component-image-teaser-preview__item\">\n                            <img :src=\"configuration.items[$index].image\" class=\"cc-component-image-teaser-preview__item-image\">\n                            <h3 class=\"cc-component-image-teaser-preview__item-index\">Banner {{ $index+1 }}/{{ configuration.items.length }}</h3>\n                        </div>\n                    </div>\n                </div>\n            </template>\n        </div>\n    </div>",
+    props: {
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+};
+
+/**
+ * CMS block preview component.
+ * This component is responsible for displaying preview of CMS block component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentStaticCmsBlockPreview = {
+    template: "<div class=\"cc-component-static-cms-block-preview\">\n        <h2 class=\"cc-component-static-cms-block-preview__block-id\">CMS Block ID: {{ configuration.identifier }}</h2>\n    </div>",
+    props: {
+        /**
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+};
+
+/**
  * Component actions component.
  * This component is responsible for displaying and handling user interactions of
  * side utility navigation for each component that supports:
@@ -10140,7 +10209,7 @@ var componentActions = {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var componentAdder = {
-    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-create\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
+    template: "<section class=\"cc-component-adder | {{ class }}\">\n        <div class=\"cc-component-adder__button-wrapper\" @click=\"onCreateComponent\">\n            <slot></slot>\n        </div>\n    </section>",
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -10181,7 +10250,7 @@ var componentPlaceholder = {
     template: "<div class=\"cc-component-placeholder\">\n        <div class=\"cc-component-placeholder__content\">\n            <slot></slot>\n        </div>\n    </div>",
 };
 
-var template = "<div class=\"cc-layout-builder | {{ class }}\"> <cc-component-adder> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use> </svg> </button> </cc-component-adder> <template v-for=\"component in components\"> <div class=\"cc-layout-builder__component\"> <div class=\"cc-layout-builder__component-actions\"> <cc-component-actions> <template slot=\"cc-component-actions__top\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }\"></use> </svg> </button> </template> <template slot=\"cc-component-actions__bottom\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\"> <svg class=\"action-button__icon\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_settings' }\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\"> <svg class=\"action-button__icon\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use> </svg> </button> </template> </cc-component-actions> </div> <div class=\"cc-layout-builder__component-wrapper\"> <cc-component-placeholder>{{ component.id }}</cc-component-placeholder> </div> </div> <cc-component-adder v-if=\"components.length\"> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use> </svg> </button> </cc-component-adder> </template> </div> ";
+var template = "<div class=\"cc-layout-builder | {{ class }}\"> <cc-component-adder> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use> </svg> </button> </cc-component-adder> <template v-for=\"component in components\"> <div class=\"cc-layout-builder__component\"> <div class=\"cc-layout-builder__component-actions\"> <cc-component-actions> <template slot=\"cc-component-actions__top\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\"> <svg class=\"action-button__icon action-button__icon--size_100\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }\"></use> </svg> </button> </template> <template slot=\"cc-component-actions__bottom\"> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\"> <svg class=\"action-button__icon\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_settings' }\"></use> </svg> </button> <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\"> <svg class=\"action-button__icon\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use> </svg> </button> </template> </cc-component-actions> </div> <div class=\"cc-layout-builder__component-wrapper\"> <cc-component-placeholder> <h3 class=\"cc-component-placeholder__headline\" v-text=\"transformComponentTypeToText( component.type )\"></h3> <div class=\"cc-component-placeholder__component\"> <component :is=\"'cc-component-' + component.type + '-preview'\" :configuration=\"component.data\" :index=\"$index\"></component> </div> </cc-component-placeholder> </div> </div> <cc-component-adder v-if=\"components.length\"> <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\"> <svg class=\"action-button__icon action-button__icon--size_300\"> <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use> </svg> </button> </cc-component-adder> </template> </div> ";
 
 /**
  * Layout builder component.
@@ -10199,6 +10268,9 @@ var layoutBuilder = {
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
         'cc-component-placeholder': componentPlaceholder,
+        'cc-component-headline-preview': ccComponentHeadlinePreview,
+        'cc-component-image-teaser-preview': ccComponentImageTeaserPreview,
+        'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
     },
     props: {
         /**
@@ -10331,6 +10403,7 @@ var layoutBuilder = {
                 var previousComponent = this.components[index - 1];
                 this.components.$set(index - 1, this.components[index]);
                 this.components.$set(index, previousComponent);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**
@@ -10342,6 +10415,7 @@ var layoutBuilder = {
                 var previousComponent = this.components[index + 1];
                 this.components.$set(index + 1, this.components[index]);
                 this.components.$set(index, previousComponent);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**
@@ -10351,6 +10425,7 @@ var layoutBuilder = {
         deleteComponent: function (index) {
             if (confirm("Are you sure you want to remove this component?")) {
                 this.components.splice(index, 1);
+                this.$dispatch('cc-layout-builder__update');
             }
         },
         /**
@@ -10368,6 +10443,9 @@ var layoutBuilder = {
          */
         isLastComponent: function (index) {
             return index === this.components.length - 1;
+        },
+        transformComponentTypeToText: function (componentType) {
+            return componentType.replace('-', ' ');
         },
     },
 };
