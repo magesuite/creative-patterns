@@ -1,4 +1,8 @@
-/*eslint-env node */
+/* eslint-env node */
+/* eslint no-var: 0 */
+
+var environment = require( './gulp/environment' ).default;
+
 // Karma configuration
 // Generated on Tue Aug 02 2016 10:55:56 GMT+0200 (CEST)
 module.exports = function( config ) {
@@ -17,11 +21,13 @@ module.exports = function( config ) {
         plugins: [
             'karma-spec-reporter',
             'karma-firefox-launcher',
+            'karma-phantomjs-launcher',
             'karma-jasmine',
         ],
 
         // list of files / patterns to load in the browser
         files: [
+            'node_modules/babel-polyfill/dist/polyfill.js',
             'node_modules/jquery/dist/jquery.js',
             'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
             'packages/*/*/dist/tests/unit/*.js',
@@ -67,19 +73,16 @@ module.exports = function( config ) {
 
 
         // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: true,
+        autoWatch: environment.watch,
 
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: [
-            'Firefox',
-        ],
-
+        browsers: environment.ci ? [ 'PhantomJS' ] : [ 'Firefox' ],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false,
+        singleRun: !environment.watch,
 
         // Concurrency level
         // how many browser should be started simultaneous

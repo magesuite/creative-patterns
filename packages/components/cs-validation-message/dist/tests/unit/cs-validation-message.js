@@ -11115,11 +11115,11 @@ describe('validation-message component', function () {
         var types = new Map();
         types.set('positive', 'className');
         settings = {
-            types,
+            types: types,
         };
         var $element = jquery(validationMsgSelector);
         $element.addClass('className');
-        validationMessageComponent = new ValidationMessage($element, { types });
+        validationMessageComponent = new ValidationMessage($element, { types: types });
         expect(typeof validationMessageComponent.getType()).toBe('string');
     });
     // Behaviour
@@ -11137,10 +11137,10 @@ describe('validation-message component', function () {
         var types = new Map();
         types.set('positive', 'className');
         settings = {
-            types,
+            types: types,
         };
         var $element = jquery(validationMsgSelector);
-        validationMessageComponent = new ValidationMessage($element, { types });
+        validationMessageComponent = new ValidationMessage($element, { types: types });
         validationMessageComponent.setType('positive');
         expect($element.hasClass('className')).toBeTruthy();
     });
@@ -11148,10 +11148,10 @@ describe('validation-message component', function () {
         var types = new Map();
         types.set('positive', 'className');
         settings = {
-            types,
+            types: types,
         };
         var $element = jquery(validationMsgSelector);
-        validationMessageComponent = new ValidationMessage($element, { types });
+        validationMessageComponent = new ValidationMessage($element, { types: types });
         validationMessageComponent.setType('positive');
         expect(validationMessageComponent.getType()).toEqual('positive');
     });

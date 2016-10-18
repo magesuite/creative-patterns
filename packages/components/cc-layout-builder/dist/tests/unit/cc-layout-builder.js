@@ -10423,7 +10423,7 @@ var template = "<div class=\"cc-layout-builder | {{ class }}\"> <cc-component-ad
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var layoutBuilder = {
-    template,
+    template: template,
     /**
      * Get dependencies
      */
