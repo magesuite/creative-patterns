@@ -4,14 +4,12 @@
     (global.ccHeadlineConfigurator = factory());
 }(this, (function () { 'use strict';
 
-/* tslint:disable:no-console */
 /**
- * Headline configurator component.
- * This component is responsible for displaying headlines configuration form
+ * Base configurator component.
+ * This component is responsible for providing base functionality for other configurators.
  * @type {vuejs.ComponentOption} Vue component object.
  */
-var ccHeadlineConfigurator = {
-    template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"configuration.title\" id=\"cfg-headline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"configuration.subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+var ccComponentConfigurator = {
     props: {
         /**
          * Class property support to enable BEM mixes.
@@ -22,38 +20,73 @@ var ccHeadlineConfigurator = {
         },
         /**
          * Property containing callback triggered when user saves component.
+         * For default, we are providing a dummy function so we can skip the type check.
          */
         save: {
             type: Function,
+            default: function () { return function () { return undefined; }; },
         },
         /**
          * Property containing callback triggered when configuration is changed.
+         * For default, we are providing a dummy function so we can skip the type check.
          */
         change: {
             type: Function,
+            default: function () { return function () { return undefined; }; },
         },
+        /**
+         *
+         */
+        configuration: {
+            type: String,
+            default: function () { },
+        },
+    },
+    methods: {
+        onChange: function (event) {
+            // Serialize reactive data.
+            var data = JSON.parse(JSON.stringify(this.configuration));
+            // Trigger event and callback.
+            this.$dispatch('cc-component-configurator__changed', data);
+            this.change(data);
+        },
+        onSave: function (event) {
+            // Serialize reactive data.
+            var data = JSON.parse(JSON.stringify(this.configuration));
+            // Trigger event and callback.
+            this.$dispatch('cc-component-configurator__saved', data);
+            this.save(data);
+        },
+    },
+    events: {
+        /**
+         * Listen on save event from Content Configurator component.
+         */
+        'cc-component-configurator__save': function () {
+            if (this._events['cc-component-configurator__save'].length === 1) {
+                this.onSave();
+            }
+        },
+    },
+};
+
+/**
+ * Headline configurator component.
+ * This component is responsible for displaying headlines configuration form
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccHeadlineConfigurator = {
+    mixins: [
+        ccComponentConfigurator,
+    ],
+    template: "<form class=\"cc-headline-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-headline\" class=\"cs-input__label\">Headline:</label>\n            <input type=\"text\" v-model=\"configuration.title\" id=\"cfg-headline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-subheadline\" class=\"cs-input__label\">Subheadline:</label>\n            <input type=\"text\" v-model=\"configuration.subtitle\" id=\"cfg-subheadline\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    props: {
         configuration: {
             type: Object,
             default: {
                 title: '',
                 subtitle: '',
             },
-        },
-    },
-    methods: {
-        onChange: function (event) {
-            var data = JSON.parse(JSON.stringify(this.configuration));
-            this.$dispatch('cc-headline-configurator__change', data);
-            if (typeof this.change === 'function') {
-                this.change(data);
-            }
-        },
-        onSave: function (event) {
-            var data = JSON.parse(JSON.stringify(this.configuration));
-            this.$dispatch('cc-headline-configurator__save', data);
-            if (typeof this.save === 'function') {
-                this.save(data);
-            }
         },
     },
 };

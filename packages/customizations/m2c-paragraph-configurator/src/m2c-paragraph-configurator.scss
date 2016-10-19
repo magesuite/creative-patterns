@@ -1,0 +1,12 @@
+// m2c-paragraph-configurator
+// M2C implementation of cc-paragraph-configurator
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+$namespace: 'm2c-';
+@import '../../../components/cc-paragraph-configurator/src/cc-paragraph-configurator';
+
+.#{$namespace}paragraph-configurator {
+    //
+}

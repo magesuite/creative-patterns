@@ -4,6 +4,9 @@ import ccHeadlineConfigurator from '../../../components/cc-headline-configurator
 // TODO: Use m2-input component the Vue way.
 
 const m2cHeadlineConfigurator: vuejs.ComponentOption = {
+    mixins: [
+        ccHeadlineConfigurator,
+    ],
     template: `<form class="m2c-headline-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <div class="m2-input m2-input--type-inline">
             <label for="cfg-headline" class="m2-input__label">Headline:</label>
@@ -14,9 +17,6 @@ const m2cHeadlineConfigurator: vuejs.ComponentOption = {
             <input type="text" v-model="configuration.subtitle" id="cfg-subheadline" class="m2-input__input" @change="onChange">
         </div>
     </form>`,
-    mixins: [
-        ccHeadlineConfigurator,
-    ],
 };
 
 export default m2cHeadlineConfigurator;

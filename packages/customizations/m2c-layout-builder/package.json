@@ -1,0 +1,14 @@
+{
+  "name": "cc-layout-builder",
+  "version": "0.0.1",
+  "description": "It bootstraps layout for Creative Constructor backend",
+  "main": "src/cc-layout-builder.ts",
+  "author": "Maciej Borkowski",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/vue": "^1.0.28"
+  },
+  "dependencies": {
+    "vue": "^1.0.26"
+  }
+}

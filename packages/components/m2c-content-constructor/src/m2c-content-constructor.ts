@@ -9,11 +9,14 @@ import modal from 'Magento_Ui/js/modal/modal';
 import uiRegistry from 'uiRegistry';
 
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
+import m2cHeroCarouselConfigurator from '../../../customizations/m2c-hero-carousel-configurator/src/m2c-hero-carousel-configurator';
 import m2cImageTeaserConfigurator from '../../../customizations/m2c-image-teaser-configurator/src/m2c-image-teaser-configurator';
 // import m2cProductCarouselConfigurator from '../../../customizations/m2c-product-carousel-configurator/src/m2c-product-carousel-configurator';
+import m2cParagraphConfigurator from '../../../customizations/m2c-paragraph-configurator/src/m2c-paragraph-configurator';
 import m2cStaticBlockConfigurator from '../../../customizations/m2c-static-block-configurator/src/m2c-static-block-configurator';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
-import { IComponentInformation, layoutBuilder } from '../../cc-layout-builder/src/cc-layout-builder';
+
+import { IComponentInformation, m2cLayoutBuilder } from '../../../customizations/m2c-layout-builder/src/m2c-layout-builder';
 
 // Use Vue resource
 Vue.use( vr );
@@ -69,22 +72,24 @@ let $configuratorModal: any;
  */
 const m2cContentConstructor: vuejs.ComponentOption = {
     template: `<div class="m2c-content-constructor">
-        <cc-layout-builder
-            v-ref:layout-builder
+        <m2c-layout-builder
+            v-ref:m2c-layout-builder
             :assets-src="assetsSrc"
             :add-component="getComponentPicker"
             :edit-component="editComponent"
             :components-configuration="configuration">
-        </cc-layout-builder>
+        </m2c-layout-builder>
         <div class="m2c-content-constructor__modal m2c-content-constructor__modal--picker" v-el:picker-modal></div>
         <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal></div>
     </div>`,
     components: {
-        'cc-layout-builder': layoutBuilder,
+        'm2c-layout-builder': m2cLayoutBuilder,
         'cc-component-picker': ccComponentPicker,
         'm2c-headline-configurator': m2cHeadlineConfigurator,
         'm2c-static-block-configurator': m2cStaticBlockConfigurator,
         'm2c-image-teaser-configurator': m2cImageTeaserConfigurator,
+        'm2c-paragraph-configurator': m2cParagraphConfigurator,
+        'm2c-hero-carousel-configurator': m2cHeroCarouselConfigurator,
         // 'm2c-product-carousel-configurator': m2cProductCarouselConfigurator,
     },
     props: {
@@ -107,13 +112,19 @@ const m2cContentConstructor: vuejs.ComponentOption = {
     },
     data(): Object {
         return {
-            currentComponentConfiguration: undefined,
+            initialComponentConfiguration: undefined,
         };
     },
     ready(): void {
         this.dumpConfiguration();
-        this.isPickerLoaded = false;
-        this.cleanupConfiguratorModal = '';
+        this._isPickerLoaded = false;
+        this._cleanupConfiguratorModal = '';
+        this._configuratorSaveCallback = (): undefined => undefined;
+
+        // Initialize M2 loader for m2c modals
+        $( 'body' ).loadingPopup( {
+            timeout: false,
+        } ).trigger( 'hideLoadingPopup' );
     },
     events: {
         /**
@@ -123,14 +134,15 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'cc-layout-builder__update'(): void {
             this.dumpConfiguration();
         },
-        'cc-headline-configurator__change'( data: any ): void {
-            this._currentConfiguratorData = data;
-        },
-        'cc-static-block-configurator__change'( data: any ): void {
-            this._currentConfiguratorData = data;
-        },
-        'cc-image-teaser-configurator__change'( data: any ): void {
-            this._currentConfiguratorData = data;
+        'cc-component-configurator__saved'( data: any ): void {
+            this._configuratorSavedCallback( data );
+
+            if ( $configuratorModal && $configuratorModal.closeModal ) {
+                $configuratorModal.closeModal();
+            }
+            if ( $pickerModal && $pickerModal.closeModal ) {
+                $pickerModal.closeModal();
+            }
         },
     },
     methods: {
@@ -146,12 +158,17 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             this._addComponentInformation = addComponentInformation;
 
             pickerModalOptions.opened = function(): void {
-                if ( !component.isPickerLoaded ) {
+                if ( !component._isPickerLoaded ) {
+                    // Show ajax loader
+                    $( 'body' ).trigger( 'showLoadingPopup' );
+
                     // Get picker via AJAX
                     component.$http.get( `${component.configuratorEndpoint}picker` ).then( ( response: any ): void => {
                         component.$els.pickerModal.innerHTML = response.body;
                         component.$compile( component.$els.pickerModal );
-                        component.isPickerLoaded = true;
+                        component._isPickerLoaded = true;
+                        // Hide loader
+                        $( 'body' ).trigger( 'hideLoadingPopup' );
                     } );
                 }
             };
@@ -169,42 +186,20 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * @param {componentType} String - type of component chosen
          */
         getComponentConfigurator( componentType: string ): void {
-            const component: any = this;
-            component._currentConfiguratorData = {};
-
-            // On save component:
-            configuratorModalOptions.buttons[1].click = function (): void {
-                component.$broadcast( 'm2cConfigurationSaved' );
-
-                component._addComponentInformation( {
+            const newComponentId: string = 'component' + Math.floor( ( 1 + Math.random() ) * 0x10000 ).toString( 16 ).substring( 1 );
+            this._configuratorSavedCallback = ( componentData: any ): void => {
+                this._addComponentInformation( {
                     type: componentType,
-                    id: 'component' + Math.floor( ( 1 + Math.random() ) * 0x10000 ).toString( 16 ).substring( 1 ),
-                    data: component._currentConfiguratorData,
-                } );
-
-                this.closeModal();
-                $pickerModal.closeModal();
-            };
-
-            // Configurator modal opened callback
-            configuratorModalOptions.opened = function(): void {
-                // Get twig component
-                component.$http.get( component.configuratorEndpoint + componentType ).then( ( response: any ): void => {
-                    $( component.$els.configuratorModal ).html( response.body );
-                    // compile fetched component
-                    component.cleanupConfiguratorModal = component.$compile( component.$els.configuratorModal );
+                    id: newComponentId,
+                    data: componentData,
                 } );
             };
 
-            configuratorModalOptions.closed = function(): void {
-                // Cleanup configurator component and then remove modal
-                if ( typeof component.cleanupConfiguratorModal === 'function' ) {
-                    component.cleanupConfiguratorModal();
-                }
-                $configuratorModal.modal[ 0 ].parentNode.removeChild( $configuratorModal.modal[ 0 ] );
-            };
-            // Create & Show $configuratorModal
-            $configuratorModal = modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
+            this.initConfiguratorModal( {
+                type: componentType,
+                id: newComponentId,
+                data: undefined,
+            } );
         },
         /**
          * Callback that will be invoked when user clicks edit button.
@@ -212,53 +207,64 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          * @param  {IComponentInformation} setComponentInformation Callback that let's us add component asynchronously.
          */
         editComponent(
-            currentComponentConfiguration: IComponentInformation,
+            prevComponentData: IComponentInformation,
             setComponentInformation: ( componentInfo: IComponentInformation ) => void
         ): void {
+            this._configuratorSavedCallback = ( componentData: any ): void => {
+                setComponentInformation( {
+                    type: prevComponentData.type,
+                    id: prevComponentData.id,
+                    data: componentData,
+                } );
+            };
+
+            this.initConfiguratorModal( prevComponentData );
+        },
+
+        initConfiguratorModal( componentInformation: IComponentInformation ): void {
             const component: any = this;
+            let cleanupConfiguratorModal: Function = (): undefined => undefined;
 
             configuratorModalOptions.buttons[1].click = function (): void {
-                component.$broadcast( 'm2cConfigurationSaved' );
-
-                setComponentInformation( {
-                    type: currentComponentConfiguration.type,
-                    id: currentComponentConfiguration.id,
-                    data: component._currentConfiguratorData,
-                } );
-
-                this.closeModal();
+                component.$broadcast( 'cc-component-configurator__save' );
             };
 
             // Configurator modal opened callback
             configuratorModalOptions.opened = function(): void {
+                // Show ajax loader
+                $( 'body' ).trigger( 'showLoadingPopup' );
+
                 // Get twig component
-                component.$http.get( component.configuratorEndpoint + currentComponentConfiguration.type ).then( ( response: any ): void => {
+                component.$http.get( component.configuratorEndpoint + componentInformation.type ).then( ( response: any ): void => {
                     component.$els.configuratorModal.innerHTML = response.body;
 
                     // Set current component configuration data
-                    component.currentComponentConfiguration = currentComponentConfiguration.data;
+                    component.initialComponentConfiguration = componentInformation.data;
 
                     // compile fetched component
-                    component.cleanupConfiguratorModal = component.$compile( component.$els.configuratorModal );
+                    cleanupConfiguratorModal = component.$compile( component.$els.configuratorModal );
+
+                    // Hide loader
+                    $( 'body' ).trigger( 'hideLoadingPopup' );
                 } );
             };
 
             configuratorModalOptions.closed = function(): void {
                 // Cleanup configurator component and then remove modal
-                if ( typeof component.cleanupConfiguratorModal === 'function' ) {
-                    component.cleanupConfiguratorModal();
-                }
+                cleanupConfiguratorModal();
+                component.$els.configuratorModal.innerHTML = '';
                 $configuratorModal.modal[ 0 ].parentNode.removeChild( $configuratorModal.modal[ 0 ] );
-                component.currentComponentConfiguration = null;
+                component.initialComponentConfiguration = undefined;
             };
             // Create & Show $configuratorModal
             $configuratorModal = modal( configuratorModalOptions, $( this.$els.configuratorModal ) );
         },
+
         dumpConfiguration(): void {
             uiRegistry.get('cms_page_form.cms_page_form').source.set(
                 'data.components',
                 JSON.stringify(
-                    this.$refs.layoutBuilder.getComponentInformation()
+                    this.$refs.m2cLayoutBuilder.getComponentInformation()
                 )
             );
         },

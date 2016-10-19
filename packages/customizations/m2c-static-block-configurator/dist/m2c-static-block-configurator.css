@@ -183,6 +183,35 @@
     margin-left: 2px;
     z-index: 1; }
 
+.m2-input--type-addon {
+  position: relative; }
+  .m2-input--type-addon .m2-input__input, .m2-input--type-addon .m2-input__textarea, .m2-input--type-addon .m2-input__select {
+    max-width: 100%; }
+  .m2-input--type-addon .m2-input__addon {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 34px;
+    height: 31px;
+    border-left: 1px solid #adadad;
+    background: #e3e3e3;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
+  .m2-input--type-addon .m2-input__addon-icon {
+    width: auto;
+    height: 50%;
+    fill: #434240; }
+
 .m2-input + .m2-input {
   margin-top: 1rem; }
 

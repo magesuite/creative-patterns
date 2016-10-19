@@ -1,0 +1,12 @@
+// cc-layout-builder
+// It bootstraps layout for Creative Constructor backend
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+$namespace: 'm2c-';
+@import '../../../components/cc-layout-builder/src/cc-layout-builder';
+
+.#{$namespace}layout-builder {
+    //
+}

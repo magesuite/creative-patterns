@@ -1,0 +1,41 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ title }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../m2c-layout-builder.css">
+    </head>
+    <body>
+        <main>
+            <m2c-layout-builder class="m2c-layout-builder" assets-src="{{ asset( '' ) }}" :add-component="generateComponent" :edit-component="generateComponent">
+            </m2c-layout-builder>
+        </main>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+        <script src="../m2c-layout-builder.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'm2c-layout-builder': m2cLayoutBuilder.default
+                },
+                methods: {
+                    /**
+                     * Generate some random component data.
+                     */
+                    generateComponent( currentComponent ) {
+                        console.log( currentComponent );
+                        return {
+                            name: Date.now(),
+                            id: Math.random().toString( 36 ).replace( /[^a-z]+/g, '' ).substr( 0, 10 ),
+                            settings: {}
+                        }
+                    }
+                }
+            } );
+        </script>
+    </body>
+</html>

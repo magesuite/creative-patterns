@@ -198,7 +198,7 @@ const layoutBuilder: vuejs.ComponentOption = {
          * @param {number} index Component's index in array.
          */
         deleteComponent( index: number ): void {
-             if ( confirm( `Are you sure you want to remove this component?` ) ) {
+            if ( window.confirm( 'Are you sure you want to delete this item?' ) ) {
                 this.components.splice( index, 1 );
                 this.$dispatch( 'cc-layout-builder__update' );
             }
