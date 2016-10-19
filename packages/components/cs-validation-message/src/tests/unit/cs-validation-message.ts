@@ -48,13 +48,13 @@ describe('validation-message component', function (): void {
         types.set('positive', 'className');
 
         settings = {
-            types,
+            types: types,
         };
 
         const $element: JQuery = $(validationMsgSelector);
         $element.addClass('className');
 
-        validationMessageComponent = new ValidationMessage($element, {types});
+        validationMessageComponent = new ValidationMessage($element, {types: types});
 
         expect(typeof validationMessageComponent.getType()).toBe('string');
     });
@@ -78,12 +78,12 @@ describe('validation-message component', function (): void {
         types.set('positive', 'className');
 
         settings = {
-            types,
+            types: types,
         };
 
         const $element: JQuery = $(validationMsgSelector);
 
-        validationMessageComponent = new ValidationMessage($element, {types});
+        validationMessageComponent = new ValidationMessage($element, {types: types});
 
         validationMessageComponent.setType('positive');
         expect($element.hasClass('className')).toBeTruthy();
@@ -94,12 +94,12 @@ describe('validation-message component', function (): void {
         types.set('positive', 'className');
 
         settings = {
-            types,
+            types: types,
         };
 
         const $element: JQuery = $(validationMsgSelector);
 
-        validationMessageComponent = new ValidationMessage($element, {types});
+        validationMessageComponent = new ValidationMessage($element, {types: types});
 
         validationMessageComponent.setType('positive');
         expect(validationMessageComponent.getType()).toEqual('positive');

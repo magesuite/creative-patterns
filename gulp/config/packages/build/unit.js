@@ -61,10 +61,12 @@ export default {
                         // want to include, add it to 'skip'. Local and relative imports
                         // can be skipped by giving the full filepath. E.g.,
                         // `path.resolve('src/relative-dependency.js')`
-                        skip: [], // Default: []
+                        skip: [
+                            'jQuery',
+                        ],
                     } ),
                     replace( {
-                        'process.env.NODE_ENV': JSON.stringify( 'production' )
+                        'process.env.NODE_ENV': JSON.stringify( 'production' ),
                     } ),
                     commonjs(),
                     html( {

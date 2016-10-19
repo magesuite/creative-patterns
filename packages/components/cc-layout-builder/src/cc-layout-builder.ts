@@ -27,7 +27,7 @@ interface IComponentInformation {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 const layoutBuilder: vuejs.ComponentOption = {
-    template,
+    template: template,
     /**
      * Get dependencies
      */
