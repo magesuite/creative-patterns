@@ -15,7 +15,8 @@ import m2cImageTeaserConfigurator from '../../../customizations/m2c-image-teaser
 import m2cParagraphConfigurator from '../../../customizations/m2c-paragraph-configurator/src/m2c-paragraph-configurator';
 import m2cStaticBlockConfigurator from '../../../customizations/m2c-static-block-configurator/src/m2c-static-block-configurator';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
-import { IComponentInformation, layoutBuilder } from '../../cc-layout-builder/src/cc-layout-builder';
+
+import { IComponentInformation, m2cLayoutBuilder } from '../../../customizations/m2c-layout-builder/src/m2c-layout-builder';
 
 // Use Vue resource
 Vue.use( vr );
@@ -71,18 +72,18 @@ let $configuratorModal: any;
  */
 const m2cContentConstructor: vuejs.ComponentOption = {
     template: `<div class="m2c-content-constructor">
-        <cc-layout-builder
-            v-ref:layout-builder
+        <m2c-layout-builder
+            v-ref:m2c-layout-builder
             :assets-src="assetsSrc"
             :add-component="getComponentPicker"
             :edit-component="editComponent"
             :components-configuration="configuration">
-        </cc-layout-builder>
+        </m2c-layout-builder>
         <div class="m2c-content-constructor__modal m2c-content-constructor__modal--picker" v-el:picker-modal></div>
         <div class="m2c-content-constructor__modal m2c-content-constructor__modal--configurator" v-el:configurator-modal></div>
     </div>`,
     components: {
-        'cc-layout-builder': layoutBuilder,
+        'm2c-layout-builder': m2cLayoutBuilder,
         'cc-component-picker': ccComponentPicker,
         'm2c-headline-configurator': m2cHeadlineConfigurator,
         'm2c-static-block-configurator': m2cStaticBlockConfigurator,
@@ -263,7 +264,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             uiRegistry.get('cms_page_form.cms_page_form').source.set(
                 'data.components',
                 JSON.stringify(
-                    this.$refs.layoutBuilder.getComponentInformation()
+                    this.$refs.m2cLayoutBuilder.getComponentInformation()
                 )
             );
         },

@@ -4,10 +4,9 @@
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
 
-
 $namespace: 'm2c-';
 @import '../../../components/cc-hero-carousel-configurator/src/cc-hero-carousel-configurator';
-@import '../../../components/cc-layout-builder/src/cc-layout-builder';
+@import '../../m2c-layout-builder/src/m2c-layout-builder';
 
 .#{$namespace}hero-carousel-configurator {
     $root: &;
@@ -29,11 +28,11 @@ $namespace: 'm2c-';
     }
 
     &__item {
-        @extend .cc-layout-builder__component;
+        @extend .m2c-layout-builder__component;
     }
 
     &__item-actions {
-        @extend .cc-layout-builder__component-actions;
+        @extend .m2c-layout-builder__component-actions;
     }
 
     &__item-action-button {
@@ -41,7 +40,7 @@ $namespace: 'm2c-';
     }
 
     &__item-content {
-        @extend .cc-layout-builder__component-wrapper;
+        @extend .m2c-layout-builder__component-wrapper;
     }
 
     &__item-form-element {

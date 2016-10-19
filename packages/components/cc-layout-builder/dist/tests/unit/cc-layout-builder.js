@@ -10587,7 +10587,7 @@ var layoutBuilder = {
          * @param {number} index Component's index in array.
          */
         deleteComponent: function (index) {
-            if (confirm("Are you sure you want to remove this component?")) {
+            if (window.confirm('Are you sure you want to delete this item?')) {
                 this.components.splice(index, 1);
                 this.$dispatch('cc-layout-builder__update');
             }

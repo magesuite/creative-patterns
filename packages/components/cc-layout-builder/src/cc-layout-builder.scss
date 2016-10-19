@@ -1,3 +1,10 @@
+// cc-layout-builder
+// It bootstraps layout for Creative Constructor backend
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+$namespace: 'cc-' !default;
+
 @import '../../action-button/src/action-button';
 @import '../../cc-component-actions/src/cc-component-actions';
 @import '../../cc-component-placeholder/src/cc-component-placeholder';
@@ -6,12 +13,7 @@
 @import '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
 @import '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 
-// cc-layout-builder
-// It bootstraps layout for Creative Constructor backend
-//
-// See http://warpspire.com/kss/ for documentation guidelines.
-// Version 0.0.1
-.cc-layout-builder {
+.#{$namespace}layout-builder {
 
     &__adder {
         margin: 20px 0;

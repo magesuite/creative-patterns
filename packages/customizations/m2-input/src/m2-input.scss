@@ -3,7 +3,7 @@
  * Skin - Magento Backend
  */
 
-$namespace: 'm2-' !default;
+$namespace: 'm2-';
 @import '../../../components/cs-input/src/cs-input';
 
 .#{$namespace}input {
