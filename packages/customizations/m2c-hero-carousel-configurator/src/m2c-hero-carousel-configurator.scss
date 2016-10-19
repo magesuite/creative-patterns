@@ -1,0 +1,84 @@
+// m2c-hero-carousel-configurator
+// M2C implementation of cc-hero-carousel-configurator
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+
+$namespace: 'm2c-';
+@import '../../../components/cc-hero-carousel-configurator/src/cc-hero-carousel-configurator';
+@import '../../../components/cc-layout-builder/src/cc-layout-builder';
+
+.#{$namespace}hero-carousel-configurator {
+    $root: &;
+
+    &__widget-chooser-trigger {
+        cursor: pointer;
+        transition: background .2s linear;
+
+        &:hover {
+            background: darken( #e3e3e3, 5% );
+        }
+    }
+
+    &__toolbar {
+        margin: 10px 0;
+        height: 3rem;
+        line-height: 3rem;
+        text-align: right;
+    }
+
+    &__item {
+        @extend .cc-layout-builder__component;
+    }
+
+    &__item-actions {
+        @extend .cc-layout-builder__component-actions;
+    }
+
+    &__item-action-button {
+        font-size: 1.4rem;
+    }
+
+    &__item-content {
+        @extend .cc-layout-builder__component-wrapper;
+    }
+
+    &__item-form-element {
+        + #{$root}__item-form-element:not( .m2-input--type-checkbox ):not( .m2-input--type-radio ) {
+            margin-top: 1rem;
+        }
+    }
+
+    &__item-col-left,
+    &__item-col-right {
+        width: calc( 50% - 10px );
+    }
+
+    &__item-col-left {
+        padding: 0 10px 10px;
+        border: 1px dashed #cac3b3;
+
+        &--look-image-uploaded {
+            align-self: flex-start;
+        }
+    }
+
+    &__item-col-right {
+        margin-left: 20px;
+    }
+
+    &__item-image-wrapper {
+        height: calc( ( 100% - 3rem ) - 20px );
+        background: #f5f5f5;
+
+        #{$root}__item-col-left--look-image-uploaded & {
+            height: auto;
+        }
+    }
+
+    &__item-image {
+        display: block;
+        width: 100%;
+    }
+}

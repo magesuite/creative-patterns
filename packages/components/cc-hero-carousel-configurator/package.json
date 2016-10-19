@@ -1,0 +1,8 @@
+{
+    "name": "cc-hero-carousel-configurator",
+    "version": "0.0.1",
+    "description": "Configurator form for Hero Carousel component",
+    "main": "src/cc-hero-carousel-configurator.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

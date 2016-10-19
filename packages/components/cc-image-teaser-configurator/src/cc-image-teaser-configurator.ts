@@ -1,34 +1,13 @@
-
-/**
- * Single component information object.
- */
-interface IComponentInformation {
-    type: string;
-    /**
-     * Component ID
-     * @type {string}
-     */
-    id: string;
-    /**
-     * component data values from inputs
-     * @type {string}
-     */
-    data: Object;
-}
-
-/**
- * Components information object that should be returned by AJAX call to API.
- */
-interface IComponentsInformation {
-    components: IComponentInformation[];
-}
-
+import ccComponentConfigurator from '../../cc-component-configurator/src/cc-component-configurator';
 /**
  * Image teaser configurator component.
  * This component is responsible for displaying image teaser's configuration form
  * @type {vuejs.ComponentOption} Vue component object.
  */
 const ccImageTeaserConfigurator: vuejs.ComponentOption = {
+    mixins: [
+        ccComponentConfigurator,
+    ],
     template: `<form class="cc-image-teaser-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <section class="cc-image-teaser-configurator__section">
             <div class="cs-input cs-input--type-inline">
@@ -64,7 +43,7 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
                         </div>
                         <div class="cc-image-teaser-configurator__image-holder-outer">
                             <div class="cc-image-teaser-configurator__image-holder-inner">
-                                <input type="hidden" value="" class="cc-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" @change="onChange"> 
+                                <input type="hidden" value="" class="cc-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" @change="onChange">
                             </div>
                         </div>
                         <div class="cs-input cs-input--type-required">
@@ -94,26 +73,7 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
     </form>`,
     props: {
         /**
-         * Class property support to enable BEM mixes.
-         */
-        class: {
-            type: [ String, Object, Array ],
-            default: '',
-        },
-        /**
-         * Property containing callback triggered when user saves component.
-         */
-        save: {
-            type: Function,
-        },
-        /**
-         * Property containing callback triggered when configuration is changed.
-         */
-        change: {
-            type: Function,
-        },
-        /**
-         * Single's component configuration 
+         * Single's component configuration
          */
         configuration: {
             type: Object,
@@ -145,29 +105,6 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
                     ],
                 };
             },
-        },
-    },
-    methods: {
-        onSave( event: Event ): void {
-            const data: any = JSON.parse( JSON.stringify( this.configuration ) );
-
-            this.$dispatch( 'cc-image-teaser-configurator__save', data );
-
-            if ( typeof this.save === 'function' ) {
-                this.save( data );
-            }
-        },
-        updateConfig(): void {
-            const data: any = JSON.parse( JSON.stringify( this.configuration ) );
-
-            this.$dispatch( 'cc-image-teaser-configurator__change', data );
-
-            if ( typeof this.change === 'function' ) {
-                this.change( data );
-            }
-        },
-        onChange( event: Event ): void {
-            this.updateConfig();
         },
     },
 };

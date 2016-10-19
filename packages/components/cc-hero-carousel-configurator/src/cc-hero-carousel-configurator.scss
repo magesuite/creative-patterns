@@ -1,0 +1,17 @@
+@import '../../action-button/src/action-button';
+@import '../../cc-component-actions/src/cc-component-actions';
+@import '../../cc-component-placeholder/src/cc-component-placeholder';
+@import '../../cc-component-adder/src/cc-component-adder';
+@import '../../cs-input/src/cs-input';
+
+// cc-hero-carousel-configurator
+// Configurator form for Hero Carousel component
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+$namespace: 'cc-' !default;
+
+.#{$namespace}hero-carousel-configurator {
+
+}

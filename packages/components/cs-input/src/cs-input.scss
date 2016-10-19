@@ -217,6 +217,33 @@ $namespace: 'cs-' !default;
         }
     }
 
+    &--type-addon {
+        position: relative;
+
+        #{$root}__input {
+            max-width: 100%;
+        }
+
+        #{$root}__addon {
+            position: absolute;
+            bottom: 1px;
+            right: 1px;
+            width: 34px;
+            height: 31px;
+            border-left: 1px solid #adadad;
+            background: #e3e3e3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #{$root}__addon-icon {
+            width: auto;
+            height: 50%;
+            fill: #434240;
+        }
+    }
+
     + #{$root} {
         margin-top: 1rem;
     }

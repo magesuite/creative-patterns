@@ -10,6 +10,9 @@ import componentPlaceholder from '../../cc-component-placeholder/src/cc-componen
 
 import template from './cc-layout-builder.tpl';
 
+import $t from 'mage/translate';
+import confirm from 'Magento_Ui/js/modal/confirm';
+
 /**
  * Single component information interface.
  */
@@ -198,10 +201,16 @@ const layoutBuilder: vuejs.ComponentOption = {
          * @param {number} index Component's index in array.
          */
         deleteComponent( index: number ): void {
-             if ( confirm( `Are you sure you want to remove this component?` ) ) {
-                this.components.splice( index, 1 );
-                this.$dispatch( 'cc-layout-builder__update' );
-            }
+            const component: any = this;
+            confirm( {
+                content: $t( 'Are you sure you want to delete this item?' ),
+                actions: {
+                    confirm(): void {
+                        component.components.splice( index, 1 );
+                        component.$dispatch( 'cc-layout-builder__update' );
+                    },
+                },
+            } );
         },
         /**
          * Tells if component with given index is the first component.

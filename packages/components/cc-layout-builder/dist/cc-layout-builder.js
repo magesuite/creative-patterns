@@ -1,8 +1,11 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-    typeof define === 'function' && define.amd ? define('ccLayoutBuilder', ['exports'], factory) :
-    (factory((global.ccLayoutBuilder = global.ccLayoutBuilder || {})));
-}(this, (function (exports) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('mage/translate'), require('Magento_Ui/js/modal/confirm')) :
+    typeof define === 'function' && define.amd ? define('ccLayoutBuilder', ['exports', 'mage/translate', 'Magento_Ui/js/modal/confirm'], factory) :
+    (factory((global.ccLayoutBuilder = global.ccLayoutBuilder || {}),global.$t,global.confirm));
+}(this, (function (exports,$t,confirm) { 'use strict';
+
+$t = 'default' in $t ? $t['default'] : $t;
+confirm = 'default' in confirm ? confirm['default'] : confirm;
 
 /**
  * Action button component version.
@@ -347,10 +350,16 @@ var layoutBuilder = {
          * @param {number} index Component's index in array.
          */
         deleteComponent: function (index) {
-            if (confirm("Are you sure you want to remove this component?")) {
-                this.components.splice(index, 1);
-                this.$dispatch('cc-layout-builder__update');
-            }
+            var component = this;
+            confirm({
+                content: $t('Are you sure you want to delete this item?'),
+                actions: {
+                    confirm: function () {
+                        component.components.splice(index, 1);
+                        component.$dispatch('cc-layout-builder__update');
+                    },
+                },
+            });
         },
         /**
          * Tells if component with given index is the first component.

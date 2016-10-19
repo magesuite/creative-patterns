@@ -17,6 +17,9 @@ const teaserItemDataPattern: any = {
  * This component is responsible for managing image teasers including image upload and widget chooser
  */
 const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
+    mixins: [
+        ccImageTeaserConfigurator,
+    ],
     template: `<form class="m2c-image-teaser-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <section class="m2c-image-teaser-configurator__section">
             <div class="m2-input m2-input--type-inline">
@@ -54,7 +57,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
                                         ${$t( 'Delete banner' )}
                                     </button>
                                 </template>
-                                <input type="hidden" class="m2c-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" id="img-{{$index}}"> 
+                                <input type="hidden" class="m2c-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" id="img-{{$index}}">
                             </div>
                         </div>
                         <div class="m2-input">
@@ -88,7 +91,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
     </form>`,
     props: {
         /*
-         * Single's component configuration 
+         * Single's component configuration
          */
         configuration: {
             type: Object,
@@ -113,13 +116,17 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
         },
     },
     events: {
-        m2cConfigurationSaved(): any {
+        /**
+         * Listen on save event from Content Configurator component.
+         */
+        'cc-component-configurator__save'(): void {
             this.cleanupConfiguration();
+            this.onSave();
         },
     },
     methods: {
         /* Opens M2's built-in image manager modal
-         * Manages all images: image upload from hdd, select image that was already uploaded to server 
+         * Manages all images: image upload from hdd, select image that was already uploaded to server
          * @param index {number} - index of image teaser item
          */
         getImageUploader( index: number ): void {
@@ -161,7 +168,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
 
             this.configuration.items[ itemIndex ].decodedImage = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
-            this.updateConfig();
+            this.onChange();
             this.createTeaserItem();
         },
 
@@ -173,7 +180,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
             }
         },
 
-        /* Opens modal with M2 built-in widget chooser 
+        /* Opens modal with M2 built-in widget chooser
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
         openCtaTargetModal( index: number ): void {
@@ -198,13 +205,13 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
 
             const hideUnwantedWidgetOptions: void = function( wWidget: any ) {
                 for ( let option of wWidget.widgetEl.options ) {
-                    if ( 
-                        escape( option.value ) === 'Magento%5CCms%5CBlock%5CWidget%5CBlock' || 
-                        escape( option.value ) === 'Magento%5CCatalog%5CBlock%5CProduct%5CWidget%5CNewWidget' || 
-                        escape( option.value ) === 'Magento%5CCatalogWidget%5CBlock%5CProduct%5CProductsList' || 
-                        escape( option.value ) === 'Magento%5CSales%5CBlock%5CWidget%5CGuest%5CForm' || 
-                        escape( option.value ) === 'Magento%5CReports%5CBlock%5CProduct%5CWidget%5CCompared' || 
-                        escape( option.value ) === 'Magento%5CReports%5CBlock%5CProduct%5CWidget%5CViewed'  
+                    if (
+                        escape( option.value ) === 'Magento%5CCms%5CBlock%5CWidget%5CBlock' ||
+                        escape( option.value ) === 'Magento%5CCatalog%5CBlock%5CProduct%5CWidget%5CNewWidget' ||
+                        escape( option.value ) === 'Magento%5CCatalogWidget%5CBlock%5CProduct%5CProductsList' ||
+                        escape( option.value ) === 'Magento%5CSales%5CBlock%5CWidget%5CGuest%5CForm' ||
+                        escape( option.value ) === 'Magento%5CReports%5CBlock%5CProduct%5CWidget%5CCompared' ||
+                        escape( option.value ) === 'Magento%5CReports%5CBlock%5CProduct%5CWidget%5CViewed'
                     ) {
                         option.style.display = 'none';
                     }
@@ -212,14 +219,14 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
             };*/
         },
         /* Sets listener for widget chooser
-         * It triggers component.onChange to update component's configuration 
+         * It triggers component.onChange to update component's configuration
          * after value of item.ctaTarget is changed
          */
         widgetSetListener(): void {
             const component: any = this;
 
             $( '.m2c-image-teaser-configurator__cta-target-link' ).on( 'change', (): void => {
-                component.updateConfig();
+                component.onChange();
             } );
         },
 
@@ -237,14 +244,14 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
             return false;
         },
 
-        /* Removes teaser item after Delete button is clicked 
+        /* Removes teaser item after Delete button is clicked
          * and triggers component's onChange to update it's configuration
          * @param index {number} - index of teaser item to remove
          */
         deleteTeaserItem( index: number ): void {
             if ( confirm( $t( `Are you sure you want to remove this banner?` ) ) ) {
                 this.configuration.items.splice( index, 1 );
-                this.updateConfig();
+                this.onChange();
             }
         },
 
@@ -254,16 +261,13 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
         cleanupConfiguration(): void {
             const filteredArray: any = this.configuration.items.filter( ( item: any ): any => item.image !== '' );
             this.configuration.items = filteredArray;
-            this.updateConfig();
+            this.onChange();
         },
     },
     ready(): void {
         this.widgetSetListener();
         this.createTeaserItem();
     },
-    mixins: [
-        ccImageTeaserConfigurator,
-    ],
 };
 
 export default m2cImageTeaserConfigurator;

@@ -1,0 +1,17 @@
+@import '../../cs-input/src/cs-input';
+
+// cc-paragraph-configurator
+// Paragraph component configurator for m2c constructor
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+$namespace: 'cc-' !default;
+
+.#{$namespace}paragraph-configurator {
+    &__error {
+        margin: 0 0 3rem;
+        padding: 1.5rem;
+        border: 1px solid #c20000;
+        background-color: rgba( 255, 26, 0, .11 );
+    }
+}
