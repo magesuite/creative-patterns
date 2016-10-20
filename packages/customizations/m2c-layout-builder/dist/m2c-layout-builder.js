@@ -1,8 +1,11 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define('ccContentConstructor', factory) :
-    (global.ccContentConstructor = factory());
-}(this, (function () { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('mage/translate'), require('Magento_Ui/js/modal/confirm')) :
+    typeof define === 'function' && define.amd ? define('m2cLayoutBuilder', ['exports', 'mage/translate', 'Magento_Ui/js/modal/confirm'], factory) :
+    (factory((global.m2cLayoutBuilder = global.m2cLayoutBuilder || {}),global.$t,global.confirm));
+}(this, (function (exports,$t,confirm) { 'use strict';
+
+$t = 'default' in $t ? $t['default'] : $t;
+confirm = 'default' in confirm ? confirm['default'] : confirm;
 
 /**
  * Action button component version.
@@ -374,75 +377,39 @@ var layoutBuilder = {
     },
 };
 
-/* tslint:disable:no-console */
+var template$1 = "<div class=\"m2c-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"component in components\">\n        <div class=\"m2c-layout-builder__component\">\n            <div class=\"m2c-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_settings' }\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"m2c-layout-builder__component-wrapper\">\n                <cc-component-placeholder>\n                    <h3 class=\"cc-component-placeholder__headline\" v-text=\"transformComponentTypeToText( component.type )\"></h3>\n                    <div class=\"cc-component-placeholder__component\">\n\n                        <component :is=\"'cc-component-' + component.type + '-preview'\" :configuration=\"component.data\" :index=\"$index\"></component>\n\n                    </div>\n                </cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"components.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</div>\n";
+
 /**
- * CC Content Constructor component.
- * Dummy example on how to implement custom Content Constructor logic.
+ * Layout builder component - M2 implementation.
+ * This component is responsible for displaying and handling user interactions of
+ * entire Content Constructor
+ * @type {vuejs.ComponentOption} Vue component object.
  */
-var m2cContentConstructor = {
-    template: "<div class=\"cc-content-constructor\">\n        <cc-layout-builder\n            v-ref:layout-builder\n            :assets-src=\"assetsSrc\"\n            :add-component=\"pickRandomComponent\"\n            :edit-component=\"editRandomComponent\"\n            :components-configuration=\"configuration\">\n        </cc-layout-builder>\n    </div>",
-    components: {
-        'cc-layout-builder': layoutBuilder,
-    },
-    props: {
-        configuration: {
-            type: String,
-            default: '',
-        },
-        assetsSrc: {
-            type: String,
-            default: '',
-        },
-    },
+var m2cLayoutBuilder = {
+    template: template$1,
+    mixins: [
+        layoutBuilder,
+    ],
     methods: {
-        /**
-         * Callback that will be invoked when user clicks plus button.
-         * This method should open magento modal with component picker.
-         * @param  {IComponentInformation} addComponentInformation Callback that let's us add component asynchronously.
-         */
-        pickRandomComponent: function (addComponentInformation) {
-            this._addComponentInformation = addComponentInformation;
-            console.log('Getting component picker.');
-            var componentTypes = [
-                'headline',
-                'static-block',
-                'hero',
-            ];
-            var componentType = componentTypes[Math.floor(Math.random() * componentTypes.length)];
-            if (window.confirm("Randomly picked \"" + componentType + "\" component, ok?")) {
-                this.getRandomConfigurator(componentType);
-            }
-        },
-        getRandomConfigurator: function (componentType) {
-            console.log("Getting configurator for " + componentType + " component.");
-            var componentConfiguration = {
-                type: componentType,
-                id: 'component' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
-                data: {},
-            };
-            if (window.confirm("Do you want to add component with below configuration?\n                " + JSON.stringify(componentConfiguration, null, 2))) {
-                this._addComponentInformation(componentConfiguration);
-            }
-        },
-        /**
-         * Callback that will be invoked when user clicks edit button.
-         * This method should open magento modal with component editor.
-         * @param  {IComponentInformation} setComponentInformation Callback that let's us add component asynchronously.
-         */
-        editRandomComponent: function (currentInfo, setComponentInformation) {
-            var componentConfiguration = {
-                type: currentInfo.type,
-                id: 'component' + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1),
-                data: currentInfo.data,
-            };
-            if (window.confirm("Do you want to edit component with below configuration?\n                " + JSON.stringify(componentConfiguration, null, 2))) {
-                setComponentInformation(componentConfiguration);
-            }
+        deleteComponent: function (index) {
+            var component = this;
+            confirm({
+                content: $t('Are you sure you want to delete this item?'),
+                actions: {
+                    confirm: function () {
+                        component.components.splice(index, 1);
+                        component.$dispatch('cc-layout-builder__update');
+                    },
+                },
+            });
         },
     },
 };
 
-return m2cContentConstructor;
+exports['default'] = m2cLayoutBuilder;
+exports.m2cLayoutBuilder = m2cLayoutBuilder;
+
+Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=cc-content-constructor.js.map
+//# sourceMappingURL=m2c-layout-builder.js.map

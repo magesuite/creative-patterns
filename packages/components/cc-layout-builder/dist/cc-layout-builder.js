@@ -183,7 +183,7 @@ var template = "<div class=\"cc-layout-builder | {{ class }}\">\n    <cc-compone
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var layoutBuilder = {
-    template,
+    template: template,
     /**
      * Get dependencies
      */

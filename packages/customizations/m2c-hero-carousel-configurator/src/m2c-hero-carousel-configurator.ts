@@ -159,6 +159,8 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                     closed: true,
                 }
             );
+
+            this.imageUploadListener();
         },
 
         /* Listener for image uploader
@@ -282,7 +284,6 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         },
     },
     ready(): void {
-        this.imageUploadListener();
         this.widgetSetListener();
     },
 };
