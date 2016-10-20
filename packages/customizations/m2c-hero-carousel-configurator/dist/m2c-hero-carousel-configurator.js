@@ -277,6 +277,7 @@ var m2cHeroCarouselConfigurator = {
             MediabrowserUtility.openDialog(this.uploaderBaseUrl + "target_element_id/hero-img-" + index + "/", 'auto', 'auto', $t('Insert File...'), {
                 closed: true,
             });
+            this.imageUploadListener();
         },
         /* Listener for image uploader
          * Since Magento does not provide any callback after image has been chosen
@@ -393,7 +394,6 @@ var m2cHeroCarouselConfigurator = {
         },
     },
     ready: function () {
-        this.imageUploadListener();
         this.widgetSetListener();
     },
 };
