@@ -3,10 +3,7 @@ import sourcemaps from 'gulp-sourcemaps';
 import notifier from 'node-notifier';
 import sass from 'gulp-sass';
 import postcss from 'gulp-postcss';
-import gulpFunction from 'gulp-function';
 import merge from 'merge-stream';
-import util from 'gulp-util';
-import path from 'path';
 import browserSync from 'browser-sync';
 
 import { getPackages } from '../../../utils';
@@ -45,15 +42,8 @@ module.exports = function() {
 
     const tasks = packages.map( ( packageDir ) => {
         const packageSettings = settings.generate( packageDir );
-        const packageName = path.basename( packageDir );
 
         return this.gulp.src( packageSettings.src )
-            .pipe( gulpFunction( () => {
-                if ( util.env.verbose ) {
-                    util.log( 'Compiling', util.colors.cyan( packageName ), 'styles...' );
-                }
-                return Promise.resolve();
-            }, 'forFirst' ) )
             .pipe( sourcemaps.init() )
             .pipe( sass( packageSettings.sass )
                 .on( 'error', sass.logError )
