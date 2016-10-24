@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('mage/translate'), require('Vue')) :
     typeof define === 'function' && define.amd ? define('m2cParagraphConfigurator', ['jquery', 'mage/translate', 'Vue'], factory) :
-    (global.m2cParagraphConfigurator = factory(global.$,global.$t,global.Vue));
+    (global.m2cParagraphConfigurator = factory(global.jQuery,global.$t,global.Vue));
 }(this, (function ($,$t,Vue) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;

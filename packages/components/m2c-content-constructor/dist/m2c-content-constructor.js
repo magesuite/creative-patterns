@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('Vue'), require('VueResource'), require('mage/translate'), require('Magento_Ui/js/modal/modal'), require('uiRegistry'), require('Magento_Ui/js/modal/confirm')) :
     typeof define === 'function' && define.amd ? define('m2cContentConstructor', ['jquery', 'Vue', 'VueResource', 'mage/translate', 'Magento_Ui/js/modal/modal', 'uiRegistry', 'Magento_Ui/js/modal/confirm'], factory) :
-    (global.m2cContentConstructor = factory(global.$,global.Vue,global.vr,global.$t,global.modal,global.uiRegistry,global.confirm$1));
+    (global.m2cContentConstructor = factory(global.jQuery,global.Vue,global.vr,global.$t,global.modal,global.uiRegistry,global.confirm$1));
 }(this, (function ($,Vue,vr,$t,modal,uiRegistry,confirm$1) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
