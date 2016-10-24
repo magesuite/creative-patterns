@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('mage/translate'), require('Magento_Ui/js/modal/confirm')) :
     typeof define === 'function' && define.amd ? define('m2cHeroCarouselConfigurator', ['jquery', 'mage/translate', 'Magento_Ui/js/modal/confirm'], factory) :
-    (global.m2cHeroCarouselConfigurator = factory(global.$,global.$t,global.confirm));
+    (global.m2cHeroCarouselConfigurator = factory(global.jQuery,global.$t,global.confirm));
 }(this, (function ($,$t,confirm) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;

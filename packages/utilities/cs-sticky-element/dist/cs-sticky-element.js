@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
     typeof define === 'function' && define.amd ? define('csStickyElement', ['jquery'], factory) :
-    (global.csStickyElement = factory(global.$));
+    (global.csStickyElement = factory(global.jQuery));
 }(this, (function ($) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;

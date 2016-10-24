@@ -77,6 +77,7 @@ export default {
                 moduleId: packageNameCamelCase,
                 globals: {
                     'jQuery': 'jQuery',
+                    'jquery': 'jQuery',
                     '$': 'jQuery',
                     'Swiper': 'Swiper',
                     'Vue': 'Vue',

@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('mage/translate')) :
     typeof define === 'function' && define.amd ? define('m2cImageTeaserConfigurator', ['jquery', 'mage/translate'], factory) :
-    (global.m2cImageTeaserConfigurator = factory(global.$,global.$t));
+    (global.m2cImageTeaserConfigurator = factory(global.jQuery,global.$t));
 }(this, (function ($,$t) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
