@@ -10,6 +10,14 @@
 </head>
 <body>
 
-{% include "../cs-hero.twig" %}
+	{% include '../cs-hero.twig' with { 'slides': 8 } %}
+
+    <script src="../../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../../node_modules/swiper/dist/js/swiper.jquery.js"></script>
+    <script src="../cs-hero.js"></script>
+
+    <script>
+        csHero.init();
+    </script>
 </body>
 </html>

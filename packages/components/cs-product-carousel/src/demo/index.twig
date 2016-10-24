@@ -1,0 +1,24 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cs-product-carousel component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cs-product-carousel.css">
+    </head>
+    <body>
+        <h1>cs-product-carousel Component Demo</h1>
+
+        {% include '../cs-product-carousel.twig' with { 'productsCount': 12 } %}
+
+        <script src="../../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../../node_modules/swiper/dist/js/swiper.jquery.js"></script>
+        <script src="../cs-product-carousel.js"></script>
+
+        <script>
+            csProductCarousel.init();
+        </script>
+    </body>
+</html>
