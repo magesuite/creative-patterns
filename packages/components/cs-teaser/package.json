@@ -1,0 +1,8 @@
+{
+    "name": "cs-swiper",
+    "version": "0.0.1",
+    "description": "Base configuration for all carousels used in our projects",
+    "main": "src/cs-swiper.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
