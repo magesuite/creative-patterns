@@ -162,7 +162,7 @@ var csTeaser = function ($element, settings) {
     currentSettings.onSlideChangeStart = updatePagination;
     updatePagination();
     $(window).on('resize', updateSliderSizing);
-    $pagination.on('click', "." + paginationName + "__item", clickDotPagination);
+    $pagination.on('click', "." + paginationName + "-item", clickDotPagination);
     /**
      * Returns Swiper object.
      * @return {Swiper} Swiper object.
@@ -199,7 +199,30 @@ var init = function () {
             slidesPerView: 1,
             spaceBetween: 0,
             autoplay: '5000',
+            autoHeight: true,
             paginationBreakpoint: 1,
+            onClick: function (swiper, event) {
+                swiper.stopAutoplay();
+                swiper.wasInteracted = true;
+            },
+            onInit: function (swiper) {
+                swiper.wasInteracted = false;
+                $("." + swiper.params.bulletClass).on('click', function () {
+                    if (!swiper.wasInteracted) {
+                        swiper.startAutoplay();
+                    }
+                });
+                swiper.container.on({
+                    mouseover: function () {
+                        swiper.stopAutoplay();
+                    },
+                    mouseleave: function () {
+                        if (!swiper.wasInteracted) {
+                            swiper.startAutoplay();
+                        }
+                    },
+                });
+            },
         });
     });
 };

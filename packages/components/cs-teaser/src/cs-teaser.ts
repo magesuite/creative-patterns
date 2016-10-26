@@ -172,7 +172,7 @@ const csTeaser: any = function( $element: any, settings: any ): void {
     currentSettings.onSlideChangeStart = updatePagination;
     updatePagination();
     $( window ).on( 'resize', updateSliderSizing );
-    $pagination.on( 'click', `.${paginationName}__item`, clickDotPagination );
+    $pagination.on( 'click', `.${paginationName}-item`, clickDotPagination );
 
     /**
      * Returns Swiper object.
