@@ -3,7 +3,10 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-.cs-button {
+$namespace: 'cs-' !default;
+
+.#{$namespace}button {
+    display: inline-block;
     border: 1px solid transparent;
     background: none;
     color: inherit;
@@ -13,13 +16,17 @@
     outline-offset: 1px;
     fill: inherit;
     text-decoration: none;
+    cursor: pointer;
 
     &::-moz-focus-inner {
         border: 0;
     }
 
     &:hover {
-        cursor: pointer;
+        border: none;
+        box-shadow: none;
+        outline: none;
+        text-decoration: none;
     }
 
     &:focus {
@@ -31,11 +38,13 @@
         &_default {
             background-color: #fff;
             border-color: #ccc;
+            color: #222;
 
             &:hover,
             &:focus {
                 background-color: #e6e6e6;
                 border-color: #adadad;
+                color: #222;
             }
         }
 
@@ -49,6 +58,7 @@
             &:focus {
                 background-color: #286090;
                 border-color: #204d74;
+                color: #fff;
             }
         }
 
@@ -62,6 +72,7 @@
             &:focus {
                 background-color: #449d44;
                 border-color: #398439;
+                color: #fff;
             }
         }
 
@@ -75,6 +86,7 @@
             &:focus {
                 background-color: #31b0d5;
                 border-color: #269abc;
+                color: #fff;
             }
         }
 
@@ -88,6 +100,7 @@
             &:focus {
                 background-color: #ec971f;
                 border-color: #d58512;
+                color: #fff;
             }
         }
 
@@ -101,6 +114,7 @@
             &:focus {
                 background-color: #c9302c;
                 border-color: #ac2925;
+                color: #fff;
             }
         }
 

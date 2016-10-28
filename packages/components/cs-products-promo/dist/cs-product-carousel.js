@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jQuery'), require('Swiper')) :
-    typeof define === 'function' && define.amd ? define('csHero', ['exports', 'jQuery', 'Swiper'], factory) :
-    (factory((global.csHero = global.csHero || {}),global.jQuery,global.Swiper));
+    typeof define === 'function' && define.amd ? define('csProductCarousel', ['exports', 'jQuery', 'Swiper'], factory) :
+    (factory((global.csProductCarousel = global.csProductCarousel || {}),global.jQuery,global.Swiper));
 }(this, (function (exports,$,Swiper) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
@@ -193,36 +193,9 @@ var csTeaser = function ($element, settings) {
 
 // Initialize hero carousels
 var init = function () {
-    $('.cs-hero').each(function () {
+    $('.cs-product-carousel').each(function () {
         return new csTeaser($(this), {
-            teaserName: 'cs-hero',
-            slidesPerView: 1,
-            spaceBetween: 0,
-            autoplay: '5000',
-            autoHeight: true,
-            paginationBreakpoint: 1,
-            onClick: function (swiper, event) {
-                swiper.stopAutoplay();
-                swiper.wasInteracted = true;
-            },
-            onInit: function (swiper) {
-                swiper.wasInteracted = false;
-                $("." + swiper.params.bulletClass).on('click', function () {
-                    if (!swiper.wasInteracted) {
-                        swiper.startAutoplay();
-                    }
-                });
-                swiper.container.on({
-                    mouseover: function () {
-                        swiper.stopAutoplay();
-                    },
-                    mouseleave: function () {
-                        if (!swiper.wasInteracted) {
-                            swiper.startAutoplay();
-                        }
-                    },
-                });
-            },
+            teaserName: 'cs-product-carousel',
         });
     });
 };
@@ -232,4 +205,4 @@ exports.init = init;
 Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=cs-hero.js.map
+//# sourceMappingURL=cs-product-carousel.js.map
