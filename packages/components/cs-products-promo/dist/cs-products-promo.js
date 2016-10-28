@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jQuery'), require('Swiper')) :
-    typeof define === 'function' && define.amd ? define('csProductCarousel', ['exports', 'jQuery', 'Swiper'], factory) :
-    (factory((global.csProductCarousel = global.csProductCarousel || {}),global.jQuery,global.Swiper));
+    typeof define === 'function' && define.amd ? define('csProductsPromo', ['exports', 'jQuery', 'Swiper'], factory) :
+    (factory((global.csProductsPromo = global.csProductsPromo || {}),global.jQuery,global.Swiper));
 }(this, (function (exports,$,Swiper) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
@@ -60,8 +60,8 @@ var csTeaser = function ($element, settings) {
         slideActiveClass: teaserName + "__slide--active",
         slideVisibleClass: teaserName + "__slide--visible",
         slideDuplicateClass: teaserName + "__slide--clone",
-        slideNextClass: teaserName + "__button--next",
-        slidePrevClass: teaserName + "__button--prev",
+        slideNextClass: teaserName + "__slide--next",
+        slidePrevClass: teaserName + "__slide--prev",
         wrapperClass: teaserName + "__slides",
         nextButton: $element.find(teaserClass + "__nav--next")[0],
         prevButton: $element.find(teaserClass + "__nav--prev")[0],
@@ -193,9 +193,9 @@ var csTeaser = function ($element, settings) {
 
 // Initialize hero carousels
 var init = function () {
-    $('.cs-product-carousel').each(function () {
+    $('.cs-products-promo').each(function () {
         return new csTeaser($(this), {
-            teaserName: 'cs-product-carousel',
+            teaserName: 'cs-products-promo',
         });
     });
 };
@@ -205,4 +205,4 @@ exports.init = init;
 Object.defineProperty(exports, '__esModule', { value: true });
 
 })));
-//# sourceMappingURL=cs-product-carousel.js.map
+//# sourceMappingURL=cs-products-promo.js.map

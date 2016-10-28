@@ -35,12 +35,12 @@
                 <div class="cc-hero-carousel__item-image"></div>
                 <div class="cc-hero-carousel__item-options">
                     <div class="cs-input">
-                        <label for="cfg-hc-item{{ $index }}-scenario" class="cs-input__label">Display scenario:</label>
-                        <select name="cfg-hc-item{{ $index }}-scenario" class="cs-input__select" id="cfg-hc-item{{ $index }}-scenario" v-model="configuration.displayScenario">
-                            <option value="left-middle">Text vertically centered on the left</option>
-                            <option value="center-middle">Text vertically centered in the middle</option>
-                            <option value="left-bottom">Text on the bottom, left corner</option>
-                            <option value="center-botom">Text on the bottom - centered</option>
+                        <label for="cfg-hc-item{{ $index }}-variant" class="cs-input__label">Display variant:</label>
+                        <select name="cfg-hc-item{{ $index }}-variant" class="cs-input__select" id="cfg-hc-item{{ $index }}-variant" v-model="configuration.displayVariant">
+                            <option value="variant-1">Text vertically centered on the left</option>
+                            <option value="variant-2">Text vertically centered in the middle</option>
+                            <option value="variant-3">Text on the bottom, left corner</option>
+                            <option value="variant-4">Text on the bottom - centered</option>
                         </select>
                     </div>
                     <div class="cs-input">
