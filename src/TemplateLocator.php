@@ -2,14 +2,14 @@
 
 namespace Creativestyle\CreativePatterns;
 
-class TemplateLocator implements Locator
+class TemplateLocator
 {
     private function getBasePath() {
         return realpath(__DIR__.'/../');
     }
 
-    public function locate($package, $componentName, $templateName) {
-        $path = self::getBasePath().'/packages/'.$package.'/'.$componentName.'/src/'.$templateName;
+    public function locate($path) {
+        $path = self::getBasePath() . '/packages/' . $path;
 
         return $path;
     }
