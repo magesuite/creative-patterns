@@ -1,0 +1,32 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cs-items-grid component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cs-items-grid.css">
+
+        <style>
+            .cs-items-grid__item {
+                background-color: #f6f6f6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>cs-items-grid Component Demo</h1>
+
+        {% include '../cs-items-grid.twig' with { 'items': {'name': 'example 1', 'name': 'example 2', 'name': 'example 3', 'name': 'example 4', 'name': 'example 5', 'name': 'example 6', 'name': 'example 7', 'name': 'example 8', 'name': 'example 9'} } %}
+
+        <br><br><br>
+
+        <h3>With <span style="color: #ff0000">--margin</span> modifier on item:</h3>
+        {% include '../cs-items-grid.twig' with { 'itemModifier': 'cs-items-grid__item--margin', 'items': {'name': 'example 1', 'name': 'example 2', 'name': 'example 3', 'name': 'example 4', 'name': 'example 5', 'name': 'example 6', 'name': 'example 7', 'name': 'example 8', 'name': 'example 9'} } %}
+
+        <br><br><br>
+
+        <h3>With <span style="color: #ff0000">--padding</span> modifier on item:</h3>
+        {% include '../cs-items-grid.twig' with { 'itemModifier': 'cs-items-grid__item--padding', 'items': {'name': 'example 1', 'name': 'example 2', 'name': 'example 3', 'name': 'example 4', 'name': 'example 5', 'name': 'example 6', 'name': 'example 7', 'name': 'example 8', 'name': 'example 9'} } %}
+    </body>
+</html>
