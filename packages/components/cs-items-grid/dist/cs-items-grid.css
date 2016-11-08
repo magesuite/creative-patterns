@@ -1,0 +1,23 @@
+.cs-items-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  width: 100%; }
+  .cs-items-grid__item {
+    width: 25%;
+    margin-bottom: 1em;
+    box-sizing: border-box; }
+    .cs-items-grid__item--margin {
+      width: calc( 25% - 2em);
+      margin: 1em; }
+    .cs-items-grid__item--padding {
+      padding: 1em; }
+
+/*# sourceMappingURL=cs-items-grid.css.map */
