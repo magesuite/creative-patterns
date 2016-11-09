@@ -598,6 +598,8 @@
   .m2-input--type-inline .m2-input__select {
     width: auto;
     min-width: 15rem; }
+    .m2-input--type-inline .m2-input__select + .m2-input__select {
+      margin-left: 1em; }
 
 .m2-input--type-textarea {
   -webkit-align-self: flex-start;
@@ -880,6 +882,8 @@
   .m2c-input--type-inline .m2c-input__select {
     width: auto;
     min-width: 15rem; }
+    .m2c-input--type-inline .m2c-input__select + .m2c-input__select {
+      margin-left: 1em; }
 
 .m2c-input--type-textarea {
   -webkit-align-self: flex-start;
@@ -1208,6 +1212,8 @@
   .m2c-input--type-inline .m2c-input__select {
     width: auto;
     min-width: 15rem; }
+    .m2c-input--type-inline .m2c-input__select + .m2c-input__select {
+      margin-left: 1em; }
 
 .m2c-input--type-textarea {
   -webkit-align-self: flex-start;
@@ -1759,6 +1765,8 @@
   .m2c-input--type-inline .m2c-input__select {
     width: auto;
     min-width: 15rem; }
+    .m2c-input--type-inline .m2c-input__select + .m2c-input__select {
+      margin-left: 1em; }
 
 .m2c-input--type-textarea {
   -webkit-align-self: flex-start;

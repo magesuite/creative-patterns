@@ -1,0 +1,11 @@
+// m2c-product-carousel-configurator
+// M2 implementation of cc-product-carousel
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+$namespace: 'm2c-';
+@import '../../../components/cc-product-carousel-configurator/src/cc-product-carousel-configurator';
+
+.#{$namespace}product-carousel-configurator {
+
+}

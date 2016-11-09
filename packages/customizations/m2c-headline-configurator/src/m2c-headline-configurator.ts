@@ -1,7 +1,4 @@
-/* tslint:disable:no-console */
-
 import ccHeadlineConfigurator from '../../../components/cc-headline-configurator/src/cc-headline-configurator';
-// TODO: Use m2-input component the Vue way.
 
 const m2cHeadlineConfigurator: vuejs.ComponentOption = {
     mixins: [

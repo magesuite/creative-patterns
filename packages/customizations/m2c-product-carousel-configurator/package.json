@@ -1,0 +1,8 @@
+{
+    "name": "m-2-c-product-carousel-configurator",
+    "version": "0.0.1",
+    "description": "M2 implementation of cc-product-carousel",
+    "main": "src/m-2-c-product-carousel-configurator.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
