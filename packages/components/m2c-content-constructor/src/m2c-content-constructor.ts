@@ -11,8 +11,8 @@ import uiRegistry from 'uiRegistry';
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
 import m2cHeroCarouselConfigurator from '../../../customizations/m2c-hero-carousel-configurator/src/m2c-hero-carousel-configurator';
 import m2cImageTeaserConfigurator from '../../../customizations/m2c-image-teaser-configurator/src/m2c-image-teaser-configurator';
-// import m2cProductCarouselConfigurator from '../../../customizations/m2c-product-carousel-configurator/src/m2c-product-carousel-configurator';
 import m2cParagraphConfigurator from '../../../customizations/m2c-paragraph-configurator/src/m2c-paragraph-configurator';
+import m2cProductCarouselConfigurator from '../../../customizations/m2c-product-carousel-configurator/src/m2c-product-carousel-configurator';
 import m2cStaticBlockConfigurator from '../../../customizations/m2c-static-block-configurator/src/m2c-static-block-configurator';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
 
@@ -90,7 +90,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'm2c-image-teaser-configurator': m2cImageTeaserConfigurator,
         'm2c-paragraph-configurator': m2cParagraphConfigurator,
         'm2c-hero-carousel-configurator': m2cHeroCarouselConfigurator,
-        // 'm2c-product-carousel-configurator': m2cProductCarouselConfigurator,
+        'm2c-product-carousel-configurator': m2cProductCarouselConfigurator,
     },
     props: {
         configuration: {

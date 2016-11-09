@@ -91,8 +91,6 @@ var ccHeadlineConfigurator = {
     },
 };
 
-/* tslint:disable:no-console */
-// TODO: Use m2-input component the Vue way.
 var m2cHeadlineConfigurator = {
     mixins: [
         ccHeadlineConfigurator,
