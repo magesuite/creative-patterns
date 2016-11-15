@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>pagination component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../pagination.css">
+    </head>
+    <body>
+        <h1>pagination Component Demo</h1>
+
+        <div class="cs-pagination">
+    <div class="cs-pagination__content">
+                    <a href="#" class="cs-pagination__prev">
+                <svg class="cs-pagination__prev-icon">
+                    <use xlink:href="/components/pagination/dist/images/sprites.svg#icon_arrow-left"></use>
+                </svg>
+            </a>
+        
+        <div class="cs-pagination__pager">
+            <span class="cs-pagination__label">Page: </span> 
+            <form action="#" class="cs-pagination__input-wrapper">
+                <div class="cs-input">
+                    <input type="number" class="cs-input__input | cs-pagination__input" value="12" maxlength="" min="1" max="19"> 
+                </div>
+            </form>
+            <span class="cs-pagination__separator">of </span> 
+            <span class="cs-pagination__total">19</span>
+        </div>
+
+                    <a href="#" class="cs-pagination__next">
+                <svg class="cs-pagination__next-icon">
+                    <use xlink:href="/components/pagination/dist/images/sprites.svg#icon_arrow-right"></use>
+                </svg>
+            </a>
+            </div>
+</div>
+
+        <script src="../pagination.js"></script>
+
+        <script>
+            pagination.init();
+        </script>
+    </body>
+</html>
