@@ -1,0 +1,50 @@
+<div class="{{ namespace }}hero {{ mix }}">
+    <div class="{{ namespace }}hero__carousel">
+        <div class="{{ namespace }}hero__wrapper">
+            <ul class="{{ namespace }}hero__slides">
+
+                {% for item in items %}
+                    {% set displayVariant = '{{ namespace }}hero__content-wrapper--' ~ item.displayVariant %}
+
+                    <li class="{{ namespace }}hero__slide">
+                        <figure class="{{ namespace }}hero__figure">
+                            <img class="{{ namespace }}hero__image" src="{{ item.image }}" alt="Hero image">
+                        </figure>
+
+                        <div class="{{ namespace }}hero__content-wrapper {{ displayVariant }}">
+                            <div class="{{ namespace }}hero__content">
+                                {% if item.headline %}
+                                    <h2 class="{{ namespace }}hero__headline">{{ item.headline }}</h2>
+                                {% endif %}
+
+                                {% if item.paragraph %}
+                                    <p class="{{ namespace }}hero__text">{{ item.paragraph|raw }}</p>
+                                {% endif %}
+
+                                {% if item.ctaTarget and item.ctaLabel %}
+                                    <div class="{{ namespace }}hero__cta">
+                                        <a href="{{ item.ctaTarget }}" class="{{ namespace }}button {{ namespace }}button--look_danger {{ namespace }}button--size_700">{{ item.ctaLabel|striptags }}</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+
+        <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--large {{ namespace }}hero__nav--prev" type="button">
+            <svg class="{{ namespace }}hero__nav-icon">
+                <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-left' ) }}"></use>
+            </svg>
+        </button>
+        <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--large {{ namespace }}hero__nav--next" type="button">
+            <svg class="{{ namespace }}hero__nav-icon">
+                <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-right' ) }}"></use>
+            </svg>
+        </button>
+    </div>
+
+    <ul class="{{ namespace }}hero__pagination"></ul>
+</div>
