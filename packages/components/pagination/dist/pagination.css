@@ -44,9 +44,6 @@
   .cs-input__input[readonly], [readonly].cs-input__textarea, [readonly].cs-input__select {
     cursor: not-allowed;
     color: #797979; }
-  .cs-input__input[type=number]::-webkit-inner-spin-button, [type=number].cs-input__textarea::-webkit-inner-spin-button, [type=number].cs-input__select::-webkit-inner-spin-button, .cs-input__input[type=number]::-webkit-outer-spin-button, [type=number].cs-input__textarea::-webkit-outer-spin-button, [type=number].cs-input__select::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0; }
   .cs-input__input::-ms-clear, .cs-input__textarea::-ms-clear, .cs-input__select::-ms-clear {
     display: none; }
 
