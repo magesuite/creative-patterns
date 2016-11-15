@@ -5,55 +5,10 @@
                 
                 {% for product in products %}
                     <li class="{{ namespace }}products-promo__slide">
-
-                        {# {{ namespace }}grid-product component starts here #}
-                        <div class="{{ namespace }}grid-product">
-                            <a class="{{ namespace }}grid-product__link" href="{{ product.url }}">
-                                <figure class="{{ namespace }}grid-product__figure">
-                                    <img class="{{ namespace }}grid-product__image" src="{{ product.image }}" alt="{{ product.name }}">
-                                </figure>
-
-                                <span class="{{ namespace }}grid-product__badge">-30%</span>
-
-                                <div class="{{ namespace }}grid-product__name">
-                                    {{ product.name }}
-                                </div>
-
-                                <div class="{{ namespace }}grid-product__description">
-                                    <div class="{{ namespace }}grid-product__price-outer">
-                                        <div class="{{ namespace }}grid-product__uvp">
-                                            <span class="{{ namespace }}grid-product__price-label">UVP</span>
-                                            <span class="{{ namespace }}grid-product__uvp-price">249,99&euro;</span>
-                                        </div>
-                                        <div class="{{ namespace }}grid-product__our-price">
-                                            <span class="{{ namespace }}grid-product__price-label">Unser Preis</span>
-                                            209,99&euro;
-                                        </div>
-                                        <div class="{{ namespace }}grid-product__price {{ namespace }}grid-product__price--prominent">
-                                            <span class="{{ namespace }}grid-product__price-label">Premium Preis</span>
-                                            <svg class="{{ namespace }}grid-product__price-icon {{ namespace }}grid-product__price-icon--star">
-                                                <use xlink:href="{{ asset( 'images/sprites.svg#icon_star' ) }}"></use>
-                                            </svg>
-                                            <svg class="{{ namespace }}grid-product__price-icon">
-                                                <use xlink:href="{{ asset( 'images/sprites.svg#icon_crown' ) }}"></use>
-                                            </svg>
-                                            {{ product.price }}
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="{{ namespace }}grid-product__addons {{ namespace }}grid-product__addons--columns">
-                                <div class="{{ namespace }}grid-product__addon">
-                                    <div class="{{ namespace }}rating" data-rating="3"></div>
-                                </div>
-                                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--look-green">
-                                    Sofort verf&uuml;gbar
-                                </div>
-                            </div>
-                        </div>
-                        {# {{ namespace }}grid-product component ends here #}
-
+                        {% include locate('components/grid-product/grid-product.twig') with { 
+                            'namespace': 'pp-', 
+                            'product': product
+                        } %}
                     </li>
                 {% endfor %}
 

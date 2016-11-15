@@ -1,3 +1,3 @@
-describe( 'cs-grid-product', function(): void {
+describe( 'cc-product-carousel', function(): void {
     xit( 'should have tests either implemented or removed if it has no scripts.');
 } );
