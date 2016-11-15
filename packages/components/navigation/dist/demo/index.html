@@ -1,0 +1,60 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Navigation component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <h1>Navigation Component Demo</h1>
+        <nav class="navigation">
+    <ul class="navigation__list">
+                    <li class=" navigation__item">
+                <a href="http://example.com" class="navigation__link">
+                    No Flyout
+                </a>
+                            </li>
+                    <li class=" navigation__item">
+                <a href="http://example.com" class="navigation__link">
+                    Flyout
+                </a>
+                                    <div class="navigation__flyout">
+                        <div class="navigation__categories">
+                                                            <div class="navigation__category">
+                                    <a href="http://example.com" class="navigation__link navigation__link--category">Lorem ipsum</a>
+                                    <ul class="navigation__subcategories">
+                                                                                    <li class="navigation__subcategory">
+                                                <a href="http://example.com" class="navigation__link navigation__link--subcategory">Lorem ipsum</a>
+                                            </li>
+                                                                                    <li class="navigation__subcategory">
+                                                <a href="http://example.com" class="navigation__link navigation__link--subcategory">Dolor sit amet</a>
+                                            </li>
+                                                                            </ul>
+                                </div>
+                                                            <div class="navigation__category">
+                                    <a href="http://example.com" class="navigation__link navigation__link--category">Dolor sit amet</a>
+                                    <ul class="navigation__subcategories">
+                                                                            </ul>
+                                </div>
+                                                    </div>
+                        <div class="navigation__banners">
+                            <div class="navigation__banner">
+                                <img src="http://placehold.it/500x350">
+                            </div>
+                            <div class="navigation__banner">
+                                <img src="http://placehold.it/500x350">
+                            </div>
+                        </div>
+                    </div>
+                            </li>
+            </ul>
+</nav>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+        <script src="../navigation.js"></script>
+        <script>new navigation($('.navigation'))</script>
+    </body>
+</html>
