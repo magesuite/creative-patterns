@@ -1,0 +1,42 @@
+<div class="{{ namespace }}pagination">
+    <div class="{{ namespace }}pagination__content">
+        {% if data.currentPage > 1 %}
+            <a href="{{ data.prevPageUrl }}" class="{{ namespace }}pagination__prev">
+                <svg class="{{ namespace }}pagination__prev-icon">
+                    <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-left' ) }}"></use>
+                </svg>
+            </a>
+        {% else %}
+            <span class="{{ namespace }}pagination__prev">
+                <svg class="{{ namespace }}pagination__prev-icon {{ namespace }}pagination__prev-icon--disabled">
+                    <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-left' ) }}"></use>
+                </svg>
+            </span>
+        {% endif %}
+
+        <div class="{{ namespace }}pagination__pager">
+            <span class="{{ namespace }}pagination__label">{{ data.label }} </span> 
+            <form action="#" class="{{ namespace }}pagination__input-wrapper">
+                <div class="{{ namespace }}input">
+                    <input type="number" class="{{ namespace }}input__input | {{ namespace }}pagination__input" value="{{ data.currentPage }}" maxlength="{{ data.inputMaxLength }}" min="1" max="{{ data.totalPages }}"> 
+                </div>
+            </form>
+            <span class="{{ namespace }}pagination__separator">{{ data.separator }} </span> 
+            <span class="{{ namespace }}pagination__total">{{ data.totalPages }}</span>
+        </div>
+
+        {% if data.currentPage < data.totalPages %}
+            <a href="{{ data.nextPageUrl }}" class="{{ namespace }}pagination__next">
+                <svg class="{{ namespace }}pagination__next-icon">
+                    <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-right' ) }}"></use>
+                </svg>
+            </a>
+        {% else %}
+            <span class="{{ namespace }}pagination__next">
+                <svg class="{{ namespace }}pagination__next-icon {{ namespace }}pagination__next-icon--disabled">
+                    <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-right' ) }}"></use>
+                </svg>
+            </span>
+        {% endif %}
+    </div>
+</div>
