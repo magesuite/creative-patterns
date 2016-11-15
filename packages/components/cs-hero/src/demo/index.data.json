@@ -1,9 +1,0 @@
-{
-  "image": {
-    "src": "../images/bg.jpg"
-  },
-  "content": {
-    "align": "left",
-    "text": "Look how awesome hero image I am. You can pass <code>content.align: left | center | right</code> also to set content's place"
-  }
-}

@@ -1,8 +1,0 @@
-{
-    "name": "cs-grid-product",
-    "version": "0.0.1",
-    "description": "Product item in grid view",
-    "main": "src/cs-grid-product.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

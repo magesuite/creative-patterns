@@ -1,0 +1,32 @@
+<div class="{{ namespace }}products-promo {{ mix }}">
+    <div class="{{ namespace }}products-promo__carousel">
+        <div class="{{ namespace }}products-promo__wrapper">
+            <ul class="{{ namespace }}products-promo__slides">
+                
+                {% for product in products %}
+                    <li class="{{ namespace }}products-promo__slide">
+                        {% include locate('components/grid-product/grid-product.twig') with { 
+                            'namespace': 'pp-', 
+                            'product': product
+                        } %}
+                    </li>
+                {% endfor %}
+
+            </ul>
+            
+            <button class="{{ namespace }}products-promo__nav {{ namespace }}products-promo__nav--prev" type="button">
+                <svg class="{{ namespace }}products-promo__nav-icon">
+                    <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-left' ) }}"></use>
+                </svg>
+            </button>
+            <button class="{{ namespace }}products-promo__nav {{ namespace }}products-promo__nav--next" type="button">
+                <svg class="{{ namespace }}products-promo__nav-icon">
+                    <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-right' ) }}"></use>
+                </svg>
+            </button>
+
+        </div>
+        
+        <ul class="{{ namespace }}products-promo__pagination"></ul>
+    </div>
+</div>
