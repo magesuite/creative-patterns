@@ -1,4 +1,4 @@
-import $ from 'jQuery';
+import $ from 'jquery';
 import Swiper from 'Swiper';
 
 /*
@@ -21,10 +21,7 @@ const csTeaser: any = function( $element: any, settings: any ): void {
     const teaserClass: string = `.${teaserName}`;
     const $teaserWrapper: any = $element.find( `${teaserClass}__wrapper` );
     const paginationName: string = settings.paginationName ? settings.paginationName : `${teaserName}__pagination`;
-    const $pagination: any = $element.find( `.${paginationName}` );
-    const $teaserNumbers: any = $element.find( `${teaserClass}__numbers` );
-    const $teaserNumbersCurrent: any = $teaserNumbers.children( `${teaserClass}__number--current` );
-    const $teaserNumbersTotal: any = $teaserNumbers.children( `${teaserClass}__number--total` );
+    const fractionPaginationSeparator: string = settings.fractionPaginationSeparator ? settings.fractionPaginationSeparator : '/';
     /**
      * Holds current Swiper instance.
      */
@@ -63,6 +60,7 @@ const csTeaser: any = function( $element: any, settings: any ): void {
         nextButton: $element.find( `${teaserClass}__nav--next` )[ 0 ],
         prevButton: $element.find( `${teaserClass}__nav--prev` )[ 0 ],
         buttonDisabledClass: `${teaserName}__nav--disabled`,
+        pagination: $element.find( `.${paginationName}` ),
         /**
          * Maximum number of groups that will be still visible as dots.
          * If you want pagination to always be dots you can either don't add
@@ -70,13 +68,26 @@ const csTeaser: any = function( $element: any, settings: any ): void {
          * @type {number}
          */
         paginationBreakpoint: 5,
+        onlyBulletPagination: false,
         bulletClass: `${paginationName}-item`,
         bulletActiveClass: `${paginationName}-item--active`,
+        paginationCurrentClass: `${teaserName}__number--current`,
+        paginationTotalClass: `${teaserName}__number--total`,
         paginationClickable: true,
         spaceBetween: 20,   // Gap between slides.
         slideMinWidth: 200,  // Minimum width of a slider.
+        calculateSlides: true,
+        maxSlidesPerView: null,
         watchSlidesVisibility: true,
+        paginationBulletRender( swiper: any, index: number, className: string ): Object {
+            return `<li class="${className}">
+                <button class="${paginationName}-button">${( index + 1 )}</button></li>`;
+        },
+        paginationFractionRender( swiper: any, currentClassName: string, totalClassName: string ): Object {
+            return `<span class="${teaserName}__number ${currentClassName}"></span> ${fractionPaginationSeparator} <span class="${teaserName}__number ${totalClassName}"></span>`;
+        },
     };
+
     currentSettings = $.extend( defaultSettings, settings );
 
     /**
@@ -84,72 +95,21 @@ const csTeaser: any = function( $element: any, settings: any ): void {
      * @return {number} Number of slides.
      */
     const calculateSlidesNumber: any = function(): number {
-        return Math.floor( $teaserWrapper.innerWidth() / ( currentSettings.slideMinWidth + currentSettings.spaceBetween ) );
+        const slidesNumber: number = Math.floor( $teaserWrapper.innerWidth() / ( currentSettings.slideMinWidth + currentSettings.spaceBetween ) );
+
+        const maxSlidesAllowed: number = parseInt( currentSettings.maxSlidesPerView, 10 );
+
+        if ( slidesNumber < maxSlidesAllowed ) {
+            return slidesNumber;
+        } else {
+            return maxSlidesAllowed;
+        }
     };
 
-    if ( dynamicNumOfSlides ) {
+    if ( dynamicNumOfSlides && currentSettings.calculateSlides ) {
         currentSettings.slidesPerView =
             currentSettings.slidesPerGroup = calculateSlidesNumber();
     }
-
-    /**
-     * Renders dot(rhomb) pagination.
-     * @param  {number} totalGroupNumber Total number of groups.
-     */
-    const renderDotPagination: any = function( totalGroupNumber: number ): void {
-        $pagination.empty();
-        for ( let groupIndex: number = 0; groupIndex < totalGroupNumber; groupIndex = groupIndex + 1 ) {
-            let dotClass: string = '';
-            if ( groupIndex === Math.ceil( swiperInstance.activeIndex / swiperInstance.params.slidesPerGroup ) ) {
-                dotClass = swiperInstance.params.bulletActiveClass;
-            }
-
-            $pagination.append( `<li class="${swiperInstance.params.bulletClass} ${dotClass}">
-                <button class="${paginationName}-button">${( groupIndex + 1 )}</button></li>`
-            );
-        }
-
-        $teaserNumbers.removeClass( `${teaserName}__numbers--visible` );
-        $pagination.removeClass( `${paginationName}--hidden` );
-    };
-
-    /**
-     * Swipes on pagination click to appropriate slide.
-     * @param  {Object} event Event Object
-     */
-    const clickDotPagination: any = function( event?: Event ): void {
-        event.preventDefault();
-        swiperInstance.slideTo( $( this ).index() * swiperInstance.params.slidesPerView );
-    };
-
-    /**
-     * Renders number pagination.
-     * @param  {number} totalGroupNumber Total number of groups.
-     */
-    const renderNumberPagination: any = function( totalGroupNumber: number ): void {
-        const currentGroupIndex: number = Math.ceil( swiperInstance.activeIndex / swiperInstance.params.slidesPerGroup + 1 );
-        $teaserNumbersCurrent.text( currentGroupIndex );
-        $teaserNumbersTotal.text( totalGroupNumber );
-
-        $pagination.addClass( `${paginationName}--hidden` );
-        $teaserNumbers.addClass( `${teaserName}__numbers--visible` );
-    };
-
-    /**
-     * Updates pagination by adjusting it's type and contents e.g. after window resize.
-     */
-    const updatePagination: any = function(): void {
-        if ( $teaserNumbers.length && swiperInstance.params.paginationBreakpoint ) {
-            const totalSlidesNumber: number = $teaserNumbersTotal.attr( `data-${teaserName}-total` ) || swiperInstance.slides.length;
-            const totalGroupNumber: number = Math.ceil( totalSlidesNumber / swiperInstance.params.slidesPerGroup );
-            if ( totalGroupNumber > swiperInstance.params.paginationBreakpoint ) {
-                renderNumberPagination( totalGroupNumber );
-            } else {
-                renderDotPagination( totalGroupNumber );
-            }
-        }
-    };
-    currentSettings.onSlideChangeStart = updatePagination; // Update navigation after every// slide switch.
 
     /**
      * Updates slider sizing by adjusting number of visible slides and pagination.
@@ -159,20 +119,37 @@ const csTeaser: any = function( $element: any, settings: any ): void {
             return null;
         }
 
-        if ( dynamicNumOfSlides ) {
+        if ( dynamicNumOfSlides && currentSettings.calculateSlides ) {
             currentSettings.slidesPerView =
                 currentSettings.slidesPerGroup = calculateSlidesNumber();
         }
+
         swiperInstance.params = $.extend( swiperInstance.params, currentSettings );
-        updatePagination();
-        swiperInstance.update();
+    };
+
+    const postInit: any = function(): void {
+        if ( swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination ) {
+
+            const totalSlidesNumber: number = swiperInstance.slides.length;
+            const totalGroupNumber: number = Math.ceil( totalSlidesNumber / swiperInstance.params.slidesPerGroup );
+
+            if ( totalGroupNumber > swiperInstance.params.paginationBreakpoint ) {
+                swiperInstance.params.paginationType = 'fraction';
+            } else {
+                swiperInstance.params.paginationType = 'bullets';
+            }
+        }
     };
 
     swiperInstance = new Swiper( $element.find( `${teaserClass}__wrapper` ), currentSettings );
-    currentSettings.onSlideChangeStart = updatePagination;
-    updatePagination();
-    $( window ).on( 'resize', updateSliderSizing );
-    $pagination.on( 'click', `.${paginationName}-item`, clickDotPagination );
+    postInit();
+    swiperInstance.update();
+
+    $( window ).on( 'resize', function(): void {
+        updateSliderSizing();
+        postInit();
+        swiperInstance.update();
+    } );
 
     /**
      * Returns Swiper object.
@@ -183,25 +160,9 @@ const csTeaser: any = function( $element: any, settings: any ): void {
     };
 
     /**
-     * Updates teaser with new settings.
-     * @param  {Object} settings New settings to apply.
-     */
-    teaser.update = function( newSettings?: any ): void {
-        newSettings = newSettings || {};
-        currentSettings = $.extend( currentSettings, newSettings );
-        swiperInstance.params = $.extend( swiperInstance.params, currentSettings );
-        dynamicNumOfSlides = !currentSettings.slidesPerView || currentSettings.slidesPerView === 'auto';
-        updateSliderSizing();
-    };
-
-    /**
      * Destroyes teaser.
      */
     teaser.destroy = function(): void {
-        $( window ).off( 'resize', updatePagination );
-        $pagination.off( 'click', `.${paginationName}__item`,
-            clickDotPagination
-        );
         swiperInstance.destroy();
     };
 };
