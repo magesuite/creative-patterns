@@ -9,8 +9,7 @@ img {
 
 .navigation {
   box-sizing: border-box;
-  font-size: 1rem;
-  padding: 0 15px; }
+  font-size: 1rem; }
   .navigation__list {
     position: relative;
     display: -webkit-box;
