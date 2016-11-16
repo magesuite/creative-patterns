@@ -2,7 +2,7 @@
  * Responsive breakpoints used by include-media vendor library.
  */
 html {
-  background: lightgray; }
+  background: #eee; }
 
 img {
   max-width: 100%; }

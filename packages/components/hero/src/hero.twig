@@ -4,14 +4,12 @@
             <ul class="{{ namespace }}hero__slides">
 
                 {% for item in items %}
-                    {% set displayVariant = '{{ namespace }}hero__content-wrapper--' ~ item.displayVariant %}
-
                     <li class="{{ namespace }}hero__slide">
                         <figure class="{{ namespace }}hero__figure">
                             <img class="{{ namespace }}hero__image" src="{{ item.image }}" alt="Hero image">
                         </figure>
 
-                        <div class="{{ namespace }}hero__content-wrapper {{ displayVariant }}">
+                        <div class="{{ namespace }}hero__content-wrapper {{ namespace }}hero__content-wrapper--{{ item.displayVariant }}">
                             <div class="{{ namespace }}hero__content">
                                 {% if item.headline %}
                                     <h2 class="{{ namespace }}hero__headline">{{ item.headline }}</h2>
