@@ -1,0 +1,32 @@
+{
+    "items": [
+        {
+            "url": "http://example.com",
+            "label": "No Flyout"
+        },
+        {
+            "url": "http://example.com",
+            "label": "Flyout",
+            "subcategories": [
+                {
+                    "url": "http://example.com",
+                    "label": "Lorem ipsum",
+                    "subcategories": [
+                        {
+                            "url": "http://example.com",
+                            "label": "Lorem ipsum"
+                        },
+                        {
+                            "url": "http://example.com",
+                            "label": "Dolor sit amet"
+                        }
+                    ]
+                },
+                {
+                    "url": "http://example.com",
+                    "label": "Dolor sit amet"
+                }
+            ]
+        }
+    ]
+}
