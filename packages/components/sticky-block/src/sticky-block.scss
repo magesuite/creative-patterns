@@ -1,0 +1,13 @@
+// sticky-block
+// This component cann be sticky in the area of its parents size
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+$namespace: 'cs-' !default;
+
+.#{$namespace}sticky-block {
+    position: sticky;
+    z-index: 10;
+    top: 1em;
+}
