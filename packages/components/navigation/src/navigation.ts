@@ -7,24 +7,24 @@ interface NavigationOptions {
     /**
      * Class name of navigation container. Flyout positions will be calculated
      * relative to this element.
-     * @type {String}
+     * @type {string}
      */
-    containerClassName?: String;
+    containerClassName?: string;
     /**
      * Navigation list item element. It is used to enhance keyboard accessability.
-     * @type {String}
+     * @type {string}
      */
-    itemClassName?: String;
+    itemClassName?: string;
     /**
      * Navigation flyout class name.
-     * @type {String}
+     * @type {string}
      */
-    flyoutClassName?: String;
+    flyoutClassName?: string;
     /**
      * Navigation flyout columns container class name.
-     * @type {String}
+     * @type {string}
      */
-    flyoutColumnsClassName?: String;
+    flyoutColumnsClassName?: string;
     /**
      * Desired max height of the flyout. Number of columns will be decreased until
      * flyout's height will be smaller then given max height.
@@ -57,9 +57,12 @@ export default class Navigation {
     protected _$flyouts: JQuery;
     protected _$container: JQuery;
     protected _containerClientRect: ClientRect;
-    protected _resizeListener: ( event: Event ) => void;
-    protected _focusInListener: ( event: Event ) => void;
-    protected _focusOutListener: ( event: Event ) => void;
+    protected _eventListeners: {
+        resizeListener?: ( event: Event ) => void;
+        itemFocusInListener?: ( event: Event ) => void;
+        flyoutFocusInListener?: ( event: Event ) => void;
+        focusOutListener?: ( event: Event ) => void;
+    } = {};
     protected _resizeTimeout: number;
 
     protected _options: NavigationOptions = {
@@ -130,6 +133,9 @@ export default class Navigation {
             flyoutHeight = $flyout.height();
 
             if ( flyoutHeight >= flyoutMaxHeight ) {
+                if ( flyoutHeight >= flyoutMaxHeight + 100 ) {
+                    this._setColumnCount( $flyoutColumns, flyoutColumnCount - 1 );
+                }
                 break;
             }
         }
@@ -214,41 +220,50 @@ export default class Navigation {
      * Attaches events needed by navigation component.
      */
     protected _attachEvents(): void {
-        this._resizeListener = (): void => {
+        this._eventListeners.resizeListener = (): void => {
             clearTimeout( this._resizeTimeout );
             setTimeout( () => {
                 this._containerClientRect = this._$container.get( 0 ).getBoundingClientRect();
                 this._adjustFlyouts( this._$flyouts );
             }, this._options.resizeDebounce );
         };
-        this._$window.on( 'resize orientationchange', this._resizeListener );
+        this._$window.on( 'resize orientationchange', this._eventListeners.resizeListener );
 
-        this._focusInListener = ( event: Event ): void => {
-            $( event.target )
-                .parent()
-                .find( `.${ this._options.flyoutClassName }` )
-                .addClass( this._options.flyoutVisibleClassName );
+        this._eventListeners.itemFocusInListener = ( event: Event ): void => {
+            let $targetFlyout: JQuery = $( event.target ).parent().find( `.${ this._options.flyoutClassName }` );
+            this._hideFlyout( this._$flyouts.not( $targetFlyout ) );
+            this._showFlyout( $targetFlyout );
         };
-        this._focusOutListener = ( event: Event ): void => {
-            $( event.target )
-                .closest( `.${this._options.itemClassName}` )
-                .find( `.${ this._options.flyoutClassName }` )
-                .removeClass( this._options.flyoutVisibleClassName );
+        // Don't let focus events propagate from flyouts to items.
+        this._eventListeners.flyoutFocusInListener = ( event: Event ): void => {
+            event.stopPropagation();
+        };
+
+        this._eventListeners.focusOutListener = ( event: Event ): void => {
+            this._hideFlyout(
+                $( event.target )
+                    .closest( `.${this._options.itemClassName}` )
+                    .find( `.${ this._options.flyoutClassName }` )
+            );
         };
 
         const $items: JQuery = $( `.${this._options.itemClassName}` );
-        $items.on( 'focusin', this._focusInListener );
-        $items.find( 'a:last' ).on( 'focusout', this._focusOutListener );
+        $items.on( 'focusin', this._eventListeners.itemFocusInListener );
+        this._$flyouts.on( 'focusin', this._eventListeners.flyoutFocusInListener );
+        // When the last link from flyout loses focus.
+        $items.find( 'a:last' ).on( 'focusout', this._eventListeners.focusOutListener );
     }
 
     /**
      * Detaches events set by navigation component.
      */
     protected _detachEvents(): void {
-        this._$window.off( 'resize orientationchange', this._resizeListener );
+        this._$window.off( 'resize orientationchange', this._eventListeners.resizeListener );
 
         const $items: JQuery = $( `.${this._options.itemClassName}` );
-        $items.off( 'focusin', this._focusInListener );
-        $items.find( 'a:last' ).off( 'focusout', this._focusOutListener );
+        $items.off( 'focusin', this._eventListeners.itemFocusInListener );
+        this._$flyouts.off( 'focusin', this._eventListeners.flyoutFocusInListener );
+        // When the last link from flyout loses focus.
+        $items.find( 'a:last' ).off( 'focusout', this._eventListeners.focusOutListener );
     }
 }

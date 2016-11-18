@@ -17,6 +17,7 @@ var Navigation = (function () {
      */
     function Navigation($element, options) {
         this._$window = $(window);
+        this._eventListeners = {};
         this._options = {
             containerClassName: 'navigation__list',
             itemClassName: 'navigation__item',
@@ -72,6 +73,9 @@ var Navigation = (function () {
             this._setColumnCount($flyoutColumns, flyoutColumnCount);
             flyoutHeight = $flyout.height();
             if (flyoutHeight >= flyoutMaxHeight) {
+                if (flyoutHeight >= flyoutMaxHeight + 100) {
+                    this._setColumnCount($flyoutColumns, flyoutColumnCount - 1);
+                }
                 break;
             }
         }
@@ -147,38 +151,44 @@ var Navigation = (function () {
      */
     Navigation.prototype._attachEvents = function () {
         var _this = this;
-        this._resizeListener = function () {
+        this._eventListeners.resizeListener = function () {
             clearTimeout(_this._resizeTimeout);
             setTimeout(function () {
                 _this._containerClientRect = _this._$container.get(0).getBoundingClientRect();
                 _this._adjustFlyouts(_this._$flyouts);
             }, _this._options.resizeDebounce);
         };
-        this._$window.on('resize orientationchange', this._resizeListener);
-        this._focusInListener = function (event) {
-            $(event.target)
-                .parent()
-                .find("." + _this._options.flyoutClassName)
-                .addClass(_this._options.flyoutVisibleClassName);
+        this._$window.on('resize orientationchange', this._eventListeners.resizeListener);
+        this._eventListeners.itemFocusInListener = function (event) {
+            var $targetFlyout = $(event.target).parent().find("." + _this._options.flyoutClassName);
+            _this._hideFlyout(_this._$flyouts.not($targetFlyout));
+            _this._showFlyout($targetFlyout);
         };
-        this._focusOutListener = function (event) {
-            $(event.target)
+        // Don't let focus events propagate from flyouts to items.
+        this._eventListeners.flyoutFocusInListener = function (event) {
+            event.stopPropagation();
+        };
+        this._eventListeners.focusOutListener = function (event) {
+            _this._hideFlyout($(event.target)
                 .closest("." + _this._options.itemClassName)
-                .find("." + _this._options.flyoutClassName)
-                .removeClass(_this._options.flyoutVisibleClassName);
+                .find("." + _this._options.flyoutClassName));
         };
         var $items = $("." + this._options.itemClassName);
-        $items.on('focusin', this._focusInListener);
-        $items.find('a:last').on('focusout', this._focusOutListener);
+        $items.on('focusin', this._eventListeners.itemFocusInListener);
+        this._$flyouts.on('focusin', this._eventListeners.flyoutFocusInListener);
+        // When the last link from flyout loses focus.
+        $items.find('a:last').on('focusout', this._eventListeners.focusOutListener);
     };
     /**
      * Detaches events set by navigation component.
      */
     Navigation.prototype._detachEvents = function () {
-        this._$window.off('resize orientationchange', this._resizeListener);
+        this._$window.off('resize orientationchange', this._eventListeners.resizeListener);
         var $items = $("." + this._options.itemClassName);
-        $items.off('focusin', this._focusInListener);
-        $items.find('a:last').off('focusout', this._focusOutListener);
+        $items.off('focusin', this._eventListeners.itemFocusInListener);
+        this._$flyouts.off('focusin', this._eventListeners.flyoutFocusInListener);
+        // When the last link from flyout loses focus.
+        $items.find('a:last').off('focusout', this._eventListeners.focusOutListener);
     };
     return Navigation;
 }());
