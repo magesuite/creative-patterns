@@ -213,7 +213,6 @@
     "packages/components/cs-floating-label/node_modules/@types/jquery/index.d.ts",
     "packages/components/floating-label/node_modules/@types/jquery/index.d.ts",
     "packages/components/headline-configurator/node_modules/@types/requirejs/index.d.ts",
-    "packages/components/layout-builder/node_modules/@types/vue/index.d.ts",
     "packages/components/m2c-content-constructor/node_modules/@types/vue-resource/index.d.ts",
     "packages/components/m2c-content-constructor/node_modules/@types/vue/index.d.ts",
     "packages/customizations/m2c-content-constructor/node_modules/@types/vue-resource/index.d.ts",
