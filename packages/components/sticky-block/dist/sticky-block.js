@@ -13,9 +13,7 @@ var StickyBlock = (function () {
      */
     function StickyBlock($element) {
         this._$el = $element || $('.cs-sticky-block');
-        if (Stickyfill) {
-            this._initStickyBlock();
-        }
+        this._initStickyBlock();
     }
     /**
      * Destroys stickyBlock component's functionality.
@@ -37,7 +35,9 @@ var StickyBlock = (function () {
      * Initializes stickyBlock component's functionality.
      */
     StickyBlock.prototype._initStickyBlock = function () {
-        this._$el.Stickyfill();
+        if (Stickyfill && this._$el.length) {
+            this._$el.Stickyfill();
+        }
     };
     return StickyBlock;
 }());

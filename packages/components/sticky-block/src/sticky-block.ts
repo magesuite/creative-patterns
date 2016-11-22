@@ -10,9 +10,7 @@ export default class StickyBlock {
     public constructor( $element: JQuery ) {
         this._$el = $element || $( '.cs-sticky-block' );
 
-        if ( Stickyfill ) {
-            this._initStickyBlock();
-        }
+        this._initStickyBlock();
     }
 
     /**
@@ -37,6 +35,8 @@ export default class StickyBlock {
      * Initializes stickyBlock component's functionality.
      */
     protected _initStickyBlock(): void {
-        this._$el.Stickyfill();
+        if ( Stickyfill && this._$el.length ) {
+            this._$el.Stickyfill();
+        }
     }
 }
