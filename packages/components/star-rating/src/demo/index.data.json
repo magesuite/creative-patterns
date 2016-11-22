@@ -1,0 +1,8 @@
+{
+  "namespace": "cs-",
+  "maxStars": 5,
+  "activeStars": 3.5,
+  "text": "(5)",
+  "target": "#",
+  "icon": "../images/sprites.svg#icon-star"
+}

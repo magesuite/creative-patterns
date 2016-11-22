@@ -1,8 +1,8 @@
 {
-    "name": "cs-stars",
+    "name": "star-rating",
     "version": "0.0.1",
     "description": "Reviews&#x27; stars with a number for products",
-    "main": "src/cs-stars.ts",
+    "main": "src/star-rating.ts",
     "author": "Lukasz Ostrowski",
     "license": "ISC"
 }

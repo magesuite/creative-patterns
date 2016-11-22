@@ -1,0 +1,32 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qty-increment component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../qty-increment.css">
+    </head>
+    <body>
+        <h1>qty-increment Component Demo</h1>
+
+        <div class="cs-input | cs-qty-increment ">
+    <input type="text" name="qty" size="2" maxlength="2" pattern="[0-9]*" class="cs-input__input | cs-qty-increment__input" value="1" >
+
+    <button type="button" class="cs-qty-increment__button cs-qty-increment__button--decrement">
+        <svg class="cs-qty-increment__icon cs-qty-increment__icon--minus"><use xlink:href="../images/sprites.svg#icon_minus"></use></svg>
+    </button>
+
+    <button type="button" class="cs-qty-increment__button cs-qty-increment__button--increment">
+        <svg class="cs-qty-increment__icon cs-qty-increment__icon--plus"><use xlink:href="../images/sprites.svg#icon_plus"></use></svg>
+    </button>
+</div>
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+        <script src="../qty-increment.js"></script>
+        <script>
+            new qtyIncrement( $('.cs-qty-increment') );
+        </script>
+    </body>
+</html>
