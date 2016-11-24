@@ -1,0 +1,8 @@
+{
+    "name": "t-text",
+    "version": "0.0.1",
+    "description": "T-text is a basic typography text class - it has t- prefix. It has also additional light look modifier",
+    "main": "src/t-text.ts",
+    "author": "Marta Siewierska-Stańczak",
+    "license": "ISC"
+}

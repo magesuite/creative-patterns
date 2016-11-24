@@ -1,0 +1,8 @@
+{
+    "name": "t-headline",
+    "version": "0.0.1",
+    "description": "t-headline is basic typography class for headlines - it has t- prefix to fiffer it from block that consits headline and subheadline. It has 6 sizes and additional light look",
+    "main": "src/t-headline.ts",
+    "author": "Marta Siewierska-Stańczak",
+    "license": "ISC"
+}
