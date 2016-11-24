@@ -1,0 +1,8 @@
+{
+    "name": "visually-hidden",
+    "version": "0.0.1",
+    "description": "Visually hidden is a css class that hide element from view but leave it accessible for screen readers. Visually hidden is absolutely positioned, so its parent shoul be relative",
+    "main": "src/visually-hidden.ts",
+    "author": "Marta Siewierska-Stańczak",
+    "license": "ISC"
+}
