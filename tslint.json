@@ -28,7 +28,14 @@
             "check-format",
             "allow-leading-underscore"
         ],
-        "object-literal-shorthand": null
+        "object-literal-shorthand": null,
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "always",
+                "singleline": "never"
+            }
+        ]
     },
     "rulesDirectory": []
 }

@@ -24,9 +24,9 @@ interface QtyIncrementOptions {
 
     /**
      * Error handler method for customization of the error presentation
-     * @type {Function}
+     * @type {() => void}
      */
-    errorHandler?: Function;
+    errorHandler?: () => void;
 }
 
 export default class QtyIncrement {
@@ -35,8 +35,8 @@ export default class QtyIncrement {
     protected _$input: JQuery;
     protected _$decrementBtn: JQuery;
     protected _$incrementBtn: JQuery;
-    protected _minValue: string;
-    protected _maxValue: string;
+    protected _minValue: number;
+    protected _maxValue: number;
     protected _eventListeners: {
         clickListener?: ( $btn: JQuery ) => void;
         keydownListener?: ( e: Event ) => void;
@@ -44,7 +44,7 @@ export default class QtyIncrement {
         blurListener?: () => void;
     } = {};
     protected _errorHandler?: () => void;
-    protected _validate?: () => boolean;
+    protected _options: QtyIncrementOptions;
 
     /**
      * Creates new QtyIncrement component with optional settings.
@@ -61,7 +61,7 @@ export default class QtyIncrement {
         this._minValue          = this._options.minValue || 1;
         this._maxValue          = this._options.maxValue || 10;
 
-        this._errorHandler      = this._options.errorHandler || this._errorHandler;
+        this._errorHandler      = this._options.errorHandler || this._defaultErrorHandler;
 
         this._attachEvents();
         this._updateButtonsState();
@@ -75,20 +75,20 @@ export default class QtyIncrement {
 
         // If value of input is less than minimum, disable decrease button, otherwise, enable button
         if ( currentValue <= this._minValue ) {
-            this._$container.find( $( `.${this._options.namespace}qty-increment__button--decrement` ) ).attr( 'disabled', true ).addClass( `${this._options.namespace}qty-increment__button--disabled` );
+            this._$container.find( $( `.${this._options.namespace}qty-increment__button--decrement` ) ).attr( 'disabled', 'disabled' ).addClass( `${this._options.namespace}qty-increment__button--disabled` );
         } else {
-            this._$container.find( $( `.${this._options.namespace}qty-increment__button--decrement` ) ).attr( 'disabled', false ).removeClass( `${this._options.namespace}qty-increment__button--disabled` );
+            this._$container.find( $( `.${this._options.namespace}qty-increment__button--decrement` ) ).removeAttr( 'disabled' ).removeClass( `${this._options.namespace}qty-increment__button--disabled` );
         }
 
         // If value of input is less than minimum, disable increase button, otherwise, enable button
         if ( currentValue >= this._maxValue ) {
-            this._$container.find( $( `.${this._options.namespace}qty-increment__button--increment` ) ).attr( 'disabled', true ).addClass( `${this._options.namespace}qty-increment__button--disabled` );
+            this._$container.find( $( `.${this._options.namespace}qty-increment__button--increment` ) ).attr( 'disabled', 'disabled' ).addClass( `${this._options.namespace}qty-increment__button--disabled` );
         } else {
-            this._$container.find( $( `.${this._options.namespace}qty-increment__button--increment` ) ).attr( 'disabled', false ).removeClass( `${this._options.namespace}qty-increment__button--disabled` );
+            this._$container.find( $( `.${this._options.namespace}qty-increment__button--increment` ) ).removeAttr( 'disabled' ).removeClass( `${this._options.namespace}qty-increment__button--disabled` );
         }
     }
 
-    protected _errorHandler(): void {
+    protected _defaultErrorHandler(): void {
         if ( parseFloat( this._$input.val() ) > this._maxValue ) {
             alert( `The maximum value is ${this._maxValue}.` );
         } else if ( parseFloat( this._$input.val() ) < this._minValue ) {
@@ -99,7 +99,7 @@ export default class QtyIncrement {
     /**
      * Shows error message and fixes value of input to min/max
      */
-    protected _validate(): void {
+    protected _validate(): boolean {
         let isValid: boolean = false;
 
         if ( parseFloat( this._$input.val() ) > this._maxValue || parseFloat( this._$input.val() ) < this._minValue ) {
@@ -164,7 +164,7 @@ export default class QtyIncrement {
             }
         };
 
-        this._eventListeners.keydownListener = ( e: Event ): void => {
+        this._eventListeners.keydownListener = ( e: KeyboardEvent ): void => {
             // Allow: backspace, delete, tab, escape, enter and .
             if ( $.inArray( e.keyCode, [ 46, 8, 9, 27, 13, 110, 190 ] ) !== -1 ||
 

@@ -69,7 +69,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                         </div>
                         <div class="m2c-hero-carousel-configurator__item-image-wrapper">
                             <img :src="configuration.items[$index].image" class="m2c-hero-carousel-configurator__item-image" v-show="configuration.items[$index].image">
-                            <input type="hidden" class="m2c-hero-carousel-configurator__image-url" v-model="configuration.items[$index].image" id="hero-img-{{$index}}"> 
+                            <input type="hidden" class="m2c-hero-carousel-configurator__image-url" v-model="configuration.items[$index].image" id="hero-img-{{$index}}">
                         </div>
                     </div>
                     <div class="m2c-hero-carousel-configurator__item-col-right">
@@ -117,7 +117,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
     </div>`,
     props: {
         /*
-         * Single's component configuration 
+         * Single's component configuration
          */
         configuration: {
             type: Object,
@@ -147,7 +147,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
     },
     methods: {
         /* Opens M2's built-in image manager modal
-         * Manages all images: image upload from hdd, select image that was already uploaded to server 
+         * Manages all images: image upload from hdd, select image that was already uploaded to server
          * @param index {number} - index of image of hero item
          */
         getImageUploader( index: number ): void {
@@ -157,7 +157,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                 $t( 'Insert File...' ),
                 {
                     closed: true,
-                }
+                },
             );
 
             this.imageUploadListener();
@@ -191,19 +191,19 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             this.configuration.items[ itemIndex ].decodedImage = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
             this.onChange();
         },
-        /* Opens modal with M2 built-in widget chooser 
+        /* Opens modal with M2 built-in widget chooser
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
         openCtaTargetModal( index: number ): void {
             widgetTools.openDialog( `${window.location.origin}/admin/admin/widget/index/widget_target_id/hero-ctatarget-output-${index}` );
 
             /* clean current value since widget chooser doesn't do that to allow multiple widgets
-             * we don't want that since this should be url for CTA 
+             * we don't want that since this should be url for CTA
              */
             this.configuration.items[ index ].ctaTarget = '';
         },
         /* Sets listener for widget chooser
-         * It triggers component.onChange to update component's configuration 
+         * It triggers component.onChange to update component's configuration
          * after value of item.ctaTarget is changed
          */
         widgetSetListener(): void {
@@ -257,7 +257,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         isLastHeroItem( index: number ): boolean {
             return index === this.configuration.items.length - 1;
         },
-        /* Removes hero item after Delete button is clicked 
+        /* Removes hero item after Delete button is clicked
          * and triggers hero item's onChange to update it's configuration
          * @param index {number} - index of hero item to remove
          */

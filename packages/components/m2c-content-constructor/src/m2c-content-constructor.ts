@@ -208,7 +208,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          */
         editComponent(
             prevComponentData: IComponentInformation,
-            setComponentInformation: ( componentInfo: IComponentInformation ) => void
+            setComponentInformation: ( componentInfo: IComponentInformation ) => void,
         ): void {
             this._configuratorSavedCallback = ( componentData: any ): void => {
                 setComponentInformation( {
@@ -264,8 +264,8 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             uiRegistry.get('cms_page_form.cms_page_form').source.set(
                 'data.components',
                 JSON.stringify(
-                    this.$refs.m2cLayoutBuilder.getComponentInformation()
-                )
+                    this.$refs.m2cLayoutBuilder.getComponentInformation(),
+                ),
             );
         },
     },

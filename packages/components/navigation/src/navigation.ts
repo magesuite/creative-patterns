@@ -243,7 +243,7 @@ export default class Navigation {
             this._hideFlyout(
                 $( event.target )
                     .closest( `.${this._options.itemClassName}` )
-                    .find( `.${ this._options.flyoutClassName }` )
+                    .find( `.${ this._options.flyoutClassName }` ),
             );
         };
 

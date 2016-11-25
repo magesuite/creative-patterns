@@ -95,7 +95,7 @@ const layoutBuilder: vuejs.ComponentOption = {
          */
         getComponentInformation(): IComponentInformation[] {
             return JSON.parse(
-                JSON.stringify( this.components )
+                JSON.stringify( this.components ),
             );
         },
         /**
@@ -139,7 +139,7 @@ const layoutBuilder: vuejs.ComponentOption = {
             const componentInfo: IComponentInformation = this.addComponent(
                 ( asyncComponentInfo: IComponentInformation ): void => {
                     this.addComponentInformation( index, asyncComponentInfo );
-                }
+                },
             );
             this.addComponentInformation( index, componentInfo );
         },
@@ -153,7 +153,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         editComponentSettings( index: number ): void {
             // Create a static, non-reactive copy of component data.
             let componentInfo: IComponentInformation = JSON.parse(
-                JSON.stringify( this.components[ index ] )
+                JSON.stringify( this.components[ index ] ),
             );
             /**
              * To allow both sync and async set of new component data we call
@@ -165,7 +165,7 @@ const layoutBuilder: vuejs.ComponentOption = {
                 componentInfo,
                 ( asyncComponentInfo: IComponentInformation ): void => {
                     this.setComponentInformation( index, asyncComponentInfo );
-                }
+                },
             );
             this.setComponentInformation( index, componentInfo );
         },

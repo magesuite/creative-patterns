@@ -1,6 +1,7 @@
-import ccImageTeaserConfigurator from '../../../components/cc-image-teaser-configurator/src/cc-image-teaser-configurator';
 import $ from 'jquery';
 import $t from 'mage/translate';
+
+import ccImageTeaserConfigurator from '../../../components/cc-image-teaser-configurator/src/cc-image-teaser-configurator';
 
 // Pattern for teaser Item
 const teaserItemDataPattern: any = {
@@ -136,7 +137,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
                 $t( 'Insert File...' ),
                 {
                     closed: true,
-                }
+                },
             );
 
             this.imageUploadListener();

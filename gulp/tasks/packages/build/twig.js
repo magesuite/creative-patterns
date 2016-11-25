@@ -70,4 +70,3 @@ module.exports = function() {
 
     return merge( tasks );
 };
-

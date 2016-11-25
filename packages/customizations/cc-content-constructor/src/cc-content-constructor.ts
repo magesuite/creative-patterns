@@ -67,7 +67,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
          */
         editRandomComponent(
             currentInfo: IComponentInformation,
-            setComponentInformation: ( componentInfo: IComponentInformation ) => void
+            setComponentInformation: ( componentInfo: IComponentInformation ) => void,
         ): void {
             const componentConfiguration: any = {
                 type: currentInfo.type,
