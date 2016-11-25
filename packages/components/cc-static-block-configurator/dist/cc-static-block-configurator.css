@@ -171,9 +171,9 @@
           transform: translateY(-50%);
   content: ''; }
 
-.cs-input--type-required .cs-input__label {
+.cs-input--type-required > .cs-input__label {
   position: relative; }
-  .cs-input--type-required .cs-input__label:after {
+  .cs-input--type-required > .cs-input__label:after {
     position: absolute;
     color: #c90000;
     content: '*';

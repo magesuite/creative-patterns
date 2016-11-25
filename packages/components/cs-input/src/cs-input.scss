@@ -207,7 +207,7 @@ $namespace: 'cs-' !default;
     }
 
     &--type-required {
-        #{$root}__label {
+        > #{$root}__label {
             position: relative;
 
             &:after {
