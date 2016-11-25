@@ -41,8 +41,12 @@
     content: '\2605';
     position: absolute;
     left: 0;
+    top: 50%;
     z-index: 1;
-    overflow: hidden; }
+    overflow: hidden;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%); }
   .cs-star-rating__star--half-active:before {
     width: 50%;
     color: #ffa500; }
@@ -50,10 +54,14 @@
     content: '\2605';
     position: absolute;
     left: .6rem;
+    top: 50%;
     width: 50%;
     text-indent: -.6rem;
     overflow: hidden;
-    z-index: 2; }
+    z-index: 2;
+    -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+            transform: translateY(-50%); }
   .cs-star-rating__star--active:before {
     color: #ffa500; }
 

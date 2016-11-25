@@ -3,9 +3,11 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
+$namespace: 'cs-' !default;
+
 @import '../../star-rating/src/star-rating';
 
-.cs-single-review {
+.#{$namespace}review {
     font-size: 1rem;
     font-family: sans-serif;
 
@@ -15,7 +17,8 @@
         margin-bottom: .5em;
     }
 
-    &__meta {
+    &__rating {
+        display: inline-block;
     }
 
     &__meta-item {

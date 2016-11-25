@@ -29,8 +29,10 @@ $namespace: 'cs-' !default;
             content: '\2605';
             position: absolute;
             left: 0;
+            top: 50%;
             z-index: 1;
             overflow: hidden;
+            transform: translateY( -50% );
         }
 
         &--half-active {
@@ -43,10 +45,12 @@ $namespace: 'cs-' !default;
                 content: '\2605';
                 position: absolute;
                 left: .6rem;
+                top: 50%;
                 width: 50%;
                 text-indent: -.6rem;
                 overflow: hidden;
                 z-index: 2;
+                transform: translateY( -50% );
             }
         }
 

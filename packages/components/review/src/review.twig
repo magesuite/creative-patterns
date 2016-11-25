@@ -1,0 +1,19 @@
+<div class="{{ namespace }}review {{ mix }}" itemscope itemprop="review" itemtype="http://schema.org/Review">
+    <span class="{{ namespace }}review__title" itemprop="name">{{ title }}</span>
+
+    <div class="{{ namespace }}review__meta">
+        <div class="{{ namespace }}review__rating {{ namespace }}review__meta-item">
+            {% include locate( 'star-rating/star-rating.twig' ) with {
+                namespace: namespace,
+                maxStars: rating.maxStars,
+                activeStars: rating.activeStars,
+                text: rating.text
+            } %}
+        </div>
+        <span class="{{ namespace }}review__author {{ namespace }}review__meta-item" itemprop="author">{{ author }}</span>
+        <time class="{{ namespace }}review__date {{ namespace }}review__meta-item" itemprop="datePublished" datetime="{{ datetime }}">
+            {{ date }}
+        </time>
+    </div>
+    <p class="{{ namespace }}review__content" itemprop="description">{{ content }}</p>
+</div>

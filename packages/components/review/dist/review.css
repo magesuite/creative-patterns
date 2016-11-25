@@ -39,29 +39,31 @@
   padding-left: .25em;
   line-height: 1; }
 
-.cs-single-review {
+.cs-review {
   font-size: 1rem;
   font-family: sans-serif; }
-  .cs-single-review__title {
+  .cs-review__title {
     display: block;
     font-weight: 700;
     margin-bottom: .5em; }
-  .cs-single-review__meta-item {
+  .cs-review__rating {
+    display: inline-block; }
+  .cs-review__meta-item {
     vertical-align: middle;
     padding: 0 .5em;
     border-right: 1px solid #ddd; }
-    .cs-single-review__meta-item:first-child {
+    .cs-review__meta-item:first-child {
       padding-left: 0; }
-    .cs-single-review__meta-item:last-child {
+    .cs-review__meta-item:last-child {
       border-right: none; }
-  .cs-single-review__stars {
+  .cs-review__stars {
     height: 1em; }
-  .cs-single-review__author {
+  .cs-review__author {
     line-height: 1em; }
-  .cs-single-review__date {
+  .cs-review__date {
     line-height: 1em;
     color: #666; }
-  .cs-single-review__content {
+  .cs-review__content {
     color: #666; }
 
-/*# sourceMappingURL=cs-single-review.css.map */
+/*# sourceMappingURL=review.css.map */
