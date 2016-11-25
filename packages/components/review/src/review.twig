@@ -3,7 +3,7 @@
 
     <div class="{{ namespace }}review__meta">
         <div class="{{ namespace }}review__rating {{ namespace }}review__meta-item">
-            {% include locate( 'components/star-rating/star-rating.twig' ) with {
+            {% include locate( 'star-rating/star-rating.twig' ) with {
                 namespace: namespace,
                 maxStars: rating.maxStars,
                 activeStars: rating.activeStars,
