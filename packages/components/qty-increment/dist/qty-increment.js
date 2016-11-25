@@ -21,7 +21,7 @@ var QtyIncrement = (function () {
         this._$incrementBtn = this._$container.find("." + this._options.namespace + "qty-increment__button--increment");
         this._minValue = this._options.minValue || 1;
         this._maxValue = this._options.maxValue || 10;
-        this._errorHandler = this._options.errorHandler || this._errorHandler;
+        this._errorHandler = this._options.errorHandler || this._defaultErrorHandler;
         this._attachEvents();
         this._updateButtonsState();
     }
@@ -32,20 +32,20 @@ var QtyIncrement = (function () {
         var currentValue = this._$input.val();
         // If value of input is less than minimum, disable decrease button, otherwise, enable button
         if (currentValue <= this._minValue) {
-            this._$container.find($("." + this._options.namespace + "qty-increment__button--decrement")).attr('disabled', true).addClass(this._options.namespace + "qty-increment__button--disabled");
+            this._$container.find($("." + this._options.namespace + "qty-increment__button--decrement")).attr('disabled', 'disabled').addClass(this._options.namespace + "qty-increment__button--disabled");
         }
         else {
-            this._$container.find($("." + this._options.namespace + "qty-increment__button--decrement")).attr('disabled', false).removeClass(this._options.namespace + "qty-increment__button--disabled");
+            this._$container.find($("." + this._options.namespace + "qty-increment__button--decrement")).removeAttr('disabled').removeClass(this._options.namespace + "qty-increment__button--disabled");
         }
         // If value of input is less than minimum, disable increase button, otherwise, enable button
         if (currentValue >= this._maxValue) {
-            this._$container.find($("." + this._options.namespace + "qty-increment__button--increment")).attr('disabled', true).addClass(this._options.namespace + "qty-increment__button--disabled");
+            this._$container.find($("." + this._options.namespace + "qty-increment__button--increment")).attr('disabled', 'disabled').addClass(this._options.namespace + "qty-increment__button--disabled");
         }
         else {
-            this._$container.find($("." + this._options.namespace + "qty-increment__button--increment")).attr('disabled', false).removeClass(this._options.namespace + "qty-increment__button--disabled");
+            this._$container.find($("." + this._options.namespace + "qty-increment__button--increment")).removeAttr('disabled').removeClass(this._options.namespace + "qty-increment__button--disabled");
         }
     };
-    QtyIncrement.prototype._errorHandler = function () {
+    QtyIncrement.prototype._defaultErrorHandler = function () {
         if (parseFloat(this._$input.val()) > this._maxValue) {
             alert("The maximum value is " + this._maxValue + ".");
         }
