@@ -3,6 +3,17 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-.t-text {
+@mixin t-text( $font-size, $font-family, $color-base, $color-light ) {
+    font-size: $font-size;
+    font-family: $font-family;
+    font-weight: 400;
+    color: $color-base;
+    &--look {
+        &_light {
+            color: $color-light;
+            font-weight: 300;
+        }
 
+    }
 }
+
