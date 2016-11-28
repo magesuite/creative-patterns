@@ -109,10 +109,15 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        restTokenEndpoint: {
+            type: String,
+            default: '',
+        },
     },
     data(): Object {
         return {
             initialComponentConfiguration: undefined,
+            restToken: undefined,
         };
     },
     ready(): void {
@@ -120,6 +125,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         this._isPickerLoaded = false;
         this._cleanupConfiguratorModal = '';
         this._configuratorSaveCallback = (): undefined => undefined;
+        this.setRestToken();
 
         // Initialize M2 loader for m2c modals
         $( 'body' ).loadingPopup( {
@@ -267,6 +273,15 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                     this.$refs.m2cLayoutBuilder.getComponentInformation(),
                 ),
             );
+        },
+
+        setRestToken(): void {
+            const component: any = this;
+
+            // send request for token
+            this.$http.get( this.restTokenEndpoint ).then( ( response: any ): void => {
+                component.restToken = `Bearer ${response.body}`;
+            } );
         },
     },
 };

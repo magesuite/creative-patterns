@@ -125,6 +125,10 @@ var m2cParagraphConfigurator = {
                 };
             },
         },
+        restToken: {
+            type: String,
+            default: '',
+        },
     },
     data: function () {
         return {
@@ -142,8 +146,6 @@ var m2cParagraphConfigurator = {
         };
     },
     ready: function () {
-        // TEMP!!!!!!!!!!!!!
-        Vue.http.headers.custom.Authorization = 'Bearer p0mprqlt8oeoxckn1r495085p2j7guxy';
         // Init loader and hide it
         $('body').one().loadingPopup({
             timeout: false,
@@ -157,6 +159,7 @@ var m2cParagraphConfigurator = {
             this.$http({
                 headers: {
                     Accept: 'application/json',
+                    Authorization: component_1.restToken,
                 },
                 method: 'get',
                 url: window.location.origin + "/rest/V1/cmsBlock/" + this.configuration.blockId,
@@ -194,6 +197,7 @@ var m2cParagraphConfigurator = {
             this.$http({
                 headers: {
                     Accept: 'application/json',
+                    Authorization: component.restToken,
                 },
                 method: this.configuration.blockId ? 'put' : 'post',
                 url: this.configuration.blockId ? window.location.origin + "/rest/V1/cmsBlock/" + this.configuration.blockId : window.location.origin + "/rest/V1/cmsBlock",
