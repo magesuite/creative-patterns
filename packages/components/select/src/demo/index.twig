@@ -1,0 +1,295 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>select component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../select.css">
+        <style>
+            html { font-family: Arial, sans-serif; margin: 0; padding: 0 .25em; font-size: 16px;}
+            section > div { margin: 0 0 30px; max-width: 400px; }
+            section { margin: 0 0 400px; }
+        </style>
+    </head>
+    <body>
+        <h1>select Component Demo</h1>
+
+        <section>
+            <div>
+                Default:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        options: [
+                            { value: 'volvo', label: 'Volvo' },
+                            { value: 'mercedes', label: 'Mercedes' },
+                            { value: 'ford', label: 'Ford' },
+                            { value: 'mazda', label: 'Mazda' },
+                            { value: 'audi', label: 'Audi' },
+                            { value: 'vw', label: 'Volkswagen' },
+                            { value: 'renault', label: 'Renault' },
+                            { value: 'bmw', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                Visible options limited to 5 (if not specified then set 8 by default):
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        params: 'data-options-limit="5"',
+                        options: [
+                            { value: 'volvo', label: 'Volvo' },
+                            { value: 'mercedes', label: 'Mercedes' },
+                            { value: 'ford', label: 'Ford' },
+                            { value: 'mazda', label: 'Mazda' },
+                            { value: 'audi', label: 'Audi' },
+                            { value: 'vw', label: 'Volkswagen' },
+                            { value: 'renault', label: 'Renault' },
+                            { value: 'bmw', label: 'BMW' },
+                            { value: 'volvo', label: 'Volvo' },
+                            { value: 'mercedes', label: 'Mercedes' },
+                            { value: 'ford', label: 'Ford' },
+                            { value: 'mazda', label: 'Mazda' },
+                            { value: 'audi', label: 'Audi' },
+                            { value: 'vw', label: 'Volkswagen' },
+                            { value: 'renault', label: 'Renault' },
+                            { value: 'bmw', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                Custom placeholder:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        params: 'title="Choose one of the following..."',
+                        options: [
+                            { value: 'volvo', label: 'Volvo' },
+                            { value: 'mercedes', label: 'Mercedes' },
+                            { value: 'ford', label: 'Ford' },
+                            { value: 'mazda', label: 'Mazda' },
+                            { value: 'audi', label: 'Audi' },
+                            { value: 'vw', label: 'Volkswagen' },
+                            { value: 'renault', label: 'Renault' },
+                            { value: 'bmw', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                Multiselect:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        params: 'multiple',
+                        options: [
+                            { value: 'volvo', label: 'Volvo' },
+                            { value: 'mercedes', label: 'Mercedes' },
+                            { value: 'ford', label: 'Ford' },
+                            { value: 'mazda', label: 'Mazda' },
+                            { value: 'audi', label: 'Audi' },
+                            { value: 'vw', label: 'Volkswagen' },
+                            { value: 'renault', label: 'Renault' },
+                            { value: 'bmw', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                Disabled select:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        params: 'disabled',
+                        options: [
+                            { value: 'volvo', label: 'Volvo' },
+                            { value: 'mercedes', label: 'Mercedes' },
+                            { value: 'ford', label: 'Ford' },
+                            { value: 'mazda', label: 'Mazda' },
+                            { value: 'audi', label: 'Audi' },
+                            { value: 'vw', label: 'Volkswagen' },
+                            { value: 'renault', label: 'Renault' },
+                            { value: 'bmw', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                Disabled options:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        options: [
+                            { value: 'volvo', label: 'Volvo' },
+                            { value: 'mercedes', label: 'Mercedes' },
+                            { value: 'ford', label: 'Ford' },
+                            { value: 'mazda', label: 'Mazda', params: 'disabled' },
+                            { value: 'audi', label: 'Audi', params: 'disabled' },
+                            { value: 'vw', label: 'Volkswagen' },
+                            { value: 'renault', label: 'Renault', params: 'disabled' },
+                            { value: 'bmw', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                Groups:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        groups: [
+                            {
+                                label: 'Volvo',
+                                options: [
+                                    { value: 'xc90', label: 'XC90' },
+                                    { value: 's40', label: 'S40' },
+                                    { value: 's60', label: 'S60' },
+                                    { value: 's80', label: 'S80' }
+                                ]
+                            },
+                            {
+                                label: 'Ford',
+                                params: 'disabled',
+                                options: [
+                                    { value: 'focus', label: 'Focus' },
+                                    { value: 'mondeo', label: 'Mondeo' },
+                                    { value: 'escort', label: 'Escort' },
+                                    { value: 's-max', label: 'S-Max' }
+                                ]
+                            }
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                With any content before option's text:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        options: [
+                            { 
+                                value: 'volvo', 
+                                label: 'Volvo', 
+                                contentBefore: "<svg style='width:14px; height:16px; vertical-align: middle; margin:-3px .25em 0 0;'><use xlink:href='../images/sprites.svg#icon-heart'></use></svg> Volvo"
+                            },
+                            { 
+                                value: 'mercedes', 
+                                label: 'Mercedes', 
+                                contentBefore: "<svg style='width:14px; height:16px; vertical-align: middle; margin:-3px .25em 0 0;'><use xlink:href='../images/sprites.svg#icon_star'></use></svg> Mercedes"
+                            },
+                            { 
+                                value: 'ford', 
+                                label: 'Ford', 
+                                contentBefore: "<svg style='width:14px; height:16px; vertical-align: middle; margin:-3px .25em 0 0;'><use xlink:href='../images/sprites.svg#icon_crown'></use></svg> Ford"
+                            },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                With price:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        options: [
+                            { 
+                                value: 'volvo', 
+                                label: 'Volvo (as low as $35.355)', 
+                                contentBefore: 'Volvo',
+                                contentAfter: "<span style='font-size:.75rem'>As low as</span> $35.355"
+                            },
+                            { 
+                                value: 'mercedes', 
+                                label: 'Mercedes (as low as $37.590)', 
+                                contentBefore: 'Mercedes',
+                                contentAfter: "<span style='font-size:.75rem'>As low as</span> $37.590"
+                            },
+                            { 
+                                value: 'ford', 
+                                label: 'Ford (as low as $22.150)', 
+                                contentBefore: 'Ford',
+                                contentAfter: "<span style='font-size:.75rem'>As low as</span> $22.150"
+                            },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                With content before &amp; price:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        options: [
+                            { 
+                                value: 'volvo', 
+                                label: 'Volvo', 
+                                contentBefore: "<svg style='width:14px; height:16px; vertical-align: middle; margin:-3px .25em 0 0;'><use xlink:href='../images/sprites.svg#icon-heart'></use></svg> Volvo",
+                                contentAfter: "<span style='font-size:.75rem'>As low as</span> $35.355"
+                            },
+                            { 
+                                value: 'mercedes', 
+                                label: 'Mercedes (as low as $37.590)', 
+                                contentBefore: "<svg style='width:14px; height:16px; vertical-align: middle; margin:-3px .25em 0 0;'><use xlink:href='../images/sprites.svg#icon_star'></use></svg> Mercedes",
+                                contentAfter: "<span style='font-size:.75rem'>As low as</span> $37.590"
+                            },
+                            { 
+                                value: 'ford', 
+                                label: 'Ford (as low as $22.150)', 
+                                contentBefore: "<svg style='width:14px; height:16px; vertical-align: middle; margin:-3px .25em 0 0;'><use xlink:href='../images/sprites.svg#icon_crown'></use></svg> Ford",
+                                contentAfter: "<span style='font-size:.75rem'>As low as</span> $22.150"
+                            },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                Example of onChange event: <span class="chosen" style="color:orange"></span>
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        mix: 'onchange-example',
+                        options: [
+                            { value: 'Volvo', label: 'Volvo' },
+                            { value: 'Mercedes', label: 'Mercedes' },
+                            { value: 'Ford', label: 'Ford' },
+                            { value: 'Mazda', label: 'Mazda' },
+                            { value: 'Audi', label: 'Audi' },
+                            { value: 'Vw', label: 'Volkswagen' },
+                            { value: 'Renault', label: 'Renault' },
+                            { value: 'BMW', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+        </section>
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="../../src/vendor/_ismobile.min.js"></script>
+        <script src="../../src/vendor/bootstrap-select/_bootstrap-dropdown.js"></script>
+        <script src="../../src/vendor/bootstrap-select/_bootstrap-select.js"></script>
+        <script src="../select.js"></script>
+        <script>
+            new select( $( '.cs-select' ) );
+
+            $( '.onchange-example' ).on( 'change', function() {
+                $( '.chosen' ).html( this.value );
+            } );
+        </script>
+    </body>
+</html>

@@ -1,0 +1,8 @@
+{
+    "name": "select",
+    "version": "0.0.1",
+    "description": "Custom HTML select version of native select with native fallback on mobiles",
+    "main": "src/select.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
