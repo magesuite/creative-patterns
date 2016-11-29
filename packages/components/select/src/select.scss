@@ -62,7 +62,7 @@ $namespace: 'cs-' !default;
         outline: none;
         overflow: hidden;
         box-sizing: border-box;
-        font-size: 1rem;
+        font-size: 1em;
 
         #{$root}--open &,
         #{$root}.open & {
