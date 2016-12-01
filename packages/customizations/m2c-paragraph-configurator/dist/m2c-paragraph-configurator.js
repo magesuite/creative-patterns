@@ -102,7 +102,6 @@ var ccParagraphConfigurator = {
     },
 };
 
-/* tslint:disable:no-console */
 /**
  * M2C skin for Paragraph configurator component.
  * This component is responsible for displaying paragraph configuration form
@@ -112,7 +111,7 @@ var m2cParagraphConfigurator = {
     mixins: [
         ccParagraphConfigurator,
     ],
-    template: "<form class=\"m2c-paragraph-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        \n        <div class=\"m2c-paragraph-configurator__error\" v-text=\"tempConfiguration.errorMessage\" v-show=\"tempConfiguration.errorMessage\">\n        </div>\n\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"input-cfg-id\" class=\"m2-input__label\">" + $t('Identifier') + ":</label>\n            <input type=\"text\" name=\"cfg-id\" v-model=\"tempConfiguration.identifier\" id=\"input-cfg-id\" class=\"m2-input__input\" @blur=\"stripSpaces( tempConfiguration.identifier )\" maxlength=\"30\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"input-cfg-title\" class=\"m2-input__label\">" + $t('Title') + ":</label>\n            <input type=\"text\" name=\"cfg-title\" v-model=\"tempConfiguration.title\" id=\"input-cfg-title\" class=\"m2-input__input\" maxlength=\"100\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"textarea-cfg-paragraph\" class=\"m2-input__label m2-input__label--look-top-align\">" + $t('HTML') + ":</label>\n            <textarea name=\"cfg-paragraph\" v-model=\"tempConfiguration.content\" id=\"textarea-cfg-paragraph\" class=\"m2-input__textarea\"></textarea>\n        </div>\n    </form>",
+    template: "<form class=\"m2c-paragraph-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        \n        <div class=\"m2c-paragraph-configurator__error\" v-text=\"tempConfiguration.errorMessage\" v-show=\"tempConfiguration.errorMessage\">\n        </div>\n\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"input-cfg-id\" class=\"m2-input__label\">" + $t('Identifier') + ":</label>\n            <input type=\"text\" name=\"cfg-id\" v-model=\"tempConfiguration.identifier\" id=\"input-cfg-id\" class=\"m2-input__input\" @blur=\"stripSpaces( tempConfiguration.identifier )\" maxlength=\"30\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"input-cfg-title\" class=\"m2-input__label\">" + $t('Title') + ":</label>\n            <input type=\"text\" name=\"cfg-title\" v-model=\"tempConfiguration.title\" id=\"input-cfg-title\" class=\"m2-input__input\" maxlength=\"100\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"textarea-cfg-paragraph\" class=\"m2-input__label m2-input__label--look-top-align\">" + $t('HTML') + ":</label>\n            <textarea name=\"cfg-paragraph\" v-model=\"tempConfiguration.content\" id=\"textarea-cfg-paragraph\" class=\"m2-input__textarea | m2c-paragraph-configurator__textarea\"></textarea>\n        </div>\n    </form>",
     props: {
         /*
          * Single's component configuration
@@ -171,7 +170,6 @@ var m2cParagraphConfigurator = {
                 component_1.tempConfiguration.title = response.data.title;
                 component_1.tempConfiguration.content = response.data.content;
             }, function (response) {
-                console.error(response);
                 $('body').trigger('hideLoadingPopup');
             });
         }
@@ -206,7 +204,6 @@ var m2cParagraphConfigurator = {
                 // If status is OK update component's configuration and run Save to save component data
                 if (response.ok) {
                     component.configuration.blockId = response.data.id;
-                    console.log(component.configuration);
                     // Hide loader
                     $('body').trigger('hideLoadingPopup');
                     component.onSave();

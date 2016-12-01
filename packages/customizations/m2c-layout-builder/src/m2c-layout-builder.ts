@@ -1,5 +1,7 @@
 import ccLayoutBuilder from '../../../components/cc-layout-builder/src/cc-layout-builder';
 
+import m2cParagraphConfigurator from '../../m2c-paragraph-configurator/src/m2c-paragraph-configurator';
+
 import $t from 'mage/translate';
 import confirm from 'Magento_Ui/js/modal/confirm';
 
@@ -26,15 +28,43 @@ const m2cLayoutBuilder: vuejs.ComponentOption = {
     mixins: [
         ccLayoutBuilder,
     ],
+    /**
+     * Get dependencies
+     */
+    components: {
+        'm2c-paragraph-configurator': m2cParagraphConfigurator,
+    },
     methods: {
-        deleteComponent( index: number ): void {
-            const component: any = this;
+        /* Removes component and optionally stuff related to it
+         * @param index {number} - index of the component in layoutBuilder
+         * @param component { Object } - component object that is about to be removed
+         */
+        deleteComponent( index: number, component: any ): void {
+            const builder: any = this;
+
             confirm( {
                 content: $t( 'Are you sure you want to delete this item?' ),
                 actions: {
                     confirm(): void {
-                        component.components.splice( index, 1 );
-                        component.$dispatch( 'cc-layout-builder__update' );
+                        builder.components.splice( index, 1 );
+
+                        if ( component.type === 'paragraph' ) {
+                            builder.deleteStaticBlock( component.data.blockId );
+                        }
+
+                        builder.$dispatch( 'cc-layout-builder__update' );
+                    },
+                },
+            } );
+        },
+        deleteStaticBlock( cmsBlockId: string ): void {
+            const component: any = this;
+
+            confirm( {
+                content: $t( 'Would you like to delete CMS Block related to this component (CMS Block ID: %s) ?' ).replace( '%s', cmsBlockId ),
+                actions: {
+                    confirm(): void {
+                        component.$dispatch( 'cc-layout-builder__cmsblock-delete-request', cmsBlockId );
                     },
                 },
             } );

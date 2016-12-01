@@ -1,5 +1,3 @@
-/* tslint:disable:no-console */
-
 import ccParagraphConfigurator from '../../../components/cc-paragraph-configurator/src/cc-paragraph-configurator';
 
 import $ from 'jquery';
@@ -30,7 +28,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         </div>
         <div class="m2-input m2-input--type-inline">
             <label for="textarea-cfg-paragraph" class="m2-input__label m2-input__label--look-top-align">${$t( 'HTML' )}:</label>
-            <textarea name="cfg-paragraph" v-model="tempConfiguration.content" id="textarea-cfg-paragraph" class="m2-input__textarea"></textarea>
+            <textarea name="cfg-paragraph" v-model="tempConfiguration.content" id="textarea-cfg-paragraph" class="m2-input__textarea | m2c-paragraph-configurator__textarea"></textarea>
         </div>
     </form>`,
     props: {
@@ -97,7 +95,6 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 component.tempConfiguration.content = response.data.content;
 
             }, ( response: any ): void => {
-                console.error( response );
                 $( 'body' ).trigger( 'hideLoadingPopup' );
             } );
         }
@@ -136,7 +133,6 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 // If status is OK update component's configuration and run Save to save component data
                 if ( response.ok ) {
                     component.configuration.blockId = response.data.id;
-                    console.log( component.configuration );
 
                     // Hide loader
                     $( 'body' ).trigger( 'hideLoadingPopup' );

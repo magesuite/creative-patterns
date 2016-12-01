@@ -8,5 +8,7 @@ $namespace: 'm2c-';
 @import '../../../components/cc-paragraph-configurator/src/cc-paragraph-configurator';
 
 .#{$namespace}paragraph-configurator {
-    //
+    &__textarea {
+        min-height: 200px;
+    }
 }
