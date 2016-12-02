@@ -34,7 +34,7 @@ if (typeof jQuery === 'undefined') {
   // DROPDOWN CLASS DEFINITION
   // =========================
 
-  var backdrop = '.rc-html-dropdown__backdrop'
+  var backdrop = '.cs-html-select__backdrop'
   var toggle   = '[data-toggle="dropdown"]'
   var Dropdown = function (element) {
     $(element).on('click.bs.dropdown', this.toggle)
@@ -62,6 +62,7 @@ if (typeof jQuery === 'undefined') {
       var $this         = $(this)
       var $parent       = getParent($this)
       var relatedTarget = { relatedTarget: this }
+      var selectpickerOptions = $parent.data().this.options;
 
       if (!$parent.hasClass('open')) return
 
@@ -72,14 +73,15 @@ if (typeof jQuery === 'undefined') {
       if (e.isDefaultPrevented()) return
 
       $this.attr('aria-expanded', 'false')
-      $parent.removeClass('open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
+      $parent.removeClass('open').removeClass(selectpickerOptions.selectClass+'--open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
     })
   }
 
   Dropdown.prototype.toggle = function (e) {
     var $this = $(this)
+    var selectpickerOptions = getParent($this).data().this.options;
 
-    if ($this.is('.disabled, :disabled')) return
+    if ($this.is('.'+selectpickerOptions.selectClass+'--disabled, .disabled, :disabled')) return
 
     var $parent  = getParent($this)
     var isActive = $parent.hasClass('open')
@@ -105,7 +107,7 @@ if (typeof jQuery === 'undefined') {
         .attr('aria-expanded', 'true')
 
       $parent
-        .toggleClass('open')
+        .toggleClass('open '+selectpickerOptions.selectClass+'--open')
         .trigger($.Event('shown.bs.dropdown', relatedTarget))
     }
 
@@ -116,13 +118,14 @@ if (typeof jQuery === 'undefined') {
     if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
 
     var $this = $(this)
+    var $parent  = getParent($this)
+    var selectpickerOptions = $parent.data().this.options;
 
     e.preventDefault()
     e.stopPropagation()
 
-    if ($this.is('.disabled, :disabled')) return
+    if ($this.is('.'+selectpickerOptions.selectClass+'--disabled, .disabled, :disabled')) return
 
-    var $parent  = getParent($this)
     var isActive = $parent.hasClass('open')
 
     if (!isActive && e.which != 27 || isActive && e.which == 27) {
@@ -130,8 +133,8 @@ if (typeof jQuery === 'undefined') {
       return $this.trigger('click')
     }
 
-    var desc = ' li:not(.disabled):visible a'
-    var $items = $parent.find('.rc-dropdown__menu' + desc)
+    var desc = ' li:not(.disabled, .'+selectpickerOptions.menuListitemClass+'--disabled):visible a'
+    var $items = $parent.find('.'+selectpickerOptions.menuClass + desc)
 
     if (!$items.length) return
 

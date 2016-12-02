@@ -1,6 +1,8 @@
 (function ($) {
   'use strict';
 
+  var selectClass = 'duoa';
+
   //<editor-fold desc="Shims">
   if (!String.prototype.includes) {
     (function () {
@@ -230,8 +232,6 @@
     }) : string;
   }
 
-  var selectClass;
-
   var Selectpicker = function (element, options, e) {
     selectClass = options.selectClass;
 
@@ -426,7 +426,7 @@
       var header = this.options.header ? '<div class="popover-title"><button type="button" class="close" aria-hidden="true">&times;</button>' + this.options.header + '</div>' : '';
       var searchbox = this.options.liveSearch ?
       '<div class="bs-searchbox">' +
-      '<input type="text" class="form-control" autocomplete="off"' +
+      '<input type="text" class="'+this.options.searchInputClass+'" autocomplete="off"' +
       (null === this.options.liveSearchPlaceholder ? '' : ' placeholder="' + htmlEscape(this.options.liveSearchPlaceholder) + '"') + '>' +
       '</div>'
           : '';
@@ -638,7 +638,7 @@
         } else if ($this.data('divider') === true) {
           _li.push(generateLI('', index, that.options.menuListitemClass + '--divider'));
         } else if ($this.data('hidden') === true) {
-          _li.push(generateLI(generateA(text, optionClass, inline, tokens), index, 'hidden is-hidden'));
+          _li.push(generateLI(generateA(text, optionClass, inline, tokens), index, that.options.menuListitemClass+'--hidden '+that.options.menuListitemClass+'--is-hidden'));
         } else {
           if (this.previousElementSibling && this.previousElementSibling.tagName === 'OPTGROUP') {
             liIndex++;
@@ -829,10 +829,10 @@
           doneButton = this.options.doneButton && this.multiple && this.$menu.find('.bs-donebutton').length > 0 ? this.$menu.find('.bs-donebutton')[0].cloneNode(true) : null;
 
       text.className = this.options.menuListitemClass + '-text';
-      newElement.className = this.$menu[0].parentNode.className + ' '+this.options.selectClass+'--open';
+      newElement.className = this.$menu[0].parentNode.className + ' '+this.options.selectClass+'--open open';
       menu.className = this.options.menuClass;
       menuInner.className = this.options.menuListClass;
-      divider.className = this.options.selectClass+'__divider';
+      divider.className = this.options.menuListitemClass+'--divider';
       li.className = this.options.menuListitemClass;
       a.className = this.options.linkClass;
 
@@ -846,7 +846,7 @@
         // create a span instead of input as creating an input element is slower
         var input = document.createElement('span');
         search.className = 'bs-searchbox';
-        input.className = 'form-control';
+        input.className = this.options.searchInputClass;
         search.appendChild(input);
         menu.appendChild(search);
       }
@@ -908,7 +908,7 @@
           divHeight = this.sizeInfo['dividerHeight'],
           menuPadding = this.sizeInfo['menuPadding'],
           menuExtras = this.sizeInfo['menuExtras'],
-          notDisabled = this.options.hideDisabled ? this.options.selectClass+'--disabled' : '',
+          notDisabled = this.options.hideDisabled ? this.options.menuListitemClass+'--disabled' : '',
           menuHeight,
           getHeight,
           selectOffsetTop,
@@ -933,7 +933,7 @@
                 };
               },
               lis = that.$menuInner[0].getElementsByTagName('li'),
-              lisVisible = Array.prototype.filter ? Array.prototype.filter.call(lis, hasClass('hidden', false)) : that.$lis.not('.hidden'),
+              lisVisible = Array.prototype.filter ? Array.prototype.filter.call(lis, hasClass(that.options.menuListitemClass+'--hidden', false)) : that.$lis.not('.'+that.options.menuListitemClass+'--hidden'),
               optGroup = Array.prototype.filter ? Array.prototype.filter.call(lisVisible, hasClass('dropdown-header', true)) : lisVisible.filter('.dropdown-header');
 
           posVert();
@@ -974,8 +974,8 @@
         this.$searchbox.off('input.getSize propertychange.getSize').on('input.getSize propertychange.getSize', getSize);
         $window.off('resize.getSize scroll.getSize').on('resize.getSize scroll.getSize', getSize);
       } else if (this.options.size && this.options.size != 'auto' && this.$lis.not(notDisabled).length > this.options.size) {
-        var optIndex = this.$lis.not('.'+this.options.selectClass+'__divider').not(notDisabled).children().slice(0, this.options.size).last().parent().index(),
-            divLength = this.$lis.slice(0, optIndex + 1).filter('.'+this.options.selectClass+'__divider').length;
+        var optIndex = this.$lis.not('.'+this.options.menuListitemClass+'--divider').not(notDisabled).children().slice(0, this.options.size).last().parent().index(),
+            divLength = this.$lis.slice(0, optIndex + 1).filter('.'+this.options.menuListitemClass+'--divider').length;
         menuHeight = liHeight * this.options.size + divLength * divHeight + menuPadding;
 
         if (that.options.container) {
@@ -1067,7 +1067,7 @@
 
         that.$bsContainer
           .appendTo(that.options.container)
-          .toggleClass('open', !$this.hasClass('open'))
+          .toggleClass(that.options.selectClass+'--open open', !$this.hasClass(that.options.selectClass+'--open'))
           .append(that.$menu);
       });
 
@@ -1276,7 +1276,7 @@
         }
       });
 
-      this.$menu.on('click', 'li.'+this.options.selectClass+'__menu-item--disabled a, .popover-title, .popover-title :not(.close)', function (e) {
+      this.$menu.on('click', 'li.'+this.options.menuListitemClass+'--disabled a, .popover-title, .popover-title :not(.close)', function (e) {
         if (e.currentTarget == this) {
           e.preventDefault();
           e.stopPropagation();
@@ -1288,7 +1288,7 @@
         }
       });
 
-      this.$menuInner.on('click', '.'+this.options.selectClass+'__divider, .dropdown-header', function (e) {
+      this.$menuInner.on('click', '.'+this.options.menuListitemClass+'--divider, .dropdown-header', function (e) {
         e.preventDefault();
         e.stopPropagation();
         if (that.options.liveSearch) {
@@ -1330,16 +1330,16 @@
 
     liveSearchListener: function () {
       var that = this,
-          $no_results = $('<li class="no-results"></li>');
+          $no_results = $('<li class="'+that.options.menuListitemClass+'--no-results"></li>');
 
       this.$button.on('click.dropdown.data-api touchstart.dropdown.data-api', function () {
-        that.$menuInner.find('.active').removeClass('active');
+        that.$menuInner.find('.'+that.options.menuListitemClass+'--active').removeClass(that.options.menuListitemClass+'--active');
         if (!!that.$searchbox.val()) {
           that.$searchbox.val('');
-          that.$lis.not('.is-hidden').removeClass('hidden');
+          that.$lis.not(that.options.menuListitemClass+'--is-hidden').removeClass(that.options.menuListitemClass+'--hidden');
           if (!!$no_results.parent().length) $no_results.remove();
         }
-        if (!that.multiple) that.$menuInner.find('.selected').addClass('active');
+        if (!that.multiple) that.$menuInner.find(that.options.menuListitemClass+'--selected').addClass(that.options.menuListitemClass+'--active');
         setTimeout(function () {
           that.$searchbox.focus();
         }, 10);
@@ -1350,40 +1350,42 @@
       });
 
       this.$searchbox.on('input propertychange', function () {
+        //var that = this;
+
         if (that.$searchbox.val()) {
-          var $searchBase = that.$lis.not('.is-hidden').removeClass('hidden').children('a');
+          var $searchBase = that.$lis.not('.'+that.options.menuListitemClass+'--is-hidden').removeClass(that.options.menuListitemClass+'--hidden').children('a');
           if (that.options.liveSearchNormalize) {
             $searchBase = $searchBase.not(':a' + that._searchStyle() + '("' + normalizeToBase(that.$searchbox.val()) + '")');
           } else {
             $searchBase = $searchBase.not(':' + that._searchStyle() + '("' + that.$searchbox.val() + '")');
           }
-          $searchBase.parent().addClass('hidden');
+          $searchBase.parent().addClass(that.options.menuListitemClass+'--hidden');
 
           that.$lis.filter('.dropdown-header').each(function () {
             var $this = $(this),
                 optgroup = $this.data('optgroup');
 
-            if (that.$lis.filter('[data-optgroup=' + optgroup + ']').not($this).not('.hidden').length === 0) {
-              $this.addClass('hidden');
-              that.$lis.filter('[data-optgroup=' + optgroup + 'div]').addClass('hidden');
+            if (that.$lis.filter('[data-optgroup=' + optgroup + ']').not($this).not('.'+that.options.menuListitemClass+'--hidden').length === 0) {
+              $this.addClass(that.options.menuListitemClass+'--hidden');
+              that.$lis.filter('[data-optgroup=' + optgroup + 'div]').addClass(that.options.menuListitemClass+'--hidden');
             }
           });
 
-          var $lisVisible = that.$lis.not('.hidden');
+          var $lisVisible = that.$lis.not('.'+that.options.menuListitemClass+'--hidden');
 
           // hide divider if first or last visible, or if followed by another divider
           $lisVisible.each(function (index) {
             var $this = $(this);
 
-            if ($this.hasClass(this.options.selectClass+'__divider') && (
+            if ($this.hasClass(that.options.menuListitemClass+'--divider') && (
               $this.index() === $lisVisible.first().index() ||
               $this.index() === $lisVisible.last().index() ||
-              $lisVisible.eq(index + 1).hasClass(this.options.selectClass+'__divider'))) {
-              $this.addClass('hidden');
+              $lisVisible.eq(index + 1).hasClass(that.options.menuListitemClass+'--divider'))) {
+              $this.addClass(that.options.menuListitemClass+'--hidden');
             }
           });
 
-          if (!that.$lis.not('.hidden, .no-results').length) {
+          if (!that.$lis.not('.'+that.options.menuListitemClass+'--hidden, .'+that.options.menuListitemClass+'--no-results').length) {
             if (!!$no_results.parent().length) {
               $no_results.remove();
             }
@@ -1393,14 +1395,14 @@
             $no_results.remove();
           }
         } else {
-          that.$lis.not('.is-hidden').removeClass('hidden');
+          that.$lis.not('.'+that.options.menuListitemClass+'--is-hidden').removeClass(that.options.menuListitemClass+'--hidden');
           if (!!$no_results.parent().length) {
             $no_results.remove();
           }
         }
 
-        that.$lis.filter('.active').removeClass('active');
-        if (that.$searchbox.val()) that.$lis.not('.hidden, .'+this.options.selectClass+'__divider, .dropdown-header').eq(0).addClass('active').children('a').focus();
+        that.$lis.filter('.'+that.options.menuListitemClass+'--active').removeClass(that.options.menuListitemClass+'--active');
+        if (that.$searchbox.val()) that.$lis.not('.'+that.options.menuListitemClass+'--hidden, .'+that.options.menuListitemClass+'--divider, .dropdown-header').eq(0).addClass(that.options.menuListitemClass+'--active').children('a').focus();
         $(this).focus();
       });
     },
@@ -1431,7 +1433,7 @@
       this.findLis();
 
       var $options = this.$element.find('option'),
-          $lisVisible = this.$lis.not('.'+this.options.selectClass+'__divider, .dropdown-header, .'+this.options.selectClass+'__menu-item--disabled, .hidden').toggleClass(that.options.menuListitemClass + '--selected', status),
+          $lisVisible = this.$lis.not('.'+that.options.menuListitemClass+'--divider, .dropdown-header, .'+that.options.menuListitemClass+'--disabled, .'+that.options.menuListitemClass+'--hidden, .hidden').toggleClass(that.options.menuListitemClass + '--selected', status),
           lisVisLen = $lisVisible.length,
           selectedOptions = [];
 
@@ -1478,7 +1480,7 @@
           nextPrev,
           prevIndex,
           isActive,
-          selector = ':not(.'+this.options.selectClass+'__menu-item--disabled, .hidden, .dropdown-header, .'+this.options.selectClass+'__divider)',
+          selector = ':not(.'+that.options.menuListitemClass+'--disabled, .'+that.options.menuListitemClass+'--hidden, .dropdown-header, .'+that.options.menuListitemClass+'--divider)',
           keyCodeMap = {
             32: ' ',
             48: '0',
@@ -1536,12 +1538,12 @@
 
       $items = $('[role=menu] li', $parent);
 
-      isActive = that.$newElement.hasClass(this.options.selectClass+'--open');
+      isActive = that.$newElement.hasClass(that.options.selectClass+'--open');
 
       if (!isActive && (e.keyCode >= 48 && e.keyCode <= 57 || e.keyCode >= 96 && e.keyCode <= 105 || e.keyCode >= 65 && e.keyCode <= 90)) {
         if (!that.options.container) {
           that.setSize();
-          that.$menu.parent().addClass(this.options.selectClass+'--open');
+          that.$menu.parent().addClass(that.options.selectClass+'--open open');
           isActive = true;
         } else {
           that.$button.trigger('click');
@@ -1550,16 +1552,16 @@
       }
 
       if (that.options.liveSearch) {
-        if (/(^9$|27)/.test(e.keyCode.toString(10)) && isActive && that.$menu.find('.active').length === 0) {
+        if (/(^9$|27)/.test(e.keyCode.toString(10)) && isActive && that.$menu.find('.'+that.options.menuListitemClass+'--active').length === 0) {
           e.preventDefault();
-          that.$menu.parent().removeClass(this.options.selectClass+'--open');
-          if (that.options.container) that.$newElement.removeClass(this.options.selectClass+'--open');
+          that.$menu.parent().removeClass(that.options.selectClass+'--open').removeClass('open');
+          if (that.options.container) that.$newElement.removeClass(that.options.selectClass+'--open').removeClass('open');
           that.$button.focus();
         }
         // $items contains li elements when liveSearch is enabled
         $items = $('[role=menu] li' + selector, $parent);
         if (!$this.val() && !/(38|40)/.test(e.keyCode.toString(10))) {
-          if ($items.filter('.active').length === 0) {
+          if ($items.filter('.'+that.options.menuListitemClass+'--active').length === 0) {
             $items = that.$menuInner.find('li');
             if (that.options.liveSearchNormalize) {
               $items = $items.filter(':a' + that._searchStyle() + '(' + normalizeToBase(keyCodeMap[e.keyCode]) + ')');
@@ -1582,11 +1584,11 @@
 
         if (that.options.liveSearch) {
           $items.each(function (i) {
-            if (!$(this).hasClass(this.options.selectClass+'--disabled')) {
+            if (!$(this).hasClass(that.options.menuListitemClass+'--hidden')) {
               $(this).data('index', i);
             }
           });
-          index = $items.index($items.filter('.active'));
+          index = $items.index($items.filter('.'+that.options.menuListitemClass+'--active'));
           first = $items.first().data('index');
           last = $items.last().data('index');
           next = $items.eq(index).nextAll().eq(0).data('index');
@@ -1616,7 +1618,7 @@
         } else {
           e.preventDefault();
           if (!$this.hasClass('dropdown-toggle')) {
-            $items.removeClass('active').eq(index).addClass('active').children('a').focus();
+            $items.removeClass(that.options.menuListitemClass+'--active').eq(index).addClass(that.options.menuListitemClass+'--active').children('a').focus();
             $this.focus();
           }
         }
@@ -1627,7 +1629,7 @@
             prevKey;
 
         $items.each(function () {
-          if (!$(this).hasClass(this.options.selectClass+'__menu-item--disabled')) {
+          if (!$(this).hasClass(that.options.menuListitemClass+'--disabled')) {
             if ($.trim($(this).children('a').text().toLowerCase()).substring(0, 1) == keyCodeMap[e.keyCode]) {
               keyIndex.push($(this).index());
             }
@@ -1664,15 +1666,15 @@
           // Fixes spacebar selection of dropdown items in FF & IE
           $(document).data('spaceSelect', true);
         } else if (!/(32)/.test(e.keyCode.toString(10))) {
-          that.$menuInner.find('.active a').click();
+          that.$menuInner.find('.'+that.options.menuListitemClass+'--active a').click();
           $this.focus();
         }
         $(document).data('keycount', 0);
       }
 
       if ((/(^9$|27)/.test(e.keyCode.toString(10)) && isActive && (that.multiple || that.options.liveSearch)) || (/(27)/.test(e.keyCode.toString(10)) && !isActive)) {
-        that.$menu.parent().removeClass(this.options.selectClass+'--open');
-        if (that.options.container) that.$newElement.removeClass(this.options.selectClass+'--open');
+        that.$menu.parent().removeClass(that.options.selectClass+'--open').removeClass('open');
+        if (that.options.container) that.$newElement.removeClass(that.options.selectClass+'--open').removeClass('open');
         that.$button.focus();
       }
     },
@@ -1784,12 +1786,7 @@
     return this;
   };
 
-  $(document)
-      .data('keycount', 0)
-      .on('keydown.bs.select', '.'+selectClass+' [data-toggle=dropdown], .'+selectClass+' [role="menu"], .bs-searchbox input', Selectpicker.prototype.keydown)
-      .on('focusin.modal', '.'+selectClass+' [data-toggle=dropdown], .'+selectClass+' [role="menu"], .bs-searchbox input', function (e) {
-        e.stopPropagation();
-      });
+  
 
   // SELECTPICKER DATA-API
   // =====================
@@ -1798,5 +1795,12 @@
       var $selectpicker = $(this);
       Plugin.call($selectpicker, $selectpicker.data());
     })
-  });
+
+    $(document)
+        .data('keycount', 0)
+        .on('keydown.bs.select', '.'+selectClass+' [data-toggle=dropdown], .'+selectClass+' [role="menu"], .bs-searchbox input', Selectpicker.prototype.keydown)
+        .on('focusin.modal', '.'+selectClass+' [data-toggle=dropdown], .'+selectClass+' [role="menu"], .bs-searchbox input', function (e) {
+          e.stopPropagation();
+        });
+    });
 })(jQuery);

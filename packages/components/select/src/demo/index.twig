@@ -6,6 +6,7 @@
         <title>select component demo</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../../../cs-input/dist/cs-input.css">
         <link rel="stylesheet" href="../select.css">
         <style>
             html { font-family: Arial, sans-serif; margin: 0; padding: 0 .25em; font-size: 16px;}
@@ -89,7 +90,7 @@
                 <div class="cs-input">
                     {% include "../select.twig" with {
                         namespace: 'cs-',
-                        params: 'multiple',
+                        params: 'multiple data-live-search="true"',
                         options: [
                             { value: 'volvo', label: 'Volvo' },
                             { value: 'mercedes', label: 'Mercedes' },
@@ -263,6 +264,46 @@
                     {% include "../select.twig" with {
                         namespace: 'cs-',
                         mix: 'onchange-example',
+                        options: [
+                            { value: 'Volvo', label: 'Volvo' },
+                            { value: 'Mercedes', label: 'Mercedes' },
+                            { value: 'Ford', label: 'Ford' },
+                            { value: 'Mazda', label: 'Mazda' },
+                            { value: 'Audi', label: 'Audi' },
+                            { value: 'Vw', label: 'Volkswagen' },
+                            { value: 'Renault', label: 'Renault' },
+                            { value: 'BMW', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                With divider:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        options: [
+                            { value: 'Volvo', label: 'Volvo' },
+                            { value: 'Mercedes', label: 'Mercedes' },
+                            { value: 'Ford', label: 'Ford' },
+                            { value: 'Mazda', label: 'Mazda' },
+                            { value: '', label: '', params: 'data-divider="true"' },
+                            { value: 'Audi', label: 'Audi' },
+                            { value: 'Vw', label: 'Volkswagen' },
+                            { value: 'Renault', label: 'Renault' },
+                            { value: 'BMW', label: 'BMW' },
+                        ]
+                    } %}
+                </div>
+            </div>
+
+            <div>
+                Live search example:
+                <div class="cs-input">
+                    {% include "../select.twig" with {
+                        namespace: 'cs-',
+                        params: 'data-live-search="true"',
                         options: [
                             { value: 'Volvo', label: 'Volvo' },
                             { value: 'Mercedes', label: 'Mercedes' },
