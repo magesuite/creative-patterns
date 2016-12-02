@@ -35,17 +35,19 @@ const m2cLayoutBuilder: vuejs.ComponentOption = {
         'm2c-paragraph-configurator': m2cParagraphConfigurator,
     },
     methods: {
-        /* Removes component and optionally stuff related to it
+        /* Removes component from M2C
+         * If it's paragraph that is about to be removed, asks if corresponding CMS Block shall be removed as well
          * @param index {number} - index of the component in layoutBuilder
-         * @param component { Object } - component object that is about to be removed
          */
-        deleteComponent( index: number, component: any ): void {
+        deleteComponent( index: number ): void {
             const builder: any = this;
 
             confirm( {
                 content: $t( 'Are you sure you want to delete this item?' ),
                 actions: {
                     confirm(): void {
+                        const component: any = builder.components[ index ];
+
                         builder.components.splice( index, 1 );
 
                         if ( component.type === 'paragraph' ) {
@@ -57,6 +59,7 @@ const m2cLayoutBuilder: vuejs.ComponentOption = {
                 },
             } );
         },
+
         deleteStaticBlock( cmsBlockId: string ): void {
             const component: any = this;
 
