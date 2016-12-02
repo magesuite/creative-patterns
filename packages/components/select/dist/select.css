@@ -49,7 +49,7 @@
     outline: none;
     overflow: hidden;
     box-sizing: border-box;
-    font-size: 1rem; }
+    font-size: 1em; }
     .cs-html-select--open .cs-html-select__trigger,
     .cs-html-select.open .cs-html-select__trigger {
       border-bottom-left-radius: 0;
@@ -62,18 +62,8 @@
       border-color: #f46667;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0; }
-    .cs-html-select__trigger--light, .cs-html-select__trigger--light-reverse {
-      background: #f7f7f7;
-      font-weight: 500;
-      box-shadow: none;
-      padding: 0 3em 0 .563em; }
-      .cs-html-select__trigger--light .cs-html-select__trigger-caret, .cs-html-select__trigger--light-reverse .cs-html-select__trigger-caret {
-        border-left: none; }
-      .cs-html-select__trigger--light .cs-html-select__text-content, .cs-html-select__trigger--light-reverse .cs-html-select__text-content {
-        padding: 0 .375em 0 .188em; }
-    .cs-html-select__trigger--light-reverse {
-      box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
-      background: #fff; }
+    .cs-html-select__trigger:focus {
+      box-shadow: 0 0 5px 0 #3899e2; }
   .cs-html-select__trigger-text {
     display: block;
     white-space: nowrap;
@@ -201,6 +191,11 @@
     font-size: .6875rem;
     text-transform: uppercase;
     color: #676767; }
+  .cs-html-select__menu-item--hidden {
+    display: none; }
+  .cs-html-select__menu-item--no-results {
+    padding: .563em .625em;
+    background-color: #fafafa; }
   .cs-html-select__menu-item-text {
     display: block;
     white-space: nowrap;
@@ -216,7 +211,7 @@
     transition: background-color .15s linear, color .15s linear; }
     .cs-html-select__menu-link:focus {
       outline: none;
-      background-color: whitesmoke; }
+      background-color: #ededed; }
     .cs-html-select__menu-link:hover, .cs-html-select__menu-link:hover:focus {
       background-color: #c9c9c9;
       color: #fff; }
@@ -235,6 +230,8 @@
       .cs-html-select__menu-item--disabled .cs-html-select__menu-link:hover {
         background-color: #fafafa;
         color: #c9c9c9; }
+    .cs-html-select__menu-item--active .cs-html-select__menu-link {
+      background-color: #ededed; }
   .cs-html-select--multi.cs-html-select--mobile .cs-html-select__trigger {
     display: none; }
   .cs-html-select--multi.cs-html-select--mobile .cs-select--mobile {

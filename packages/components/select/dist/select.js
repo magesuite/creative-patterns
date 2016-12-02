@@ -25,10 +25,12 @@ var HtmlSelect = (function () {
             menuListClass: _this._options.namespace + "html-select__menu-list",
             menuListitemClass: _this._options.namespace + "html-select__menu-item",
             linkClass: _this._options.namespace + "html-select__menu-link",
+            searchInputClass: _this._options.namespace + "input__input " + _this._options.namespace + "html-select__search-input",
             styleBase: '',
             iconBase: '',
             tickIcon: '',
             noneSelectedText: 'Nothing selected',
+            noneResultsText: 'No results for: {0}',
             template: {
                 caret: _this._options.caretMarkup || "<span class=\"" + _this._options.namespace + "html-select__trigger-caret\"><span class=\"" + _this._options.namespace + "html-select__trigger-caret-arrow\"></span></span>",
             },

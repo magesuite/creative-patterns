@@ -82,25 +82,8 @@ $namespace: 'cs-' !default;
             border-bottom-right-radius: 0;
         }
 
-        &--light {
-            background: darken( #fafafa, 1% );
-            font-weight: 500;
-            box-shadow: none;
-            padding: 0 3em 0 .563em;
-
-            #{$root}__trigger-caret {
-                border-left: none;
-            }
-
-            #{$root}__text-content {
-                padding: 0 .375em 0 .188em;
-            }
-        }
-
-        &--light-reverse {
-            @extend #{$root}__trigger--light;
-            box-shadow: 0 1px 1px 0 rgba( #000, .1 );
-            background: #fff;
+        &:focus {
+            box-shadow: 0 0 5px 0 #3899e2;
         }
     }
 
@@ -237,6 +220,15 @@ $namespace: 'cs-' !default;
             text-transform: uppercase;
             color: #676767;
         }
+
+        &--hidden {
+            display: none;
+        }
+
+        &--no-results {
+            padding: .563em .625em;
+            background-color: #fafafa;
+        }
     }
 
     &__menu-item-text {
@@ -256,7 +248,7 @@ $namespace: 'cs-' !default;
 
         &:focus {
             outline: none;
-            background-color: darken( #fafafa, 2% );
+            background-color: darken( #fafafa, 5% );
         }
 
         &:hover,
@@ -288,6 +280,10 @@ $namespace: 'cs-' !default;
                 background-color: #fafafa;
                 color: #c9c9c9;
             }
+        }
+
+        #{$root}__menu-item--active & {
+            background-color: darken( #fafafa, 5% );
         }
     }
 
