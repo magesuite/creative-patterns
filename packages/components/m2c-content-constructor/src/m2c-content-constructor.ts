@@ -150,6 +150,9 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 $pickerModal.closeModal();
             }
         },
+        'cc-layout-builder__cmsblock-delete-request'( cmsBlockId: string ): void {
+            this.deleteStaticBlock( cmsBlockId );
+        },
     },
     methods: {
         /**
@@ -281,6 +284,24 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             // send request for token
             this.$http.get( this.restTokenEndpoint ).then( ( response: any ): void => {
                 component.restToken = `Bearer ${response.body}`;
+            } );
+        },
+
+        deleteStaticBlock( cmsBlockId: string ): void {
+            const component: any = this;
+
+            // Send request to REST API
+            this.$http( {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: component.restToken,
+                },
+                method: 'delete',
+                url: `${ window.location.origin }/rest/V1/cmsBlock/${cmsBlockId}`,
+            } ).then( ( response: any ): void => {
+                if ( response.body !== 'true' ) {
+                    console.warn( `Something went wrong, CMS block wasn\'t removed, please check if block with ID: ${cmsBlockId} exists in database` );
+                }
             } );
         },
     },
