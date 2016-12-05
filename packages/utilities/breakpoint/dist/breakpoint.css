@@ -1,5 +1,9 @@
 /**
- * These atom is responsible for setting aprropriate :before content to body
+ * Default project breakpoints, can be overwritten by setting a variable with the same name
+ * before importing this file.
+ */
+/**
+ * These atom is responsible for setting aprropriate :before and :after content to body
  * so that its JS counterpart can read and return current breakpoint to other
  * scripts.
  */
