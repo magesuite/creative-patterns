@@ -14,10 +14,8 @@ $namespace: 'cs-' !default;
 
     &__input,
     &__input:focus {
-        padding: {
-            left: 28px;
-            right: 28px;
-        }
+        padding-left: 28px;
+        padding-right: 28px;
         text-align: center;
     }
 
@@ -82,9 +80,7 @@ $namespace: 'cs-' !default;
     }
 
     &--center {
-        margin: {
-            left: auto;
-            right: auto;
-        }
+        margin-left: auto;
+        margin-right: auto;
     }
 }

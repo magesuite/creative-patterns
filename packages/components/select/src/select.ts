@@ -171,7 +171,8 @@ export default class HtmlSelect {
 
         $( `.${_this._options.namespace}html-select` ).on( 'show.bs.select', function( event: Event ): void {
             setTimeout( (): void =>
-                $( event.target ).parent().addClass( `${_this._options.namespace}html-select--animate` ), 30
+                $( event.target ).parent().addClass( `${_this._options.namespace}html-select--animate` ),
+                30,
             );
         } );
 
