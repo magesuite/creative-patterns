@@ -16,8 +16,10 @@ var Navigation = (function () {
      * @param  {NavigationOptions} options  Optional settings object.
      */
     function Navigation($element, options) {
+        var _this = this;
         this._$window = $(window);
         this._eventListeners = {};
+        this._mayBeBugged = true;
         this._options = {
             containerClassName: 'navigation__list',
             itemClassName: 'navigation__item',
@@ -28,6 +30,10 @@ var Navigation = (function () {
             flyoutDefaultColumnCount: 4,
             resizeDebounce: 100,
         };
+        // Don't throw errors if there is no navigation on the website.
+        if ($element.length === 0) {
+            return;
+        }
         this._$element = $element;
         this._options = $.extend(this._options, options);
         this._$flyouts = $element.find("." + this._options.flyoutClassName);
@@ -35,6 +41,15 @@ var Navigation = (function () {
         this._containerClientRect = this._$container.get(0).getBoundingClientRect();
         this._adjustFlyouts(this._$flyouts);
         this._attachEvents();
+        /**
+         * So Chrome has a bug which causes it to provide invalid width of the element
+         * when changing it's number of colums in JS, even when triggering reflows.
+         */
+        if (this._mayBeBugged) {
+            setTimeout(function () {
+                _this._adjustFlyouts(_this._$flyouts, false);
+            }, 1);
+        }
     }
     /**
      * Destroys navigation component.
@@ -45,17 +60,19 @@ var Navigation = (function () {
     /**
      * Adjusts flyout number of columns and positioning.
      * @param {JQuery} $flyouts jQuery collection of flyouts.
+     * @param {boolean} adjustColumns Tells if columns count should be adjusted.
      */
-    Navigation.prototype._adjustFlyouts = function ($flyouts) {
+    Navigation.prototype._adjustFlyouts = function ($flyouts, adjustColumns) {
         var _this = this;
+        if (adjustColumns === void 0) { adjustColumns = true; }
         this._showFlyout($flyouts);
         this._setTransform($flyouts, '');
         this._triggerReflow($flyouts);
-        var $flyout;
         $flyouts.each(function (index, flyout) {
-            $flyout = $(flyout);
-            _this._adjustFlyoutColumns($flyout);
-            _this._adjustFlyoutPosition($flyout);
+            if (adjustColumns) {
+                _this._adjustFlyoutColumns($(flyout));
+            }
+            _this._adjustFlyoutPosition($(flyout));
         });
         this._hideFlyout($flyouts);
     };
@@ -95,6 +112,8 @@ var Navigation = (function () {
         if (flyoutClientRect.width === containerClientRect.width) {
             return;
         }
+        // Some flyout is not 100% wide so this browser is not bugged.
+        this._mayBeBugged = false;
         // Align center of columns with links to center of the flyout trigger.
         var flyoutTransformLeft = Math.max(0, flyoutTriggerClientRect.left - containerClientRect.left + flyoutTriggerClientRect.width / 2 -
             flyoutColumnsClientRect.width / 2);
@@ -144,7 +163,7 @@ var Navigation = (function () {
      * @param  {JQuery} $element Element to use to trigger reflow.
      */
     Navigation.prototype._triggerReflow = function ($element) {
-        $element.prop('offsetHeight');
+        $element.prop('offsetWidth');
     };
     /**
      * Attaches events needed by navigation component.
