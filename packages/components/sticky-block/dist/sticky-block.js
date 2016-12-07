@@ -1,10 +1,11 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
-    typeof define === 'function' && define.amd ? define('stickyBlock', ['jquery'], factory) :
-    (global.stickyBlock = factory(global.jQuery));
-}(this, (function ($) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('Stickyfill')) :
+    typeof define === 'function' && define.amd ? define('stickyBlock', ['jquery', 'Stickyfill'], factory) :
+    (global.stickyBlock = factory(global.jQuery,global.Stickyfill));
+}(this, (function ($,Stickyfill) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
+Stickyfill = 'default' in Stickyfill ? Stickyfill['default'] : Stickyfill;
 
 var StickyBlock = (function () {
     /**
@@ -12,7 +13,7 @@ var StickyBlock = (function () {
      * @param  {StickyBlockOptions} options  Optional settings object.
      */
     function StickyBlock($element) {
-        this._$el = $element || $('.cs-sticky-block');
+        this._$element = $element || $('.cs-sticky-block');
         this._initStickyBlock();
     }
     /**
@@ -20,8 +21,8 @@ var StickyBlock = (function () {
      * @param  {string} afterDestroyCssPosition  Optional CSS position after polyfill is destroyed.
      */
     StickyBlock.prototype.destroy = function (afterDestroyCssPosition) {
-        Stickyfill.remove(this._$el[0]);
-        this._$el.css('position', afterDestroyCssPosition);
+        Stickyfill.remove(this._$element[0]);
+        this._$element.css('position', afterDestroyCssPosition);
     };
     /**
      * Rebuilds stickyBlock component.
@@ -35,8 +36,8 @@ var StickyBlock = (function () {
      * Initializes stickyBlock component's functionality.
      */
     StickyBlock.prototype._initStickyBlock = function () {
-        if (Stickyfill && this._$el.length) {
-            this._$el.Stickyfill();
+        if (Stickyfill && this._$element.length) {
+            this._$element.Stickyfill();
         }
     };
     return StickyBlock;
