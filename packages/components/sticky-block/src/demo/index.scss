@@ -1,0 +1,16 @@
+// stylelint-disable
+
+@import '../sticky-block.scss';
+
+* {
+    box-sizing: border-box;
+}
+
+.cs-sticky-block--demo-example {
+    @include stickyBlock();
+
+    float: right;
+    width: 35%;
+    background: #fff;
+    padding: 1em;
+}

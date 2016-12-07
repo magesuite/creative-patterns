@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box; }
+
+.cs-sticky-block--demo-example {
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 10;
+  top: 1em;
+  float: right;
+  width: 35%;
+  background: #fff;
+  padding: 1em; }
+
+/*# sourceMappingURL=index.css.map */
