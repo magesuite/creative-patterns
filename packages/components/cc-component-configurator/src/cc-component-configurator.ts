@@ -64,5 +64,5 @@ const ccComponentConfigurator: vuejs.ComponentOption = {
     },
 };
 
-export { IComponentInformation, ccComponentConfigurator };
+export { ccComponentConfigurator };
 export default ccComponentConfigurator;

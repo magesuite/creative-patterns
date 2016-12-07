@@ -7,6 +7,7 @@ import vr from 'VueResource';
 import $t from 'mage/translate';
 import modal from 'Magento_Ui/js/modal/modal';
 import uiRegistry from 'uiRegistry';
+import 'loadingPopup';
 
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
 import m2cHeroCarouselConfigurator from '../../../customizations/m2c-hero-carousel-configurator/src/m2c-hero-carousel-configurator';

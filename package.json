@@ -57,6 +57,7 @@
     "gulp-typescript": "^3.0.1",
     "gulp-uglify": "^2.0.0",
     "guppy-pre-push": "^0.2.1",
+    "include-media": "^1.4.9",
     "jasmine-core": "^2.5.0",
     "jasmine-jquery": "^2.1.1",
     "jquery": "^3.1.1",

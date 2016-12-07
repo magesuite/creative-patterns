@@ -1,16 +1,22 @@
 import $ from 'jquery';
 import $t from 'mage/translate';
+import alert from 'Magento_Ui/js/modal/alert';
+import confirm from 'Magento_Ui/js/modal/confirm';
 
 import ccImageTeaserConfigurator from '../../../components/cc-image-teaser-configurator/src/cc-image-teaser-configurator';
 
 // Pattern for teaser Item
-const teaserItemDataPattern: any = {
+const teaserItemPrototype: any = {
     image: '',
     decodedImage: '',
+    displayVariant: 'variant-1',
     headline: '',
+    subheadline: '',
     paragraph: '',
     ctaLabel: $t( 'More' ),
-    ctaTarget: '',
+    href: '',
+    sizeInfo: '',
+    aspectRatio: '',
 };
 
 /**
@@ -21,97 +27,226 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
     mixins: [
         ccImageTeaserConfigurator,
     ],
-    template: `<form class="m2c-image-teaser-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
+    template: `<div class="m2c-image-teaser-configurator {{ classes }} | {{ mix }}" {{ attributes }}>
         <section class="m2c-image-teaser-configurator__section">
-            <div class="m2-input m2-input--type-inline">
-                <label for="cfg-it-width" class="m2-input__label">${$t( 'Teaser width' )}:</label>
-                <select name="cfg-it-width-select" class="m2-input__select" id="cfg-it-width" v-model="configuration.teaserWidth" @change="onChange">
-                    <option value="full-width">${$t( 'Full browser width' )}</option>
-                    <option value="limited-width">${$t( 'Breaking point width (1280px)' )}</option>
-                </select>
+            <h3 class="m2c-image-teaser-configurator__subtitle">Teaser Width</h3>
+            <div class="m2c-image-teaser-configurator__scenario-options">
+                <div
+                    :class="{
+                        'm2c-image-teaser-configurator__option--selected': configuration.currentScenario.teaserWidth.id == optionId,
+                        'm2c-image-teaser-configurator__option--disabled': option.disabled,
+                    }"
+                    class="m2c-image-teaser-configurator__option"
+                    v-for="(optionId, option) in scenarioOptions.teaserWidth"
+                    @click="!option.disabled && toggleOption('teaserWidth', optionId)">
+                    <div class="m2c-image-teaser-configurator__option-wrapper">
+                        <svg class="m2c-image-teaser-configurator__option-icon">
+                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#' + option.iconId }"></use>
+                        </svg>
+                    </div>
+                    <p class="m2c-image-teaser-configurator__option-name">
+                        {{ option.name }}
+                    </p>
+                </div>
+            </div>
+
+        </section>
+        <section class="m2c-image-teaser-configurator__section">
+            <h3 class="m2c-image-teaser-configurator__subtitle">Desktop Layout</h3>
+            <div class="m2c-image-teaser-configurator__scenario-options">
+                <div
+                    :class="{
+                        'm2c-image-teaser-configurator__option--selected': configuration.currentScenario.desktopLayout.id == optionId,
+                        'm2c-image-teaser-configurator__option--disabled': option.disabled,
+                    }"
+                    class="m2c-image-teaser-configurator__option"
+                    v-for="(optionId, option) in scenarioOptions.desktopLayout"
+                    @click="!option.disabled && toggleOption('desktopLayout', optionId)">
+                    <div class="m2c-image-teaser-configurator__option-wrapper">
+                        <svg class="m2c-image-teaser-configurator__option-icon">
+                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#' + option.iconId }"></use>
+                        </svg>
+                    </div>
+                    <p class="m2c-image-teaser-configurator__option-name">
+                        {{ option.name }}
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="m2c-image-teaser-configurator__section">
+            <h3 class="m2c-image-teaser-configurator__subtitle">Text Positioning</h3>
+            <div class="m2c-image-teaser-configurator__scenario-options">
+                <div
+                    :class="{
+                        'm2c-image-teaser-configurator__option--selected': configuration.currentScenario.textPositioning.id == optionId,
+                        'm2c-image-teaser-configurator__option--disabled': option.disabled,
+                    }"
+                    class="m2c-image-teaser-configurator__option"
+                    v-for="(optionId, option) in scenarioOptions.textPositioning"
+                    @click="!option.disabled && toggleOption('textPositioning', optionId)">
+                    <div class="m2c-image-teaser-configurator__option-wrapper">
+                        <svg class="m2c-image-teaser-configurator__option-icon">
+                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#' + option.iconId }"></use>
+                        </svg>
+                    </div>
+                    <p class="m2c-image-teaser-configurator__option-name">
+                        {{ option.name }}
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="m2c-image-teaser-configurator__section">
+            <h3 class="m2c-image-teaser-configurator__subtitle">Mobile Layout</h3>
+            <div class="m2c-image-teaser-configurator__scenario-options">
+                <div
+                    :class="{
+                        'm2c-image-teaser-configurator__option--selected': configuration.currentScenario.mobileLayout.id == optionId,
+                        'm2c-image-teaser-configurator__option--disabled': option.disabled,
+                    }"
+                    class="m2c-image-teaser-configurator__option"
+                    v-for="(optionId, option) in scenarioOptions.mobileLayout"
+                    @click="!option.disabled && toggleOption('mobileLayout', optionId)">
+                    <div class="m2c-image-teaser-configurator__option-wrapper">
+                        <svg class="m2c-image-teaser-configurator__option-icon">
+                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#' + option.iconId }"></use>
+                        </svg>
+                    </div>
+                    <p class="m2c-image-teaser-configurator__option-name">
+                        {{ option.name }}
+                    </p>
+                </div>
             </div>
         </section>
 
         <section class="m2c-image-teaser-configurator__section">
-            <div class="m2c-image-teaser-configurator__teaser">
-                <template v-for="item in configuration.items">
-                    <div class="m2c-image-teaser-configurator__teaser-item" id="m2c-image-teaser-item-{{ $index }}">
-                        <div class="m2c-image-teaser-configurator__toolbar">
-                            <span class="m2c-image-teaser-configurator__teaser-item-title">
-                                ${$t( 'Banner' )} {{ $index+1 }}/{{ configuration.items.length }}
-                            </span>
-                            <template v-if="configuration.items[$index].image">
-                                <a href="#" href="#" @click="getImageUploader( $index )">${$t( 'Change image' )}</a>
+            <cc-component-adder v-if="canAddTeaser()">
+                <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | m2c-image-teaser-configurator__item-action-button" @click="createTeaserItem( 0 )">
+                    <svg class="action-button__icon action-button__icon--size_300">
+                        <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }"></use>
+                    </svg>
+                </button>
+            </cc-component-adder>
+            <template v-for="item in configuration.items">
+                <div class="m2c-image-teaser-configurator__item" id="m2c-image-teaser-item-{{ $index }}">
+                    <div class="m2c-image-teaser-configurator__item-actions">
+                        <cc-component-actions>
+                            <template slot="cc-component-actions__top">
+                                <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up | m2c-image-teaser-configurator__item-action-button" @click="moveImageTeaserUp( $index )" :class="[ isFirstImageTeaser( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isFirstImageTeaser( $index )">
+                                    <svg class="action-button__icon action-button__icon--size_100">
+                                        <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }"></use>
+                                    </svg>
+                                </button>
+                                <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down | m2c-image-teaser-configurator__item-action-button" @click="moveImageTeaserDown( $index )" :class="[ isLastImageTeaser( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isLastImageTeaser( $index )">
+                                    <svg class="action-button__icon action-button__icon--size_100">
+                                        <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }"></use>
+                                    </svg>
+                                </button>
                             </template>
-                            <template v-else>
-                                <a href="#" href="#" @click="getImageUploader( $index )">${$t( 'Upload image' )}</a>
+                            <template slot="cc-component-actions__bottom">
+                                <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete | m2c-image-teaser-configurator__item-action-button" @click="deleteTeaserItem( $index )">
+                                    <svg class="action-button__icon">
+                                        <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }"></use>
+                                    </svg>
+                                </button>
                             </template>
-                        </div>
-                        <div class="m2c-image-teaser-configurator__image-holder-outer">
-                            <div class="m2c-image-teaser-configurator__image-holder-inner">
-                                <img :src="configuration.items[$index].image" class="m2c-image-teaser-configurator__image" v-show="configuration.items[$index].image">
-                                <template v-if="isPossibleToDelete( $index )">
-                                    <button class="action-button action-button--look_default action-button--type_icon | m2c-image-teaser-configurator__delete-button" @click="deleteTeaserItem( $index )">
-                                        <svg class="action-button__icon action-button__icon--size_300">
-                                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }"></use>
-                                        </svg>
-                                        ${$t( 'Delete banner' )}
-                                    </button>
-                                </template>
-                                <input type="hidden" class="m2c-image-teaser-configurator__image-url" v-model="configuration.items[$index].image" id="img-{{$index}}">
-                            </div>
-                        </div>
-                        <div class="m2-input">
-                            <label for="cfg-it-teaser{{ $index+1 }}-headline" class="m2-input__label">${$t( 'Headline' )}:</label>
-                            <input type="text" v-model="configuration.items[$index].headline" id="cfg-it-teaser{{ $index+1 }}-headline" class="m2-input__input" @change="onChange">
-                        </div>
-                        <div class="m2-input">
-                            <label for="cfg-it-teaser{{ $index+1 }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
-                            <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-it-teaser{{ $index+1 }}-paragraph" class="m2-input__textarea m2-input__textarea--look-thin" @change="onChange" placeholder="(${$t( 'max 200 characters' )})" maxlength="200"></textarea>
-                        </div>
-                        <div class="m2-input">
-                            <label for="cfg-it-teaser{{ $index+1 }}-cta-label" class="m2-input__label">${$t( 'CTA label' )}:</label>
-                            <input type="text" v-model="configuration.items[$index].ctaLabel" id="cfg-it-teaser{{ $index+1 }}-cta-label" class="m2-input__input" @change="onChange">
-                        </div>
-                        <div class="m2-input">
-                            <div class="m2c-image-teaser-configurator__cta-actions">
-                                <label class="m2-input__label">${$t( 'CTA target link' )}:</label>
-                                <template v-if="item.ctaTarget">
-                                    <a href="#" @click="openCtaTargetModal( $index )">${$t( 'Edit' )}</a>
+                        </cc-component-actions>
+                    </div>
+                    <div class="m2c-image-teaser-configurator__item-content">
+                        <div v-bind:class="[ 'm2c-image-teaser-configurator__item-col-left', configuration.items[$index].image ? 'm2c-image-teaser-configurator__item-col-left--look-image-uploaded' : '' ]">
+                            <div class="m2c-image-teaser-configurator__toolbar">
+                                <span class="m2c-image-teaser-configurator__size-info">{{ configuration.items[$index].sizeInfo }}</span>
+                                <template v-if="configuration.items[$index].image">
+                                    <a href="#" @click="getImageUploader( $index )">${$t( 'Change image' )}</a>
                                 </template>
                                 <template v-else>
-                                    <a href="#" @click="openCtaTargetModal( $index )">${$t( 'Add' )}</a>
+                                    <a href="#" @click="getImageUploader( $index )">${$t( 'Upload image' )}</a>
                                 </template>
                             </div>
-                            <input type="text" class="m2-input__input m2-input--type-readonly | m2c-image-teaser-configurator__cta-target-link" readonly v-model="configuration.items[$index].ctaTarget" id="ctatarget-output-{{ $index }}">
+                            <div class="m2c-image-teaser-configurator__item-image-wrapper">
+                                <img :src="configuration.items[$index].image" class="m2c-image-teaser-configurator__item-image" v-show="configuration.items[$index].image">
+                                <input type="hidden" v-model="configuration.items[$index].image">
+                                <input type="hidden" class="m2c-image-teaser-configurator__image-url" id="image-teaser-img-{{$index}}">
+                            </div>
+                        </div>
+                        <div class="m2c-image-teaser-configurator__item-col-right">
+                            <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
+                                <label for="cfg-it-item{{ $index }}-variant" class="m2-input__label">${$t( 'Display variant' )}:</label>
+                                <select name="cfg-it-item{{ $index }}-variant" class="m2-input__select" id="cfg-it-item{{ $index }}-variant" v-model="configuration.items[$index].displayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                                    <option value="variant-1">${$t( 'Text vertically centered on the left' )}</option>
+                                    <option value="variant-2">${$t( 'Text vertically centered in the middle' )}</option>
+                                    <option value="variant-3">${$t( 'Text on the bottom, left corner' )}</option>
+                                    <option value="variant-4">${$t( 'Text on the bottom - centered' )}</option>
+                                </select>
+                            </div>
+                            <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
+                                <label for="cfg-hc-item{{ $index }}-headline" class="m2-input__label">${$t( 'Headline' )}:</label>
+                                <input type="text" v-model="configuration.items[$index].headline" id="cfg-hc-item{{ $index }}-headline" class="m2-input__input">
+                            </div>
+                            <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
+                                <label for="cfg-hc-item{{ $index }}-subheadline" class="m2-input__label">${$t( 'Subheadline' )}:</label>
+                                <input type="text" v-model="configuration.items[$index].subheadline" id="cfg-hc-item{{ $index }}-subheadline" class="m2-input__input">
+                            </div>
+                            <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
+                                <label for="cfg-hc-item{{ $index }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
+                                <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-hc-item{{ $index }}-paragraph" class="m2-input__textarea" placeholder="(max 200 characters)" maxlength="200"></textarea>
+                            </div>
+                            <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
+                                <label for="cfg-hc-item{{ $index }}-cta-label" class="m2-input__label">${$t( 'CTA label' )}:</label>
+                                <input type="text" v-model="configuration.items[$index].ctaLabel" id="cfg-hc-item{{ $index }}-cta-label" class="m2-input__input">
+                            </div>
+                            <div class="m2-input m2-input--type-addon | m2c-image-teaser-configurator__item-form-element">
+                                <label for="image-teaser-ctatarget-output-{{ $index }}" class="m2-input__label">${$t( 'CTA target link' )}:</label>
+                                <input type="text" class="m2-input__input m2-input--type-readonly | m2c-image-teaser-configurator__cta-target-link" readonly v-model="configuration.items[$index].href" id="image-teaser-ctatarget-output-{{ $index }}">
+                                <span class="m2-input__addon | m2c-image-teaser-configurator__widget-chooser-trigger" @click="openCtaTargetModal( $index )">
+                                    <svg class="m2-input__addon-icon">
+                                        <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }"></use>
+                                    </svg>
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </template>
-            </div>
+                </div>
+                <cc-component-adder v-if="configuration.items.length && canAddTeaser()">
+                    <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | m2c-image-teaser-configurator__item-action-button" @click="createTeaserItem( $index + 1 )">
+                        <svg class="action-button__icon action-button__icon--size_300">
+                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }"></use>
+                        </svg>
+                    </button>
+                </cc-component-adder>
+            </template>
         </section>
-    </form>`,
+    </div>`,
     props: {
-        /*
-         * Single's component configuration
+        /**
+         * Image teaser configuration
          */
         configuration: {
             type: Object,
             default(): Object {
                 return {
-                    teaserWidth: 'full-width',
-                    items: [ JSON.parse( JSON.stringify( teaserItemDataPattern ) ) ],
+                    items: [ JSON.parse( JSON.stringify( teaserItemPrototype ) ) ],
+                    ignoredItems: [],
+                    currentScenario: {
+                        teaserWidth: {},
+                        desktopLayout: {},
+                        textPositioning: {},
+                        mobileLayout: {},
+                    },
                 };
             },
         },
-
-        /* Collect base-url for the image uploader */
+        /* get assets for displaying component images */
+        assetsSrc: {
+            type: String,
+            default: '',
+        },
+        /* Obtain base-url for the image uploader */
         uploaderBaseUrl: {
             type: String,
             default: '',
         },
-
-        /* get assets for displaying component images */
-        assetsSrc: {
+        /* Obtain image endpoint to place permanent url for uploaded images */
+        imageEndpoint: {
             type: String,
             default: '',
         },
@@ -126,12 +261,12 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
         },
     },
     methods: {
-        /* Opens M2's built-in image manager modal
-         * Manages all images: image upload from hdd, select image that was already uploaded to server
-         * @param index {number} - index of image teaser item
+        /* Opens M2's built-in image manager modal.
+         * Manages all images: image upload from hdd, select image that was already uploaded to server.
+         * @param index {number} - index of image of image teaser.
          */
         getImageUploader( index: number ): void {
-            MediabrowserUtility.openDialog( `${this.uploaderBaseUrl}target_element_id/img-${index}/`,
+            MediabrowserUtility.openDialog( `${this.uploaderBaseUrl}target_element_id/image-teaser-img-${index}/`,
                 'auto',
                 'auto',
                 $t( 'Insert File...' ),
@@ -139,8 +274,6 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
                     closed: true,
                 },
             );
-
-            this.imageUploadListener();
         },
 
         /* Listener for image uploader
@@ -149,13 +282,17 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
          */
         imageUploadListener(): void {
             const component: any = this;
+            let isAlreadyCalled: boolean = false;
 
-            // jQuery has to be used, native addEventListener doesn't catch change of input's value
-            $( '.m2c-image-teaser-configurator__image-url' ).on( 'change', ( event: Event ): void => {
-                component.onImageUploaded( event.target );
-
-                // For some reason this is emmitted twice, so prevent second action
-                $( this ).off( event );
+            // jQuery has to be used, for some reason native addEventListener doesn't catch change of input's value
+            $( document ).on( 'change', '.m2c-image-teaser-configurator__image-url', ( event: Event ): void => {
+                if ( !isAlreadyCalled ) {
+                    isAlreadyCalled = true;
+                    component.onImageUploaded( event.target );
+                    setTimeout( (): void => {
+                        isAlreadyCalled = false;
+                    }, 100 );
+                }
             } );
         },
 
@@ -165,20 +302,66 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
          * @param input { object } - input with raw image path which is used in admin panel
          */
         onImageUploaded( input: any ): void {
+            const _this: any = this;
             const itemIndex: any = input.id.substr( input.id.length - 1 );
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
+            const imgEndpoint: string = this.imageEndpoint.replace( '{/encoded_image}', encodedImage );
 
             this.configuration.items[ itemIndex ].decodedImage = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
-            this.onChange();
-            this.createTeaserItem();
+
+            const img: any = new Image();
+            img.onload = function(): void {
+                const ar: string = _this.getAspectRatio( img.naturalWidth, img.naturalHeight );
+                _this.configuration.items[ itemIndex ].image = img.getAttribute( 'src' );
+                _this.configuration.items[ itemIndex ].sizeInfo = `${img.naturalWidth}x${img.naturalHeight}px (${ar})`;
+                _this.configuration.items[ itemIndex ].aspectRatio = ar;
+                _this.checkImageSizes();
+                _this.onChange();
+            };
+            img.src = imgEndpoint;
         },
 
-        /* Creates another teaser item using teaserItemDataPattern */
-        createTeaserItem(): void {
-            /* If image of last array item in this.configuration.items is not empty, add another teaser item */
-            if ( this.configuration.items && this.configuration.items.slice( -1 )[ 0 ].image !== '' ) {
-                this.configuration.items.push( JSON.parse( JSON.stringify( teaserItemDataPattern ) ) );
+        /* Creates another teaser item using teaserItemPrototype */
+        createTeaserItem( index: number ): void {
+            this.configuration.items.splice( index, 0, JSON.parse( JSON.stringify( teaserItemPrototype ) ) );
+            this.onChange();
+        },
+
+        /**
+         * Moves image teaser item under given index up by swaping it with previous element.
+         * @param {number} index Image teaser's index in array.
+         */
+        moveImageTeaserUp( index: number ): void {
+            if ( index > 0 ) {
+                this.configuration.items.splice( index - 1, 0, this.configuration.items.splice( index, 1 )[ 0 ] );
+                this.onChange();
             }
+        },
+        /**
+         * Moves image teaser item under given index down by swaping it with next element.
+         * @param {number} index Image teaser's index in array.
+         */
+        moveImageTeaserDown( index: number ): void {
+            if ( index < this.configuration.items.length - 1 ) {
+                this.configuration.items.splice( index + 1, 0, this.configuration.items.splice( index, 1 )[ 0 ] );
+                this.onChange();
+            }
+        },
+        /**
+         * Tells if item with given index is the first image teaser.
+         * @param  {number}  index Index of the image teaser.
+         * @return {boolean}       If image teaser is first in array.
+         */
+        isFirstImageTeaser( index: number ): boolean {
+            return index === 0;
+        },
+        /**
+         * Tells if image teaser with given index is the last image teaser.
+         * @param  {number}  index Index of the image teaser.
+         * @return {boolean}       If image teaser is last in array.
+         */
+        isLastImageTeaser( index: number ): boolean {
+            return index === this.configuration.items.length - 1;
         },
 
         /* Opens modal with M2 built-in widget chooser
@@ -187,37 +370,11 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
         openCtaTargetModal( index: number ): void {
             const component: any = this;
 
-            widgetTools.openDialog( `${window.location.origin}/admin/admin/widget/index/widget_target_id/ctatarget-output-${index}` );
+            widgetTools.openDialog( `${window.location.origin}/admin/admin/widget/index/widget_target_id/image-teaser-ctatarget-output-${index}` );
 
             /* clean current value since widget chooser doesn't do that to allow multiple widgets
              * we don't want that since this should be url for CTA */
             component.configuration.items[ index ].ctaTarget = '';
-
-            // There must be better way to do that...
-            /*const getIsWidgetReady: any = window.setInterval((): void => {
-                if ( !$( widgetTools.dialogWindow[ 0 ] ).is( ':empty' ) ) {
-
-                    if ( wWidget ) {
-                        hideUnwantedWidgetOptions( wWidget );
-                        clearInterval( getIsWidgetReady );
-                    }
-                }
-            }, 100);
-
-            const hideUnwantedWidgetOptions: void = function( wWidget: any ) {
-                for ( let option of wWidget.widgetEl.options ) {
-                    if (
-                        escape( option.value ) === 'Magento%5CCms%5CBlock%5CWidget%5CBlock' ||
-                        escape( option.value ) === 'Magento%5CCatalog%5CBlock%5CProduct%5CWidget%5CNewWidget' ||
-                        escape( option.value ) === 'Magento%5CCatalogWidget%5CBlock%5CProduct%5CProductsList' ||
-                        escape( option.value ) === 'Magento%5CSales%5CBlock%5CWidget%5CGuest%5CForm' ||
-                        escape( option.value ) === 'Magento%5CReports%5CBlock%5CProduct%5CWidget%5CCompared' ||
-                        escape( option.value ) === 'Magento%5CReports%5CBlock%5CProduct%5CWidget%5CViewed'
-                    ) {
-                        option.style.display = 'none';
-                    }
-                }
-            };*/
         },
         /* Sets listener for widget chooser
          * It triggers component.onChange to update component's configuration
@@ -250,24 +407,72 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
          * @param index {number} - index of teaser item to remove
          */
         deleteTeaserItem( index: number ): void {
-            if ( confirm( $t( `Are you sure you want to remove this banner?` ) ) ) {
-                this.configuration.items.splice( index, 1 );
-                this.onChange();
-            }
+            const component: any = this;
+
+            confirm( {
+                content: $t( 'Are you sure you want to delete this item?' ),
+                actions: {
+                    confirm(): void {
+                        component.configuration.items.splice( index, 1 );
+                        component.onChange();
+                    },
+                },
+            } );
         },
 
+        /* Checks if images are all the same size
+         * If not - displays error by firing up this.displayImageSizeMismatchError()
+         * @param images {array} - array of all uploaded images
+         */
+        checkImageSizes(): boolean {
+            const itemsToCheck = JSON.parse(JSON.stringify(this.configuration.items)).filter((item: any): boolean => {
+                return Boolean(item.aspectRatio); // Filter out items without aspect ratio set yet.
+            });
+            for ( let i: number = 0; i < itemsToCheck.length; i++ ) {
+                if ( itemsToCheck[ i ].aspectRatio !== itemsToCheck[ 0 ].aspectRatio ) {
+                    alert( {
+                        title: $t( 'Warning' ),
+                        content: $t( 'Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend all images uploaded to have the same aspect ratio.' ),
+                    } );
+                    return false;
+                }
+            }
+            return true;
+        },
+        /* Returns greatest common divisor for 2 numbers
+         * @param a {number}
+         * @param b {number}
+         * @return {number} - greatest common divisor
+         */
+        getGreatestCommonDivisor( a: number, b: number ): number {
+            if ( !b ) {
+                return a;
+            }
+
+            return this.getGreatestCommonDivisor( b, a % b );
+        },
+        /* Returns Aspect ratio for 2 numbers based on GDC algoritm (greatest common divisor)
+         * @param a {number}
+         * @param b {number}
+         * @return {number} - greatest common divisor
+         */
+        getAspectRatio( a: number, b: number ): string {
+            let c: number = this.getGreatestCommonDivisor( a, b );
+
+            return `${( a / c )}:${( b / c )}`;
+        },
         /* Cleans configuration for M2C content constructor after Saving component
          * All empty teaser items has to be removed to not get into configuration object
          */
         cleanupConfiguration(): void {
-            const filteredArray: any = this.configuration.items.filter( ( item: any ): any => item.image !== '' );
-            this.configuration.items = filteredArray;
+            this.configuration.items = this.configuration.items.filter( ( item: any ): any => item.image !== '' );
+            this.configuration.ignoredItems = this.configuration.ignoredItems.filter( ( item: any ): any => item.image !== '' );
             this.onChange();
         },
     },
     ready(): void {
+        this.imageUploadListener();
         this.widgetSetListener();
-        this.createTeaserItem();
     },
 };
 

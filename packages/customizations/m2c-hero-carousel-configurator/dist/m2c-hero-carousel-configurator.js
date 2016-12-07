@@ -421,8 +421,11 @@ var m2cHeroCarouselConfigurator = {
          * @param images {array} - array of all uploaded images
          */
         checkImageSizes: function () {
-            for (var i = 0; i < this.configuration.items.length; i++) {
-                if (this.configuration.items.length && this.configuration.items[i].aspectRatio !== this.configuration.items[0].aspectRatio) {
+            var itemsToCheck = JSON.parse(JSON.stringify(this.configuration.items)).filter(function (item) {
+                return Boolean(item.aspectRatio); // Filter out items without aspect ratio set yet.
+            });
+            for (var i = 0; i < itemsToCheck.length; i++) {
+                if (itemsToCheck[i].aspectRatio !== itemsToCheck[0].aspectRatio) {
                     alert({
                         title: $t('Warning'),
                         content: $t('Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend all images uploaded to have the same aspect ratio.'),
@@ -430,6 +433,7 @@ var m2cHeroCarouselConfigurator = {
                     return false;
                 }
             }
+            return true;
         },
         /* Returns greatest common divisor for 2 numbers
          * @param a {number}

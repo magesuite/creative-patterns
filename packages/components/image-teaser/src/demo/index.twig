@@ -1,0 +1,1552 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>image-teaser component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="./index.css">
+    </head>
+
+    <body>
+        <h1>image-teaser Component Demo</h1>
+
+        <ul id="tabs">
+            <li>Content width</li>
+            <li class="active">Browser width</li>
+            <li>Browser width - slider</li>
+        </ul>
+    
+
+        <div class="sections">
+            <section class="content-width">
+                <header>Content width</header>
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 1 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Large teaser / Text on image</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 1,
+                    itemsPerRow: 1,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                            displayScenario: 4,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 1,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it2-2.png', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 1,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: true,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it2-2.png', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> One next to another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 2,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+                
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 2,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'outside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 3,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 1,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: true,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Big and 2 in a row</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--mobile-cfg-big-small-small',
+                    itemsPerView: 1,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--mobile-cfg-big-small-small',
+                    itemsPerView: 1,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'outside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: true,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it1-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-3.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-4.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> 2 in a row, 2 rows</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it1-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-3.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-4.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Big, 2 in a row, Big</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--mobile-cfg-big-small-small-big',
+                    itemsPerView: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it1-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-3.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-4.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'outside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it1-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-3.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it1-4.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 6 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 2,
+                    itemsPerRow: 6,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: true,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 5' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 6' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 6 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> 2 in a row, 3 rows</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 2,
+                    itemsPerRow: 6,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 5' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 6' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 6 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> 2 in a row, 3 rows</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    itemsPerView: 2,
+                    itemsPerRow: 6,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'outside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 5' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            subheadline: 'Luma founder Erin renny shares her favorites',
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 6' },
+                            displayScenario: 2,
+                            headline: 'Science meets performance',
+                            subheadline: 'Wicking to raingear Luma covers you',
+                        }
+                    ]
+                } %}
+
+            </section>
+
+
+
+
+            <section class="active">
+                <header>Browser width</header>
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 1 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Large teaser / Text on image</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 1,
+                    itemsPerRow: 1,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                            displayScenario: 4,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 1,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 1,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: true,
+                    items: [
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it2-2.png', alt: 'image 2' },
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> One next to another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 2,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        }
+                    ]
+                } %}
+                
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 2,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'outside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 3,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 1,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: true,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Big and 2 in a row</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width cs-image-teaser--mobile-cfg-big-small-small',
+                    itemsPerView: 1,
+                    itemsPerViewMobile: 1,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 1,
+                    itemsPerViewMobile: 1,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'outside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 2,
+                    itemsPerViewMobile: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: true,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it1-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-3.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-4.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> 2 in a row, 2 rows</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 2,
+                    itemsPerViewMobile: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it1-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-3.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-4.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Big, 2 in a row, Big</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width cs-image-teaser--mobile-cfg-big-small-small-big',
+                    itemsPerView: 2,
+                    itemsPerViewMobile: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 2,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'inside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it1-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-3.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-4.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> One under another</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 2,
+                    itemsPerViewMobile: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 1,
+                    isSlider: false,
+                    isSliderMobile: false,
+                    displayVariant: 'outside',
+                    items: [
+                        {
+                            image: { url: '../../src/images/it1-1.jpg', alt: 'image 1' },
+                            displayScenario: 1,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer',
+                                class: 'cs-button--look_danger cs-button--size_700'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-2.jpg', alt: 'image 2' },
+                            displayScenario: 2,
+                            headline: 'Take it from erin',
+                            paragraph: 'Unser Servicepersonal kümmert sich gerne um den fachgerechten Aufbau.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-3.jpg', alt: 'image 3' },
+                            displayScenario: 3,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        },
+                        {
+                            image: { url: '../../src/images/it1-4.jpg', alt: 'image 4' },
+                            displayScenario: 4,
+                            headline: 'Take it from erin',
+                            paragraph: 'Wir liefern zum Wunschtermin direkt zu Ihnen nach Hause.',
+                            cta: {
+                                target: '#',
+                                label: 'Check offer'
+                            }
+                        }
+                    ]
+                } %}
+            </section>
+
+
+
+
+            <section>
+                <header>Browser width - slider</header>
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 1 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 1,
+                    itemsPerViewMobile: 1,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: true,
+                    isSliderMobile: true,
+                    items: [
+                        {
+                            image: { url: '../../src/images/it2-1.png', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it2-2.png', alt: 'image 2' },
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 2,
+                    itemsPerViewMobile: 1,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: true,
+                    isSliderMobile: true,
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 2 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 2,
+                    itemsPerViewMobile: 1,
+                    itemsPerRow: 2,
+                    itemsPerRowMobile: 1,
+                    isSlider: true,
+                    isSliderMobile: true,
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 3,
+                    itemsPerViewMobile: 1,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 1,
+                    isSlider: true,
+                    isSliderMobile: true,
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 5' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 6' },
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 3 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 3,
+                    itemsPerViewMobile: 1,
+                    itemsPerRow: 3,
+                    itemsPerRowMobile: 1,
+                    isSlider: true,
+                    isSliderMobile: true,
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 5' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 6' },
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> On image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 4,
+                    itemsPerViewMobile: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 1,
+                    isSlider: true,
+                    isSliderMobile: true,
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 5' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 6' },
+                        }
+                    ]
+                } %}
+
+
+                <ul class="info">
+                    <li><span>Scenario:</span> 4 in a row</li>
+                    <li><span>Text Layout:</span> Under image</li>
+                    <li><span>Mobile:</span> Slider</li>
+                </ul>
+                {% include '../image-teaser.twig' with {
+                    namespace: 'cs-',
+                    mix: 'cs-image-teaser--full-width',
+                    itemsPerView: 4,
+                    itemsPerViewMobile: 2,
+                    itemsPerRow: 4,
+                    itemsPerRowMobile: 1,
+                    isSlider: true,
+                    isSliderMobile: true,
+                    items: [
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 1' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 2' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 3' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 4' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-1.jpg', alt: 'image 5' },
+                        },
+                        {
+                            image: { url: '../../src/images/it3-2.jpg', alt: 'image 6' },
+                        }
+                    ]
+                } %}
+            </section>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="../../../teaser/src/vendors/swiper/swiper.jquery.js"></script>
+        <script src="../image-teaser.js"></script>
+
+        <script>
+            $( document ).ready( function() {
+                $( '#tabs li' ).click( function( e ) {
+                    if ( !$( this ).hasClass( 'active' ) ) {
+                        var tabNum = $( this ).index();
+                        var nthChild = tabNum + 1;
+                        $( '#tabs .active' ).removeClass( 'active' );
+                        $( this ).addClass( 'active' );
+                        $( '.sections section.active' ).removeClass( 'active' );
+                        $( '.sections section:nth-child( '+nthChild+' )' ).addClass( 'active' );
+                    }
+
+                    $( '.cs-image-teaser:visible' ).each( function() {
+                        new imageTeaser( $( this ) );
+                    } );
+                } );
+
+                $( '.cs-image-teaser:visible' ).each( function() {
+                    new imageTeaser( $( this ) );
+                } );
+            } );
+        </script>
+    </body>
+</html>

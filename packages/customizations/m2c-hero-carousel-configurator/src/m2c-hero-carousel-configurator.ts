@@ -326,9 +326,12 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          * If not - displays error by firing up this.displayImageSizeMismatchError()
          * @param images {array} - array of all uploaded images
          */
-        checkImageSizes(): void {
-            for ( let i: number = 0; i < this.configuration.items.length; i++ ) {
-                if ( this.configuration.items.length && this.configuration.items[ i ].aspectRatio !== this.configuration.items[ 0 ].aspectRatio ) {
+        checkImageSizes(): boolean {
+            const itemsToCheck = JSON.parse(JSON.stringify(this.configuration.items)).filter((item: any): boolean => {
+                return Boolean(item.aspectRatio); // Filter out items without aspect ratio set yet.
+            });
+            for ( let i: number = 0; i < itemsToCheck.length; i++ ) {
+                if ( itemsToCheck[ i ].aspectRatio !== itemsToCheck[ 0 ].aspectRatio ) {
                     alert( {
                         title: $t( 'Warning' ),
                         content: $t( 'Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend all images uploaded to have the same aspect ratio.' ),
@@ -336,6 +339,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                     return false;
                 }
             }
+            return true;
         },
         /* Returns greatest common divisor for 2 numbers
          * @param a {number}
