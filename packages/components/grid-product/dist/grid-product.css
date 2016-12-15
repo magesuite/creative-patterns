@@ -2,79 +2,154 @@
  * Define block class using namespace.
  */
 .cs-grid-product {
+  width: 100%;
+  padding: 0;
   position: relative;
-  text-align: center; }
+  z-index: 2;
+  background-color: transparent;
+  box-sizing: border-box; }
+  @media screen and (min-width: 480px) {
+    .cs-grid-product {
+      padding: 1rem; } }
   .cs-grid-product__link {
-    color: #222;
-    text-decoration: none; }
+    display: block;
+    padding: 0 1.2em;
+    text-align: left;
+    font-weight: 300; }
+    .cs-grid-product__link:hover {
+      color: inherit;
+      text-decoration: none; }
+    .cs-grid-product__link:visited {
+      color: inherit; }
   .cs-grid-product__figure {
-    margin: 0 auto .5rem;
-    max-width: 200px;
-    text-align: center; }
+    position: relative; }
   .cs-grid-product__image {
-    max-width: 100%; }
-  .cs-grid-product__badge {
-    position: absolute;
+    max-height: 20rem; }
+  .cs-grid-product__badge-wrapper {
     top: 0;
-    right: 0;
-    z-index: 3;
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    line-height: 50px;
-    text-align: center;
-    background: #222;
-    color: #fff;
-    white-space: nowrap; }
-  .cs-grid-product__price-outer {
+    left: 2.5rem;
+    position: absolute;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
+    @media screen and (min-width: 768px) {
+      .cs-grid-product__badge-wrapper {
+        top: 1.5rem; } }
+  .cs-grid-product__name {
+    margin: 0 0 .5em;
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+    font-weight: 400;
+    overflow: hidden;
+    text-align: center;
+    color: #000; }
+    @media screen and (min-width: 1200px) {
+      .cs-grid-product__name {
+        height: 1.5rem; } }
+    .cs-grid-product__name a {
+      text-decoration: none; }
+  .cs-grid-product__price-outer {
+    font-size: 1.12rem;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    margin: 0 0 .5rem; }
-  .cs-grid-product__old-price {
-    text-decoration: line-through;
-    margin-right: .5rem; }
-    .cs-grid-product__old-price + .cs-grid-product__price {
-      margin-left: .5rem; }
-  .cs-grid-product__price {
-    font-size: 1.25rem;
-    font-weight: 600; }
-  .cs-grid-product__name {
-    font-weight: 600;
-    font-size: 1.25rem; }
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    padding: 0 1.5rem;
+    height: 2rem; }
   .cs-grid-product__addons {
-    display: none;
-    position: absolute;
-    padding: 1em;
-    top: 100%;
-    box-sizing: border-box; }
+    display: none; }
     .cs-grid-product:hover .cs-grid-product__addons {
-      display: block; }
-    .cs-grid-product:hover .cs-grid-product__addons--columns {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-flex-wrap: wrap;
-          -ms-flex-wrap: wrap;
-              flex-wrap: wrap;
-      width: 100%; }
-    .cs-grid-product__addons--columns .cs-grid-product__addon:nth-child(2n) {
-      padding-right: 0;
-      padding-left: .5em;
-      text-align: right; }
-  .cs-grid-product__addon {
-    text-align: left;
-    padding-right: .5em;
-    box-sizing: border-box; }
+      display: none; }
+  .cs-grid-product__fieldset {
+    margin-bottom: 0; }
+  .cs-grid-product__stock, .cs-grid-product__links {
+    margin: .8rem 0 0; }
+  .cs-grid-product__comment {
+    margin-bottom: 1rem; }
+  .cs-grid-product__section {
+    width: 100%; }
+    @media screen and (min-width: 480px) {
+      .cs-grid-product__section {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center; } }
+  .cs-grid-product__section-item {
+    margin-bottom: 1rem; }
+    @media screen and (max-width: 479px) {
+      .cs-grid-product__section-item {
+        margin-top: .7rem;
+        display: inline-block;
+        margin-bottom: .7rem; } }
+    .cs-grid-product__section-item .product-reviews-summary {
+      margin: 0; }
+  .cs-grid-product__remove {
+    position: absolute;
+    top: 0;
+    right: 2.5rem;
+    z-index: 2; }
+  @media screen and (min-width: 768px) {
+    .cs-grid-product:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      content: '';
+      z-index: -1;
+      border-radius: 4px;
+      box-shadow: 0 0 0 transparent;
+      -webkit-transition: box-shadow .15s ease-in-out, -webkit-transform .15s ease-in-out;
+      transition: box-shadow .15s ease-in-out, -webkit-transform .15s ease-in-out;
+      transition: box-shadow .15s ease-in-out, transform .15s ease-in-out;
+      transition: box-shadow .15s ease-in-out, transform .15s ease-in-out, -webkit-transform .15s ease-in-out;
+      -webkit-transform-origin: 50% 0;
+          -ms-transform-origin: 50% 0;
+              transform-origin: 50% 0; }
+    .cs-grid-product:hover {
+      z-index: 3; }
+      .cs-grid-product:hover:before {
+        background-color: #fff;
+        box-shadow: 1px 3px 40px 0 rgba(30, 48, 67, 0.34);
+        -webkit-transform: scaleY(1.2);
+            -ms-transform: scaleY(1.2);
+                transform: scaleY(1.2); }
+      .cs-grid-product:hover .cs-grid-product__addons {
+        display: block; }
+    .cs-grid-product__link {
+      padding-left: 1.5em;
+      padding-right: 1.5em; }
+    .cs-grid-product__addons {
+      box-sizing: border-box;
+      display: none;
+      width: 100%;
+      padding: 0 3rem 0 1rem;
+      font-size: 1.12rem;
+      -webkit-transform: translateY(-0.7rem);
+          -ms-transform: translateY(-0.7rem);
+              transform: translateY(-0.7rem); } }
+  .cs-grid-product--no-scale:hover:before {
+    -webkit-transform: scaleY(1.02);
+        -ms-transform: scaleY(1.02);
+            transform: scaleY(1.02); }
+  .cs-grid-product--no-shadow:hover:before {
+    display: none; }
 
 /*# sourceMappingURL=grid-product.css.map */

@@ -1,45 +1,115 @@
-<div class="{{ namespace }}grid-product">
-    <a class="{{ namespace }}grid-product__link" href="{{ product.url }}">
+<div class="{{ namespace }}grid-product {{ productClasses }}">
+
+    <a href="{{ product.url }}" class="{{ namespace }}grid-product__link" tabindex="-1">
         <figure class="{{ namespace }}grid-product__figure">
-            <img class="{{ namespace }}grid-product__image" src="{{ product.image }}" alt="{{ product.name }}">
+            <img class="{{ namespace }}grid-product__image {{ product.image.classes }} {{ product.image.mixins }}" src="{{ image.src }}" alt="{{ product.image.alt }}" title="{{ product.image.title }}">
         </figure>
 
-        <span class="{{ namespace }}grid-product__badge">-30%</span>
+        <!--Badges - logic must be implement-->
+        <div class="{{ namespace }}grid-product__badge-wrapper">
+            {{ badgesHtml }}
+        </div>
+
 
         <div class="{{ namespace }}grid-product__name">
-            {{ product.name }}
+            {{ nameHtml }}
         </div>
 
         <div class="{{ namespace }}grid-product__description">
-            <div class="{{ namespace }}grid-product__price-outer">
-                <div class="{{ namespace }}grid-product__uvp">
-                    <span class="{{ namespace }}grid-product__price-label">UVP</span>
-                    <span class="{{ namespace }}grid-product__uvp-price">249,99&euro;</span>
-                </div>
-                <div class="{{ namespace }}grid-product__our-price">
-                    <span class="{{ namespace }}grid-product__price-label">Unser Preis</span>
-                    209,99&euro;
-                </div>
-                <div class="{{ namespace }}grid-product__price {{ namespace }}grid-product__price--prominent">
-                    <span class="{{ namespace }}grid-product__price-label">Premium Preis</span>
-                    <svg class="{{ namespace }}grid-product__price-icon {{ namespace }}grid-product__price-icon--star">
-                        <use xlink:href="{{ asset( 'images/sprites.svg#icon_star' ) }}"></use>
-                    </svg>
-                    <svg class="{{ namespace }}grid-product__price-icon">
-                        <use xlink:href="{{ asset( 'images/sprites.svg#icon_crown' ) }}"></use>
-                    </svg>
-                    {{ product.price }}
-                </div>
+            <div class="{{ namespace }}grid-product__price | {{ price.mixins }}">
+                {{ price.html }}
             </div>
         </div>
     </a>
 
-    <div class="{{ namespace }}grid-product__addons {{ namespace }}grid-product__addons--columns">
-        <div class="{{ namespace }}grid-product__addon">
-            <div class="{{ namespace }}rating" data-rating="3"></div>
+
+    {% if showComment %}
+        <div class="{{ namespace }}grid-product__comment {{ commentClasses }} {{ commentMixins }}">
+            {{ commentHtml }}
         </div>
-        <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--look-green">
-            Sofort verf&uuml;gbar
+    {% endif %}
+
+
+    {% if showAddToCartOrStock %}
+        <fieldset class="{{ namespace }}grid-product__fieldset {{ fieldsetMixins }}">
+            {% if showAddToCartButton %}
+                <div class="{{ namespace }}grid-product__section">
+                    <div class="{{ namespace }}grid-product__section-item">
+                        {{ addToCartHtml }}
+                    </div>
+                </div>
+            {% endif %}
+            {% if showInStock %}
+                <p class="{{ namespace }}grid-product__stock" title="{{ stockText }}">
+                    {{ stockHtml }}
+                </p>
+            {% endif %}
+            {% if showOutOfStock %}
+                <p class="{{ namespace }}grid-product__stock" title="{{ stockText }}">
+                    {{ stockHtml }}
+                </p>
+            {% endif %}
+        </fieldset>
+    {% endif %}
+
+
+    {% if showEditOrRemoveLinks %}
+        <div class="cs-grid-product__links">
+            {% if editLinkHtml is defined %}
+                {{ editLinkHtml }}
+            {% endif %}
+
+            {% if removeLinkHtml is defined %}
+                {{ removeLinkHtml }}
+            {% endif %}
         </div>
-    </div>
+    {% endif %}
+
+
+    {% if showAddons %}
+        <div class="{{ namespace }}grid-product__addons">
+
+            <div class="{{ namespace }}grid-product__section">
+                <div class="{{ namespace }}grid-product__section-item">
+                    {{ rating }}
+                </div>
+                <div class="{{ namespace }}grid-product__section-item">
+                    {% if showInStock %}
+                        <p class="{{ namespace }}grid-product__stock" title="{{ stockText }}">
+                            {{ stockHtml }}
+                        </p>
+                    {% endif %}
+                    {% if showOutOfStock %}
+                        <p class="{{ namespace }}grid-product__stock" title="{{ stockText }}">
+                            {{ stockHtml }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if showAddToWishlistLink or showAddToCompareLink %}
+
+                <ul class="{{ namespace }}grid-product__section {{ addLinksMixins }}" {{ addLinksAttributes }}>
+                    {% if showAddToWishlistLink %}
+                        <li class="{{ namespace }}links-block-addto__item">
+                        </li>
+                    {% endif %}
+                    {% if showAddToCompareLink %}
+                        <li class="{{ namespace }}links-block-addto__item">
+                        </li>
+                    {% endif %}
+                </ul>
+            {% endif %}
+
+        </div>
+
+    {% endif %}
+
+
+    {% if showRemoveButton %}
+        <div class="{{ namespace }}grid-product__remove">
+            {{ removeButtonHtml }}
+        </div>
+    {% endif %}
+
 </div>
