@@ -1,8 +1,8 @@
 {
     "name": "grid-product",
     "version": "0.0.1",
-    "description": "Product item in grid view",
+    "description": "Tile with product with configurable options - displayed on category page and wishlist",
     "main": "src/grid-product.ts",
-    "author": "Maciej Borkowski",
+    "author": "Marta Siewierska",
     "license": "ISC"
 }

@@ -7,94 +7,189 @@ $namespace: 'cs-' !default;
 .#{$namespace}grid-product {
     $root: &;
 
+    width: 100%;
+    padding: 0;
     position: relative;
-    text-align: center;
+    z-index: 2;
+    background-color: transparent;
+    box-sizing: border-box;
+
+    @media screen and ( min-width: 480px ) {
+        padding: 1rem;
+    }
 
     &__link {
-        color: #222;
-        text-decoration: none;
-    }
+        display: block;
+        padding: 0 1.2em;
+        text-align: left;
+        font-weight: 300;
 
-    &__figure {
-        margin: 0 auto .5rem;
-        max-width: 200px;
-        text-align: center;
-    }
+        &:hover {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    &__image {
-        max-width: 100%;
-    }
-
-    &__badge {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 3;
-        width: 50px;
-        height: 50px;
-        border-radius: 50px;
-        line-height: 50px;
-        text-align: center;
-        background: #222;
-        color: #fff;
-        white-space: nowrap;
-    }
-
-    &__price-outer {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 0 .5rem;
-    }
-
-    &__old-price {
-        text-decoration: line-through;
-        margin-right: .5rem;
-
-        + #{$root}__price {
-            margin-left: .5rem;
+        &:visited {
+            color: inherit;
         }
     }
 
-    &__price {
-        font-size: 1.25rem;
-        font-weight: 600;
+    &__figure {
+        position: relative;
+    }
+
+    &__image {
+        max-height: 20rem;
+    }
+
+    &__badge-wrapper {
+        top: 0;
+        left: 2.5rem;
+        position: absolute;
+        display: flex;
+        align-items: center;
+
+        @media screen and ( min-width: 768px ) {
+            top: 1.5rem;
+        }
     }
 
     &__name {
-        font-weight: 600;
-        font-size: 1.25rem;
+        margin: 0 0 .5em;
+        font-size: 1.5rem;
+        line-height: 1.6rem;
+        font-weight: 400;
+        overflow: hidden;
+        text-align: center;
+        color: #000;
+
+        @media screen and ( min-width: 1200px ) {
+            height: 1.5rem;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    &__price-outer {
+        font-size: 1.12rem;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0 1.5rem;
+        height: 2rem;
     }
 
     &__addons {
         display: none;
-        position: absolute;
-        padding: 1em;
-        top: 100%;
-        box-sizing: border-box;
 
         #{$root}:hover & {
-            display: block;
+            display: none;
+        }
+    }
+
+    &__fieldset {
+        margin-bottom: 0;
+    }
+
+    &__stock,
+    &__links {
+        margin: .8rem 0 0;
+    }
+
+    &__comment {
+        margin-bottom: 1rem;
+    }
+
+    &__section {
+        width: 100%;
+        @media screen and ( min-width: 480px ) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+    &__section-item {
+        margin-bottom: 1rem;
+
+        @media screen and ( max-width: 479px ) {
+            margin-top: .7rem;
+            display: inline-block;
+            margin-bottom: .7rem;
         }
 
-        &--columns {
-            #{$root}:hover & {
-                display: flex;
-                flex-wrap: wrap;
-                width: 100%;
+        .product-reviews-summary {
+            margin: 0;
+        }
+    }
+
+    &__remove {
+        position: absolute;
+        top: 0;
+        right: 2.5rem;
+        z-index: 2;
+    }
+
+
+    @media screen and ( min-width: 768px ) {
+
+        &:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            content: '';
+            z-index: -1;
+            border-radius: 4px;
+            box-shadow: 0 0 0 rgba( 0, 0, 0, 0 );
+            transition: box-shadow .15s ease-in-out, transform .15s ease-in-out;
+            transform-origin: 50% 0;
+        }
+
+        &:hover {
+            z-index: 3;
+
+            &:before {
+                background-color: #fff;
+                box-shadow: 1px 3px 40px 0 rgba( 30, 48, 67, .34 );
+                transform: scaleY( 1.2 );
             }
 
-            #{$root}__addon:nth-child( 2n ) {
-                padding-right: 0;
-                padding-left: .5em;
-                text-align: right;
+            #{$root}__addons {
+                display: block;
+            }
+        }
+
+        &__link {
+            padding-left: 1.5em;
+            padding-right: 1.5em;
+        }
+
+        &__addons {
+            box-sizing: border-box;
+            display: none;
+            width: 100%;
+            padding: 0 3rem 0 1rem;
+            font-size: 1.12rem;
+            transform: translateY( -.7rem );
+        }
+
+    }
+
+    &--no-scale {
+        &:hover {
+            &:before {
+                transform: scaleY( 1.02 );
             }
         }
     }
 
-    &__addon {
-        text-align: left;
-        padding-right: .5em;
-        box-sizing: border-box;
+    &--no-shadow {
+        &:hover {
+            &:before {
+                display: none;
+            }
+        }
     }
 }
