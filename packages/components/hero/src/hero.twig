@@ -1,4 +1,4 @@
-<div class="{{ namespace }}hero{% if items|length < 2 %} {{ namespace }}hero--no-carousel{% endif %} {{ mix }}">
+<div class="{{ namespace }}hero {{ mix }}">
     <div class="{{ namespace }}hero__carousel">
         <div class="{{ namespace }}hero__wrapper">
             <ul class="{{ namespace }}hero__slides">
@@ -21,7 +21,12 @@
 
                                 {% if item.ctaTarget and item.ctaLabel %}
                                     <div class="{{ namespace }}hero__cta">
-                                        <a href="{{ item.ctaTarget }}" class="{{ namespace }}button {{ namespace }}button--look_danger {{ namespace }}button--size_700">{{ item.ctaLabel|striptags }}</a>
+                                        <a href="{{ item.ctaTarget }}" class="{{ button.classes }}">{{ item.ctaLabel|striptags }}
+                                            {% if button.arrow is defined and button.arrow %}
+                                                <svg class="{{ button.arrowClass }}">
+                                                    <use xlink:href="{{ asset( 'images/sprites.svg#arrow_next' ) }}"></use>                                                                </svg>
+                                            {% endif %}
+                                        </a>
                                     </div>
                                 {% endif %}
                             </div>
@@ -32,21 +37,17 @@
             </ul>
         </div>
 
-        {% if items|length > 1 %}
-            <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--large {{ namespace }}hero__nav--prev" type="button">
-                <svg class="{{ namespace }}hero__nav-icon">
-                    <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-left' ) }}"></use>
-                </svg>
-            </button>
-            <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--large {{ namespace }}hero__nav--next" type="button">
-                <svg class="{{ namespace }}hero__nav-icon">
-                    <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-right' ) }}"></use>
-                </svg>
-            </button>
-        {% endif %}
+        <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--large {{ namespace }}hero__nav--prev" type="button">
+            <svg class="{{ namespace }}hero__nav-icon">
+                <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-left' ) }}"></use>
+            </svg>
+        </button>
+        <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--large {{ namespace }}hero__nav--next" type="button">
+            <svg class="{{ namespace }}hero__nav-icon">
+                <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-right' ) }}"></use>
+            </svg>
+        </button>
     </div>
 
-    {% if items|length > 1 %}
-        <ul class="{{ namespace }}hero__pagination"></ul>
-    {% endif %}
+    <ul class="{{ namespace }}hero__pagination"></ul>
 </div>
