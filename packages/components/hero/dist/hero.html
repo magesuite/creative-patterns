@@ -1,4 +1,4 @@
-<div class="hero hero--no-carousel ">
+<div class="hero ">
     <div class="hero__carousel">
         <div class="hero__wrapper">
             <ul class="hero__slides">
@@ -7,6 +7,17 @@
             </ul>
         </div>
 
-            </div>
-
+        <button class="hero__nav hero__nav--large hero__nav--prev" type="button">
+            <svg class="hero__nav-icon">
+                <use xlink:href="/components/hero/dist/images/sprites.svg#icon_arrow-left"></use>
+            </svg>
+        </button>
+        <button class="hero__nav hero__nav--large hero__nav--next" type="button">
+            <svg class="hero__nav-icon">
+                <use xlink:href="/components/hero/dist/images/sprites.svg#icon_arrow-right"></use>
+            </svg>
+        </button>
     </div>
+
+    <ul class="hero__pagination"></ul>
+</div>
