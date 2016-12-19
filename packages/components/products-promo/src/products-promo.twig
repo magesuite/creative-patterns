@@ -6,7 +6,7 @@
                 {% for product in products %}
                     <li class="{{ namespace }}products-promo__slide">
                         {% include locate('components/grid-product/grid-product.twig') with { 
-                            'namespace': 'pp-', 
+                            'namespace': namespace,
                             'product': product
                         } %}
                     </li>
