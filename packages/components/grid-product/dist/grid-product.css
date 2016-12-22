@@ -1,155 +1,42 @@
 /**
+ * Default project breakpoints, can be overwritten by setting a variable with the same name
+ * before importing this file.
+ */
+/**
+ * These atom is responsible for setting aprropriate :before and :after content to body
+ * so that its JS counterpart can read and return current breakpoint to other
+ * scripts.
+ */
+body {
+  /* stylelint-disable string-no-newline */
+  /* stylelint-enable */ }
+  body:before {
+    content: '{ "phone": 370, "phone-lg": 480, "tablet": 768, "laptop": 1024, "laptop-lg": 1280, "desktop": 1440, "tv": 1920 }';
+    display: none; }
+  body:after {
+    content: '370';
+    display: none; }
+    @media (min-width: 30em) {
+      body:after {
+        content: '480'; } }
+    @media (min-width: 48em) {
+      body:after {
+        content: '768'; } }
+    @media (min-width: 64em) {
+      body:after {
+        content: '1024'; } }
+    @media (min-width: 80em) {
+      body:after {
+        content: '1280'; } }
+    @media (min-width: 90em) {
+      body:after {
+        content: '1440'; } }
+    @media (min-width: 120em) {
+      body:after {
+        content: '1920'; } }
+
+/**
  * Define block class using namespace.
  */
-.cs-grid-product {
-  width: 100%;
-  padding: 0;
-  position: relative;
-  z-index: 2;
-  background-color: transparent;
-  box-sizing: border-box; }
-  @media screen and (min-width: 480px) {
-    .cs-grid-product {
-      padding: 1rem; } }
-  .cs-grid-product__link {
-    display: block;
-    padding: 0 1.2em;
-    text-align: left;
-    font-weight: 300; }
-    .cs-grid-product__link:hover {
-      color: inherit;
-      text-decoration: none; }
-    .cs-grid-product__link:visited {
-      color: inherit; }
-  .cs-grid-product__figure {
-    position: relative; }
-  .cs-grid-product__image {
-    max-height: 20rem; }
-  .cs-grid-product__badge-wrapper {
-    top: 0;
-    left: 2.5rem;
-    position: absolute;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center; }
-    @media screen and (min-width: 768px) {
-      .cs-grid-product__badge-wrapper {
-        top: 1.5rem; } }
-  .cs-grid-product__name {
-    margin: 0 0 .5em;
-    font-size: 1.5rem;
-    line-height: 1.6rem;
-    font-weight: 400;
-    overflow: hidden;
-    text-align: center;
-    color: #000; }
-    @media screen and (min-width: 1200px) {
-      .cs-grid-product__name {
-        height: 1.5rem; } }
-    .cs-grid-product__name a {
-      text-decoration: none; }
-  .cs-grid-product__price-outer {
-    font-size: 1.12rem;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    -webkit-box-align: start;
-    -webkit-align-items: flex-start;
-        -ms-flex-align: start;
-            align-items: flex-start;
-    padding: 0 1.5rem;
-    height: 2rem; }
-  .cs-grid-product__addons {
-    display: none; }
-    .cs-grid-product:hover .cs-grid-product__addons {
-      display: none; }
-  .cs-grid-product__fieldset {
-    margin-bottom: 0; }
-  .cs-grid-product__stock, .cs-grid-product__links {
-    margin: .8rem 0 0; }
-  .cs-grid-product__comment {
-    margin-bottom: 1rem; }
-  .cs-grid-product__section {
-    width: 100%; }
-    @media screen and (min-width: 480px) {
-      .cs-grid-product__section {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: justify;
-        -webkit-justify-content: space-between;
-            -ms-flex-pack: justify;
-                justify-content: space-between;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-            -ms-flex-align: center;
-                align-items: center; } }
-  .cs-grid-product__section-item {
-    margin-bottom: 1rem; }
-    @media screen and (max-width: 479px) {
-      .cs-grid-product__section-item {
-        margin-top: .7rem;
-        display: inline-block;
-        margin-bottom: .7rem; } }
-    .cs-grid-product__section-item .product-reviews-summary {
-      margin: 0; }
-  .cs-grid-product__remove {
-    position: absolute;
-    top: 0;
-    right: 2.5rem;
-    z-index: 2; }
-  @media screen and (min-width: 768px) {
-    .cs-grid-product:before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      content: '';
-      z-index: -1;
-      border-radius: 4px;
-      box-shadow: 0 0 0 transparent;
-      -webkit-transition: box-shadow .15s ease-in-out, -webkit-transform .15s ease-in-out;
-      transition: box-shadow .15s ease-in-out, -webkit-transform .15s ease-in-out;
-      transition: box-shadow .15s ease-in-out, transform .15s ease-in-out;
-      transition: box-shadow .15s ease-in-out, transform .15s ease-in-out, -webkit-transform .15s ease-in-out;
-      -webkit-transform-origin: 50% 0;
-          -ms-transform-origin: 50% 0;
-              transform-origin: 50% 0; }
-    .cs-grid-product:hover {
-      z-index: 3; }
-      .cs-grid-product:hover:before {
-        background-color: #fff;
-        box-shadow: 1px 3px 40px 0 rgba(30, 48, 67, 0.34);
-        -webkit-transform: scaleY(1.2);
-            -ms-transform: scaleY(1.2);
-                transform: scaleY(1.2); }
-      .cs-grid-product:hover .cs-grid-product__addons {
-        display: block; }
-    .cs-grid-product__link {
-      padding-left: 1.5em;
-      padding-right: 1.5em; }
-    .cs-grid-product__addons {
-      box-sizing: border-box;
-      display: none;
-      width: 100%;
-      padding: 0 3rem 0 1rem;
-      font-size: 1.12rem;
-      -webkit-transform: translateY(-0.7rem);
-          -ms-transform: translateY(-0.7rem);
-              transform: translateY(-0.7rem); } }
-  .cs-grid-product--no-scale:hover:before {
-    -webkit-transform: scaleY(1.02);
-        -ms-transform: scaleY(1.02);
-            transform: scaleY(1.02); }
-  .cs-grid-product--no-shadow:hover:before {
-    display: none; }
 
 /*# sourceMappingURL=grid-product.css.map */

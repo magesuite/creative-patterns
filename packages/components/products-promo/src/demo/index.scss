@@ -1,0 +1,38 @@
+@import '../../../grid-product/src/demo/index';
+@import '../../../teaser/src/teaser';
+@import '../products-promo.scss';
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+
+    > div {
+        padding: 1rem;
+    }
+}
+
+h1 {
+    margin: 1rem 1rem 3rem;
+}
+
+.cs-products-promo {
+    @include teaser();
+    @include productsPromo();
+}
+
+.cs-grid-product {
+    &__addon {
+        &--rating,
+        &--stock {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding: 0 0 .5rem;
+        }
+    }
+}
+

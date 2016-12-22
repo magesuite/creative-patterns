@@ -1,8 +1,0 @@
-{
-    "name": "cs-items-grid",
-    "version": "0.0.1",
-    "description": "This component is responsible for displaying small components inside its grid",
-    "main": "src/cs-items-grid.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

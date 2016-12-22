@@ -1,0 +1,215 @@
+/* stylelint-disable selector-no-qualifying-type  */
+// swatches-magento
+// This component contains custom CSS for Magento&#x27;s swatches with our BEM mixes
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+$namespace: 'cs-' !default;
+
+@mixin swatches() {
+    $root: &;
+
+    $swatch-size: 1.75rem;
+
+    &__attribute {
+        padding: .8em 0;
+        border-top: 1px solid #eee;
+
+        &:first-child {
+            border-top: 0;
+        }
+
+        @include media( '>=tablet' ) {
+            display: flex;
+        }
+    }
+
+    &__attribute-label {
+        position: relative;
+        display: inline-block;
+        font-weight: 600;
+        font-size: 1rem;
+        line-height: 1;
+        text-transform: uppercase;
+
+        &:after {
+            content: ':';
+        }
+
+        @include media( '>=tablet' ) {
+            width: 22%;
+            max-width: 120px;
+            padding-top: .75rem;
+            padding-right: .5rem;
+        }
+    }
+
+    &__attribute-selected {
+        display: none;
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &__swatch {
+        position: relative;
+        min-width: $swatch-size;
+        height: $swatch-size;
+        line-height: 1;
+        border-radius: 3px;
+        padding: .45em;
+        cursor: pointer;
+        box-sizing: border-box;
+        font-size: .786rem;
+
+        &.disabled,
+        &--disabled {
+            cursor: default;
+            opacity: .4;
+        }
+
+        &.color,
+        &--color,
+        &.image,
+        &--image {
+            position: relative;
+            margin: .5em;
+
+            &:after {
+                position: absolute;
+                top: -3px;
+                bottom: -3px;
+                left: -3px;
+                right: -3px;
+                border-radius: 3px;
+                border: 1px solid #eee;
+                content: '';
+                transition: border-color .15s linear;
+            }
+
+            &:hover:after {
+                border-color: darken( #eee, 15% );
+            }
+
+            &.disabled,
+            &--disabled {
+                &:hover:after {
+                    border-color: #eee;
+                }
+            }
+
+            &.selected,
+            &--selected {
+                &:after,
+                &:hover:after {
+                    border-color: darken( #eee, 30% );
+                }
+            }
+        }
+
+        &.text,
+        &--text {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-width: calc( $swatch-size + 6px );
+            height: calc( $swatch-size + 6px );
+            margin: calc( .5em - 3px );
+            background-color: #eee;
+            border: 1px solid #eee;
+            transition: border-color .15s linear, background-color .15s linear;
+
+            &:hover {
+                border-color: darken( #eee, 15% );
+            }
+
+            &.disabled,
+            &--disabled {
+                &:hover {
+                    border-color: #eee;
+                    background-color: #eee;
+                }
+            }
+
+            &.selected,
+            &.selected:hover,
+            &--selected,
+            &--selected:hover {
+                background-color: #fff;
+                border-color: darken( #eee, 30% );
+            }
+        }
+    }
+
+    &--color-only {
+        #{$root}__attribute {
+            &:not( .color ):not( #{$root}__attribute--color ) {
+                display: none !important;
+            }
+        }
+    }
+
+    &--mini {
+        $swatch-size: $swatch-size * .5;
+
+        #{$root}__attribute {
+            padding: 0;
+            justify-content: center;
+            border: none;
+
+            ~ #{$root}__attribute {
+                margin-top: -4px;
+            }
+        }
+
+        #{$root}__attribute-label {
+            display: none;
+        }
+
+        #{$root}__swatch {
+            min-width: $swatch-size;
+            height: $swatch-size;
+            border-radius: 2px;
+
+            &:after {
+                border-radius: 2px;
+            }
+
+            &.color,
+            &--color,
+            &.image,
+            &--image {
+                margin: 4px;
+
+                &:after {
+                    top: -2px;
+                    left: -2px;
+                    bottom: -2px;
+                    right: -2px;
+                }
+            }
+
+            &.text,
+            &--text {
+                margin: 2px;
+                font-size: .65rem;
+            }
+        }
+    }
+
+    &--static {
+        position: relative;
+
+        &:after {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            content: '';
+            z-index: 3;
+        }
+    }
+}

@@ -4,16 +4,15 @@
             <ul class="{{ namespace }}products-promo__slides">
                 
                 {% for product in products %}
-                    <li class="{{ namespace }}products-promo__slide">
-                        {% include locate('components/grid-product/grid-product.twig') with { 
-                            'namespace': namespace,
-                            'product': product
-                        } %}
+                    <li class="{{ namespace }}products-promo__slide {{ product.mix }}">
+                        {{ product.content }}
                     </li>
                 {% endfor %}
 
             </ul>
-            
+        </div>
+
+        {% if showNavigation %}
             <button class="{{ namespace }}products-promo__nav {{ namespace }}products-promo__nav--prev" type="button">
                 <svg class="{{ namespace }}products-promo__nav-icon">
                     <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-left' ) }}"></use>
@@ -24,9 +23,10 @@
                     <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-right' ) }}"></use>
                 </svg>
             </button>
-
-        </div>
+        {% endif %}
         
-        <ul class="{{ namespace }}products-promo__pagination"></ul>
+        {% if showPagination %}
+            <ul class="{{ namespace }}products-promo__pagination"></ul>
+        {% endif %}
     </div>
 </div>

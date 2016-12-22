@@ -1,0 +1,8 @@
+{
+    "name": "items-grid",
+    "version": "0.0.1",
+    "description": "Used for listing with flexbox, f.e. products  grid",
+    "main": "src/items-grid.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

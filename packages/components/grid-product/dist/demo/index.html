@@ -3,14 +3,615 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>grid-product component demo</title>
+        <title>Grid-product component demo</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="../grid-product.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="./index.css">
     </head>
     <body>
-        <h1>grid-product Component Demo</h1>
+        <div class="cols">
+            <div class="col">
+                <div>
+                    <h4>Standard (static mode)</h4>
+                        <div class="cs-grid-product cs-grid-product--static " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
 
-        <script src="../grid-product.js"></script>
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With badge and special price (static mode)</h4>
+                        <div class="cs-grid-product cs-grid-product--static " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                            <ul class="cs-grid-product__badges">
+                                            <li class="cs-grid-product__badge ">
+                            <span class="cs-grid-product__badge-label cs-grid-product__badge-label--sale">SALE</span><span class="">-12%</span>
+                        </li>
+                                    </ul>
+                    </a>
+
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Very long product name that should be truncated after 2 lines of length bla bla blablblablabl bal blabl</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1824"><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label">Special Price</span><span id="product-price-1824" data-price-amount="31.2" data-price-type="finalPrice" class="price-wrapper "><span class="price">$31.20</span></span></span></span><span class="old-price"><span class="price-container price-final_price tax weee"><span class="price-label">Regular Price</span><span id="old-price-1824" data-price-amount="39" data-price-type="oldPrice" class="price-wrapper "><span class="price">$39.00</span></span></span></span></div>
+        </div>
+
+            </div>
+
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With 2 badges and Comment form (static mode)</h4>
+                        <div class="cs-grid-product cs-grid-product--static " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                            <ul class="cs-grid-product__badges">
+                                            <li class="cs-grid-product__badge additional-class">
+                            <span class="cs-grid-product__badge-label cs-grid-product__badge-label--sale">SALE</span><span class="">-12%</span>
+                        </li>
+                                            <li class="cs-grid-product__badge ">
+                            <span class="cs-grid-product__badge-label cs-grid-product__badge-label--new">NEW</span>
+                        </li>
+                                    </ul>
+                    </a>
+
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+            <div class="cs-grid-product__addons ">
+
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--comment-form">
+                    <div class="cs-input"><label for="cf1" class="cs-input__label"><span>Comment:</span></label><textarea id="cf1" class="cs-input__textarea | cs-grid-product__comment-input"></textarea></div>
+                </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                    </div>
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With swatches and out of stock (static mode)</h4>
+                        <div class="cs-grid-product cs-grid-product--static " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+                    <div class="cs-grid-product__swatches ">
+                <div class="cs-swatches cs-swatches--mini cs-swatches--color-only cs-swatches--static" data-role="swatch-options"><div class="cs-swatches__attribute color" attribute-code="color" attribute-id="93" option-selected="57"><span class="cs-swatches__attribute-label">Color</span><span class="cs-swatches__attribute-selected">Purple</span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch color" option-type="1" option-id="57" option-label="Purple" option-tooltip-thumb="" option-tooltip-value="#ef3dff"  style="background: #ef3dff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color" option-type="1" option-id="59" option-label="White" option-tooltip-thumb="" option-tooltip-value="#ffffff" " style="background: #ffffff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color disabled" option-type="1" option-id="60" option-label="Yellow" option-tooltip-thumb="" option-tooltip-value="#ffd500" " style="background: #ffd500 no-repeat center; background-size: initial;"></div></div></div><div class="cs-swatches__attribute size" attribute-code="size" attribute-id="142"><span class="cs-swatches__attribute-label">Size</span><span class="cs-swatches__attribute-selected"></span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch text" option-type="0" option-id="167" option-label="XS" option-tooltip-thumb="" option-tooltip-value="XS">XS</div><div class="cs-swatches__swatch text" option-type="0" option-id="168" option-label="S" option-tooltip-thumb="" option-tooltip-value="S">S</div><div class="cs-swatches__swatch text" option-type="0" option-id="169" option-label="M" option-tooltip-thumb="" option-tooltip-value="M">M</div><div class="cs-swatches__swatch text" option-type="0" option-id="170" option-label="L" option-tooltip-thumb="" option-tooltip-value="L">L</div><div class="cs-swatches__swatch text disabled" option-type="0" option-id="171" option-label="XL" option-tooltip-thumb="" option-tooltip-value="XL" disabled="disabled">Extra Large</div></div></div></div>
+            </div>
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+            <div class="cs-grid-product__addons ">
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--stock">
+                    <p class="cs-grid-product__stock cs-grid-product__stock--out-of-stock">
+                        Out of stock
+                    </p>
+                </div>
+            
+            
+            
+                    </div>
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With swatches where only color is visible (static mode)</h4>
+                        <div class="cs-grid-product cs-grid-product--static " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+                    <div class="cs-grid-product__swatches cs-grid-product__swatches--color-only">
+                <div class="cs-swatches cs-swatches--mini cs-swatches--color-only cs-swatches--static" data-role="swatch-options"><div class="cs-swatches__attribute color" attribute-code="color" attribute-id="93" option-selected="57"><span class="cs-swatches__attribute-label">Color</span><span class="cs-swatches__attribute-selected">Purple</span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch color" option-type="1" option-id="57" option-label="Purple" option-tooltip-thumb="" option-tooltip-value="#ef3dff"  style="background: #ef3dff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color" option-type="1" option-id="59" option-label="White" option-tooltip-thumb="" option-tooltip-value="#ffffff" " style="background: #ffffff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color disabled" option-type="1" option-id="60" option-label="Yellow" option-tooltip-thumb="" option-tooltip-value="#ffd500" " style="background: #ffd500 no-repeat center; background-size: initial;"></div></div></div><div class="cs-swatches__attribute size" attribute-code="size" attribute-id="142"><span class="cs-swatches__attribute-label">Size</span><span class="cs-swatches__attribute-selected"></span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch text" option-type="0" option-id="167" option-label="XS" option-tooltip-thumb="" option-tooltip-value="XS">XS</div><div class="cs-swatches__swatch text" option-type="0" option-id="168" option-label="S" option-tooltip-thumb="" option-tooltip-value="S">S</div><div class="cs-swatches__swatch text" option-type="0" option-id="169" option-label="M" option-tooltip-thumb="" option-tooltip-value="M">M</div><div class="cs-swatches__swatch text" option-type="0" option-id="170" option-label="L" option-tooltip-thumb="" option-tooltip-value="L">L</div><div class="cs-swatches__swatch text disabled" option-type="0" option-id="171" option-label="XL" option-tooltip-thumb="" option-tooltip-value="XL" disabled="disabled">Extra Large</div></div></div></div>
+            </div>
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With stock info, rating, add-to-cart button and additional links (static mode)</h4>
+                        <div class="cs-grid-product cs-grid-product--static " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+            <div class="cs-grid-product__addons ">
+
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--rating">
+                    <div class="cs-star-rating cs-grid-product__star-rating ">
+    <span class="cs-star-rating__stars">
+                                    <i class="cs-star-rating__star cs-star-rating__star--active"></i>
+                                                <i class="cs-star-rating__star cs-star-rating__star--active"></i>
+                                                <i class="cs-star-rating__star cs-star-rating__star--active"></i>
+                                                <i class="cs-star-rating__star cs-star-rating__star--active"></i>
+                                                <i class="cs-star-rating__star cs-star-rating__star--half-active"></i>
+                        </span>
+    </div>
+                </div>
+            
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--stock">
+                    <p class="cs-grid-product__stock cs-grid-product__stock--in-stock">
+                        In stock
+                    </p>
+                </div>
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--action-button">
+                    <form data-role="tocart-form" action="#" method="post"><input type="hidden" name="product" value="1824"><button type="submit" title="Add to Cart" class="action tocart primary | cs-button cs-button--look_default"><span>Add to Cart</span></button></form>
+                </div>
+            
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--links">
+                    <ul class="cs-grid-product__links ">
+                                                    <li class="cs-grid-product__link-item">
+                                <a href="#">Edit</a>
+                                 |                             </li>
+                                                    <li class="cs-grid-product__link-item">
+                                <a href="#">Remove item</a>
+                                                            </li>
+                                            </ul>
+                </div>
+            
+                    </div>
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With add-to-cart button and remove link as icon (static mode)</h4>
+                        <div class="cs-grid-product cs-grid-product--static " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+            <div class="cs-grid-product__addons ">
+
+            
+            
+            
+            
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--action-button">
+                    <form data-role="tocart-form" action="#" method="post"><input type="hidden" name="product" value="1824"><input type="hidden" name="uenc" value="#"><input name="form_key" type="hidden" value="#"><button type="submit" title="Add to Cart" class="action tocart primary | cs-button cs-button--look_default"><span>Add to Cart</span></button></form>
+                </div>
+            
+            
+            
+            
+            
+                    </div>
+    
+            <div class="cs-grid-product__remove">
+            <a class="cs-button--look_remove" href="#"><svg class="cs-button__remove-icon"><use xlink:href="../images/sprites.svg#close"></use></svg></a>
+        </div>
+    
+    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col">
+                <div>
+                    <h4>Standard</h4>
+                        <div class="cs-grid-product cs-grid-product--no-scale" tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With badge and special price</h4>
+                        <div class="cs-grid-product " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                            <ul class="cs-grid-product__badges">
+                                            <li class="cs-grid-product__badge ">
+                            <span class="cs-grid-product__badge-label cs-grid-product__badge-label--sale">SALE</span><span class="">-12%</span>
+                        </li>
+                                    </ul>
+                    </a>
+
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Very long product name that should be truncated after 2 lines of length bla bla blablblablabl bal blabl</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1824"><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label">Special Price</span><span id="product-price-1824" data-price-amount="31.2" data-price-type="finalPrice" class="price-wrapper "><span class="price">$31.20</span></span></span></span><span class="old-price"><span class="price-container price-final_price tax weee"><span class="price-label">Regular Price</span><span id="old-price-1824" data-price-amount="39" data-price-type="oldPrice" class="price-wrapper "><span class="price">$39.00</span></span></span></span></div>
+        </div>
+
+            </div>
+
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With swatches and out of stock</h4>
+                        <div class="cs-grid-product " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+                    <div class="cs-grid-product__swatches ">
+                <div class="cs-swatches cs-swatches--mini cs-swatches--color-only cs-swatches--static" data-role="swatch-options"><div class="cs-swatches__attribute color" attribute-code="color" attribute-id="93" option-selected="57"><span class="cs-swatches__attribute-label">Color</span><span class="cs-swatches__attribute-selected">Purple</span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch color" option-type="1" option-id="57" option-label="Purple" option-tooltip-thumb="" option-tooltip-value="#ef3dff"  style="background: #ef3dff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color" option-type="1" option-id="59" option-label="White" option-tooltip-thumb="" option-tooltip-value="#ffffff" " style="background: #ffffff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color disabled" option-type="1" option-id="60" option-label="Yellow" option-tooltip-thumb="" option-tooltip-value="#ffd500" " style="background: #ffd500 no-repeat center; background-size: initial;"></div></div></div><div class="cs-swatches__attribute size" attribute-code="size" attribute-id="142"><span class="cs-swatches__attribute-label">Size</span><span class="cs-swatches__attribute-selected"></span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch text" option-type="0" option-id="167" option-label="XS" option-tooltip-thumb="" option-tooltip-value="XS">XS</div><div class="cs-swatches__swatch text" option-type="0" option-id="168" option-label="S" option-tooltip-thumb="" option-tooltip-value="S">S</div><div class="cs-swatches__swatch text" option-type="0" option-id="169" option-label="M" option-tooltip-thumb="" option-tooltip-value="M">M</div><div class="cs-swatches__swatch text" option-type="0" option-id="170" option-label="L" option-tooltip-thumb="" option-tooltip-value="L">L</div><div class="cs-swatches__swatch text disabled" option-type="0" option-id="171" option-label="XL" option-tooltip-thumb="" option-tooltip-value="XL" disabled="disabled">Extra Large</div></div></div></div>
+            </div>
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+            <div class="cs-grid-product__addons ">
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--stock">
+                    <p class="cs-grid-product__stock cs-grid-product__stock--out-of-stock">
+                        Out of stock
+                    </p>
+                </div>
+            
+            
+            
+                    </div>
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With swatches where only color is visible</h4>
+                        <div class="cs-grid-product " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+                    <div class="cs-grid-product__swatches cs-grid-product__swatches--color-only">
+                <div class="cs-swatches cs-swatches--mini cs-swatches--color-only cs-swatches--static" data-role="swatch-options"><div class="cs-swatches__attribute color" attribute-code="color" attribute-id="93" option-selected="57"><span class="cs-swatches__attribute-label">Color</span><span class="cs-swatches__attribute-selected">Purple</span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch image" option-type="2" option-id="57" option-label="Purple" option-tooltip-thumb="http://m2c.dev/media/attribute/swatch/swatch_thumb/110x90/c/h/chrome.png" option-tooltip-value="http://m2c.dev/media/attribute/swatch/swatch_image/30x20/c/h/chrome.png" style="background: url(http://m2c.dev/media/attribute/swatch/swatch_image/30x20/c/h/chrome.png) no-repeat center;background-size: initial;"></div><div class="cs-swatches__swatch color" option-type="1" option-id="59" option-label="White" option-tooltip-thumb="" option-tooltip-value="#ffffff" style="background: #ffffff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color disabled" option-type="1" option-id="60" option-label="Yellow" option-tooltip-thumb="" option-tooltip-value="#ffd500" " style="background: #ffd500 no-repeat center; background-size: initial;"></div></div></div><div class="cs-swatches__attribute size" attribute-code="size" attribute-id="142"><span class="cs-swatches__attribute-label">Size</span><span class="cs-swatches__attribute-selected"></span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch text" option-type="0" option-id="167" option-label="XS" option-tooltip-thumb="" option-tooltip-value="XS">XS</div><div class="cs-swatches__swatch text" option-type="0" option-id="168" option-label="S" option-tooltip-thumb="" option-tooltip-value="S">S</div><div class="cs-swatches__swatch text" option-type="0" option-id="169" option-label="M" option-tooltip-thumb="" option-tooltip-value="M">M</div><div class="cs-swatches__swatch text" option-type="0" option-id="170" option-label="L" option-tooltip-thumb="" option-tooltip-value="L">L</div><div class="cs-swatches__swatch text disabled" option-type="0" option-id="171" option-label="XL" option-tooltip-thumb="" option-tooltip-value="XL" disabled="disabled">Extra Large</div></div></div></div>
+            </div>
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With stock info, rating, add-to-cart button and additional links</h4>
+                        <div class="cs-grid-product " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+            <div class="cs-grid-product__addons ">
+
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--rating">
+                    <div class="cs-star-rating cs-grid-product__star-rating ">
+    <span class="cs-star-rating__stars">
+                                    <i class="cs-star-rating__star cs-star-rating__star--active"></i>
+                                                <i class="cs-star-rating__star cs-star-rating__star--active"></i>
+                                                <i class="cs-star-rating__star cs-star-rating__star--active"></i>
+                                                <i class="cs-star-rating__star cs-star-rating__star--active"></i>
+                                                <i class="cs-star-rating__star cs-star-rating__star--half-active"></i>
+                        </span>
+    </div>
+                </div>
+            
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--stock">
+                    <p class="cs-grid-product__stock cs-grid-product__stock--in-stock">
+                        In stock
+                    </p>
+                </div>
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--action-button">
+                    <form data-role="tocart-form" action="#" method="post"><input type="hidden" name="product" value="1824"><button type="submit" title="Add to Cart" class="action tocart primary | cs-button cs-button--look_default"><span>Add to Cart</span></button></form>
+                </div>
+            
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--links">
+                    <ul class="cs-grid-product__links ">
+                                                    <li class="cs-grid-product__link-item">
+                                <a href="#">Edit</a>
+                                 |                             </li>
+                                                    <li class="cs-grid-product__link-item">
+                                <a href="#">Remove item</a>
+                                                            </li>
+                                            </ul>
+                </div>
+            
+                    </div>
+    
+    
+    </div>
+                </div>
+
+                <div>
+                    <h4>With add-to-cart button and remove link as icon</h4>
+                        <div class="cs-grid-product " tabindex="-1">
+    <div class="cs-grid-product__main">
+        <a href="#" class="cs-grid-product__figure-wrapper">
+            <figure class="cs-grid-product__figure">
+                <img class="cs-grid-product__image " src="../images/product.jpg" alt="Karissa V-Neck Tee - product image">
+            </figure>
+                    </a>
+
+        
+        
+        
+        <div class="cs-grid-product__name">
+            <a href="#" class="cs-grid-product__name-link">Karissa V-Neck Tee</a>
+        </div>
+
+        
+        <div class="cs-grid-product__price ">
+            <div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>
+        </div>
+
+            </div>
+
+            <div class="cs-grid-product__addons ">
+
+            
+            
+            
+            
+            
+            
+            
+                            <div class="cs-grid-product__addon cs-grid-product__addon--action-button">
+                    <form data-role="tocart-form" action="#" method="post"><input type="hidden" name="product" value="1824"><input type="hidden" name="uenc" value="#"><input name="form_key" type="hidden" value="#"><button type="submit" title="Add to Cart" class="action tocart primary | cs-button cs-button--look_default"><span>Add to Cart</span></button></form>
+                </div>
+            
+            
+            
+            
+            
+                    </div>
+    
+            <div class="cs-grid-product__remove">
+            <a class="cs-button--look_remove" href="#"><svg class="cs-button__remove-icon"><use xlink:href="../images/sprites.svg#close"></use></svg></a>
+        </div>
+    
+    </div>
+                </div>
+            </div>
+
+        </div>
     </body>
 </html>
