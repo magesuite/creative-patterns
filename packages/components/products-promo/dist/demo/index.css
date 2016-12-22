@@ -461,9 +461,6 @@ body {
       body:after {
         content: '1920'; } }
 
-/**
- * Define block class using namespace.
- */
 html {
   font-family: Open Sans, Arial, sans-serif;
   background: #f0f0f0; }

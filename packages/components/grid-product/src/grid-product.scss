@@ -1,9 +1,4 @@
 @import '../../../utilities/breakpoint/src/breakpoint';
-$namespace: 'cs-' !default;
-
-/**
- * Define block class using namespace.
- */
 
 @mixin gridProduct() {
     $root: &;
