@@ -1,11 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jQuery'), require('jquery'), require('Swiper')) :
-    typeof define === 'function' && define.amd ? define('productsPromo', ['exports', 'jQuery', 'jquery', 'Swiper'], factory) :
-    (factory((global.productsPromo = global.productsPromo || {}),global.jQuery,global.jQuery,global.Swiper));
-}(this, (function (exports,$,$$1,Swiper) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('Swiper')) :
+    typeof define === 'function' && define.amd ? define('productsPromo', ['jquery', 'Swiper'], factory) :
+    (global.productsPromo = factory(global.jQuery,global.Swiper));
+}(this, (function ($,Swiper) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
-$$1 = 'default' in $$1 ? $$1['default'] : $$1;
 Swiper = 'default' in Swiper ? Swiper['default'] : Swiper;
 
 /*
@@ -90,7 +89,7 @@ var csTeaser = function ($element, settings) {
             return "<span class=\"" + teaserName + "__number " + currentClassName + "\"></span> " + fractionPaginationSeparator + " <span class=\"" + teaserName + "__number " + totalClassName + "\"></span>";
         },
     };
-    currentSettings = $$1.extend(defaultSettings, settings);
+    currentSettings = $.extend(defaultSettings, settings);
     /**
      * Calculates number of slides that should be visible according to teaser's wrapper width.
      * @return {number} Number of slides.
@@ -120,24 +119,25 @@ var csTeaser = function ($element, settings) {
             currentSettings.slidesPerView =
                 currentSettings.slidesPerGroup = calculateSlidesNumber();
         }
-        swiperInstance.params = $$1.extend(swiperInstance.params, currentSettings);
+        swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
     };
     var postInit = function () {
-        if (swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination) {
+        if (currentSettings.slidesPerView && !swiperInstance.params.onlyBulletPagination) {
             var totalSlidesNumber = swiperInstance.slides.length;
             var totalGroupNumber = Math.ceil(totalSlidesNumber / swiperInstance.params.slidesPerGroup);
             if (totalGroupNumber > swiperInstance.params.paginationBreakpoint) {
-                swiperInstance.params.paginationType = 'fraction';
+                currentSettings.paginationType = 'fraction';
             }
             else {
-                swiperInstance.params.paginationType = 'bullets';
+                currentSettings.paginationType = 'bullets';
             }
+            swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
         }
     };
     swiperInstance = new Swiper($element.find(teaserClass + "__wrapper"), currentSettings);
     postInit();
     swiperInstance.update();
-    $$1(window).on('resize', function () {
+    $(window).on('resize', function () {
         updateSliderSizing();
         postInit();
         swiperInstance.update();
@@ -157,18 +157,38 @@ var csTeaser = function ($element, settings) {
     };
 };
 
-// Initialize hero carousels
-var init = function () {
-    $('.cs-products-promo').each(function () {
-        return new csTeaser($(this), {
+var ProductsPromo = (function () {
+    /**
+     * Creates new ProductsPromo component with optional settings.
+     * @param {$element} Optional, element to be initialized as ProductsPromo component
+     * @param {options}  Optional settings object.
+     */
+    function ProductsPromo($element, options) {
+        this._options = $.extend({
             teaserName: 'cs-products-promo',
-        });
-    });
-};
+            slidesPerView: 'auto',
+            spaceBetween: 16,
+            maxSlidesPerView: 4,
+            slideMinWidth: 220,
+        }, options);
+        this._$element = $element || $("." + this._options.teaserName);
+        this._init();
+    }
+    /**
+     * Initializes all $element's with previously defined options
+     */
+    ProductsPromo.prototype._init = function () {
+        var _this = this;
+        if (this._$element.length) {
+            this._$element.filter(":not(." + this._options.teaserName + "--grid)").each(function () {
+                return new csTeaser($(this), _this._options);
+            });
+        }
+    };
+    return ProductsPromo;
+}());
 
-exports.init = init;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return ProductsPromo;
 
 })));
 //# sourceMappingURL=products-promo.js.map

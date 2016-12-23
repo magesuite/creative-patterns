@@ -1,0 +1,12 @@
+@import '../../../../utilities/breakpoint/src/breakpoint';
+@import '../swatches.scss';
+
+html,
+body {
+    height: 100%;
+    font-family: Open Sans, Arial, sans-serif;
+}
+
+.cs-swatches {
+    @include swatches();
+}

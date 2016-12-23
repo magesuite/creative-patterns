@@ -1,0 +1,8 @@
+{
+    "name": "swatches-magento",
+    "version": "0.0.1",
+    "description": "This component contains custom CSS for Magento&#x27;s swatches with our BEM mixes",
+    "main": "src/swatches-magento.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

@@ -6,6 +6,8 @@
 $namespace: 'cs-' !default;
 
 .#{$namespace}button {
+    $root: &;
+
     display: inline-block;
     border: 1px solid transparent;
     background: none;
@@ -32,6 +34,14 @@ $namespace: 'cs-' !default;
     &:focus {
         outline: 1px dotted #000;
     }
+
+    &__remove-icon {
+        width: .75rem;
+        height: .75rem;
+        fill: #999;
+        transition: fill .15s linear;
+    }
+
     // Different looks of buttons. This modifiers should not define anything
     // that influence size of the button, only its esthetics.
     &--look {
@@ -115,6 +125,25 @@ $namespace: 'cs-' !default;
                 background-color: #c9302c;
                 border-color: #ac2925;
                 color: #fff;
+            }
+        }
+
+        &_remove {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 1px solid #999;
+            border-radius: 3px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            transition: border-color .15s linear;
+
+            &:hover {
+                border-color: #333;
+
+                #{$root}__remove-icon {
+                    fill: #333;
+                }
             }
         }
 

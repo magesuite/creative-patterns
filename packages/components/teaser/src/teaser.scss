@@ -3,11 +3,9 @@
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-$namespace: 'cs-teaser' !default;
-
 @import 'vendors/swiper/swiper';
 
-.#{$namespace} {
+@mixin teaser() {
     $root: &;
     position: relative;
 
@@ -17,15 +15,16 @@ $namespace: 'cs-teaser' !default;
 
     &__slides {
         @extend .swiper-wrapper;
+        align-items: stretch;
         margin: 0;
         padding: 0;
     }
 
     &__slide {
         @extend .swiper-slide;
+        height: auto;
         display: flex;
         justify-content: center;
-        align-items: center;
     }
 
     &__figure {

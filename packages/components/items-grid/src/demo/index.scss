@@ -1,0 +1,15 @@
+@import '../../../grid-product/src/demo/index';
+@import '../items-grid.scss';
+
+body {
+    margin: 1rem;
+
+    > div {
+        margin: 0 0 5em;
+    }
+}
+
+.cs-items-grid {
+    @include itemsGrid();
+}
+

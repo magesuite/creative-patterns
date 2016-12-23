@@ -1,0 +1,13 @@
+@import '../price-box.scss';
+
+html {
+    font-family: Open Sans, Arial, sans-serif;
+}
+
+body > div {
+    margin: 0 0 4em;
+}
+
+.price-box {
+    @include priceBox();
+}

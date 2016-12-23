@@ -1,45 +1,161 @@
-<div class="{{ namespace }}grid-product">
-    <a class="{{ namespace }}grid-product__link" href="{{ product.url }}">
-        <figure class="{{ namespace }}grid-product__figure">
-            <img class="{{ namespace }}grid-product__image" src="{{ product.image }}" alt="{{ product.name }}">
-        </figure>
+{% if showWrapper %}
+    <{{ tag }} class="{{ namespace }}grid-product{% if mode is defined and mode == 'static' %} {{ namespace }}grid-product--static{% endif %} {{ mix }}" tabindex="-1">
+{% endif %}
+    <div class="{{ namespace }}grid-product__main">
+        <a href="{{ url }}" class="{{ namespace }}grid-product__figure-wrapper">
+            <figure class="{{ namespace }}grid-product__figure">
+                <img class="{{ namespace }}grid-product__image {{ image.mix }}" src="{{ image.src }}" alt="{{ image.alt }}">
+            </figure>
+            {% if badges.length %}
+                <ul class="{{ namespace }}grid-product__badges">
+                    {% for badge in badges %}
+                        <li class="{{ namespace }}grid-product__badge {{ badge.mix }}">
+                            {{ badge.content|raw }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </a>
 
-        <span class="{{ namespace }}grid-product__badge">-30%</span>
+        {% if hotspots.after.photo %}
+            {{ hotspots.after.photo|raw }}
+        {% endif %}
+
+        {% if swatches is defined and swatches.content is defined and swatches.asAddon == false %}
+            <div class="{{ namespace }}grid-product__swatches {{ swatches.mix }}">
+                {{ swatches.content|raw }}
+            </div>
+        {% endif %}
+
+        {% if hotspots.after.swatches %}
+            {{ hotspots.after.swatches|raw }}
+        {% endif %}
 
         <div class="{{ namespace }}grid-product__name">
-            {{ product.name }}
+            <a href="{{ url }}" class="{{ namespace }}grid-product__name-link">{{ name|raw }}</a>
         </div>
 
-        <div class="{{ namespace }}grid-product__description">
-            <div class="{{ namespace }}grid-product__price-outer">
-                <div class="{{ namespace }}grid-product__uvp">
-                    <span class="{{ namespace }}grid-product__price-label">UVP</span>
-                    <span class="{{ namespace }}grid-product__uvp-price">249,99&euro;</span>
-                </div>
-                <div class="{{ namespace }}grid-product__our-price">
-                    <span class="{{ namespace }}grid-product__price-label">Unser Preis</span>
-                    209,99&euro;
-                </div>
-                <div class="{{ namespace }}grid-product__price {{ namespace }}grid-product__price--prominent">
-                    <span class="{{ namespace }}grid-product__price-label">Premium Preis</span>
-                    <svg class="{{ namespace }}grid-product__price-icon {{ namespace }}grid-product__price-icon--star">
-                        <use xlink:href="{{ asset( 'images/sprites.svg#icon_star' ) }}"></use>
-                    </svg>
-                    <svg class="{{ namespace }}grid-product__price-icon">
-                        <use xlink:href="{{ asset( 'images/sprites.svg#icon_crown' ) }}"></use>
-                    </svg>
-                    {{ product.price }}
-                </div>
-            </div>
-        </div>
-    </a>
+        {% if hotspots.after.name %}
+            {{ hotspots.after.name|raw }}
+        {% endif %}
 
-    <div class="{{ namespace }}grid-product__addons {{ namespace }}grid-product__addons--columns">
-        <div class="{{ namespace }}grid-product__addon">
-            <div class="{{ namespace }}rating" data-rating="3"></div>
+        <div class="{{ namespace }}grid-product__price {{ price.mix }}">
+            {{ price.content }}
         </div>
-        <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--look-green">
-            Sofort verf&uuml;gbar
-        </div>
+
+        {% if hotspots.after.price %}
+            {{ hotspots.after.price|raw }}
+        {% endif %}
     </div>
-</div>
+
+    {% if addons is defined and addons.show %}
+        <div class="{{ namespace }}grid-product__addons {{ addons.mix }}">
+
+            {% if swatches is defined and swatches.content is defined and swatches.asAddon == true %}
+                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--swatches">
+                    <div class="{{ namespace }}grid-product__swatches {{ swatches.mix }}">
+                        {{ swatches.content|raw }}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if rating is defined %}
+                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--rating">
+                    {% include locate( 'star-rating/star-rating.twig' ) with {
+                        namespace: namespace,
+                        mix: namespace ~ 'grid-product__star-rating ' ~ rating.mix,
+                        maxStars: rating.maxStars,
+                        activeStars: rating.activeStars,
+                        text: rating.text
+                    } %}
+                </div>
+            {% endif %}
+
+            {% if hotspots.after.rating.content %}
+                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.rating.mix }}">
+                    {{ hotspots.after.rating.content|raw }}
+                </div>
+            {% endif %}
+
+            {% if commentForm %}
+                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--comment-form">
+                    {{ commentForm|raw }}
+                </div>
+            {% endif %}
+
+            {% if hotspots.after.commentForm.content %}
+                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.commentForm.mix }}">
+                    {{ hotspots.after.commentForm.content|raw }}
+                </div>
+            {% endif %}
+
+            {% if stock.showInStock %}
+                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--stock">
+                    <p class="{{ namespace }}grid-product__stock {{ namespace }}grid-product__stock--in-stock">
+                        {{ stock.inStockContent|raw }}
+                    </p>
+                </div>
+            {% endif %}
+
+            {% if hotspots.after.inStock.content %}
+                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.inStock.mix }}">
+                    {{ hotspots.after.inStock.content|raw }}
+                </div>
+            {% endif %}
+
+            {% if addToCartButton %}
+                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--action-button">
+                    {{ addToCartButton|raw }}
+                </div>
+            {% endif %}
+
+            {% if hotspots.after.addToCartButton.content %}
+                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.addToCartButton.mix }}">
+                    {{ hotspots.after.addToCartButton.content|raw }}
+                </div>
+            {% endif %}
+
+            {% if stock.showOutOfStock %}
+                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--stock">
+                    <p class="{{ namespace }}grid-product__stock {{ namespace }}grid-product__stock--out-of-stock">
+                        {{ stock.outOfStockContent|raw }}
+                    </p>
+                </div>
+            {% endif %}
+
+            {% if hotspots.after.outOfStock.content %}
+                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.outOfStock.mix }}">
+                    {{ hotspots.after.outOfStock.content|raw }}
+                </div>
+            {% endif %}
+
+            {% if additionalLinks.links.length %}
+                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--links">
+                    <ul class="{{ namespace }}grid-product__links {{ additionalLinks.mix }}">
+                        {% for link in additionalLinks.links %}
+                            <li class="{{ namespace }}grid-product__link-item">
+                                {{ link|raw }}
+                                {% if loop.index < additionalLinks.links.length and additionalLinks.separator is defined %}{{ additionalLinks.separator|raw }}{% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if hotspots.after.all.content %}
+                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.all.mix }}">
+                    {{ hotspots.after.all.content|raw }}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if removeButton %}
+        <div class="{{ namespace }}grid-product__remove">
+            {{ removeButton }}
+        </div>
+    {% endif %}
+
+{% if showWrapper %}
+    </{{ tag }}>
+{% endif %}

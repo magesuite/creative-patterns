@@ -122,15 +122,16 @@ var csTeaser = function ($element, settings) {
         swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
     };
     var postInit = function () {
-        if (swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination) {
+        if (currentSettings.slidesPerView && !swiperInstance.params.onlyBulletPagination) {
             var totalSlidesNumber = swiperInstance.slides.length;
             var totalGroupNumber = Math.ceil(totalSlidesNumber / swiperInstance.params.slidesPerGroup);
             if (totalGroupNumber > swiperInstance.params.paginationBreakpoint) {
-                swiperInstance.params.paginationType = 'fraction';
+                currentSettings.paginationType = 'fraction';
             }
             else {
-                swiperInstance.params.paginationType = 'bullets';
+                currentSettings.paginationType = 'bullets';
             }
+            swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
         }
     };
     swiperInstance = new Swiper($element.find(teaserClass + "__wrapper"), currentSettings);

@@ -128,16 +128,18 @@ const csTeaser: any = function( $element: any, settings: any ): void {
     };
 
     const postInit: any = function(): void {
-        if ( swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination ) {
+        if ( currentSettings.slidesPerView && !swiperInstance.params.onlyBulletPagination ) {
 
             const totalSlidesNumber: number = swiperInstance.slides.length;
             const totalGroupNumber: number = Math.ceil( totalSlidesNumber / swiperInstance.params.slidesPerGroup );
 
             if ( totalGroupNumber > swiperInstance.params.paginationBreakpoint ) {
-                swiperInstance.params.paginationType = 'fraction';
+                currentSettings.paginationType = 'fraction';
             } else {
-                swiperInstance.params.paginationType = 'bullets';
+                currentSettings.paginationType = 'bullets';
             }
+
+            swiperInstance.params = $.extend( swiperInstance.params, currentSettings );
         }
     };
 
