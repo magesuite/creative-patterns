@@ -1,7 +1,7 @@
 import $ from 'jquery';
+import Stickyfill from 'Stickyfill';
 
 import breakpoint from '../../../utilities/breakpoint/src/breakpoint';
-import Stickyfill from 'Stickyfill';
 
 /**
  * Navigation component options interface.
