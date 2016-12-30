@@ -12,7 +12,7 @@ const heroItemDataPattern: any = {
     headline: '',
     paragraph: '',
     ctaLabel: $t( 'Check offer' ),
-    ctaTarget: '',
+    href: '',
 };
 
 /**
@@ -96,7 +96,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                         </div>
                         <div class="m2-input m2-input--type-addon | m2c-hero-carousel-configurator__item-form-element">
                             <label for="hero-ctatarget-output-{{ $index }}" class="m2-input__label">${$t( 'CTA target link' )}:</label>
-                            <input type="text" class="m2-input__input m2-input--type-readonly | m2c-hero-carousel-configurator__cta-target-link" readonly v-model="configuration.items[$index].ctaTarget" id="hero-ctatarget-output-{{ $index }}">
+                            <input type="text" class="m2-input__input m2-input--type-readonly | m2c-hero-carousel-configurator__cta-target-link" readonly v-model="configuration.items[$index].href" id="hero-ctatarget-output-{{ $index }}">
                             <span class="m2-input__addon | m2c-hero-carousel-configurator__widget-chooser-trigger" @click="openCtaTargetModal( $index )">
                                 <svg class="m2-input__addon-icon">
                                     <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }"></use>
@@ -200,11 +200,11 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             /* clean current value since widget chooser doesn't do that to allow multiple widgets
              * we don't want that since this should be url for CTA
              */
-            this.configuration.items[ index ].ctaTarget = '';
+            this.configuration.items[ index ].href = '';
         },
         /* Sets listener for widget chooser
          * It triggers component.onChange to update component's configuration
-         * after value of item.ctaTarget is changed
+         * after value of item.href is changed
          */
         widgetSetListener(): void {
             const component: any = this;

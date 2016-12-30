@@ -6,40 +6,263 @@
     <title>hero component demo</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../hero.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="./index.css">
 </head>
 <body>
 
-	<div class="hero ">
-    <div class="hero__carousel">
-        <div class="hero__wrapper">
-            <ul class="hero__slides">
+    <h2>Centered</h2>
 
+    <div class="cs-hero cs-hero--centered">
+    <div class="cs-hero__carousel">
+        <div class="cs-hero__wrapper">
+            <ul class="cs-hero__slides">
+
+                                    <li class="cs-hero__slide">
+                                                    <a href="#" class="cs-hero__slide-link">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero1.jpg" alt="Hero 1 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-1">
+                                <div class="cs-hero__content">
+                                                                            <h2 class="cs-hero__headline">Headline</h2>
+                                    
+                                                                            <p class="cs-hero__subheadline">Subheadline Lorem ipsum...</p>
+                                    
+                                                                            <p class="cs-hero__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit iste eaque!</p>
+                                    
+                                                                            <div class="cs-hero__cta">
+                                            <span role="button" class="cs-button cs-button--look_success">Check offer!
+                                                                                            </span>
+                                        </div>
+                                                                    </div>
+                            </div>
+                                                    </a>
+                                            </li>
+                                    <li class="cs-hero__slide">
+                                                    <a href="#" class="cs-hero__slide-link">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero2.jpg" alt="Hero 2 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-2">
+                                <div class="cs-hero__content">
+                                                                            <h2 class="cs-hero__headline">Headline</h2>
+                                    
+                                                                            <p class="cs-hero__subheadline">Subheadline Lorem ipsum...</p>
+                                    
+                                                                            <p class="cs-hero__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit iste eaque!</p>
+                                    
+                                                                            <div class="cs-hero__cta">
+                                            <span role="button" class="cs-button cs-button--look_success">Check offer!
+                                                                                            </span>
+                                        </div>
+                                                                    </div>
+                            </div>
+                                                    </a>
+                                            </li>
+                                    <li class="cs-hero__slide">
+                                                    <a href="#" class="cs-hero__slide-link">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero3.jpg" alt="Hero 3 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-3">
+                                <div class="cs-hero__content">
+                                                                            <h2 class="cs-hero__headline">Headline</h2>
+                                    
+                                                                            <p class="cs-hero__subheadline">Subheadline Lorem ipsum...</p>
+                                    
+                                                                            <p class="cs-hero__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit iste eaque!</p>
+                                    
+                                                                            <div class="cs-hero__cta">
+                                            <span role="button" class="cs-button cs-button--look_success">Check offer!
+                                                                                            </span>
+                                        </div>
+                                                                    </div>
+                            </div>
+                                                    </a>
+                                            </li>
+                                    <li class="cs-hero__slide">
+                                                    <a href="#" class="cs-hero__slide-link">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero4.jpg" alt="Hero 4 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-4">
+                                <div class="cs-hero__content">
+                                                                            <h2 class="cs-hero__headline">Headline</h2>
+                                    
+                                                                            <p class="cs-hero__subheadline">Subheadline Lorem ipsum...</p>
+                                    
+                                                                            <p class="cs-hero__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit iste eaque!</p>
+                                    
+                                                                            <div class="cs-hero__cta">
+                                            <span role="button" class="cs-button cs-button--look_success">Check offer!
+                                                                                            </span>
+                                        </div>
+                                                                    </div>
+                            </div>
+                                                    </a>
+                                            </li>
                 
             </ul>
         </div>
-
-        <button class="hero__nav hero__nav--large hero__nav--prev" type="button">
-            <svg class="hero__nav-icon">
-                <use xlink:href="/components/hero/dist/images/sprites.svg#icon_arrow-left"></use>
-            </svg>
-        </button>
-        <button class="hero__nav hero__nav--large hero__nav--next" type="button">
-            <svg class="hero__nav-icon">
-                <use xlink:href="/components/hero/dist/images/sprites.svg#icon_arrow-right"></use>
-            </svg>
-        </button>
     </div>
 
-    <ul class="hero__pagination"></ul>
-</div>
+            <button class="cs-hero__nav cs-hero__nav--prev cs-hero__nav--large" type="button">
+            <svg class="cs-hero__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-left"></use></svg>
+        </button>
+        <button class="cs-hero__nav cs-hero__nav--next cs-hero__nav--large" type="button">
+            <svg class="cs-hero__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-right"></use></svg>
+        </button>
+    
+            <ul class="cs-hero__pagination "></ul>
+    </div>
 
-    <script src="../../node_modules/jquery/dist/jquery.js"></script>
-    <script src="../../node_modules/swiper/dist/js/swiper.jquery.js"></script>
+
+
+    <h2>Full-width, not linked</h2>
+
+    <div class="cs-hero ">
+    <div class="cs-hero__carousel">
+        <div class="cs-hero__wrapper">
+            <ul class="cs-hero__slides">
+
+                                    <li class="cs-hero__slide">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero1.jpg" alt="Hero 1 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-1">
+                                <div class="cs-hero__content">
+                                                                            <h2 class="cs-hero__headline">Headline</h2>
+                                    
+                                    
+                                                                            <p class="cs-hero__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit iste eaque!</p>
+                                    
+                                                                    </div>
+                            </div>
+                                            </li>
+                                    <li class="cs-hero__slide">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero2.jpg" alt="Hero 2 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-2">
+                                <div class="cs-hero__content">
+                                                                            <h2 class="cs-hero__headline">Headline</h2>
+                                    
+                                    
+                                    
+                                                                    </div>
+                            </div>
+                                            </li>
+                                    <li class="cs-hero__slide">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero3.jpg" alt="Hero 3 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-3">
+                                <div class="cs-hero__content">
+                                    
+                                                                            <p class="cs-hero__subheadline">Subheadline Lorem ipsum...</p>
+                                    
+                                                                            <p class="cs-hero__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit iste eaque!</p>
+                                    
+                                                                    </div>
+                            </div>
+                                            </li>
+                                    <li class="cs-hero__slide">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero4.jpg" alt="Hero 4 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-4">
+                                <div class="cs-hero__content">
+                                    
+                                    
+                                    
+                                                                    </div>
+                            </div>
+                                            </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            <button class="cs-hero__nav cs-hero__nav--prev cs-hero__nav--large" type="button">
+            <svg class="cs-hero__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-left"></use></svg>
+        </button>
+        <button class="cs-hero__nav cs-hero__nav--next cs-hero__nav--large" type="button">
+            <svg class="cs-hero__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-right"></use></svg>
+        </button>
+    
+            <ul class="cs-hero__pagination "></ul>
+    </div>
+
+
+
+    <h2>Centered but only one slide added</h2>
+
+    <div class="cs-hero ">
+    <div class="cs-hero__carousel">
+        <div class="cs-hero__wrapper">
+            <ul class="cs-hero__slides">
+
+                                    <li class="cs-hero__slide">
+                                                    <a href="#" class="cs-hero__slide-link">
+                        
+                                                            <figure class="cs-hero__figure">
+                                    <img class="cs-hero__image" src="../images/hero1.jpg" alt="Hero 1 image alt">
+                                </figure>
+                            
+                            <div class="cs-hero__content-wrapper cs-hero__content-wrapper--variant-1">
+                                <div class="cs-hero__content">
+                                                                            <h2 class="cs-hero__headline">Headline</h2>
+                                    
+                                                                            <p class="cs-hero__subheadline">Subheadline Lorem ipsum...</p>
+                                    
+                                                                            <p class="cs-hero__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit iste eaque!</p>
+                                    
+                                                                            <div class="cs-hero__cta">
+                                            <span role="button" class="cs-button cs-button--look_success">Check offer!
+                                                                                            </span>
+                                        </div>
+                                                                    </div>
+                            </div>
+                                                    </a>
+                                            </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            <button class="cs-hero__nav cs-hero__nav--prev cs-hero__nav--large" type="button">
+            <svg class="cs-hero__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-left"></use></svg>
+        </button>
+        <button class="cs-hero__nav cs-hero__nav--next cs-hero__nav--large" type="button">
+            <svg class="cs-hero__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-right"></use></svg>
+        </button>
+    
+            <ul class="cs-hero__pagination "></ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="../../../teaser/src/vendors/swiper/swiper.jquery.js"></script>
     <script src="../hero.js"></script>
 
     <script>
-        csHero.init();
+        new hero( $( '.cs-hero' ) );
     </script>
 </body>
 </html>

@@ -1,17 +1,10 @@
-$namespace: 'cs-hero' !default;
-@import '../../teaser/src/teaser';
-@import '../../cs-button/src/cs-button';
-
-body {
-    overflow-x: hidden;
-}
-
-/**
- * Define block class using namespace.
- */
-.#{$namespace} {
+@mixin hero() {
     $root: &;
     position: relative;
+
+    &__slide-link {
+        display: block;
+    }
 
     &__figure {
         width: 100%;
@@ -31,31 +24,41 @@ body {
         left: 0;
         width: 50%;
         height: 100%;
-        padding: 25px 100px 45px;
+        padding: 25px 100px 55px;
         box-sizing: border-box;
 
-        &--top {
+        &--variant-1 {
             #{$root}__content {
-                justify-content: flex-start;
+                justify-content: center;
             }
         }
 
-        &--bottom {
+        &--variant-2 {
+            left: 50%;
+            transform: translateX( -50% );
+
+            #{$root}__content {
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        &--variant-3 {
             #{$root}__content {
                 justify-content: flex-end;
             }
         }
 
-        &--right {
-            left: auto;
-            right: 0;
-            text-align: right;
-        }
-
-        &--center {
+        &--variant-4 {
             left: 50%;
             transform: translateX( -50% );
             text-align: center;
+
+            #{$root}__content {
+                justify-content: flex-end;
+                text-align: center;
+            }
         }
     }
 
@@ -72,25 +75,42 @@ body {
     }
 
     &__headline {
-        margin: 0;
-        line-height: 1.05em;
+        margin: 0 0 1rem;
+        font-size: 3rem;
+        line-height: 1.15;
         font-weight: 700;
-        font-size: 3.5em;
+    }
+
+    &__subheadline {
+        margin: 0 0 1rem;
+        font-size: 1.65rem;
+        line-height: 1.15;
+        font-weight: 400;
     }
 
     &__text {
-        font-size: 1.5em;
-        line-height: 1.05em;
-        margin: 0 0 20px;
+        margin: 0 0 1rem;
+        font-size: 1rem;
+        line-height: 1.15;
         font-weight: 300;
+    }
+
+    &__nav {
+        #{$root}--static & {
+            display: none;
+        }
     }
 
     &__pagination {
         position: absolute;
         bottom: 1rem;
+
+        #{$root}--static & {
+            display: none;
+        }
     }
 
-    &--truncated-siblings {
+    &--centered {
         width: 80%;
         padding: 0 10%;
 
@@ -109,6 +129,17 @@ body {
             &:not( #{$root}__slide--active ) {
                 opacity: .5;
             }
+        }
+    }
+
+    &--static {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+
+        #{$root}__slide {
+            width: 100% !important;
+            opacity: 1 !important;
         }
     }
 }

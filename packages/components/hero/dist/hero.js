@@ -1,11 +1,10 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jQuery'), require('jquery'), require('Swiper')) :
-    typeof define === 'function' && define.amd ? define('hero', ['exports', 'jQuery', 'jquery', 'Swiper'], factory) :
-    (factory((global.hero = global.hero || {}),global.jQuery,global.jQuery,global.Swiper));
-}(this, (function (exports,$,$$1,Swiper) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('Swiper')) :
+    typeof define === 'function' && define.amd ? define('hero', ['jquery', 'Swiper'], factory) :
+    (global.hero = factory(global.jQuery,global.Swiper));
+}(this, (function ($,Swiper) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
-$$1 = 'default' in $$1 ? $$1['default'] : $$1;
 Swiper = 'default' in Swiper ? Swiper['default'] : Swiper;
 
 /*
@@ -90,7 +89,7 @@ var csTeaser = function ($element, settings) {
             return "<span class=\"" + teaserName + "__number " + currentClassName + "\"></span> " + fractionPaginationSeparator + " <span class=\"" + teaserName + "__number " + totalClassName + "\"></span>";
         },
     };
-    currentSettings = $$1.extend(defaultSettings, settings);
+    currentSettings = $.extend(defaultSettings, settings);
     /**
      * Calculates number of slides that should be visible according to teaser's wrapper width.
      * @return {number} Number of slides.
@@ -120,7 +119,7 @@ var csTeaser = function ($element, settings) {
             currentSettings.slidesPerView =
                 currentSettings.slidesPerGroup = calculateSlidesNumber();
         }
-        swiperInstance.params = $$1.extend(swiperInstance.params, currentSettings);
+        swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
     };
     var postInit = function () {
         if (currentSettings.slidesPerView && !swiperInstance.params.onlyBulletPagination) {
@@ -132,13 +131,13 @@ var csTeaser = function ($element, settings) {
             else {
                 currentSettings.paginationType = 'bullets';
             }
-            swiperInstance.params = $$1.extend(swiperInstance.params, currentSettings);
+            swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
         }
     };
     swiperInstance = new Swiper($element.find(teaserClass + "__wrapper"), currentSettings);
     postInit();
     swiperInstance.update();
-    $$1(window).on('resize', function () {
+    $(window).on('resize', function () {
         updateSliderSizing();
         postInit();
         swiperInstance.update();
@@ -158,45 +157,71 @@ var csTeaser = function ($element, settings) {
     };
 };
 
-// Initialize hero carousels
-var init = function () {
-    $('.cs-hero').each(function () {
-        return new csTeaser($(this), {
-            teaserName: 'cs-hero',
-            slidesPerView: 1,
-            spaceBetween: 0,
-            autoplay: '5000',
+var Hero = (function () {
+    /**
+     * Creates new Hero component with optional settings.
+     * @param {$element} Optional, element to be initialized as Hero component
+     * @param {options}  Optional settings object.
+     */
+    function Hero($element, options) {
+        var teaserName = (options && options.teaserName) || 'cs-hero';
+        var pauseAutoplayOnHover = (options && options.pauseAutoplayOnHover) ? options.pauseAutoplayOnHover : true;
+        this._options = $.extend({
+            teaserName: teaserName,
+            slidesPerView: 'auto',
+            spaceBetween: 10,
+            centeredSlides: true,
+            autoplay: 5000,
             autoHeight: true,
-            paginationBreakpoint: 1,
-            onClick: function (swiper, event) {
-                swiper.stopAutoplay();
-                swiper.wasInteracted = true;
-            },
+            paginationBreakpoint: 50,
+            slideToClickedSlide: true,
+            loop: true,
+            calculateSlides: false,
+            roundLengths: true,
+            autoplayDisableOnInteraction: true,
+            pauseAutoplayOnHover: pauseAutoplayOnHover,
             onInit: function (swiper) {
-                swiper.wasInteracted = false;
-                $("." + swiper.params.bulletClass).on('click', function () {
-                    if (!swiper.wasInteracted) {
-                        swiper.startAutoplay();
-                    }
-                });
-                swiper.container.on({
-                    mouseover: function () {
-                        swiper.stopAutoplay();
-                    },
-                    mouseleave: function () {
-                        if (!swiper.wasInteracted) {
-                            swiper.startAutoplay();
-                        }
-                    },
-                });
+                if (pauseAutoplayOnHover) {
+                    swiper.container.parents("." + teaserName).on({
+                        mouseover: function () {
+                            swiper.pauseAutoplay();
+                        },
+                        mouseleave: function () {
+                            if (swiper.autoplayPaused && swiper.autoplaying) {
+                                swiper.stopAutoplay();
+                                swiper.startAutoplay();
+                            }
+                        },
+                    });
+                }
+                if (options && options.callbacks && options.callbacks.onInit && typeof options.callbacks.onInit === 'function') {
+                    options.callbacks.onInit();
+                }
             },
-        });
-    });
-};
+        }, options);
+        this._$element = $element || $("." + this._options.teaserName);
+        this._init();
+    }
+    /**
+     * Initializes all $element's with previously defined options
+     */
+    Hero.prototype._init = function () {
+        var _this = this;
+        if (this._$element.length) {
+            this._$element.each(function () {
+                if ($(this).find("." + _this._options.teaserName + "__slide").length > 1) {
+                    return new csTeaser($(this), _this._options);
+                }
+                else {
+                    $(this).addClass(_this._options.teaserName + "--static");
+                }
+            });
+        }
+    };
+    return Hero;
+}());
 
-exports.init = init;
-
-Object.defineProperty(exports, '__esModule', { value: true });
+return Hero;
 
 })));
 //# sourceMappingURL=hero.js.map
