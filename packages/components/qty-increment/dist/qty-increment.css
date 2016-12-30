@@ -3,8 +3,9 @@
   min-width: 86px;
   max-width: 100px; }
   .cs-qty-increment__input, .cs-qty-increment__input:focus {
-    -moz-appearance: textfield;
-    -webkit-appearance: none;
+    -webkit-appearance: textfield;
+       -moz-appearance: textfield;
+            appearance: textfield;
     margin: 0;
     padding-left: 28px;
     padding-right: 28px;

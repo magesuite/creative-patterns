@@ -10,6 +10,7 @@ const heroItemDataPattern: any = {
     decodedImage: '',
     displayVariant: 'variant-1',
     headline: '',
+    subheadline: '',
     paragraph: '',
     ctaLabel: $t( 'Check offer' ),
     href: '',
@@ -85,6 +86,10 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                         <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
                             <label for="cfg-hc-item{{ $index }}-headline" class="m2-input__label">${$t( 'Headline' )}:</label>
                             <input type="text" v-model="configuration.items[$index].headline" id="cfg-hc-item{{ $index }}-headline" class="m2-input__input">
+                        </div>
+                        <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
+                            <label for="cfg-hc-item{{ $index }}-subheadline" class="m2-input__label">${$t( 'Subheadline' )}:</label>
+                            <input type="text" v-model="configuration.items[$index].subheadline" id="cfg-hc-item{{ $index }}-subheadline" class="m2-input__input">
                         </div>
                         <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
                             <label for="cfg-hc-item{{ $index }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
