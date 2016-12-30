@@ -5,49 +5,61 @@
 
                 {% for item in items %}
                     <li class="{{ namespace }}hero__slide">
-                        <figure class="{{ namespace }}hero__figure">
-                            <img class="{{ namespace }}hero__image" src="{{ item.image }}" alt="Hero image">
-                        </figure>
+                        {% if item.href %}
+                            <a href="{{ item.href }}" class="{{ namespace }}hero__slide-link">
+                        {% endif %}
 
-                        <div class="{{ namespace }}hero__content-wrapper {{ namespace }}hero__content-wrapper--{{ item.displayVariant }}">
-                            <div class="{{ namespace }}hero__content">
-                                {% if item.headline %}
-                                    <h2 class="{{ namespace }}hero__headline">{{ item.headline }}</h2>
-                                {% endif %}
+                            {% if item.image.src %}
+                                <figure class="{{ namespace }}hero__figure">
+                                    <img class="{{ namespace }}hero__image" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                                </figure>
+                            {% endif %}
 
-                                {% if item.paragraph %}
-                                    <p class="{{ namespace }}hero__text">{{ item.paragraph|raw }}</p>
-                                {% endif %}
+                            <div class="{{ namespace }}hero__content-wrapper {{ namespace }}hero__content-wrapper--{{ item.displayVariant }}">
+                                <div class="{{ namespace }}hero__content">
+                                    {% if item.headline %}
+                                        <h2 class="{{ namespace }}hero__headline">{{ item.headline|raw }}</h2>
+                                    {% endif %}
 
-                                {% if item.ctaTarget and item.ctaLabel %}
-                                    <div class="{{ namespace }}hero__cta">
-                                        <a href="{{ item.ctaTarget }}" class="{{ button.classes }}">{{ item.ctaLabel|striptags }}
-                                            {% if button.arrow is defined and button.arrow %}
-                                                <svg class="{{ button.arrowClass }}">
-                                                    <use xlink:href="{{ asset( 'images/sprites.svg#arrow_next' ) }}"></use>                                                                </svg>
-                                            {% endif %}
-                                        </a>
-                                    </div>
-                                {% endif %}
+                                    {% if item.subheadline %}
+                                        <p class="{{ namespace }}hero__subheadline">{{ item.subheadline|raw }}</p>
+                                    {% endif %}
+
+                                    {% if item.paragraph %}
+                                        <p class="{{ namespace }}hero__text">{{ item.paragraph|raw }}</p>
+                                    {% endif %}
+
+                                    {% if item.href and item.button.label %}
+                                        <div class="{{ namespace }}hero__cta">
+                                            <span role="button" class="{{ item.button.class }}">{{ item.button.label|striptags }}
+                                                {% if item.button.arrow.image %}
+                                                    <svg class="{{ item.button.arrow.class }}"><use xlink:href="{{ item.button.arrow.image }}"></use></svg>
+                                                {% endif %}
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
+                        {% if item.href %}
+                            </a>
+                        {% endif %}
                     </li>
                 {% endfor %}
 
             </ul>
         </div>
-
-        <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--large {{ namespace }}hero__nav--prev" type="button">
-            <svg class="{{ namespace }}hero__nav-icon">
-                <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-left' ) }}"></use>
-            </svg>
-        </button>
-        <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--large {{ namespace }}hero__nav--next" type="button">
-            <svg class="{{ namespace }}hero__nav-icon">
-                <use xlink:href="{{ asset( 'images/sprites.svg#icon_arrow-right' ) }}"></use>
-            </svg>
-        </button>
     </div>
 
-    <ul class="{{ namespace }}hero__pagination"></ul>
+    {% if navigation.show %}
+        <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--prev {{ navigation.icons.prev.mix }}" type="button">
+            <svg class="{{ namespace }}hero__nav-icon"><use xlink:href="{{ navigation.icons.prev.src }}"></use></svg>
+        </button>
+        <button class="{{ namespace }}hero__nav {{ namespace }}hero__nav--next {{ navigation.icons.next.mix }}" type="button">
+            <svg class="{{ namespace }}hero__nav-icon"><use xlink:href="{{ navigation.icons.next.src }}"></use></svg>
+        </button>
+    {% endif %}
+
+    {% if pagination.show %}
+        <ul class="{{ namespace }}hero__pagination {{ pagination.mix }}"></ul>
+    {% endif %}
 </div>
