@@ -61,14 +61,10 @@
   font-family: sans-serif; }
   .cs-review__title {
     display: block;
-    font-weight: 700;
-    margin-bottom: .5em; }
-  .cs-review__rating {
-    display: inline-block; }
+    font-weight: 700; }
   .cs-review__meta-item {
     vertical-align: middle;
-    padding: 0 .5em;
-    border-right: 1px solid #ddd; }
+    padding: 0 .5em; }
     .cs-review__meta-item:first-child {
       padding-left: 0; }
     .cs-review__meta-item:last-child {
@@ -78,9 +74,6 @@
   .cs-review__author {
     line-height: 1em; }
   .cs-review__date {
-    line-height: 1em;
-    color: #666; }
-  .cs-review__content {
-    color: #666; }
+    line-height: 1em; }
 
 /*# sourceMappingURL=review.css.map */
