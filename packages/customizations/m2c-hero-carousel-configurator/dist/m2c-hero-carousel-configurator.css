@@ -968,6 +968,9 @@
           align-items: stretch;
   width: 100%; }
 
+.m2c-hero-carousel-configurator__modal {
+  display: none; }
+
 .m2c-hero-carousel-configurator__widget-chooser-trigger {
   cursor: pointer;
   -webkit-transition: background .2s linear;

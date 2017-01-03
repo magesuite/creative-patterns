@@ -26,6 +26,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         ccHeroCarouselConfigurator,
     ],
     template: `<div class="m2c-hero-carousel-configurator | {{ class }}">
+        <div class="m2c-hero-carousel-configurator__modal" v-el:error-modal></div>
         <cc-component-adder>
             <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | m2c-hero-carousel-configurator__item-action-button" @click="createNewHeroItem( 0 )">
                 <svg class="action-button__icon action-button__icon--size_300">
@@ -192,9 +193,11 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         onImageUploaded( input: any ): void {
             const itemIndex: any = input.id.substr( input.id.length - 1 );
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
+            const images: any = this.configuration.items.map( ( item: any ): any => item.image );
 
             this.configuration.items[ itemIndex ].decodedImage = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
             this.onChange();
+            this.checkImageSizes( images );
         },
         /* Opens modal with M2 built-in widget chooser
          * @param index {number} - index of teaser item to know where to place output of widget chooser
@@ -286,6 +289,39 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             const filteredArray: any = this.configuration.items.filter( ( item: any ): any => item.image !== '' );
             this.configuration.items = filteredArray;
             this.onChange();
+        },
+        /* Checks if images are all the same size
+         * If not - displays error by firing up this.displayImageSizeMismatchError()
+         * @param images {array} - array of all uploaded images
+         */
+        checkImageSizes( images: any ): void {
+            let sizes: any = [];
+
+            if ( images.length ) {
+                images.forEach( ( image: any, index: number ): any => {
+                    let img: any = new Image();
+
+                    img.onload = function(): void {
+                        const obj: any = {
+                            w: img.naturalWidth,
+                            h: img.naturalHeight,
+                        };
+
+                        sizes.push( obj );
+
+                        if ( index === images.length - 1 ) {
+                            if ( sizes.some( ( el: any, i: number ): void => el.w !== sizes[ 0 ].w || el.h !== sizes[ 0 ].h) ) {
+                                confirm( {
+                                    title: $t( 'Warning' ),
+                                    content: $t( 'Images you have uploaded have different sizes. This may cause this component to display wrong. We recommend all images uploaded to be the same size.' ),
+                                } );
+                            }
+                        }
+                    };
+
+                    img.src = image;
+                } );
+            }
         },
     },
     ready(): void {
