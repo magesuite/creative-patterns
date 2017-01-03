@@ -57,7 +57,8 @@ export default class ProductsPromo {
             slidesPerView: 'auto',
             spaceBetween: 16,
             maxSlidesPerView: 4,
-            slideMinWidth: 220,
+            slideMinWidth: 210,
+            roundLengths: true,
         }, options );
 
         this._$element = $element || $( `.${this._options.teaserName}` );

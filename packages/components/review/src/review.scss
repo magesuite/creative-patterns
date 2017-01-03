@@ -14,17 +14,11 @@ $namespace: 'cs-' !default;
     &__title {
         display: block;
         font-weight: 700;
-        margin-bottom: .5em;
-    }
-
-    &__rating {
-        display: inline-block;
     }
 
     &__meta-item {
         vertical-align: middle;
         padding: 0 .5em;
-        border-right: 1px solid #ddd;
 
         &:first-child {
             padding-left: 0;
@@ -46,11 +40,5 @@ $namespace: 'cs-' !default;
 
     &__date {
         line-height: 1em;
-        color: #666;
-
-    }
-
-    &__content {
-        color: #666;
     }
 }
