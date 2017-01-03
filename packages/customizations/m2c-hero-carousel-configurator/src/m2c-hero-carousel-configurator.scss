@@ -11,6 +11,10 @@ $namespace: 'm2c-';
 .#{$namespace}hero-carousel-configurator {
     $root: &;
 
+    &__modal {
+        display: none;
+    }
+
     &__widget-chooser-trigger {
         cursor: pointer;
         transition: background .2s linear;
