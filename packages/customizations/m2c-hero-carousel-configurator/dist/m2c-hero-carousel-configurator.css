@@ -979,6 +979,14 @@
     background: #d6d6d6; }
 
 .m2c-hero-carousel-configurator__toolbar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin: 10px 0;
   height: 3rem;
   line-height: 3rem;

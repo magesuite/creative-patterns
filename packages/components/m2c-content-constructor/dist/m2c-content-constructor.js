@@ -1,8 +1,8 @@
 (function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('Vue'), require('VueResource'), require('mage/translate'), require('Magento_Ui/js/modal/modal'), require('uiRegistry'), require('Magento_Ui/js/modal/confirm')) :
-    typeof define === 'function' && define.amd ? define('m2cContentConstructor', ['jquery', 'Vue', 'VueResource', 'mage/translate', 'Magento_Ui/js/modal/modal', 'uiRegistry', 'Magento_Ui/js/modal/confirm'], factory) :
-    (global.m2cContentConstructor = factory(global.jQuery,global.Vue,global.vr,global.$t,global.modal,global.uiRegistry,global.confirm$1));
-}(this, (function ($,Vue,vr,$t,modal,uiRegistry,confirm$1) { 'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery'), require('Vue'), require('VueResource'), require('mage/translate'), require('Magento_Ui/js/modal/modal'), require('uiRegistry'), require('Magento_Ui/js/modal/alert'), require('Magento_Ui/js/modal/confirm')) :
+    typeof define === 'function' && define.amd ? define('m2cContentConstructor', ['jquery', 'Vue', 'VueResource', 'mage/translate', 'Magento_Ui/js/modal/modal', 'uiRegistry', 'Magento_Ui/js/modal/alert', 'Magento_Ui/js/modal/confirm'], factory) :
+    (global.m2cContentConstructor = factory(global.jQuery,global.Vue,global.vr,global.$t,global.modal,global.uiRegistry,global.alert,global.confirm$1));
+}(this, (function ($,Vue,vr,$t,modal,uiRegistry,alert,confirm$1) { 'use strict';
 
 $ = 'default' in $ ? $['default'] : $;
 Vue = 'default' in Vue ? Vue['default'] : Vue;
@@ -10,6 +10,7 @@ vr = 'default' in vr ? vr['default'] : vr;
 $t = 'default' in $t ? $t['default'] : $t;
 modal = 'default' in modal ? modal['default'] : modal;
 uiRegistry = 'default' in uiRegistry ? uiRegistry['default'] : uiRegistry;
+alert = 'default' in alert ? alert['default'] : alert;
 confirm$1 = 'default' in confirm$1 ? confirm$1['default'] : confirm$1;
 
 /**
@@ -260,6 +261,8 @@ var heroItemDataPattern = {
     paragraph: '',
     ctaLabel: $t('Check offer'),
     href: '',
+    sizeInfo: '',
+    aspectRatio: '',
 };
 /**
  * M2C skin for Hero configurator component.
@@ -270,7 +273,7 @@ var m2cHeroCarouselConfigurator = {
     mixins: [
         ccHeroCarouselConfigurator,
     ],
-    template: "<div class=\"m2c-hero-carousel-configurator | {{ class }}\">\n        <div class=\"m2c-hero-carousel-configurator__modal\" v-el:error-modal></div>\n        <cc-component-adder>\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | m2c-hero-carousel-configurator__item-action-button\" @click=\"createNewHeroItem( 0 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n        <template v-for=\"item in configuration.items\">\n            <div class=\"m2c-hero-carousel-configurator__item\" id=\"m2c-hero-carousel-item-{{ $index }}\">\n                <div class=\"m2c-hero-carousel-configurator__item-actions\">\n                    <cc-component-actions>\n                        <template slot=\"cc-component-actions__top\">\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up | m2c-hero-carousel-configurator__item-action-button\" @click=\"moveHeroItemUp( $index )\" :class=\"[ isFirstHeroItem( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstHeroItem( $index )\">\n                                <svg class=\"action-button__icon action-button__icon--size_100\">\n                                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }\"></use>\n                                </svg>\n                            </button>\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down | m2c-hero-carousel-configurator__item-action-button\" @click=\"moveHeroItemDown( $index )\" :class=\"[ isLastHeroItem( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastHeroItem( $index )\">\n                                <svg class=\"action-button__icon action-button__icon--size_100\">\n                                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }\"></use>\n                                </svg>\n                            </button>\n                        </template>\n                        <template slot=\"cc-component-actions__bottom\">\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete | m2c-hero-carousel-configurator__item-action-button\" @click=\"deleteHeroItem( $index )\">\n                                <svg class=\"action-button__icon\">\n                                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use>\n                                </svg>\n                            </button>\n                        </template>\n                    </cc-component-actions>\n                </div>\n                <div class=\"m2c-hero-carousel-configurator__item-content\">\n                    <div v-bind:class=\"[ 'm2c-hero-carousel-configurator__item-col-left', configuration.items[$index].image ? 'm2c-hero-carousel-configurator__item-col-left--look-image-uploaded' : '' ]\">\n                        <div class=\"m2c-hero-carousel-configurator__toolbar\">\n                            <template v-if=\"configuration.items[$index].image\">\n                                <a href=\"#\" @click=\"getImageUploader( $index )\">" + $t('Change image') + "</a>\n                            </template>\n                            <template v-else>\n                                <a href=\"#\" @click=\"getImageUploader( $index )\">" + $t('Upload image') + "</a>\n                            </template>\n                        </div>\n                        <div class=\"m2c-hero-carousel-configurator__item-image-wrapper\">\n                            <img :src=\"configuration.items[$index].image\" class=\"m2c-hero-carousel-configurator__item-image\" v-show=\"configuration.items[$index].image\">\n                            <input type=\"hidden\" class=\"m2c-hero-carousel-configurator__image-url\" v-model=\"configuration.items[$index].image\" id=\"hero-img-{{$index}}\">\n                        </div>\n                    </div>\n                    <div class=\"m2c-hero-carousel-configurator__item-col-right\">\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-variant\" class=\"m2-input__label\">" + $t('Display variant') + ":</label>\n                            <select name=\"cfg-hc-item{{ $index }}-variant\" class=\"m2-input__select\" id=\"cfg-hc-item{{ $index }}-variant\" v-model=\"configuration.items[$index].displayVariant\" v-bind=\"{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }\">\n                                <option value=\"variant-1\">" + $t('Text vertically centered on the left') + "</option>\n                                <option value=\"variant-2\">" + $t('Text vertically centered in the middle') + "</option>\n                                <option value=\"variant-3\">" + $t('Text on the bottom, left corner') + "</option>\n                                <option value=\"variant-4\">" + $t('Text on the bottom - centered') + "</option>\n                            </select>\n                        </div>\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-headline\" class=\"m2-input__label\">" + $t('Headline') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].headline\" id=\"cfg-hc-item{{ $index }}-headline\" class=\"m2-input__input\">\n                        </div>\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-subheadline\" class=\"m2-input__label\">" + $t('Subheadline') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].subheadline\" id=\"cfg-hc-item{{ $index }}-subheadline\" class=\"m2-input__input\">\n                        </div>\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-paragraph\" class=\"m2-input__label\">" + $t('Paragraph') + ":</label>\n                            <textarea type=\"text\" v-model=\"configuration.items[$index].paragraph\" id=\"cfg-hc-item{{ $index }}-paragraph\" class=\"m2-input__textarea\" placeholder=\"(max 200 characters)\" maxlength=\"200\"></textarea>\n                        </div>\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-cta-label\" class=\"m2-input__label\">" + $t('CTA label') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].ctaLabel\" id=\"cfg-hc-item{{ $index }}-cta-label\" class=\"m2-input__input\">\n                        </div>\n                        <div class=\"m2-input m2-input--type-addon | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"hero-ctatarget-output-{{ $index }}\" class=\"m2-input__label\">" + $t('CTA target link') + ":</label>\n                            <input type=\"text\" class=\"m2-input__input m2-input--type-readonly | m2c-hero-carousel-configurator__cta-target-link\" readonly v-model=\"configuration.items[$index].href\" id=\"hero-ctatarget-output-{{ $index }}\">\n                            <span class=\"m2-input__addon | m2c-hero-carousel-configurator__widget-chooser-trigger\" @click=\"openCtaTargetModal( $index )\">\n                                <svg class=\"m2-input__addon-icon\">\n                                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }\"></use>\n                                </svg>\n                            </span>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <cc-component-adder v-if=\"configuration.items.length\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | m2c-hero-carousel-configurator__item-action-button\" @click=\"createNewHeroItem( $index + 1 )\">\n                    <svg class=\"action-button__icon action-button__icon--size_300\">\n                        <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n        </template>\n    </div>",
+    template: "<div class=\"m2c-hero-carousel-configurator | {{ class }}\">\n        <div class=\"m2c-hero-carousel-configurator__modal\" v-el:error-modal></div>\n        <cc-component-adder>\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | m2c-hero-carousel-configurator__item-action-button\" @click=\"createNewHeroItem( 0 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n        <template v-for=\"item in configuration.items\">\n            <div class=\"m2c-hero-carousel-configurator__item\" id=\"m2c-hero-carousel-item-{{ $index }}\">\n                <div class=\"m2c-hero-carousel-configurator__item-actions\">\n                    <cc-component-actions>\n                        <template slot=\"cc-component-actions__top\">\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up | m2c-hero-carousel-configurator__item-action-button\" @click=\"moveHeroItemUp( $index )\" :class=\"[ isFirstHeroItem( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstHeroItem( $index )\">\n                                <svg class=\"action-button__icon action-button__icon--size_100\">\n                                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }\"></use>\n                                </svg>\n                            </button>\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down | m2c-hero-carousel-configurator__item-action-button\" @click=\"moveHeroItemDown( $index )\" :class=\"[ isLastHeroItem( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastHeroItem( $index )\">\n                                <svg class=\"action-button__icon action-button__icon--size_100\">\n                                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }\"></use>\n                                </svg>\n                            </button>\n                        </template>\n                        <template slot=\"cc-component-actions__bottom\">\n                            <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete | m2c-hero-carousel-configurator__item-action-button\" @click=\"deleteHeroItem( $index )\">\n                                <svg class=\"action-button__icon\">\n                                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }\"></use>\n                                </svg>\n                            </button>\n                        </template>\n                    </cc-component-actions>\n                </div>\n                <div class=\"m2c-hero-carousel-configurator__item-content\">\n                    <div v-bind:class=\"[ 'm2c-hero-carousel-configurator__item-col-left', configuration.items[$index].image ? 'm2c-hero-carousel-configurator__item-col-left--look-image-uploaded' : '' ]\">\n                        <div class=\"m2c-hero-carousel-configurator__toolbar\">\n                            <span class=\"m2c-hero-carousel-configurator__size-info\">{{ configuration.items[$index].sizeInfo }}</span>\n                            <template v-if=\"configuration.items[$index].image\">\n                                <a href=\"#\" @click=\"getImageUploader( $index )\">" + $t('Change image') + "</a>\n                            </template>\n                            <template v-else>\n                                <a href=\"#\" @click=\"getImageUploader( $index )\">" + $t('Upload image') + "</a>\n                            </template>\n                        </div>\n                        <div class=\"m2c-hero-carousel-configurator__item-image-wrapper\">\n                            <img :src=\"configuration.items[$index].image\" class=\"m2c-hero-carousel-configurator__item-image\" v-show=\"configuration.items[$index].image\">\n                            <input type=\"hidden\" class=\"m2c-hero-carousel-configurator__image-url\" v-model=\"configuration.items[$index].image\" id=\"hero-img-{{$index}}\">\n                        </div>\n                    </div>\n                    <div class=\"m2c-hero-carousel-configurator__item-col-right\">\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-variant\" class=\"m2-input__label\">" + $t('Display variant') + ":</label>\n                            <select name=\"cfg-hc-item{{ $index }}-variant\" class=\"m2-input__select\" id=\"cfg-hc-item{{ $index }}-variant\" v-model=\"configuration.items[$index].displayVariant\" v-bind=\"{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }\">\n                                <option value=\"variant-1\">" + $t('Text vertically centered on the left') + "</option>\n                                <option value=\"variant-2\">" + $t('Text vertically centered in the middle') + "</option>\n                                <option value=\"variant-3\">" + $t('Text on the bottom, left corner') + "</option>\n                                <option value=\"variant-4\">" + $t('Text on the bottom - centered') + "</option>\n                            </select>\n                        </div>\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-headline\" class=\"m2-input__label\">" + $t('Headline') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].headline\" id=\"cfg-hc-item{{ $index }}-headline\" class=\"m2-input__input\">\n                        </div>\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-subheadline\" class=\"m2-input__label\">" + $t('Subheadline') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].subheadline\" id=\"cfg-hc-item{{ $index }}-subheadline\" class=\"m2-input__input\">\n                        </div>\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-paragraph\" class=\"m2-input__label\">" + $t('Paragraph') + ":</label>\n                            <textarea type=\"text\" v-model=\"configuration.items[$index].paragraph\" id=\"cfg-hc-item{{ $index }}-paragraph\" class=\"m2-input__textarea\" placeholder=\"(max 200 characters)\" maxlength=\"200\"></textarea>\n                        </div>\n                        <div class=\"m2-input | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"cfg-hc-item{{ $index }}-cta-label\" class=\"m2-input__label\">" + $t('CTA label') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.items[$index].ctaLabel\" id=\"cfg-hc-item{{ $index }}-cta-label\" class=\"m2-input__input\">\n                        </div>\n                        <div class=\"m2-input m2-input--type-addon | m2c-hero-carousel-configurator__item-form-element\">\n                            <label for=\"hero-ctatarget-output-{{ $index }}\" class=\"m2-input__label\">" + $t('CTA target link') + ":</label>\n                            <input type=\"text\" class=\"m2-input__input m2-input--type-readonly | m2c-hero-carousel-configurator__cta-target-link\" readonly v-model=\"configuration.items[$index].href\" id=\"hero-ctatarget-output-{{ $index }}\">\n                            <span class=\"m2-input__addon | m2c-hero-carousel-configurator__widget-chooser-trigger\" @click=\"openCtaTargetModal( $index )\">\n                                <svg class=\"m2-input__addon-icon\">\n                                    <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }\"></use>\n                                </svg>\n                            </span>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <cc-component-adder v-if=\"configuration.items.length\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | m2c-hero-carousel-configurator__item-action-button\" @click=\"createNewHeroItem( $index + 1 )\">\n                    <svg class=\"action-button__icon action-button__icon--size_300\">\n                        <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n        </template>\n    </div>",
     props: {
         /*
          * Single's component configuration
@@ -291,6 +294,10 @@ var m2cHeroCarouselConfigurator = {
             type: String,
             default: '',
         },
+        imagesInfo: {
+            type: Array,
+            default: []
+        },
     },
     events: {
         /**
@@ -310,20 +317,23 @@ var m2cHeroCarouselConfigurator = {
             MediabrowserUtility.openDialog(this.uploaderBaseUrl + "target_element_id/hero-img-" + index + "/", 'auto', 'auto', $t('Insert File...'), {
                 closed: true,
             });
-            this.imageUploadListener();
         },
         /* Listener for image uploader
          * Since Magento does not provide any callback after image has been chosen
          * we have to watch for target where decoded url is placed
          */
         imageUploadListener: function () {
-            var _this = this;
             var component = this;
-            // jQuery has to be used, native addEventListener doesn't catch change of input's value
-            $('.m2c-hero-carousel-configurator__image-url').on('change', function (event) {
-                component.onImageUploaded(event.target);
-                // For some reason this is emmitted twice, so prevent second action
-                $(_this).off(event);
+            var isAlreadyCalled = false;
+            // jQuery has to be used, for some reason native addEventListener doesn't catch change of input's value
+            $(document).on('change', '.m2c-hero-carousel-configurator__image-url', function (event) {
+                if (!isAlreadyCalled) {
+                    isAlreadyCalled = true;
+                    component.onImageUploaded(event.target);
+                    setTimeout(function () {
+                        isAlreadyCalled = false;
+                    }, 100);
+                }
             });
         },
         /* Action after image was uploaded
@@ -332,12 +342,19 @@ var m2cHeroCarouselConfigurator = {
          * @param input { object } - input with raw image path which is used in admin panel
          */
         onImageUploaded: function (input) {
+            var _this = this;
             var itemIndex = input.id.substr(input.id.length - 1);
             var encodedImage = input.value.match('___directive\/([a-zA-Z0-9]*)')[1];
-            var images = this.configuration.items.map(function (item) { return item.image; });
             this.configuration.items[itemIndex].decodedImage = Base64 ? Base64.decode(encodedImage) : window.atob(encodedImage);
-            this.onChange();
-            this.checkImageSizes(images);
+            var img = new Image();
+            img.onload = function () {
+                var ar = _this.getAspectRatio(img.naturalWidth, img.naturalHeight);
+                _this.configuration.items[itemIndex].sizeInfo = img.naturalWidth + "x" + img.naturalHeight + "px (" + ar + ")";
+                _this.configuration.items[itemIndex].aspectRatio = ar;
+                _this.checkImageSizes();
+                _this.onChange();
+            };
+            img.src = input.value;
         },
         /* Opens modal with M2 built-in widget chooser
          * @param index {number} - index of teaser item to know where to place output of widget chooser
@@ -431,32 +448,40 @@ var m2cHeroCarouselConfigurator = {
          * If not - displays error by firing up this.displayImageSizeMismatchError()
          * @param images {array} - array of all uploaded images
          */
-        checkImageSizes: function (images) {
-            var sizes = [];
-            if (images.length) {
-                images.forEach(function (image, index) {
-                    var img = new Image();
-                    img.onload = function () {
-                        var obj = {
-                            w: img.naturalWidth,
-                            h: img.naturalHeight,
-                        };
-                        sizes.push(obj);
-                        if (index === images.length - 1) {
-                            if (sizes.some(function (el, i) { return el.w !== sizes[0].w || el.h !== sizes[0].h; })) {
-                                confirm$1({
-                                    title: $t('Warning'),
-                                    content: $t('Images you have uploaded have different sizes. This may cause this component to display wrong. We recommend all images uploaded to be the same size.'),
-                                });
-                            }
-                        }
-                    };
-                    img.src = image;
-                });
+        checkImageSizes: function () {
+            for (var i = 0; i < this.configuration.items.length; i++) {
+                if (this.configuration.items.length && this.configuration.items[i].aspectRatio !== this.configuration.items[0].aspectRatio) {
+                    alert({
+                        title: $t('Warning'),
+                        content: $t('Images you have uploaded have different sizes. This may cause this component to display wrong. We recommend all images uploaded to be the same size.'),
+                    });
+                    return false;
+                }
             }
         },
+        /* Returns greatest common divisor for 2 numbers
+         * @param a {number}
+         * @param b {number}
+         * @return {number} - greatest common divisor
+         */
+        getGreatestCommonDivisor: function (a, b) {
+            if (!b) {
+                return a;
+            }
+            return this.getGreatestCommonDivisor(b, a % b);
+        },
+        /* Returns Aspect ratio for 2 numbers based on GDC algoritm (greatest common divisor)
+         * @param a {number}
+         * @param b {number}
+         * @return {number} - greatest common divisor
+         */
+        getAspectRatio: function (a, b) {
+            var c = this.getGreatestCommonDivisor(a, b);
+            return (a / c) + ":" + (b / c);
+        }
     },
     ready: function () {
+        this.imageUploadListener();
         this.widgetSetListener();
     },
 };
