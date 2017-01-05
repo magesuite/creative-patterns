@@ -2,6 +2,7 @@ import ccHeroCarouselConfigurator from '../../../components/cc-hero-carousel-con
 
 import $ from 'jquery';
 import $t from 'mage/translate';
+import alert from 'Magento_Ui/js/modal/alert';
 import confirm from 'Magento_Ui/js/modal/confirm';
 
 // Pattern for teaser Item
@@ -14,6 +15,8 @@ const heroItemDataPattern: any = {
     paragraph: '',
     ctaLabel: $t( 'Check offer' ),
     href: '',
+    sizeInfo: '',
+    aspectRatio: '',
 };
 
 /**
@@ -62,6 +65,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                 <div class="m2c-hero-carousel-configurator__item-content">
                     <div v-bind:class="[ 'm2c-hero-carousel-configurator__item-col-left', configuration.items[$index].image ? 'm2c-hero-carousel-configurator__item-col-left--look-image-uploaded' : '' ]">
                         <div class="m2c-hero-carousel-configurator__toolbar">
+                            <span class="m2c-hero-carousel-configurator__size-info">{{ configuration.items[$index].sizeInfo }}</span>
                             <template v-if="configuration.items[$index].image">
                                 <a href="#" @click="getImageUploader( $index )">${$t( 'Change image' )}</a>
                             </template>
@@ -165,8 +169,6 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                     closed: true,
                 },
             );
-
-            this.imageUploadListener();
         },
 
         /* Listener for image uploader
@@ -175,13 +177,17 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          */
         imageUploadListener(): void {
             const component: any = this;
+            let isAlreadyCalled: boolean = false;
 
-            // jQuery has to be used, native addEventListener doesn't catch change of input's value
-            $( '.m2c-hero-carousel-configurator__image-url' ).on( 'change', ( event: Event ): void => {
-                component.onImageUploaded( event.target );
-
-                // For some reason this is emmitted twice, so prevent second action
-                $( this ).off( event );
+            // jQuery has to be used, for some reason native addEventListener doesn't catch change of input's value
+            $( document ).on( 'change', '.m2c-hero-carousel-configurator__image-url', ( event: Event ): void => {
+                if ( !isAlreadyCalled ) {
+                    isAlreadyCalled = true;
+                    component.onImageUploaded( event.target );
+                    setTimeout( (): void => {
+                        isAlreadyCalled = false;
+                    }, 100 );
+                }
             } );
         },
 
@@ -191,13 +197,21 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          * @param input { object } - input with raw image path which is used in admin panel
          */
         onImageUploaded( input: any ): void {
+            const _this: any = this;
             const itemIndex: any = input.id.substr( input.id.length - 1 );
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
-            const images: any = this.configuration.items.map( ( item: any ): any => item.image );
 
             this.configuration.items[ itemIndex ].decodedImage = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
-            this.onChange();
-            this.checkImageSizes( images );
+
+            const img: any = new Image();
+            img.onload = function(): void {
+                const ar: string = _this.getAspectRatio( img.naturalWidth, img.naturalHeight );
+                _this.configuration.items[ itemIndex ].sizeInfo = `${img.naturalWidth}x${img.naturalHeight}px (${ar})`;
+                _this.configuration.items[ itemIndex ].aspectRatio = ar;
+                _this.checkImageSizes();
+                _this.onChange();
+            };
+            img.src = input.value;
         },
         /* Opens modal with M2 built-in widget chooser
          * @param index {number} - index of teaser item to know where to place output of widget chooser
@@ -294,37 +308,42 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          * If not - displays error by firing up this.displayImageSizeMismatchError()
          * @param images {array} - array of all uploaded images
          */
-        checkImageSizes( images: any ): void {
-            let sizes: any = [];
-
-            if ( images.length ) {
-                images.forEach( ( image: any, index: number ): any => {
-                    let img: any = new Image();
-
-                    img.onload = function(): void {
-                        const obj: any = {
-                            w: img.naturalWidth,
-                            h: img.naturalHeight,
-                        };
-
-                        sizes.push( obj );
-
-                        if ( index === images.length - 1 ) {
-                            if ( sizes.some( ( el: any, i: number ): void => el.w !== sizes[ 0 ].w || el.h !== sizes[ 0 ].h) ) {
-                                confirm( {
-                                    title: $t( 'Warning' ),
-                                    content: $t( 'Images you have uploaded have different sizes. This may cause this component to display wrong. We recommend all images uploaded to be the same size.' ),
-                                } );
-                            }
-                        }
-                    };
-
-                    img.src = image;
-                } );
+        checkImageSizes(): void {
+            for ( let i: number = 0; i < this.configuration.items.length; i++ ) {
+                if ( this.configuration.items.length && this.configuration.items[ i ].aspectRatio !== this.configuration.items[ 0 ].aspectRatio ) {
+                    alert( {
+                        title: $t( 'Warning' ),
+                        content: $t( 'Images you have uploaded have different sizes. This may cause this component to display wrong. We recommend all images uploaded to be the same size.' ),
+                    } );
+                    return false;
+                }
             }
+        },
+        /* Returns greatest common divisor for 2 numbers
+         * @param a {number}
+         * @param b {number}
+         * @return {number} - greatest common divisor
+         */
+        getGreatestCommonDivisor( a: number, b: number ): number {
+            if ( !b ) {
+                return a;
+            }
+
+            return this.getGreatestCommonDivisor( b, a % b );
+        },
+        /* Returns Aspect ratio for 2 numbers based on GDC algoritm (greatest common divisor)
+         * @param a {number}
+         * @param b {number}
+         * @return {number} - greatest common divisor
+         */
+        getAspectRatio( a: number, b: number ): string {
+            let c: number = this.getGreatestCommonDivisor( a, b );
+
+            return `${( a / c )}:${( b / c )}`;
         },
     },
     ready(): void {
+        this.imageUploadListener();
         this.widgetSetListener();
     },
 };

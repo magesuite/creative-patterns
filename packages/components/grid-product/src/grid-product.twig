@@ -97,6 +97,14 @@
                 </div>
             {% endif %}
 
+            {% if stock.showOutOfStock %}
+                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--stock">
+                    <p class="{{ namespace }}grid-product__stock {{ namespace }}grid-product__stock--out-of-stock">
+                        {{ stock.outOfStockContent|raw }}
+                    </p>
+                </div>
+            {% endif %}
+
             {% if hotspots.after.inStock.content %}
                 <div class="{{ namespace }}grid-product__addon {{ hotspots.after.inStock.mix }}">
                     {{ hotspots.after.inStock.content|raw }}
@@ -112,14 +120,6 @@
             {% if hotspots.after.addToCartButton.content %}
                 <div class="{{ namespace }}grid-product__addon {{ hotspots.after.addToCartButton.mix }}">
                     {{ hotspots.after.addToCartButton.content|raw }}
-                </div>
-            {% endif %}
-
-            {% if stock.showOutOfStock %}
-                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--stock">
-                    <p class="{{ namespace }}grid-product__stock {{ namespace }}grid-product__stock--out-of-stock">
-                        {{ stock.outOfStockContent|raw }}
-                    </p>
                 </div>
             {% endif %}
 

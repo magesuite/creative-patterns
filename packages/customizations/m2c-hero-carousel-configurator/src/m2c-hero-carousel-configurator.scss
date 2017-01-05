@@ -25,6 +25,8 @@ $namespace: 'm2c-';
     }
 
     &__toolbar {
+        display: flex;
+        justify-content: space-between;
         margin: 10px 0;
         height: 3rem;
         line-height: 3rem;
