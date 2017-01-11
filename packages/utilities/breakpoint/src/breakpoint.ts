@@ -17,7 +17,7 @@ const camelCase: Function = ( input: string ): string => {
  * @return {Object} Object containing avaliable breakpoints in shape { breakpointName: pixelsNumber }
  */
 const getAvaliableBreakpoints: Function = (): Object => JSON.parse( window.getComputedStyle( body, ':before' )
-    .getPropertyValue( 'content' ).replace( /"/g, '' ).replace( /\\/g, '"' ) );
+    .getPropertyValue( 'content' ).slice( 1, -1 ).replace( /\\"/g, '"' ) );
 
 /**
  * Returs current breakpoint set by CSS.
