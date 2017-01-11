@@ -21,12 +21,6 @@
     &__item {
         font-size: 1.4em;
         margin: 0;
-
-        &:hover {
-            #{$root}__flyout {
-                display: flex;
-            }
-        }
     }
 
     &__link {
@@ -92,7 +86,10 @@
     }
 
     &__category {
-        display: table; // Prevents element breaking because of column layout.
+        // Prevents element breaking because of column layout.
+        page-break-inside: avoid;           /* Theoretically FF 20+ */
+        break-inside: avoid-column;         /* IE 11 */
+        display: table;
     }
 
 

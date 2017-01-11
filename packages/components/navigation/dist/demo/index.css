@@ -24,11 +24,6 @@ img {
   .navigation__item {
     font-size: 1.4em;
     margin: 0; }
-    .navigation__item:hover .navigation__flyout {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex; }
   .navigation__link {
     display: block;
     color: #484747;
@@ -85,6 +80,11 @@ img {
       .navigation__category, .navigation__banners {
         width: 240px; } }
   .navigation__category {
+    page-break-inside: avoid;
+    /* Theoretically FF 20+ */
+    -webkit-column-break-inside: avoid;
+            break-inside: avoid-column;
+    /* IE 11 */
     display: table; }
   .navigation__subcategories {
     list-style: none;
