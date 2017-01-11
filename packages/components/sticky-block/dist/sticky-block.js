@@ -24,7 +24,7 @@ var camelCase = function (input) {
  * @return {Object} Object containing avaliable breakpoints in shape { breakpointName: pixelsNumber }
  */
 var getAvaliableBreakpoints = function () { return JSON.parse(window.getComputedStyle(body, ':before')
-    .getPropertyValue('content').replace(/"/g, '').replace(/\\/g, '"')); };
+    .getPropertyValue('content').slice(1, -1).replace(/\\"/g, '"')); };
 /**
  * Returs current breakpoint set by CSS.
  * @return {number} Current breakpoint in number of pixels.

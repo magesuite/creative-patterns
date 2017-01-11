@@ -29,11 +29,11 @@
                                         <p class="{{ namespace }}hero__text">{{ item.paragraph|raw }}</p>
                                     {% endif %}
 
-                                    {% if item.href and item.button.label %}
+                                    {% if item.href and item.ctaLabel %}
                                         <div class="{{ namespace }}hero__cta">
-                                            <span role="button" class="{{ item.button.class }}">{{ item.button.label|striptags }}
-                                                {% if item.button.arrow.image %}
-                                                    <svg class="{{ item.button.arrow.class }}"><use xlink:href="{{ item.button.arrow.image }}"></use></svg>
+                                            <span role="button" class="{{ button.class }}">{{ item.ctaLabel|striptags }}
+                                                {% if button.icon.src %}
+                                                    <svg class="{{ button.icon.class }}"><use xlink:href="{{ button.icon.src }}"></use></svg>
                                                 {% endif %}
                                             </span>
                                         </div>

@@ -113,6 +113,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        imageEndpoint: {
+            type: String,
+            default: '',
+        },
     },
     data(): Object {
         return {
