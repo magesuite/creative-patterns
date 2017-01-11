@@ -75,7 +75,8 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                         </div>
                         <div class="m2c-hero-carousel-configurator__item-image-wrapper">
                             <img :src="configuration.items[$index].image" class="m2c-hero-carousel-configurator__item-image" v-show="configuration.items[$index].image">
-                            <input type="hidden" class="m2c-hero-carousel-configurator__image-url" v-model="configuration.items[$index].image" id="hero-img-{{$index}}">
+                            <input type="hidden" v-model="configuration.items[$index].image">
+                            <input type="hidden" class="m2c-hero-carousel-configurator__image-url" id="hero-img-{{$index}}">
                         </div>
                     </div>
                     <div class="m2c-hero-carousel-configurator__item-col-right">
@@ -145,6 +146,11 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        /* Obtain image endpoint to place permanent url for uploaded images */
+        imageEndpoint: {
+            type: String,
+            default: '',
+        },
     },
     events: {
         /**
@@ -200,18 +206,20 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             const _this: any = this;
             const itemIndex: any = input.id.substr( input.id.length - 1 );
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
+            const imgEndpoint: string = this.imageEndpoint.replace( '{/encoded_image}', encodedImage );
 
             this.configuration.items[ itemIndex ].decodedImage = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
 
             const img: any = new Image();
             img.onload = function(): void {
                 const ar: string = _this.getAspectRatio( img.naturalWidth, img.naturalHeight );
+                _this.configuration.items[ itemIndex ].image = img.getAttribute( 'src' );
                 _this.configuration.items[ itemIndex ].sizeInfo = `${img.naturalWidth}x${img.naturalHeight}px (${ar})`;
                 _this.configuration.items[ itemIndex ].aspectRatio = ar;
                 _this.checkImageSizes();
                 _this.onChange();
             };
-            img.src = input.value;
+            img.src = imgEndpoint;
         },
         /* Opens modal with M2 built-in widget chooser
          * @param index {number} - index of teaser item to know where to place output of widget chooser
@@ -313,7 +321,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                 if ( this.configuration.items.length && this.configuration.items[ i ].aspectRatio !== this.configuration.items[ 0 ].aspectRatio ) {
                     alert( {
                         title: $t( 'Warning' ),
-                        content: $t( 'Images you have uploaded have different sizes. This may cause this component to display wrong. We recommend all images uploaded to be the same size.' ),
+                        content: $t( 'Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend all images uploaded to have the same aspect ratio.' ),
                     } );
                     return false;
                 }
