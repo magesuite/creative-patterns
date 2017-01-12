@@ -16,10 +16,8 @@ var Navigation = (function () {
      * @param  {NavigationOptions} options  Optional settings object.
      */
     function Navigation($element, options) {
-        var _this = this;
         this._$window = $(window);
         this._eventListeners = {};
-        this._mayBeBugged = true;
         this._options = {
             containerClassName: 'navigation__list',
             itemClassName: 'navigation__item',
@@ -29,6 +27,7 @@ var Navigation = (function () {
             flyoutMaxHeight: 400,
             flyoutDefaultColumnCount: 4,
             resizeDebounce: 100,
+            flyoutShowDelay: 200,
         };
         // Don't throw errors if there is no navigation on the website.
         if ($element.length === 0) {
@@ -41,15 +40,6 @@ var Navigation = (function () {
         this._containerClientRect = this._$container.get(0).getBoundingClientRect();
         this._adjustFlyouts(this._$flyouts);
         this._attachEvents();
-        /**
-         * So Chrome has a bug which causes it to provide invalid width of the element
-         * when changing it's number of colums in JS, even when triggering reflows.
-         */
-        if (this._mayBeBugged) {
-            setTimeout(function () {
-                _this._adjustFlyouts(_this._$flyouts, false);
-            }, 1);
-        }
     }
     /**
      * Destroys navigation component.
@@ -60,21 +50,25 @@ var Navigation = (function () {
     /**
      * Adjusts flyout number of columns and positioning.
      * @param {JQuery} $flyouts jQuery collection of flyouts.
-     * @param {boolean} adjustColumns Tells if columns count should be adjusted.
      */
-    Navigation.prototype._adjustFlyouts = function ($flyouts, adjustColumns) {
+    Navigation.prototype._adjustFlyouts = function ($flyouts) {
         var _this = this;
-        if (adjustColumns === void 0) { adjustColumns = true; }
         this._showFlyout($flyouts);
         this._setTransform($flyouts, '');
         this._triggerReflow($flyouts);
-        $flyouts.each(function (index, flyout) {
-            if (adjustColumns) {
-                _this._adjustFlyoutColumns($(flyout));
-            }
-            _this._adjustFlyoutPosition($(flyout));
-        });
+        $flyouts.each(function (index, flyout) { return _this._adjustFlyoutColumns($(flyout)); });
         this._hideFlyout($flyouts);
+        this._triggerReflow($flyouts);
+        /**
+         * So Chrome has a bug which causes it to provide invalid width of the element
+         * when changing it's number of colums in JS, even when triggering reflows.
+         */
+        requestAnimationFrame(function () {
+            _this._showFlyout($flyouts);
+            _this._triggerReflow($flyouts);
+            $flyouts.each(function (index, flyout) { return _this._adjustFlyoutPosition($(flyout)); });
+            _this._hideFlyout($flyouts);
+        });
     };
     /**
      * Adjusts the number of flyout columns.
@@ -86,10 +80,11 @@ var Navigation = (function () {
         var flyoutMaxHeight = this._options.flyoutMaxHeight;
         var flyoutColumnCount = this._options.flyoutDefaultColumnCount - 1;
         var flyoutHeight = $flyout.height();
+        var prevFlyoutHeight = -1;
         for (; flyoutColumnCount > 0; flyoutColumnCount -= 1) {
             this._setColumnCount($flyoutColumns, flyoutColumnCount);
             flyoutHeight = $flyout.height();
-            if (flyoutHeight >= flyoutMaxHeight) {
+            if (flyoutHeight === prevFlyoutHeight || flyoutHeight >= flyoutMaxHeight) {
                 if (flyoutHeight >= flyoutMaxHeight + 100) {
                     this._setColumnCount($flyoutColumns, flyoutColumnCount - 1);
                 }
@@ -112,8 +107,6 @@ var Navigation = (function () {
         if (flyoutClientRect.width === containerClientRect.width) {
             return;
         }
-        // Some flyout is not 100% wide so this browser is not bugged.
-        this._mayBeBugged = false;
         // Align center of columns with links to center of the flyout trigger.
         var flyoutTransformLeft = Math.max(0, flyoutTriggerClientRect.left - containerClientRect.left + flyoutTriggerClientRect.width / 2 -
             flyoutColumnsClientRect.width / 2);
@@ -150,6 +143,23 @@ var Navigation = (function () {
      */
     Navigation.prototype._showFlyout = function ($flyout) {
         $flyout.addClass(this._options.flyoutVisibleClassName);
+    };
+    /**
+     * Makes given flyout visible by applying appropriate class with short delay.
+     * @param {JQuery} $flyout Target flyout to set class to.
+     */
+    Navigation.prototype._showFlyoutDelay = function ($flyout) {
+        var _this = this;
+        this._showTimeout = setTimeout(function () {
+            $flyout.addClass(_this._options.flyoutVisibleClassName);
+        }, this._options.flyoutShowDelay);
+    };
+    /**
+     * Makes given flyout visible by applying appropriate class with short delay.
+     * @param {JQuery} $flyout Target flyout to set class to.
+     */
+    Navigation.prototype._resetFlyoutDelay = function () {
+        clearTimeout(this._showTimeout);
     };
     /**
      * Hides given flyout by applying appropriate class.
@@ -192,8 +202,21 @@ var Navigation = (function () {
                 .closest("." + _this._options.itemClassName)
                 .find("." + _this._options.flyoutClassName));
         };
+        this._eventListeners.itemMouseenterListener = function (event) {
+            _this._showFlyoutDelay($(event.target)
+                .closest("." + _this._options.itemClassName)
+                .find("." + _this._options.flyoutClassName));
+        };
+        this._eventListeners.itemMouseleaveListener = function (event) {
+            clearTimeout(_this._showTimeout);
+            _this._hideFlyout($(event.target)
+                .closest("." + _this._options.itemClassName)
+                .find("." + _this._options.flyoutClassName));
+        };
         var $items = $("." + this._options.itemClassName);
         $items.on('focusin', this._eventListeners.itemFocusInListener);
+        $items.on('mouseenter', this._eventListeners.itemMouseenterListener);
+        $items.on('mouseleave', this._eventListeners.itemMouseleaveListener);
         this._$flyouts.on('focusin', this._eventListeners.flyoutFocusInListener);
         // When the last link from flyout loses focus.
         $items.find('a:last').on('focusout', this._eventListeners.focusOutListener);
@@ -204,6 +227,8 @@ var Navigation = (function () {
     Navigation.prototype._detachEvents = function () {
         this._$window.off('resize orientationchange', this._eventListeners.resizeListener);
         var $items = $("." + this._options.itemClassName);
+        $items.off('mouseenter', this._eventListeners.itemMouseenterListener);
+        $items.off('mouseleave', this._eventListeners.itemMouseleaveListener);
         $items.off('focusin', this._eventListeners.itemFocusInListener);
         this._$flyouts.off('focusin', this._eventListeners.flyoutFocusInListener);
         // When the last link from flyout loses focus.
