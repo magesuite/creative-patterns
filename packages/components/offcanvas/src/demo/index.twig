@@ -1,0 +1,29 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Offcanvas component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        {% embed "../offcanvas.twig" %}
+            {% block drawer %}
+            <ul>
+                <li>Foo</li>
+                <li>Bar</li>
+                <li>Baz</li>
+            </ul>
+            {% endblock %}
+        {% endembed %}
+        <h1>Offcanvas Component Demo</h1>
+        <button class="cs-offcanvas-trigger">Open offcanvas</button>
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script src="../offcanvas.js"></script>
+        <script>
+            new offcanvas();
+        </script>
+    </body>
+</html>

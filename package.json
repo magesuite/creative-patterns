@@ -31,6 +31,7 @@
     "url": "https://gitlab.creativestyle.pl/frontend/creative-patterns"
   },
   "devDependencies": {
+    "@types/es6-promise": "0.0.32",
     "@types/jasmine": "^2.2.33",
     "@types/jasmine-jquery": "^1.5.28",
     "@types/jquery": "^2.0.32",

@@ -1,0 +1,5 @@
+@import '../offcanvas';
+
+.cs-offcanvas {
+    @include offcanvas();
+}

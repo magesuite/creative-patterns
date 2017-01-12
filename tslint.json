@@ -13,13 +13,10 @@
         ],
         "typedef": [
             true,
-            "arrow-call-signature",
-            "arrow-parameter",
             "call-signature",
             "member-variable-declaration",
             "parameter",
             "property-declaration",
-            "variable-declaration",
             "member-variable-declaration"
         ],
         "variable-name": [
@@ -35,7 +32,8 @@
                 "multiline": "always",
                 "singleline": "never"
             }
-        ]
+        ],
+        "arrow-parens": null
     },
     "rulesDirectory": []
 }
