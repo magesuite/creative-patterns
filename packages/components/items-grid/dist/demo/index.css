@@ -756,7 +756,7 @@ html {
       padding-left: .5rem;
       text-align: right; }
   .cs-grid-product__addon {
-    padding: .5rem;
+    padding: .5rem 0;
     width: 100%;
     box-sizing: border-box; }
     .cs-grid-product__addon--in-stock {
