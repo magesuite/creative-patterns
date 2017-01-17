@@ -3,10 +3,7 @@
 {% endif %}
     <div class="{{ namespace }}grid-product__main">
         <a href="{{ url }}" class="{{ namespace }}grid-product__figure-wrapper">
-            <figure class="{{ namespace }}grid-product__figure">
-                <img class="{{ namespace }}grid-product__image {{ image.mix }}" src="{{ image.src }}" alt="{{ image.alt }}">
-            </figure>
-            {% if badges.length %}
+            {% if badges is defined %}
                 <ul class="{{ namespace }}grid-product__badges">
                     {% for badge in badges %}
                         <li class="{{ namespace }}grid-product__badge {{ badge.mix }}">
@@ -15,6 +12,10 @@
                     {% endfor %}
                 </ul>
             {% endif %}
+            
+            <figure class="{{ namespace }}grid-product__figure">
+                <img class="{{ namespace }}grid-product__image {{ image.mix }}" src="{{ image.src }}" alt="{{ image.alt }}">
+            </figure>
         </a>
 
         {% if hotspots.after.photo %}
