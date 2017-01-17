@@ -743,21 +743,26 @@ html {
                   transform: translateY(0); }
           .cs-grid-product:hover .cs-grid-product__addons:after {
             height: 3rem; } }
-  .cs-grid-product__addon {
-    padding: .5rem 0;
-    width: 50%;
-    padding-right: .5rem;
-    text-align: left;
-    box-sizing: border-box; }
-    .cs-grid-product__addon:nth-child(2n) {
+    .cs-grid-product__addons__left, .cs-grid-product__addons__right {
+      width: 50%;
+      box-sizing: border-box;
+      min-height: 1px; }
+    .cs-grid-product__addons__left {
+      padding-left: 0;
+      padding-right: .5rem;
+      text-align: left; }
+    .cs-grid-product__addons__right {
       padding-right: 0;
       padding-left: .5rem;
       text-align: right; }
-    .cs-grid-product__addon--comment-form:nth-child(1) {
-      width: 100%;
-      padding-left: 0;
-      padding-right: 0;
-      text-align: left; }
+  .cs-grid-product__addon {
+    padding: .5rem;
+    width: 100%;
+    box-sizing: border-box; }
+    .cs-grid-product__addon--in-stock {
+      color: #008000; }
+    .cs-grid-product__addon--out-of-stock {
+      color: #f00; }
   .cs-grid-product__figure-wrapper, .cs-grid-product__name-link {
     display: block;
     text-align: center; }

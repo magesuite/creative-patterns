@@ -90,26 +90,38 @@
                 }
             }
         }
-    }
 
-    &__addon {
-        padding: .5rem 0;
-        width: 50%;
-        padding-right: .5rem;
-        text-align: left;
-        box-sizing: border-box;
+        &__left,
+        &__right {
+            width: 50%;
+            box-sizing: border-box;
+            min-height: 1px;
+        }
 
-        &:nth-child( 2n ) {
+        &__left {
+            padding-left: 0;
+            padding-right: .5rem;
+            text-align: left;
+        }
+
+        &__right {
             padding-right: 0;
             padding-left: .5rem;
             text-align: right;
         }
+    }
 
-        &--comment-form:nth-child( 1 ) {
-            width: 100%;
-            padding-left: 0;
-            padding-right: 0;
-            text-align: left;
+    &__addon {
+        padding: .5rem;
+        width: 100%;
+        box-sizing: border-box;
+
+        &--in-stock {
+            color: #008000;
+        }
+
+        &--out-of-stock {
+            color: #f00;
         }
     }
 

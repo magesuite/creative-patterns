@@ -48,103 +48,41 @@
         {% endif %}
     </div>
 
-    {% if addons is defined and addons.show %}
+    {% if addons is defined %}
         <div class="{{ namespace }}grid-product__addons {{ addons.mix }}">
+            {% if addons.top is defined %}
+                <div class="{{ namespace }}grid-product__addons__top">
+                    {% for addon in addons.top %}
+                        <div class="{{ namespace }}grid-product__addon {{ addon.mix }}">
+                            {{ addon.content|raw }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
-            {% if swatches is defined and swatches.content is defined and swatches.asAddon == true %}
-                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--swatches">
-                    <div class="{{ namespace }}grid-product__swatches {{ swatches.mix }}">
-                        {{ swatches.content|raw }}
+            <div class="{{ namespace }}grid-product__addons__left">
+                {% for addon in addons.left %}
+                    <div class="{{ namespace }}grid-product__addon {{ addon.mix }}">
+                        {{ addon.content|raw }}
                     </div>
-                </div>
-            {% endif %}
+                {% endfor %}
+            </div>
 
-            {% if rating is defined %}
-                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--rating">
-                    {% include locate( 'star-rating/star-rating.twig' ) with {
-                        namespace: namespace,
-                        mix: namespace ~ 'grid-product__star-rating ' ~ rating.mix,
-                        maxStars: rating.maxStars,
-                        activeStars: rating.activeStars,
-                        text: rating.text
-                    } %}
-                </div>
-            {% endif %}
+            <div class="{{ namespace }}grid-product__addons__right">
+                {% for addon in addons.right %}
+                    <div class="{{ namespace }}grid-product__addon {{ addon.mix }}">
+                        {{ addon.content|raw }}
+                    </div>
+                {% endfor %}
+            </div>
 
-            {% if hotspots.after.rating.content %}
-                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.rating.mix }}">
-                    {{ hotspots.after.rating.content|raw }}
-                </div>
-            {% endif %}
-
-            {% if commentForm %}
-                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--comment-form">
-                    {{ commentForm|raw }}
-                </div>
-            {% endif %}
-
-            {% if hotspots.after.commentForm.content %}
-                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.commentForm.mix }}">
-                    {{ hotspots.after.commentForm.content|raw }}
-                </div>
-            {% endif %}
-
-            {% if stock.showInStock %}
-                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--stock">
-                    <p class="{{ namespace }}grid-product__stock {{ namespace }}grid-product__stock--in-stock">
-                        {{ stock.inStockContent|raw }}
-                    </p>
-                </div>
-            {% endif %}
-
-            {% if stock.showOutOfStock %}
-                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--stock">
-                    <p class="{{ namespace }}grid-product__stock {{ namespace }}grid-product__stock--out-of-stock">
-                        {{ stock.outOfStockContent|raw }}
-                    </p>
-                </div>
-            {% endif %}
-
-            {% if hotspots.after.inStock.content %}
-                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.inStock.mix }}">
-                    {{ hotspots.after.inStock.content|raw }}
-                </div>
-            {% endif %}
-
-            {% if addToCartButton %}
-                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--action-button">
-                    {{ addToCartButton|raw }}
-                </div>
-            {% endif %}
-
-            {% if hotspots.after.addToCartButton.content %}
-                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.addToCartButton.mix }}">
-                    {{ hotspots.after.addToCartButton.content|raw }}
-                </div>
-            {% endif %}
-
-            {% if hotspots.after.outOfStock.content %}
-                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.outOfStock.mix }}">
-                    {{ hotspots.after.outOfStock.content|raw }}
-                </div>
-            {% endif %}
-
-            {% if additionalLinks.links.length %}
-                <div class="{{ namespace }}grid-product__addon {{ namespace }}grid-product__addon--links">
-                    <ul class="{{ namespace }}grid-product__links {{ additionalLinks.mix }}">
-                        {% for link in additionalLinks.links %}
-                            <li class="{{ namespace }}grid-product__link-item">
-                                {{ link|raw }}
-                                {% if loop.index < additionalLinks.links.length and additionalLinks.separator is defined %}{{ additionalLinks.separator|raw }}{% endif %}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
-
-            {% if hotspots.after.all.content %}
-                <div class="{{ namespace }}grid-product__addon {{ hotspots.after.all.mix }}">
-                    {{ hotspots.after.all.content|raw }}
+            {% if addons.bottom is defined %}
+                <div class="{{ namespace }}grid-product__addons__bottom">
+                    {% for addon in addons.bottom %}
+                        <div class="{{ namespace }}grid-product__addon {{ addon.mix }}">
+                            {{ addon.content|raw }}
+                        </div>
+                    {% endfor %}
                 </div>
             {% endif %}
         </div>
