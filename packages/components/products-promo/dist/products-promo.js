@@ -33,6 +33,10 @@ var csTeaser = function ($element, settings) {
      */
     var swiperInstance;
     /**
+     * Tells if swiper was destroyed.
+     */
+    var destroyed;
+    /**
      * Attaches component to HTML element.
      */
     $element.data(teaserName, this);
@@ -122,25 +126,27 @@ var csTeaser = function ($element, settings) {
         swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
     };
     var postInit = function () {
-        if (currentSettings.slidesPerView && !swiperInstance.params.onlyBulletPagination) {
+        if (swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination) {
             var totalSlidesNumber = swiperInstance.slides.length;
             var totalGroupNumber = Math.ceil(totalSlidesNumber / swiperInstance.params.slidesPerGroup);
             if (totalGroupNumber > swiperInstance.params.paginationBreakpoint) {
-                currentSettings.paginationType = 'fraction';
+                swiperInstance.params.paginationType = 'fraction';
             }
             else {
-                currentSettings.paginationType = 'bullets';
+                swiperInstance.params.paginationType = 'bullets';
             }
-            swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
         }
     };
     swiperInstance = new Swiper($element.find(teaserClass + "__wrapper"), currentSettings);
+    destroyed = false;
     postInit();
     swiperInstance.update();
     $(window).on('resize', function () {
-        updateSliderSizing();
-        postInit();
-        swiperInstance.update();
+        if (!destroyed) {
+            updateSliderSizing();
+            postInit();
+            swiperInstance.update();
+        }
     });
     /**
      * Returns Swiper object.
@@ -154,6 +160,7 @@ var csTeaser = function ($element, settings) {
      */
     teaser.destroy = function () {
         swiperInstance.destroy();
+        destroyed = true;
     };
 };
 

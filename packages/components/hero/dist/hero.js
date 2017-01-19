@@ -7,6 +7,62 @@
 $ = 'default' in $ ? $['default'] : $;
 Swiper = 'default' in Swiper ? Swiper['default'] : Swiper;
 
+/**
+ * Breakpoint utility for sharing breakpoints between CSS and JS.
+ */
+/**
+ * Converts dash-case to camelCase.
+ * @type {Function}
+ */
+var camelCase = function (input) {
+    return input.toLowerCase().replace(/-(.)/g, function (match, group) {
+        return group.toUpperCase();
+    });
+};
+/**
+ * Returns object containign available breakpoints.
+ * @return {Object} Object containing avaliable breakpoints in shape { breakpointName: pixelsNumber }
+ */
+var getAvaliableBreakpoints = function () { return JSON.parse(window.getComputedStyle(body, ':before')
+    .getPropertyValue('content').slice(1, -1).replace(/\\"/g, '"')); };
+/**
+ * Returs current breakpoint set by CSS.
+ * @return {number} Current breakpoint in number of pixels.
+ */
+var getCurrentBreakpoint = function () { return +window.getComputedStyle(body, ':after')
+    .getPropertyValue('content').replace(/"/g, ''); };
+var body = document.querySelector('body');
+/**
+ * Module cache to export.
+ * @type {Object}
+ */
+var breakpoint = {
+    current: getCurrentBreakpoint(),
+};
+/**
+ * Available breakpoints cache.
+ */
+var breakpoints = getAvaliableBreakpoints();
+// Extend breakpoint module with available breakpoint keys converted to camelCase.
+Object.keys(breakpoints).forEach(function (breakpointName) {
+    breakpoint[camelCase(breakpointName)] = breakpoints[breakpointName];
+});
+// Let's check if we can register passive resize event for better performance.
+var passiveOption = undefined;
+try {
+    var opts = Object.defineProperty({}, 'passive', {
+        get: function () {
+            passiveOption = { passive: true };
+        },
+    });
+    window.addEventListener('test', null, opts);
+}
+catch (e) { }
+// Update current breakpoint on every resize.
+window.addEventListener('resize', function () {
+    breakpoint.current = getCurrentBreakpoint();
+}, passiveOption);
+
 /*
 * Product teaser
 */
@@ -32,6 +88,10 @@ var csTeaser = function ($element, settings) {
      * Holds current Swiper instance.
      */
     var swiperInstance;
+    /**
+     * Tells if swiper was destroyed.
+     */
+    var destroyed;
     /**
      * Attaches component to HTML element.
      */
@@ -122,25 +182,27 @@ var csTeaser = function ($element, settings) {
         swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
     };
     var postInit = function () {
-        if (currentSettings.slidesPerView && !swiperInstance.params.onlyBulletPagination) {
+        if (swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination) {
             var totalSlidesNumber = swiperInstance.slides.length;
             var totalGroupNumber = Math.ceil(totalSlidesNumber / swiperInstance.params.slidesPerGroup);
             if (totalGroupNumber > swiperInstance.params.paginationBreakpoint) {
-                currentSettings.paginationType = 'fraction';
+                swiperInstance.params.paginationType = 'fraction';
             }
             else {
-                currentSettings.paginationType = 'bullets';
+                swiperInstance.params.paginationType = 'bullets';
             }
-            swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
         }
     };
     swiperInstance = new Swiper($element.find(teaserClass + "__wrapper"), currentSettings);
+    destroyed = false;
     postInit();
     swiperInstance.update();
     $(window).on('resize', function () {
-        updateSliderSizing();
-        postInit();
-        swiperInstance.update();
+        if (!destroyed) {
+            updateSliderSizing();
+            postInit();
+            swiperInstance.update();
+        }
     });
     /**
      * Returns Swiper object.
@@ -154,6 +216,7 @@ var csTeaser = function ($element, settings) {
      */
     teaser.destroy = function () {
         swiperInstance.destroy();
+        destroyed = true;
     };
 };
 
@@ -164,9 +227,11 @@ var Hero = (function () {
      * @param {options}  Optional settings object.
      */
     function Hero($element, options) {
+        var _this = this;
         var teaserName = (options && options.teaserName) || 'cs-hero';
         var pauseAutoplayOnHover = (options && options.pauseAutoplayOnHover) ? options.pauseAutoplayOnHover : true;
-        this._options = $.extend({
+        this._$element = $element || $("." + this._options.teaserName);
+        this._swiperDefaults = {
             teaserName: teaserName,
             slidesPerView: 'auto',
             spaceBetween: 10,
@@ -184,10 +249,12 @@ var Hero = (function () {
                 if (pauseAutoplayOnHover) {
                     swiper.container.parents("." + teaserName).on({
                         mouseover: function () {
-                            swiper.pauseAutoplay();
+                            if (_this.instance) {
+                                swiper.pauseAutoplay();
+                            }
                         },
                         mouseleave: function () {
-                            if (swiper.autoplayPaused && swiper.autoplaying) {
+                            if (swiper.autoplayPaused && swiper.autoplaying && _this.instance) {
                                 swiper.stopAutoplay();
                                 swiper.startAutoplay();
                             }
@@ -198,24 +265,51 @@ var Hero = (function () {
                     options.callbacks.onInit();
                 }
             },
-        }, options);
-        this._$element = $element || $("." + this._options.teaserName);
-        this._init();
+        };
+        this._options = $.extend(this._swiperDefaults, this._options);
+        this._options.destroyForMobile = this._$element.hasClass(teaserName + "--as-list-mobile") ? true : false;
+        if (this._$element.find("." + this._options.teaserName + "__slide").length > 1) {
+            if (this._options.destroyForMobile) {
+                this._toggleMobileHeros();
+                $(window).on('resize', function () {
+                    _this._toggleMobileHeros();
+                });
+            }
+            else {
+                this._initHeros();
+            }
+        }
+        else {
+            this._$element.addClass(this._options.teaserName + "--static");
+        }
     }
+    Hero.prototype.getInstance = function () {
+        return this._instance;
+    };
     /**
-     * Initializes all $element's with previously defined options
+     * Initializes heros
      */
-    Hero.prototype._init = function () {
-        var _this = this;
-        if (this._$element.length) {
-            this._$element.each(function () {
-                if ($(this).find("." + _this._options.teaserName + "__slide").length > 1) {
-                    return new csTeaser($(this), _this._options);
-                }
-                else {
-                    $(this).addClass(_this._options.teaserName + "--static");
-                }
-            });
+    Hero.prototype._initHeros = function () {
+        this._instance = new csTeaser(this._$element, this._options);
+    };
+    /**
+     * if mobileDisplayVariant was set to 'list' - initialize slider only for resolutions
+     * greater than mobile
+     */
+    Hero.prototype._toggleMobileHeros = function () {
+        if ($(window).width() >= breakpoint.tablet) {
+            if (!this._instance) {
+                this._initHeros();
+            }
+        }
+        else {
+            if (this._instance) {
+                this._instance.destroy();
+                this._$element
+                    .find("." + this._options.teaserName + "__slides").removeAttr('style')
+                    .find("." + this._options.teaserName + "__slide").removeAttr('style');
+                this._instance = undefined;
+            }
         }
     };
     return Hero;

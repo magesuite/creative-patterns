@@ -1,4 +1,4 @@
-<div class="{{ namespace }}hero {{ mix }}">
+<div class="{{ namespace }}hero{% if mobileDisplayVariant == 'list' %} {{ namespace }}hero--as-list-mobile{% endif %} {{ mix }}">
     <div class="{{ namespace }}hero__carousel">
         <div class="{{ namespace }}hero__wrapper">
             <ul class="{{ namespace }}hero__slides">

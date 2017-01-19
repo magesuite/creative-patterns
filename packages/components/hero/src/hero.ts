@@ -1,5 +1,6 @@
 import $ from 'jquery';
 
+import breakpoint from '../../../utilities/breakpoint/src/breakpoint';
 import csTeaser from '../../teaser/src/teaser';
 
 /**
@@ -112,10 +113,13 @@ export default class Hero {
      * @param {options}  Optional settings object.
      */
     public constructor( $element?: JQuery, options?: HeroOptions ) {
+        const _this: any = this;
         const teaserName: string = ( options && options.teaserName ) || 'cs-hero';
         const pauseAutoplayOnHover: boolean = ( options && options.pauseAutoplayOnHover ) ? options.pauseAutoplayOnHover : true;
 
-        this._options = $.extend( {
+        this._$element = $element || $( `.${this._options.teaserName}` );
+
+        this._swiperDefaults = {
             teaserName: teaserName,
             slidesPerView: 'auto',
             spaceBetween: 10,
@@ -133,10 +137,12 @@ export default class Hero {
                 if ( pauseAutoplayOnHover ) {
                     swiper.container.parents( `.${teaserName}` ).on( {
                         mouseover(): void {
-                            swiper.pauseAutoplay();
+                            if ( _this.instance ) {
+                                swiper.pauseAutoplay();
+                            }
                         },
                         mouseleave(): void {
-                            if ( swiper.autoplayPaused && swiper.autoplaying ) {
+                            if ( swiper.autoplayPaused && swiper.autoplaying && _this.instance ) {
                                 swiper.stopAutoplay();
                                 swiper.startAutoplay();
                             }
@@ -148,27 +154,54 @@ export default class Hero {
                     options.callbacks.onInit();
                 }
             },
-        }, options );
+        };
 
-        this._$element = $element || $( `.${this._options.teaserName}` );
+        this._options = $.extend ( this._swiperDefaults, this._options );
+        this._options.destroyForMobile = this._$element.hasClass( `${teaserName}--as-list-mobile` ) ? true : false;
 
-        this._init();
+        if ( this._$element.find( `.${this._options.teaserName}__slide` ).length > 1 ) {
+            if ( this._options.destroyForMobile ) {
+                this._toggleMobileHeros();
+
+                $( window ).on( 'resize', function(): void {
+                    _this._toggleMobileHeros();
+                } );
+            } else {
+                this._initHeros();
+            }
+        } else {
+            this._$element.addClass( `${this._options.teaserName}--static` );
+        }
+    }
+
+    public getInstance(): any {
+        return this._instance;
     }
 
     /**
-     * Initializes all $element's with previously defined options
+     * Initializes heros
      */
-    protected _init(): void {
-        const _this: any = this;
+    protected _initHeros(): void {
+        this._instance = new csTeaser( this._$element, this._options );
+    }
 
-        if ( this._$element.length ) {
-            this._$element.each( function(): Object {
-                if ( $( this ).find( `.${_this._options.teaserName}__slide` ).length > 1 ) {
-                    return new csTeaser( $( this ), _this._options );
-                } else {
-                    $( this ).addClass( `${_this._options.teaserName}--static` );
-                }
-            } );
+    /**
+     * if mobileDisplayVariant was set to 'list' - initialize slider only for resolutions
+     * greater than mobile
+     */
+    protected _toggleMobileHeros(): any {
+        if ( $( window ).width() >= breakpoint.tablet ) {
+            if ( !this._instance ) {
+                this._initHeros();
+            }
+        } else {
+            if ( this._instance ) {
+                this._instance.destroy();
+                this._$element
+                    .find( `.${this._options.teaserName}__slides` ).removeAttr( 'style' )
+                    .find( `.${this._options.teaserName}__slide` ).removeAttr( 'style' );
+                this._instance = undefined;
+            }
         }
     }
 }
