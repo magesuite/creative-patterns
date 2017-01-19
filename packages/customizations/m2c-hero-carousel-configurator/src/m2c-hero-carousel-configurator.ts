@@ -30,6 +30,15 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
     ],
     template: `<div class="m2c-hero-carousel-configurator | {{ class }}">
         <div class="m2c-hero-carousel-configurator__modal" v-el:error-modal></div>
+        <div class="m2c-hero-carousel-configurator__global-configuration">
+            <div class="m2-input">
+                <label for="cfg-hc-hero-display-variant" class="m2-input__label">${$t( 'Mobile display variant' )}:</label>
+                <select name="cfg-hc-hero-display-variant" class="m2-input__select" id="cfg-hc-hero-display-variant" v-model="configuration.mobileDisplayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                    <option value="slider">${$t( 'Display as slider' )}</option>
+                    <option value="list">${$t( 'Display as list - one under another' )}</option>
+                </select>
+            </div>
+        </div>
         <cc-component-adder>
             <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | m2c-hero-carousel-configurator__item-action-button" @click="createNewHeroItem( 0 )">
                 <svg class="action-button__icon action-button__icon--size_300">
@@ -133,6 +142,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         configuration: {
             type: Object,
             default: {
+                mobileDisplayVariant: 'slider',
                 items: [ JSON.parse( JSON.stringify( heroItemDataPattern ) ) ],
             },
         },

@@ -28,6 +28,11 @@ const csTeaser: any = function( $element: any, settings: any ): void {
     let swiperInstance: any;
 
     /**
+     * Tells if swiper was destroyed.
+     */
+    let destroyed: any;
+
+    /**
      * Attaches component to HTML element.
      */
     $element.data( teaserName, this );
@@ -128,29 +133,30 @@ const csTeaser: any = function( $element: any, settings: any ): void {
     };
 
     const postInit: any = function(): void {
-        if ( currentSettings.slidesPerView && !swiperInstance.params.onlyBulletPagination ) {
+        if ( swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination ) {
 
             const totalSlidesNumber: number = swiperInstance.slides.length;
             const totalGroupNumber: number = Math.ceil( totalSlidesNumber / swiperInstance.params.slidesPerGroup );
 
             if ( totalGroupNumber > swiperInstance.params.paginationBreakpoint ) {
-                currentSettings.paginationType = 'fraction';
+                swiperInstance.params.paginationType = 'fraction';
             } else {
-                currentSettings.paginationType = 'bullets';
+                swiperInstance.params.paginationType = 'bullets';
             }
-
-            swiperInstance.params = $.extend( swiperInstance.params, currentSettings );
         }
     };
 
     swiperInstance = new Swiper( $element.find( `${teaserClass}__wrapper` ), currentSettings );
+    destroyed = false;
     postInit();
     swiperInstance.update();
 
     $( window ).on( 'resize', function(): void {
-        updateSliderSizing();
-        postInit();
-        swiperInstance.update();
+        if ( !destroyed ) {
+            updateSliderSizing();
+            postInit();
+            swiperInstance.update();
+        }
     } );
 
     /**
@@ -166,6 +172,7 @@ const csTeaser: any = function( $element: any, settings: any ): void {
      */
     teaser.destroy = function(): void {
         swiperInstance.destroy();
+        destroyed = true;
     };
 };
 
