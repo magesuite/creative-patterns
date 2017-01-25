@@ -1,0 +1,85 @@
+// items-grid-layout
+// Extended version of items-grid based on css grid layout + polyfill
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@mixin itemsGridLayout() {
+    $root: &;
+    $mobileGutter: .35rem;
+    $tabletUpGutter: .5rem;
+
+    // display: flex;
+    // flex: 0 1 auto;
+    // flex-wrap: wrap;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 50% 50%;
+    width: calc( 100% + ( 2 * #{$mobileGutter} ) );
+    margin: 0 -#{$mobileGutter};
+    padding: 0;
+    list-style: none;
+
+    @include media( '>=tablet' ) {
+      width: calc( 100% + ( 2 * #{$tabletUpGutter} ) );
+      margin: 0 -#{$tabletUpGutter};
+      grid-template-columns: 33.333% 33.3333% 33.3333%;
+    }
+
+    @include media( '>=laptop-lg' ) {
+        grid-template-columns: 25% 25% 25% 25%;
+    }
+
+    @include media( '>=tv' ) {
+        grid-template-columns: 20% 20% 20% 20% 20%;
+    }
+
+    &__item {
+        width: 100%;
+        // min-width: 215px;
+        // max-width: 400px;
+        margin: 0 $mobileGutter 2 * $mobileGutter;
+        background-color: #fff;
+        box-sizing: border-box;
+
+        @include media( '>=phone-lg' ) {
+            width: calc( ( 100% / 2 ) - ( 2 * #{$mobileGutter} ) );
+
+            #{$root}--in-column & {
+                width: calc( 100% - ( 2 * #{$mobileGutter} ) );
+            }
+        }
+
+        @include media( '>=tablet' ) {
+            margin: 0 $tabletUpGutter 2 * $tabletUpGutter;
+            width: calc( ( 100% / 3 ) - ( 2 * #{$tabletUpGutter} ) );
+
+            #{$root}--in-column & {
+                width: calc( ( 100% / 2 ) - ( 2 * #{$tabletUpGutter} ) );
+            }
+
+            &--hero {
+              grid-column-start: 1;
+              grid-column-end: 3;
+              grid-row-start: 1;
+              grid-row-end: 3;
+            }
+        }
+
+        @include media( '>=laptop' ) {
+            width: calc( ( 100% / 4 ) - ( 2 * #{$tabletUpGutter} ) );
+
+            #{$root}--in-column & {
+                width: calc( ( 100% / 3 ) - ( 2 * #{$tabletUpGutter} ) );
+            }
+        }
+
+        @include media( '>=desktop' ) {
+            width: calc( ( 100% / 5 ) - ( 2 * #{$tabletUpGutter} ) );
+
+
+            #{$root}--in-column & {
+                width: calc( ( 100% / 4 ) - ( 2 * #{$tabletUpGutter} ) );
+            }
+        }
+    }
+}
