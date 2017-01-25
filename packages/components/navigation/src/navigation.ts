@@ -147,15 +147,17 @@ export default class Navigation {
         const flyoutMaxHeight: number = this._options.flyoutMaxHeight;
         let flyoutColumnCount: number = this._options.flyoutDefaultColumnCount - 1;
         let flyoutHeight: number = $flyout.height();
-        let prevFlyoutHeight: number = -1;
+        let prevFlyoutHeight: number;
 
         for ( ; flyoutColumnCount > 0; flyoutColumnCount -= 1 ) {
             this._setColumnCount( $flyoutColumns, flyoutColumnCount );
+            prevFlyoutHeight = flyoutHeight;
             flyoutHeight = $flyout.height();
 
-            if ( flyoutHeight === prevFlyoutHeight || flyoutHeight >= flyoutMaxHeight ) {
-                if ( flyoutHeight >= flyoutMaxHeight + 100 ) {
-                    this._setColumnCount( $flyoutColumns, flyoutColumnCount - 1 );
+            if ( flyoutHeight !== prevFlyoutHeight && flyoutHeight >= flyoutMaxHeight ) {
+                if ( flyoutHeight >= flyoutMaxHeight + 100
+                    && flyoutColumnCount < this._options.flyoutDefaultColumnCount ) {
+                    this._setColumnCount( $flyoutColumns, flyoutColumnCount + 1 );
                 }
                 break;
             }
@@ -269,7 +271,7 @@ export default class Navigation {
         this._$window.on( 'resize orientationchange', this._eventListeners.resizeListener );
 
         this._eventListeners.itemFocusInListener = ( event: Event ): void => {
-            let $targetFlyout: JQuery = $( event.target ).parent().find( `.${ this._options.flyoutClassName }` );
+            const $targetFlyout: JQuery = $( event.target ).parent().find( `.${ this._options.flyoutClassName }` );
             this._hideFlyout( this._$flyouts.not( $targetFlyout ) );
             this._showFlyout( $targetFlyout );
         };
