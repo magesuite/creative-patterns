@@ -1,4 +1,4 @@
-.cs-offcanvas__overlay {
+.offcanvas__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,8 +11,9 @@
   transition: background-color .3s, transform 1ms .3s, -webkit-transform 1ms .3s;
   -webkit-transform: scale(0);
       -ms-transform: scale(0);
-          transform: scale(0); }
-  .cs-offcanvas__overlay--visible {
+          transform: scale(0);
+  cursor: pointer; }
+  .offcanvas__overlay--visible {
     -webkit-transform: scale(1);
         -ms-transform: scale(1);
             transform: scale(1);
@@ -20,7 +21,7 @@
     -webkit-transition: background-color .3s;
     transition: background-color .3s; }
 
-.cs-offcanvas__drawer {
+.offcanvas__drawer {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -37,27 +38,29 @@
   transition: transform .3s, -webkit-transform .3s;
   width: 90%;
   max-width: 400px; }
-  .cs-offcanvas__drawer--visible {
+  .offcanvas__drawer--visible {
     -webkit-transform: translateX(0);
         -ms-transform: translateX(0);
             transform: translateX(0);
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0); }
 
-.cs-offcanvas-navigation {
+.offcanvas-navigation {
   position: relative;
   width: 100%;
   min-height: 100%;
   overflow: hidden;
   background-color: #fff; }
-  .cs-offcanvas-navigation__list {
+  .offcanvas-navigation__list {
     width: 100%;
     min-width: 100%;
     list-style: none;
     padding: 0;
     margin: 0;
-    background-color: #fff; }
-    .cs-offcanvas-navigation__list .cs-offcanvas-navigation__list {
+    background-color: #fff;
+    overflow-y: auto;
+    overflow-x: hidden; }
+    .offcanvas-navigation__list .offcanvas-navigation__list {
       position: absolute;
       left: 105%;
       height: 100%;
@@ -66,20 +69,20 @@
       transition: -webkit-transform .3s;
       transition: transform .3s;
       transition: transform .3s, -webkit-transform .3s; }
-      .cs-offcanvas-navigation__list .cs-offcanvas-navigation__list--active {
+      .offcanvas-navigation__list .offcanvas-navigation__list--active {
         -webkit-transform: translateX(-105%);
             -ms-transform: translateX(-105%);
                 transform: translateX(-105%);
         -webkit-transform: translate3d(-105%, 0, 0);
                 transform: translate3d(-105%, 0, 0); }
-  .cs-offcanvas-navigation__item {
+  .offcanvas-navigation__item {
     width: 100%;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     overflow: hidden; }
-  .cs-offcanvas-navigation__link {
+  .offcanvas-navigation__link {
     display: block;
     min-width: 100%;
     width: 100%; }

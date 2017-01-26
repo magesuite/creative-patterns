@@ -15,6 +15,7 @@
         // Setting 1ms because 0 doesn't seem to work and we need seemles transition for scale here.
         transition: background-color .3s, transform 1ms .3s; // stylelint-disable-line
         transform: scale( 0 );
+        cursor: pointer;
 
 
         &--visible {

@@ -1,10 +1,10 @@
 @import '../../../offcanvas/src/offcanvas';
 @import '../offcanvas-navigation';
 
-.cs-offcanvas {
+.offcanvas {
     @include offcanvas();
 }
 
-.cs-offcanvas-navigation {
+.offcanvas-navigation {
     @include offcanvas-navigation();
 }
