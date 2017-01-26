@@ -24,13 +24,13 @@ body {
     &__figure {
         position: relative;
         margin: 0;
-        height: 10rem;
+        height: 6rem;
         display: flex;
         justify-content: center;
         align-items: center;
 
         @include media( '>=tablet' ) {
-            height: 12rem;
+            height: 9rem;
         }
     }
 }
