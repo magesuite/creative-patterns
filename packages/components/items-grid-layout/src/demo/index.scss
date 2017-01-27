@@ -1,0 +1,36 @@
+@import '../../../grid-product/src/demo/index';
+@import '../items-grid-layout.scss';
+
+body {
+    margin: 1rem;
+
+    > div {
+        margin: 0 0 5em;
+    }
+}
+
+.cs-items-grid-layout {
+    @include itemsGridLayout();
+
+    &__item {
+        background: #fff;
+    }
+}
+
+.cs-grid-product {
+    @include gridProduct();
+    background-color: #fff;
+
+    &__figure {
+        position: relative;
+        margin: 0;
+        height: 6rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @include media( '>=tablet' ) {
+            height: 9rem;
+        }
+    }
+}
