@@ -1,0 +1,92 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Brand-carousel component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+
+    <h2>Linked</h2>
+
+    <div class="cs-brand-carousel ">
+    <div class="cs-brand-carousel__carousel">
+        <div class="cs-brand-carousel__wrapper">
+            <ul class="cs-brand-carousel__slides">
+
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/gucci.jpg" alt="Gucci">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/armani.png" alt="Giorgio Armani">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/hilfiger.png" alt="Tommy Hilfiger">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/hugoboss.svg" alt="Hugo Boss">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/intimissimi.png" alt="Intimissimi">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/lacoste.gif" alt="Lacoste">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            <button class="cs-brand-carousel__nav cs-brand-carousel__nav--prev " type="button">
+            <svg class="cs-brand-carousel__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-left"></use></svg>
+        </button>
+        <button class="cs-brand-carousel__nav cs-brand-carousel__nav--next " type="button">
+            <svg class="cs-brand-carousel__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-right"></use></svg>
+        </button>
+    
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="../../../teaser/src/vendors/swiper/swiper.jquery.js"></script>
+    <script src="../brand-carousel.js"></script>
+
+    <script>
+        new brandCarousel( $( '.cs-brand-carousel' ) );
+    </script>
+</body>
+</html>
