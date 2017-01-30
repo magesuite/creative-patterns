@@ -1,0 +1,14 @@
+@import '../../../../utilities/breakpoint/src/breakpoint';
+@import '../../../teaser/src/teaser';
+@import '../brand-carousel.scss';
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    overflow-x: hidden;
+    margin: 0;
+}
+
+.cs-brand-carousel {
+    @include teaser();
+    @include brandCarousel();
+}

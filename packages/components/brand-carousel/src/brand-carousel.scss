@@ -1,0 +1,47 @@
+@mixin brandCarousel() {
+    $root: &;
+    position: relative;
+
+    &__carousel {
+        padding: 0 3rem;
+    }
+
+    &__slides {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__slide {
+        min-width: 120px;
+        max-width: 220px;
+        width: auto;
+    }
+
+    &__image {
+        width: auto;
+        min-width: 50px;
+        max-width: 220px;
+        max-height: 100px;
+    }
+
+    &__nav {
+        #{$root}--static & {
+            display: none;
+        }
+    }
+
+    &__pagination {
+        position: absolute;
+        bottom: 1rem;
+
+        #{$root}--static & {
+            display: none;
+        }
+    }
+
+    &--static {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

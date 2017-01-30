@@ -1,0 +1,87 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Brand-carousel component demo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+
+    <h2>Linked</h2>
+
+    {% include locate( 'brand-carousel/brand-carousel.twig' ) with {
+        namespace: 'cs-',
+        navigation: {
+            show: true,
+            icons: {
+                prev: {
+                    src: '../images/sprites.svg#icon_arrow-left'
+                },
+                next: {
+                    src: '../images/sprites.svg#icon_arrow-right'
+                }
+            }
+        },
+        pagination: {
+            show: false
+        },
+        brands: [
+            {
+                href: '#',
+                image: {
+                    src: '../images/gucci.jpg',
+                    alt: 'Gucci'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/armani.png',
+                    alt: 'Giorgio Armani'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/hilfiger.png',
+                    alt: 'Tommy Hilfiger'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/hugoboss.svg',
+                    alt: 'Hugo Boss'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/intimissimi.png',
+                    alt: 'Intimissimi'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/lacoste.gif',
+                    alt: 'Lacoste'
+                }
+            }
+        ]
+    } %}
+
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <script src="../../../teaser/src/vendors/swiper/swiper.jquery.js"></script>
+    <script src="../brand-carousel.js"></script>
+
+    <script>
+        new brandCarousel( $( '.cs-brand-carousel' ) );
+    </script>
+</body>
+</html>

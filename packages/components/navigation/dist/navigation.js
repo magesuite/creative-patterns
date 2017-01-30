@@ -80,13 +80,15 @@ var Navigation = (function () {
         var flyoutMaxHeight = this._options.flyoutMaxHeight;
         var flyoutColumnCount = this._options.flyoutDefaultColumnCount - 1;
         var flyoutHeight = $flyout.height();
-        var prevFlyoutHeight = -1;
+        var prevFlyoutHeight;
         for (; flyoutColumnCount > 0; flyoutColumnCount -= 1) {
             this._setColumnCount($flyoutColumns, flyoutColumnCount);
+            prevFlyoutHeight = flyoutHeight;
             flyoutHeight = $flyout.height();
-            if (flyoutHeight === prevFlyoutHeight || flyoutHeight >= flyoutMaxHeight) {
-                if (flyoutHeight >= flyoutMaxHeight + 100) {
-                    this._setColumnCount($flyoutColumns, flyoutColumnCount - 1);
+            if (flyoutHeight !== prevFlyoutHeight && flyoutHeight >= flyoutMaxHeight) {
+                if (flyoutHeight >= flyoutMaxHeight + 100
+                    && flyoutColumnCount < this._options.flyoutDefaultColumnCount) {
+                    this._setColumnCount($flyoutColumns, flyoutColumnCount + 1);
                 }
                 break;
             }
