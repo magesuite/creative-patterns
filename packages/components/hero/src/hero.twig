@@ -31,7 +31,8 @@
 
                                     {% if item.href and item.ctaLabel %}
                                         <div class="{{ namespace }}hero__cta">
-                                            <span role="button" class="{{ button.class }}">{{ item.ctaLabel|striptags }}
+                                            <span role="button" class="{{ button.class }}">
+                                                <span class="{{ button.labelClass }}">{{ item.ctaLabel|striptags }}</span>
                                                 {% if button.icon.src %}
                                                     <svg class="{{ button.icon.class }}"><use xlink:href="{{ button.icon.src }}"></use></svg>
                                                 {% endif %}
