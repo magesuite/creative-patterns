@@ -1,0 +1,5 @@
+@import '../offcanvas';
+
+.offcanvas {
+    @include offcanvas();
+}

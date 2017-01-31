@@ -1,0 +1,10 @@
+@import '../../../offcanvas/src/offcanvas';
+@import '../offcanvas-navigation';
+
+.offcanvas {
+    @include offcanvas();
+}
+
+.offcanvas-navigation {
+    @include offcanvas-navigation();
+}
