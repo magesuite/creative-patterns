@@ -17,13 +17,13 @@
     list-style: none;
 
     @include media( '>=tablet' ) {
-      width: calc( 100% + ( 2 * #{$tabletUpGutter} ) );
-      margin: 0 -#{$tabletUpGutter};
-      grid-template-columns: 25% 25% 25% 25%;
+        width: calc( 100% + ( 2 * #{$tabletUpGutter} ) );
+        margin: 0 -#{$tabletUpGutter};
+        grid-template-columns: 25% 25% 25% 25%;
 
-      &#{$root}--in-column {
-          grid-template-columns: 33.333% 33.3333% 33.3333%;
-      }
+        &#{$root}--in-column {
+            grid-template-columns: 33.333% 33.3333% 33.3333%;
+        }
     }
 
     @include media( '>=laptop-lg' ) {
@@ -52,10 +52,10 @@
             margin: 0 $tabletUpGutter 2 * $tabletUpGutter;
 
             &--hero {
-              grid-column-start: 1;
-              grid-column-end: 3;
-              grid-row-start: 1;
-              grid-row-end: 3;
+                grid-column-start: 1;
+                grid-column-end: 3;
+                grid-row-start: 1;
+                grid-row-end: 3;
             }
         }
 
