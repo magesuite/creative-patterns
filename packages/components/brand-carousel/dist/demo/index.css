@@ -642,21 +642,15 @@ body {
         -ms-flex-align: center;
             align-items: center; }
   .cs-brand-carousel__slide {
-    min-width: 120px;
-    max-width: 220px;
+    min-width: 30px;
+    max-width: none;
     width: auto; }
   .cs-brand-carousel__image {
     width: auto;
-    min-width: 50px;
-    max-width: 220px;
-    max-height: 100px; }
+    max-width: 100%;
+    max-height: 60px; }
   .cs-brand-carousel--static .cs-brand-carousel__nav {
     display: none; }
-  .cs-brand-carousel__pagination {
-    position: absolute;
-    bottom: 1rem; }
-    .cs-brand-carousel--static .cs-brand-carousel__pagination {
-      display: none; }
   .cs-brand-carousel--static {
     width: 100%;
     padding-left: 0;

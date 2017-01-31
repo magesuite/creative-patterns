@@ -11,9 +11,82 @@
 </head>
 <body>
 
-    <h2>Linked</h2>
+    <h2>SlidesPerView: auto</h2>
 
     <div class="cs-brand-carousel ">
+    <div class="cs-brand-carousel__carousel">
+        <div class="cs-brand-carousel__wrapper">
+            <ul class="cs-brand-carousel__slides">
+
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/gucci.jpg" alt="Gucci">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/armani.png" alt="Giorgio Armani">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/hilfiger.png" alt="Tommy Hilfiger">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/hugoboss.svg" alt="Hugo Boss">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/intimissimi.png" alt="Intimissimi">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                                    <li class="cs-brand-carousel__slide">
+                                                    <a href="#" class="cs-brand-carousel__slide-link">
+                        
+                                                            <figure class="cs-brand-carousel__figure">
+                                    <img class="cs-brand-carousel__image" src="../images/lacoste.gif" alt="Lacoste">
+                                </figure>
+                                                                                </a>
+                                            </li>
+                
+            </ul>
+        </div>
+    </div>
+
+            <button class="cs-brand-carousel__nav cs-brand-carousel__nav--prev " type="button">
+            <svg class="cs-brand-carousel__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-left"></use></svg>
+        </button>
+        <button class="cs-brand-carousel__nav cs-brand-carousel__nav--next " type="button">
+            <svg class="cs-brand-carousel__nav-icon"><use xlink:href="../images/sprites.svg#icon_arrow-right"></use></svg>
+        </button>
+    
+    </div>
+
+
+    <br><br><br>
+
+
+    <h2>SlidesPerView: manually set by breakpoints</h2>
+
+    <div class="cs-brand-carousel cs-brand-carousel--alt">
     <div class="cs-brand-carousel__carousel">
         <div class="cs-brand-carousel__wrapper">
             <ul class="cs-brand-carousel__slides">
@@ -86,7 +159,31 @@
     <script src="../brand-carousel.js"></script>
 
     <script>
-        new brandCarousel( $( '.cs-brand-carousel' ) );
+        new brandCarousel( $( '.cs-brand-carousel:not(".cs-brand-carousel--alt")' ) );
+
+        new brandCarousel( $( '.cs-brand-carousel--alt' ), {
+            spaceBetween: 30,
+            slidesPerView: 5,
+            calculateSlides: true,
+            breakpoints: {
+                // when window width is <= 480px
+                480: {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                },
+                // when window width is <= 640px
+                640: {
+                    slidesPerView: 3,
+                    spaceBetween: 50,
+                },
+                768: {
+                    slidesPerView: 4,
+                },
+                960: {
+                    slidesPerView: 5,
+                },
+            },
+        } );
     </script>
 </body>
 </html>

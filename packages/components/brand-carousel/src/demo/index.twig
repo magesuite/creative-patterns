@@ -11,10 +11,79 @@
 </head>
 <body>
 
-    <h2>Linked</h2>
+    <h2>SlidesPerView: auto</h2>
 
     {% include locate( 'brand-carousel/brand-carousel.twig' ) with {
         namespace: 'cs-',
+        navigation: {
+            show: true,
+            icons: {
+                prev: {
+                    src: '../images/sprites.svg#icon_arrow-left'
+                },
+                next: {
+                    src: '../images/sprites.svg#icon_arrow-right'
+                }
+            }
+        },
+        pagination: {
+            show: false
+        },
+        brands: [
+            {
+                href: '#',
+                image: {
+                    src: '../images/gucci.jpg',
+                    alt: 'Gucci'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/armani.png',
+                    alt: 'Giorgio Armani'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/hilfiger.png',
+                    alt: 'Tommy Hilfiger'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/hugoboss.svg',
+                    alt: 'Hugo Boss'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/intimissimi.png',
+                    alt: 'Intimissimi'
+                }
+            },
+            {
+                href: '#',
+                image: {
+                    src: '../images/lacoste.gif',
+                    alt: 'Lacoste'
+                }
+            }
+        ]
+    } %}
+
+
+    <br><br><br>
+
+
+    <h2>SlidesPerView: manually set by breakpoints</h2>
+
+    {% include locate( 'brand-carousel/brand-carousel.twig' ) with {
+        namespace: 'cs-',
+        mix: 'cs-brand-carousel--alt',
         navigation: {
             show: true,
             icons: {
@@ -81,7 +150,31 @@
     <script src="../brand-carousel.js"></script>
 
     <script>
-        new brandCarousel( $( '.cs-brand-carousel' ) );
+        new brandCarousel( $( '.cs-brand-carousel:not(".cs-brand-carousel--alt")' ) );
+
+        new brandCarousel( $( '.cs-brand-carousel--alt' ), {
+            spaceBetween: 30,
+            slidesPerView: 5,
+            calculateSlides: true,
+            breakpoints: {
+                // when window width is <= 480px
+                480: {
+                    slidesPerView: 2,
+                    spaceBetween: 40,
+                },
+                // when window width is <= 640px
+                640: {
+                    slidesPerView: 3,
+                    spaceBetween: 50,
+                },
+                768: {
+                    slidesPerView: 4,
+                },
+                960: {
+                    slidesPerView: 5,
+                },
+            },
+        } );
     </script>
 </body>
 </html>
