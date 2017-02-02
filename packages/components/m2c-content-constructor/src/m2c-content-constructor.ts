@@ -147,6 +147,8 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'cc-component-configurator__saved'( data: any ): void {
             this._configuratorSavedCallback( data );
 
+            console.log(data);
+
             if ( $configuratorModal && $configuratorModal.closeModal ) {
                 $configuratorModal.closeModal();
             }
@@ -208,11 +210,15 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 } );
             };
 
-            this.initConfiguratorModal( {
-                type: componentType,
-                id: newComponentId,
-                data: undefined,
-            } );
+            if ( componentType === 'brand-carousel' ) {
+                this.$emit( 'cc-component-configurator__saved', '' );
+            } else {
+                this.initConfiguratorModal( {
+                    type: componentType,
+                    id: newComponentId,
+                    data: undefined,
+                } );
+            }
         },
         /**
          * Callback that will be invoked when user clicks edit button.

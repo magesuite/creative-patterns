@@ -1448,6 +1448,7 @@ var m2cContentConstructor = {
         },
         'cc-component-configurator__saved': function (data) {
             this._configuratorSavedCallback(data);
+            console.log(data);
             if ($configuratorModal && $configuratorModal.closeModal) {
                 $configuratorModal.closeModal();
             }
@@ -1506,11 +1507,16 @@ var m2cContentConstructor = {
                     data: componentData,
                 });
             };
-            this.initConfiguratorModal({
-                type: componentType,
-                id: newComponentId,
-                data: undefined,
-            });
+            if (componentType === 'brand-carousel') {
+                this.$emit('cc-component-configurator__saved', '');
+            }
+            else {
+                this.initConfiguratorModal({
+                    type: componentType,
+                    id: newComponentId,
+                    data: undefined,
+                });
+            }
         },
         /**
          * Callback that will be invoked when user clicks edit button.
