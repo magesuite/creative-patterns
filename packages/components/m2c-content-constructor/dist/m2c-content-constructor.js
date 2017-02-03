@@ -1506,11 +1506,16 @@ var m2cContentConstructor = {
                     data: componentData,
                 });
             };
-            this.initConfiguratorModal({
-                type: componentType,
-                id: newComponentId,
-                data: undefined,
-            });
+            if (componentType === 'brand-carousel') {
+                this.$emit('cc-component-configurator__saved', []);
+            }
+            else {
+                this.initConfiguratorModal({
+                    type: componentType,
+                    id: newComponentId,
+                    data: undefined,
+                });
+            }
         },
         /**
          * Callback that will be invoked when user clicks edit button.
