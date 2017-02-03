@@ -1448,7 +1448,6 @@ var m2cContentConstructor = {
         },
         'cc-component-configurator__saved': function (data) {
             this._configuratorSavedCallback(data);
-            console.log(data);
             if ($configuratorModal && $configuratorModal.closeModal) {
                 $configuratorModal.closeModal();
             }
@@ -1508,7 +1507,7 @@ var m2cContentConstructor = {
                 });
             };
             if (componentType === 'brand-carousel') {
-                this.$emit('cc-component-configurator__saved', '');
+                this.$emit('cc-component-configurator__saved', []);
             }
             else {
                 this.initConfiguratorModal({
