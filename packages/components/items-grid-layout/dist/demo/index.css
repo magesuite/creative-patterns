@@ -929,11 +929,12 @@ body {
       .cs-items-grid-layout__item {
         margin: 0 0.5rem 1rem; }
         .cs-items-grid-layout__item--hero {
+          /* autoprefixer: off */
           -ms-grid-column: 1;
-              grid-column-start: 1;
+          grid-column-start: 1;
           grid-column-end: 3;
           -ms-grid-row: 1;
-              grid-row-start: 1;
+          grid-row-start: 1;
           grid-row-end: 3; } }
   .cs-items-grid-layout__item {
     background: #fff; }
