@@ -44,9 +44,19 @@ var OffcanvasNavigation = (function () {
      * @param {Event} event [description]
      */
     OffcanvasNavigation.prototype._showLevel = function (event) {
+        var _this = this;
         event.preventDefault();
         var $levelToShow = $(event.target).next();
-        $levelToShow.addClass(this._options.className + "__list--active");
+        var $currentLevel = $("." + this._options.className + "__list--current");
+        if ($currentLevel.length > 0) {
+            $currentLevel.animate({ scrollTop: 0 }, 'medium', function () {
+                $currentLevel.removeClass(_this._options.className + "__list--current");
+                $levelToShow.addClass(_this._options.className + "__list--active " + _this._options.className + "__list--current");
+            });
+        }
+        else {
+            $levelToShow.addClass(this._options.className + "__list--active " + this._options.className + "__list--current");
+        }
     };
     /**
      * Hides current navigation level based on clicked return link.
@@ -55,13 +65,14 @@ var OffcanvasNavigation = (function () {
     OffcanvasNavigation.prototype._hideLevel = function (event) {
         event.preventDefault();
         var $levelToHide = $(event.target).closest("." + this._options.className + "__list");
-        $levelToHide.removeClass(this._options.className + "__list--active");
+        $levelToHide.removeClass(this._options.className + "__list--active " + this._options.className + "__list--current");
+        $levelToHide.closest("." + this._options.className + "__list--active").addClass(this._options.className + "__list--current");
     };
     /**
      * Resets levels to root.
      */
     OffcanvasNavigation.prototype._resetLevels = function () {
-        this._$element.find("." + this._options.className + "__list").removeClass(this._options.className + "__list--active");
+        this._$element.find("." + this._options.className + "__list").removeClass(this._options.className + "__list--active " + this._options.className + "__list--current");
     };
     /**
      * Sets up event listeners for a component.

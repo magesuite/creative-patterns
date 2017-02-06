@@ -17,8 +17,10 @@
         padding: 0;
         margin: 0;
         background-color: #fff;
-        overflow-y: auto;
+        overflow-y: hidden;
         overflow-x: hidden;
+        height: 100%;
+        -webkit-overflow-scrolling: touch;
 
         & & {
             position: absolute;
@@ -30,6 +32,10 @@
             &--active {
                 transform: translateX( -105% );
                 transform: translate3d( -105%, 0, 0 );
+            }
+
+            &--current {
+                overflow-y: auto;
             }
         }
     }
