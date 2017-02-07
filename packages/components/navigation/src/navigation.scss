@@ -57,6 +57,7 @@
         box-shadow: 8px 8px 0 0 rgba( 0, 0, 0, .2 );
         left: 0;
         z-index: 3;
+        backface-visibility: hidden;
 
         &--visible {
             display: flex;

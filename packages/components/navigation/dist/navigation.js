@@ -116,7 +116,7 @@ var Navigation = (function () {
             // If it would then stick it to the right side.
             flyoutTransformLeft = Math.floor(containerClientRect.width - flyoutClientRect.width);
         }
-        this._setTransform($flyout, "translateX(" + flyoutTransformLeft + "px)");
+        this._setTransform($flyout, "translate3d(" + Math.round(flyoutTransformLeft) + "px, 0, 0)");
     };
     /**
      * Sets the number of columns for the given element.
