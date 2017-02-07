@@ -4,8 +4,12 @@
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
 
+@import '../../../utilities/breakpoint/src/breakpoint';
+
 @mixin stickyBlock() {
-    position: sticky;
-    z-index: 10;
-    top: 1em;
+    @include media( '>=laptop' ) {
+        position: sticky;
+        z-index: 10;
+        top: 1em;
+    }
 }

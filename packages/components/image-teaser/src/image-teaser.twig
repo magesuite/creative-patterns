@@ -1,0 +1,76 @@
+<div class="{{ namespace }}image-teaser
+         {{ namespace }}image-teaser--items-in-row-{{ itemsPerRow }}
+         {{ namespace }}image-teaser--items-in-row-mobile-{{ itemsPerRowMobile }}
+         {% if isSlider %}{{ namespace }}image-teaser--slider{% endif %}
+         {{ mix }}"
+    data-items-per-view="{{ itemsPerView }}"
+    {% if itemsPerViewMobile %}data-mobile-items-per-view="{{ itemsPerViewMobile }}" {% endif %}
+    data-is-slider="{{ isSlider }}"
+    data-mobile-is-slider="{{ isSliderMobile }}">
+
+    <div class="{{ namespace }}image-teaser__carousel">
+        <div class="{{ namespace }}image-teaser__wrapper {{ namespace }}image-teaser__wrapper--content-display-{{ displayVariant }}">
+            <ul class="{{ namespace }}image-teaser__slides">
+
+                {% for item in items %}
+                    <li class="{{ namespace }}image-teaser__slide">
+
+                        {% if item.href %}
+                            <a href="{{ item.href }}" class="{{ namespace }}image-teaser__slide-link">
+                        {% endif %}
+
+                        <figure class="{{ namespace }}image-teaser__figure">
+                            <img class="{{ namespace }}image-teaser__image" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                        </figure>
+
+                        <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayScenario }}">
+                            <div class="{{ namespace }}image-teaser__content">
+                                {% if item.headline %}
+                                    <h2 class="{{ namespace }}image-teaser__headline">{{ item.headline|raw }}</h2>
+                                {% endif %}
+
+                                {% if item.subheadline %}
+                                    <p class="{{ namespace }}image-teaser__subheadline">{{ item.subheadline|raw }}</p>
+                                {% endif %}
+
+                                {% if item.paragraph %}
+                                    <p class="{{ namespace }}image-teaser__text">{{ item.paragraph|raw }}</p>
+                                {% endif %}
+
+                                {% if item.href and item.ctaLabel %}
+                                    <div class="{{ namespace }}image-teaser__cta">
+                                        <span role="button" class="{{ button.class }}">
+                                            <span class="{{ button.labelClass }}">{{ item.ctaLabel|striptags }}</span>
+                                            {% if button.icon.src %}
+                                                <svg class="{{ button.icon.class }}"><use xlink:href="{{ button.icon.src }}"></use></svg>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        {% if item.href %}
+                            </a>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+
+        {% if isSlider or isSliderMobile %}
+            <button class="{{ namespace }}image-teaser__nav {{ namespace }}image-teaser__nav--prev {{ navigation.icons.prev.mix }}" type="button">
+                <svg class="{{ namespace }}image-teaser__nav-icon"><use xlink:href="{{ navigation.icons.prev.src }}"></use></svg>
+            </button>
+            <button class="{{ namespace }}image-teaser__nav {{ namespace }}image-teaser__nav--next {{ navigation.icons.next.mix }}" type="button">
+                <svg class="{{ namespace }}image-teaser__nav-icon"><use xlink:href="{{ navigation.icons.next.src }}"></use></svg>
+            </button>
+        {% endif %}
+
+    </div>
+
+    {% if isSliderMobile %}
+        <ul class="{{ namespace }}image-teaser__pagination"></ul>
+    {% endif %}
+</div>

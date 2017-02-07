@@ -70,7 +70,6 @@ var ccComponentConfigurator = {
     },
 };
 
-exports.IComponentInformation = IComponentInformation;
 exports.ccComponentConfigurator = ccComponentConfigurator;
 exports['default'] = ccComponentConfigurator;
 

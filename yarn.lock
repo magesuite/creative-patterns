@@ -628,6 +628,14 @@ babel-plugin-transform-strict-mode@^6.8.0:
     babel-runtime "^6.0.0"
     babel-types "^6.8.0"
 
+babel-polyfill@^6.16.0:
+  version "6.20.0"
+  resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.20.0.tgz#de4a371006139e20990aac0be367d398331204e7"
+  dependencies:
+    babel-runtime "^6.20.0"
+    core-js "^2.4.0"
+    regenerator-runtime "^0.10.0"
+
 babel-preset-es2015@^6.13.1:
   version "6.16.0"
   resolved "https://registry.yarnpkg.com/babel-preset-es2015/-/babel-preset-es2015-6.16.0.tgz#59acecd1efbebaf48f89404840f2fe78c4d2ad5c"
@@ -676,6 +684,13 @@ babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.9.0, babel-runtime
   dependencies:
     core-js "^2.4.0"
     regenerator-runtime "^0.9.5"
+
+babel-runtime@^6.20.0:
+  version "6.20.0"
+  resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.20.0.tgz#87300bdcf4cd770f09bf0048c64204e17806d16f"
+  dependencies:
+    core-js "^2.4.0"
+    regenerator-runtime "^0.10.0"
 
 babel-template@^6.14.0, babel-template@^6.15.0, babel-template@^6.16.0, babel-template@^6.8.0:
   version "6.16.0"
@@ -2734,14 +2749,6 @@ gulp-decompress@^1.2.0:
     decompress "^3.0.0"
     gulp-util "^3.0.1"
     readable-stream "^2.0.2"
-
-gulp-function@^1.3.6:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/gulp-function/-/gulp-function-1.3.6.tgz#8ee15149a34fbce36e890b7b61a8e8b361e74fe3"
-  dependencies:
-    q "^1.4.1"
-    through2 "^2.0.1"
-    typings-global "^1.0.3"
 
 gulp-if@^2.0.1:
   version "2.0.1"
@@ -5226,7 +5233,7 @@ pseudomap@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/pseudomap/-/pseudomap-1.0.2.tgz#f052a28da70e618917ef0a8ac34c1ae5a68286b3"
 
-q@^1.1.2, q@^1.4.1:
+q@^1.1.2:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.4.1.tgz#55705bcd93c5f3673530c2c2cbc0c2b3addc286e"
 
@@ -5396,7 +5403,7 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
-recursive-install@^1.2.0:
+recursive-install@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/recursive-install/-/recursive-install-1.3.0.tgz#f539629237bec8704da0d0a2dcc0e38912f5848d"
   dependencies:
@@ -5419,6 +5426,10 @@ redeyed@~1.0.0:
 regenerate@^1.2.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/regenerate/-/regenerate-1.3.1.tgz#0300203a5d2fdcf89116dce84275d011f5903f33"
+
+regenerator-runtime@^0.10.0:
+  version "0.10.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.10.1.tgz#257f41961ce44558b18f7814af48c17559f9faeb"
 
 regenerator-runtime@^0.9.5, regenerator-runtime@~0.9.5:
   version "0.9.5"
@@ -5873,7 +5884,7 @@ shelljs@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.4.0.tgz#199fe9e2de379efd03d345ff14062525e4b31ec2"
 
-shelljs@^0.7.0, shelljs@^0.7.4:
+shelljs@^0.7.0:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/shelljs/-/shelljs-0.7.4.tgz#b8f04b3a74ddfafea22acf98e0be45ded53d59c8"
   dependencies:
@@ -6688,13 +6699,6 @@ typescript@^1.8.9:
 typescript@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.0.3.tgz#33dec9eae86b8eee327dd419ca050c853cabd514"
-
-typings-global@^1.0.3:
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/typings-global/-/typings-global-1.0.14.tgz#ab682720a03d6b9278869fb5c30c30d7dc61d12c"
-  dependencies:
-    semver "^5.3.0"
-    shelljs "^0.7.4"
 
 ua-parser-js@0.7.10:
   version "0.7.10"

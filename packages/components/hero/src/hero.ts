@@ -44,7 +44,7 @@ interface HeroOptions {
     autoplay?: number;
 
     /**
-     * Tells component if height of slider should be automatically adjusted every slide 
+     * Tells component if height of slider should be automatically adjusted every slide
      * to the height of the highest visible slide
      * or if false, height will be set permanently to the height of the highest slide in whole component
      * @type {boolean}
@@ -67,7 +67,7 @@ interface HeroOptions {
     slideToClickedSlide?: boolean;
 
     /**
-     * Stop autoplay on any interaction. 
+     * Stop autoplay on any interaction.
      * Hover pauses autoplay, while any click inside hero will stop it permanently
      * @type {boolean}
      * @default true
@@ -97,7 +97,7 @@ interface HeroOptions {
 
     callbacks?: {
         /**
-         * Fires right after hero has been initialized (once) 
+         * Fires right after hero has been initialized (once)
          * @type {function}
          */
         onInit?: any;
@@ -106,6 +106,9 @@ interface HeroOptions {
 
 export default class Hero {
     protected _$element: JQuery;
+    protected _instance: any;
+    protected options: HeroOptions;
+    protected _swiperDefaults: any;
 
     /**
      * Creates new Hero component with optional settings.
@@ -156,7 +159,7 @@ export default class Hero {
             },
         };
 
-        this._options = $.extend ( this._swiperDefaults, this._options );
+        this._options = $.extend ( true, this._swiperDefaults, options );
         this._options.destroyForMobile = this._$element.hasClass( `${teaserName}--as-list-mobile` ) ? true : false;
 
         if ( this._$element.find( `.${this._options.teaserName}__slide` ).length > 1 ) {

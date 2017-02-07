@@ -6,9 +6,91 @@
 
 $namespace: 'm2c-';
 @import '../../../components/cc-image-teaser-configurator/src/cc-image-teaser-configurator';
+@import '../../m2c-layout-builder/src/m2c-layout-builder';
 
 .#{$namespace}image-teaser-configurator {
     $root: &;
+
+    &__scenario-options {
+        display: flex;
+        margin: 0 -15px;
+        flex-wrap: wrap;
+    }
+
+    &__option {
+        cursor: pointer;
+        position: relative;
+        border-color: #d4d4d4;
+        fill: #d4d4d4;
+        color: #adadad;
+        transition: border-color .3s, opacity .3s, color .3s;
+        margin: 0 15px;
+
+        &:hover {
+            border-color: #0072ff;
+        }
+
+        &--selected {
+            border-color: #0072ff;
+            color: #0072ff;
+        }
+
+        &--disabled {
+            cursor: not-allowed;
+
+            &:hover {
+                border-color: #d4d4d4;
+            }
+
+            #{$root}__option-wrapper {
+                &:after {
+                    opacity: .8;
+                }
+            }
+        }
+    }
+
+    &__option-wrapper {
+        position: relative;
+        padding: 22px 28px;
+        border-color: inherit;
+        border-style: dashed;
+        border-width: 2px;
+
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: #f9f9f9;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+    }
+
+    &__option-icon {
+        width: 10vw;
+        height: 5.8vw;
+
+        @media ( max-width: 62.5em ) { // 1000px
+            width: 100px;
+            height: 58px;
+        }
+
+        @media( min-width: 105.625em ) { // 1690px
+            width: 169px;
+            height: 98px;
+        }
+    }
+
+    &__option-name {
+        padding: 20px 0;
+        margin: 0;
+        text-align: center;
+        font-weight: 600;
+    }
 
     &__teaser-item {
         &:hover {
@@ -19,31 +101,79 @@ $namespace: 'm2c-';
         }
     }
 
-    &__image {
-        position: absolute;
-        width: 100%;
-        max-height: 100%;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+    &__modal {
+        display: none;
     }
 
-    &__delete-button {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate3d( -50%, -50%, 0 );
-        margin-top: 10%;
-        white-space: nowrap;
-        z-index: -1;
-        opacity: 0;
-        transition: opacity .25s linear;
-        will-change: z-index;
+    &__widget-chooser-trigger {
+        cursor: pointer;
+        transition: background .2s linear;
+
+        &:hover {
+            background: darken( #e3e3e3, 5% );
+        }
     }
 
-    &__cta-actions {
+    &__toolbar {
         display: flex;
         justify-content: space-between;
+        margin: 10px 0;
+        height: 3rem;
+        line-height: 3rem;
+        text-align: right;
+    }
+
+    &__item {
+        @extend .m2c-layout-builder__component;
+    }
+
+    &__item-actions {
+        @extend .m2c-layout-builder__component-actions;
+    }
+
+    &__item-action-button {
+        font-size: 1.4rem;
+    }
+
+    &__item-content {
+        @extend .m2c-layout-builder__component-wrapper;
+    }
+
+    &__item-form-element {
+        + #{$root}__item-form-element:not( .m2-input--type-checkbox ):not( .m2-input--type-radio ) {
+            margin-top: 1rem;
+        }
+    }
+
+    &__item-col-left,
+    &__item-col-right {
+        width: calc( 50% - 10px );
+    }
+
+    &__item-col-left {
+        padding: 0 10px 10px;
+        border: 1px dashed #cac3b3;
+
+        &--look-image-uploaded {
+            align-self: flex-start;
+        }
+    }
+
+    &__item-col-right {
+        margin-left: 20px;
+    }
+
+    &__item-image-wrapper {
+        height: calc( ( 100% - 3rem ) - 20px );
+        background: #f5f5f5;
+
+        #{$root}__item-col-left--look-image-uploaded & {
+            height: auto;
+        }
+    }
+
+    &__item-image {
+        display: block;
+        width: 100%;
     }
 }
