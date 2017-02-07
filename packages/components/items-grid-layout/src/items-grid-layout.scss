@@ -52,8 +52,11 @@
             margin: 0 $tabletUpGutter 2 * $tabletUpGutter;
 
             &--hero {
+                /* autoprefixer: off */
+                -ms-grid-column: 1;
                 grid-column-start: 1;
                 grid-column-end: 3;
+                -ms-grid-row: 1;
                 grid-row-start: 1;
                 grid-row-end: 3;
             }
