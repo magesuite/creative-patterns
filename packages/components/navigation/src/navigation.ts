@@ -173,7 +173,6 @@ export default class Navigation {
         const $flyoutColumns: JQuery = $flyout.find( `.${this._options.flyoutColumnsClassName}` );
         const flyoutClientRect: ClientRect = $flyout.get( 0 ).getBoundingClientRect();
         const containerClientRect: ClientRect = this._containerClientRect;
-        const flyoutColumnsClientRect: ClientRect = $flyoutColumns.get( 0 ).getBoundingClientRect();
         const flyoutTriggerClientRect: ClientRect = $flyout.parent().get( 0 ).getBoundingClientRect();
 
         // Check if flyout takes all width, if it does we don't have to calculate anything.
@@ -183,7 +182,7 @@ export default class Navigation {
 
         // Align center of columns with links to center of the flyout trigger.
         let flyoutTransformLeft: number = Math.max( 0, flyoutTriggerClientRect.left - containerClientRect.left + flyoutTriggerClientRect.width / 2 -
-            flyoutColumnsClientRect.width / 2  );
+            flyoutClientRect.width / 2  );
         // Check if flyout would overflow container on the right.
         if ( flyoutTransformLeft + flyoutClientRect.right > containerClientRect.right ) {
             // If it would then stick it to the right side.
@@ -220,6 +219,7 @@ export default class Navigation {
      * @param {JQuery} $flyout Target flyout to set class to.
      */
     protected _showFlyout( $flyout: JQuery ): void {
+        $flyout.parent( `.${this._options.itemClassName}` ).addClass( `${this._options.itemClassName}--active` );
         $flyout.addClass( this._options.flyoutVisibleClassName );
     }
 
@@ -229,7 +229,7 @@ export default class Navigation {
      */
     protected _showFlyoutDelay( $flyout: JQuery ): void {
         this._showTimeout = setTimeout(() => {
-            $flyout.addClass( this._options.flyoutVisibleClassName );
+            this._showFlyout($flyout);
         }, this._options.flyoutShowDelay);
     }
 
@@ -246,6 +246,7 @@ export default class Navigation {
      * @param {JQuery} $flyout Target flyout to remove class from.
      */
     protected _hideFlyout( $flyout: JQuery ): void {
+        $flyout.parent( `.${this._options.itemClassName}` ).removeClass( `${this._options.itemClassName}--active` );
         $flyout.removeClass( this._options.flyoutVisibleClassName );
     }
 

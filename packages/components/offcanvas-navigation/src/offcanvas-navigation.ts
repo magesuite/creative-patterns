@@ -64,7 +64,16 @@ export default class OffcanvasNavigation {
     protected _showLevel( event: Event ): void  {
         event.preventDefault();
         const $levelToShow = $( event.target ).next();
-        $levelToShow.addClass( `${this._options.className}__list--active` );
+        const $currentLevel = $(`.${this._options.className}__list--current`);
+        if ( $currentLevel.length > 0 ) {
+            $currentLevel.animate( { scrollTop: 0 }, 'medium', () => {
+                $currentLevel.removeClass( `${this._options.className}__list--current` );
+                $levelToShow.addClass( `${this._options.className}__list--active ${this._options.className}__list--current` );
+            } );
+        } else {
+            $levelToShow.addClass( `${this._options.className}__list--active ${this._options.className}__list--current` );
+        }
+
     }
 
     /**
@@ -74,13 +83,14 @@ export default class OffcanvasNavigation {
     protected _hideLevel( event: Event ): void  {
         event.preventDefault();
         const $levelToHide = $( event.target ).closest( `.${this._options.className}__list` );
-        $levelToHide.removeClass( `${this._options.className}__list--active` );
+        $levelToHide.removeClass( `${this._options.className}__list--active ${this._options.className}__list--current` );
+        $levelToHide.closest( `.${this._options.className}__list--active` ).addClass( `${this._options.className}__list--current` );
     }
     /**
      * Resets levels to root.
      */
     protected _resetLevels(): void {
-        this._$element.find(`.${this._options.className}__list` ).removeClass( `${this._options.className}__list--active` );
+        this._$element.find(`.${this._options.className}__list` ).removeClass( `${this._options.className}__list--active ${this._options.className}__list--current` );
     }
     /**
      * Sets up event listeners for a component.
