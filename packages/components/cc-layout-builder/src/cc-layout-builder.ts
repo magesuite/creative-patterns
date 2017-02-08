@@ -2,6 +2,7 @@ import actionButton from '../../action-button/src/action-button';
 
 import ccComponentHeadlinePreview from '../../cc-component-headline-preview/src/cc-component-headline-preview';
 import ccComponentImageTeaserPreview from '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
+import ccComponentHeroCarouselPreview from '../../cc-component-hero-carousel-preview/src/cc-component-hero-carousel-preview';
 import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
@@ -38,6 +39,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-placeholder': componentPlaceholder,
         'cc-component-headline-preview': ccComponentHeadlinePreview,
         'cc-component-image-teaser-preview': ccComponentImageTeaserPreview,
+        'cc-component-hero-carousel-preview': ccComponentHeroCarouselPreview,
         'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
     },
     props: {

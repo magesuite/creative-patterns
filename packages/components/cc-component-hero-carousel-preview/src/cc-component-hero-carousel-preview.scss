@@ -1,0 +1,44 @@
+// cc-component-hero-carousel-preview
+// Preview of hero carousel component in CC panel
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+.cc-component-hero-carousel-preview {
+    $root: &;
+
+    overflow: hidden;
+
+    &__background {
+        height: 230px;
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    &__background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: .6;
+    }
+
+    &__slides {
+        position: absolute;
+        top: 80px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__slide {
+        height: 45px;
+        width: auto;
+        border: 2px solid #fff;
+        margin: 0 3px;
+    }
+
+    &__item-image {
+        width: calc( 100% - 20px );
+    }
+
+}

@@ -40,7 +40,6 @@
                 <cc-component-placeholder>
                     <h3 class="cc-component-placeholder__headline" v-text="transformComponentTypeToText( component.type )"></h3>
                     <div class="cc-component-placeholder__component">
-
                         <component :is="'cc-component-' + component.type + '-preview'" :configuration="component.data" :index="$index"></component>
 
                     </div>
