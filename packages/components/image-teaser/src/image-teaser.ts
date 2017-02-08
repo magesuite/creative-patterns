@@ -87,6 +87,7 @@ export default class ImageTeaser {
             isSlider: Boolean( this._$container.data( 'is-slider' ) ) || false,
             isSliderMobile: Boolean( this._$container.data( 'mobile-is-slider' ) ) || false,
             carouselBreakpoint: breakpoint.tablet,
+            loop: true,
             breakpoints: {
                 [ maxMobileWidth ]: {
                     slidesPerView: parseInt( this._$container.data( 'mobile-items-per-view' ), 10 ) || parseInt( this._$container.data( 'items-per-view' ), 10 ) || 1,

@@ -237,6 +237,7 @@ var ImageTeaser = (function () {
             isSlider: Boolean(this._$container.data('is-slider')) || false,
             isSliderMobile: Boolean(this._$container.data('mobile-is-slider')) || false,
             carouselBreakpoint: breakpoint.tablet,
+            loop: true,
             breakpoints: (_a = {},
                 _a[maxMobileWidth] = {
                     slidesPerView: parseInt(this._$container.data('mobile-items-per-view'), 10) || parseInt(this._$container.data('items-per-view'), 10) || 1,

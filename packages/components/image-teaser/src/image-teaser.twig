@@ -2,6 +2,7 @@
          {{ namespace }}image-teaser--items-in-row-{{ itemsPerRow }}
          {{ namespace }}image-teaser--items-in-row-mobile-{{ itemsPerRowMobile }}
          {% if isSlider %}{{ namespace }}image-teaser--slider{% endif %}
+         {% if currentScenario.teaserWidth.id == 'w-s' %} {{ namespace }}image-teaser--full-width-slider{% endif %}
          {{ mix }}"
     data-items-per-view="{{ itemsPerView }}"
     {% if itemsPerViewMobile %}data-mobile-items-per-view="{{ itemsPerViewMobile }}" {% endif %}
@@ -23,7 +24,7 @@
                             <img class="{{ namespace }}image-teaser__image" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
                         </figure>
 
-                        <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayScenario }}">
+                        <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayVariant }}">
                             <div class="{{ namespace }}image-teaser__content">
                                 {% if item.headline %}
                                     <h2 class="{{ namespace }}image-teaser__headline">{{ item.headline|raw }}</h2>
