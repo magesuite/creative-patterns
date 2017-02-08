@@ -11,7 +11,7 @@
 
                             {% if item.image.src %}
                                 <figure class="{{ namespace }}hero__figure">
-                                    <img class="{{ namespace }}hero__image" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                                    <img class="{{ namespace }}hero__image" src="{{ item.image.src }}" srcset="{{ item.image.srcSet }}" alt="{{ item.image.alt }}">
                                 </figure>
                             {% endif %}
 

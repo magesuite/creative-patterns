@@ -21,7 +21,7 @@
                         {% endif %}
 
                         <figure class="{{ namespace }}image-teaser__figure">
-                            <img class="{{ namespace }}image-teaser__image" src="{{ item.image.src }}" alt="{{ item.image.alt }}">
+                            <img class="{{ namespace }}image-teaser__image" src="{{ item.image.src }}" srcset="{{ item.image.srcSet }}" alt="{{ item.image.alt }}">
                         </figure>
 
                         <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayVariant }}">
