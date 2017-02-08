@@ -11,6 +11,7 @@ $namespace: 'cc-' !default;
 @import '../../cc-component-adder/src/cc-component-adder';
 @import '../../cc-component-headline-preview/src/cc-component-headline-preview';
 @import '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
+@import '../../cc-component-hero-carousel-preview/src/cc-component-hero-carousel-preview';
 @import '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 
 .#{$namespace}layout-builder {
