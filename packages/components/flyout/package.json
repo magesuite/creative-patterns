@@ -1,0 +1,8 @@
+{
+    "name": "flyout",
+    "version": "0.0.1",
+    "description": "flyout component",
+    "main": "src/flyout.ts",
+    "author": "",
+    "license": "ISC"
+}
