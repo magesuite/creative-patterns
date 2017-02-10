@@ -765,6 +765,8 @@
       background-color: #e9e9e9;
       border-color: #adadad;
       color: #303030; }
+    .m2-input__input--limited-width {
+      max-width: 450px; }
   .m2-input__textarea {
     min-width: 4rem; }
   .m2-input__select {
@@ -1910,6 +1912,9 @@
 
 .m2c-paragraph-configurator__textarea {
   min-height: 200px; }
+
+.m2c-paragraph-configurator__wysiwyg-buttons {
+  margin: 1rem 0; }
 
 /**
  * Define block class using namespace.

@@ -111,7 +111,7 @@ var m2cParagraphConfigurator = {
     mixins: [
         ccParagraphConfigurator,
     ],
-    template: "<form class=\"m2c-paragraph-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        \n        <div class=\"m2c-paragraph-configurator__error\" v-text=\"tempConfiguration.errorMessage\" v-show=\"tempConfiguration.errorMessage\">\n        </div>\n\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"input-cfg-id\" class=\"m2-input__label\">" + $t('Identifier') + ":</label>\n            <input type=\"text\" name=\"cfg-id\" v-model=\"tempConfiguration.identifier\" id=\"input-cfg-id\" class=\"m2-input__input\" @blur=\"stripSpaces( tempConfiguration.identifier )\" maxlength=\"30\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"input-cfg-title\" class=\"m2-input__label\">" + $t('Title') + ":</label>\n            <input type=\"text\" name=\"cfg-title\" v-model=\"tempConfiguration.title\" id=\"input-cfg-title\" class=\"m2-input__input\" maxlength=\"100\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"textarea-cfg-paragraph\" class=\"m2-input__label m2-input__label--look-top-align\">" + $t('HTML') + ":</label>\n            <textarea name=\"cfg-paragraph\" v-model=\"tempConfiguration.content\" id=\"textarea-cfg-paragraph\" class=\"m2-input__textarea | m2c-paragraph-configurator__textarea\"></textarea>\n        </div>\n    </form>",
+    template: "<form class=\"m2c-paragraph-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        \n        <div class=\"m2c-paragraph-configurator__error\" v-text=\"tempConfiguration.errorMessage\" v-show=\"tempConfiguration.errorMessage\">\n        </div>\n\n        <div class=\"m2-input\">\n            <label for=\"input-cfg-id\" class=\"m2-input__label\">" + $t('Identifier') + ":</label>\n            <input type=\"text\" name=\"cfg-id\" v-model=\"tempConfiguration.identifier\" id=\"input-cfg-id\" class=\"m2-input__input m2-input__input--limited-width\" @blur=\"stripSpaces( tempConfiguration.identifier )\" maxlength=\"30\">\n        </div>\n        <div class=\"m2-input\">\n            <label for=\"input-cfg-title\" class=\"m2-input__label\">" + $t('Title') + ":</label>\n            <input type=\"text\" name=\"cfg-title\" v-model=\"tempConfiguration.title\" id=\"input-cfg-title\" class=\"m2-input__input m2-input__input--limited-width\" maxlength=\"100\">\n        </div>\n        <div class=\"m2-input\">\n            <label for=\"textarea-cfg-paragraph\" class=\"m2-input__label m2-input__label--look-top-align\">" + $t('HTML') + ":</label>\n\n            <div class=\"buttons-set | m2c-paragraph-configurator__wysiwyg-buttons\">\n                <button type=\"button\" class=\"scalable action-show-hide\" id=\"toggle-wysiwyg\">" + $t('Show / Hide Editor') + "</button>\n                <button type=\"button\" class=\"scalable action-add-widget plugin\" @click=\"openWidgetModal()\" v-show=\"!isEditorVisible\">" + $t('Insert Widget') + "...</button>\n                <button type=\"button\" class=\"scalable action-add-image plugin\" @click=\"openMediaModal()\" v-show=\"!isEditorVisible\">" + $t('Insert Image') + "...</button>\n                <button type=\"button\" class=\"scalable add-variable plugin\" @click=\"openMagentoVariablesModal()\" v-show=\"!isEditorVisible\">" + $t('Insert Variable') + "...</button>\n            </div>\n\n            <textarea name=\"cfg-paragraph\" v-model=\"tempConfiguration.content\" id=\"textarea-cfg-paragraph\" class=\"m2-input__textarea | m2c-paragraph-configurator__textarea\"></textarea>\n        </div>\n    </form>",
     props: {
         /*
          * Single's component configuration
@@ -125,6 +125,15 @@ var m2cParagraphConfigurator = {
             },
         },
         restToken: {
+            type: String,
+            default: '',
+        },
+        wysiwygConfig: {
+            type: String,
+            default: ''
+        },
+        /* Obtain base-url for the image uploader */
+        uploaderBaseUrl: {
             type: String,
             default: '',
         },
@@ -142,9 +151,17 @@ var m2cParagraphConfigurator = {
                 content: '',
                 errorMessage: '',
             },
+            isEditorVisible: true,
+            // wysiwyg editor object
+            editor: undefined,
         };
     },
     ready: function () {
+        // Check if wysiwygConfig was passed - means that editor is enabled in admin panel
+        if (this.wysiwygConfig !== '') {
+            this.wysiwygCfg = JSON.parse(this.wysiwygConfig);
+            this.wysiwygCfg.height = '300px';
+        }
         // Init loader and hide it
         $('body').one().loadingPopup({
             timeout: false,
@@ -169,9 +186,19 @@ var m2cParagraphConfigurator = {
                 component_1.tempConfiguration.identifier = response.data.identifier;
                 component_1.tempConfiguration.title = response.data.title;
                 component_1.tempConfiguration.content = response.data.content;
+                // initialize customized WYSIWYG
+                if (component_1.wysiwygCfg) {
+                    component_1.initWysiwyg();
+                }
             }, function (response) {
                 $('body').trigger('hideLoadingPopup');
             });
+        }
+        else {
+            // initialize customized WYSIWYG
+            if (this.wysiwygCfg) {
+                this.initWysiwyg();
+            }
         }
     },
     events: {
@@ -227,6 +254,51 @@ var m2cParagraphConfigurator = {
         stripSpaces: function (str) {
             var striped = str.split(' ').join('-').toLowerCase();
             this.tempConfiguration.identifier = striped;
+        },
+        /* Opens modal with M2 built-in widget chooser
+         */
+        openWidgetModal: function () {
+            widgetTools.openDialog(this.wysiwygCfg.widget_window_url + "widget_target_id/textarea-cfg-paragraph");
+        },
+        /* Opens modal with M2 built-in media uploader
+         */
+        openMediaModal: function () {
+            MediabrowserUtility.openDialog(this.uploaderBaseUrl + "target_element_id/textarea-cfg-paragraph", 'auto', 'auto', $t('Insert File...'), {
+                closed: true,
+            });
+        },
+        /* Opens modal with M2 built-in variables
+         */
+        openMagentoVariablesModal: function () {
+            MagentovariablePlugin.loadChooser(window.location.origin + "/admin/admin/system_variable/wysiwygPlugin/", 'textarea-cfg-paragraph');
+        },
+        initWysiwyg: function () {
+            var _this = this;
+            window.tinyMCE_GZ = window.tinyMCE_GZ || {};
+            window.tinyMCE_GZ.loaded = true;
+            require([
+                'mage/translate',
+                'mage/adminhtml/events',
+                'm2cTinyMceWysiwygSetup',
+                'mage/adminhtml/wysiwyg/widget'
+            ], function () {
+                // Setup (this global variable is already set in constructor.phtml)
+                csWysiwygEditor = new m2cTinyMceWysiwygSetup('textarea-cfg-paragraph', _this.wysiwygCfg);
+                // Initialization
+                csWysiwygEditor.setup('exact');
+                _this.isEditorVisible = true;
+                // Set listener for enable/disable editor button
+                Event.observe('toggle-wysiwyg', 'click', function () {
+                    csWysiwygEditor.toggle();
+                    _this.isEditorVisible = !_this.isEditorVisible;
+                }.bind(csWysiwygEditor));
+                // Set handlers for editor
+                var editorFormValidationHandler = csWysiwygEditor.onFormValidation.bind(csWysiwygEditor);
+                varienGlobalEvents.attachEventHandler('formSubmit', editorFormValidationHandler);
+                varienGlobalEvents.clearEventHandlers('open_browser_callback');
+                // Add callback for editor's IMAGE button to open file uploader while clicked
+                varienGlobalEvents.attachEventHandler('open_browser_callback', csWysiwygEditor.openFileBrowser);
+            });
         },
     },
 };
