@@ -18,22 +18,30 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         <div class="m2c-paragraph-configurator__error" v-text="tempConfiguration.errorMessage" v-show="tempConfiguration.errorMessage">
         </div>
 
-        <div class="m2-input m2-input--type-inline">
+        <div class="m2-input">
             <label for="input-cfg-id" class="m2-input__label">${$t( 'Identifier' )}:</label>
-            <input type="text" name="cfg-id" v-model="tempConfiguration.identifier" id="input-cfg-id" class="m2-input__input" @blur="stripSpaces( tempConfiguration.identifier )" maxlength="30">
+            <input type="text" name="cfg-id" v-model="tempConfiguration.identifier" id="input-cfg-id" class="m2-input__input m2-input__input--limited-width" @blur="stripSpaces( tempConfiguration.identifier )" maxlength="30">
         </div>
-        <div class="m2-input m2-input--type-inline">
+        <div class="m2-input">
             <label for="input-cfg-title" class="m2-input__label">${$t( 'Title' )}:</label>
-            <input type="text" name="cfg-title" v-model="tempConfiguration.title" id="input-cfg-title" class="m2-input__input" maxlength="100">
+            <input type="text" name="cfg-title" v-model="tempConfiguration.title" id="input-cfg-title" class="m2-input__input m2-input__input--limited-width" maxlength="100">
         </div>
-        <div class="m2-input m2-input--type-inline">
+        <div class="m2-input">
             <label for="textarea-cfg-paragraph" class="m2-input__label m2-input__label--look-top-align">${$t( 'HTML' )}:</label>
+
+            <div class="buttons-set | m2c-paragraph-configurator__wysiwyg-buttons">
+                <button type="button" class="scalable action-show-hide" id="toggle-wysiwyg">${$t( 'Show / Hide Editor' )}</button>
+                <button type="button" class="scalable action-add-widget plugin" @click="openWidgetModal()" v-show="!isEditorVisible">${$t( 'Insert Widget' )}...</button>
+                <button type="button" class="scalable action-add-image plugin" @click="openMediaModal()" v-show="!isEditorVisible">${$t( 'Insert Image' )}...</button>
+                <button type="button" class="scalable add-variable plugin" @click="openMagentoVariablesModal()" v-show="!isEditorVisible">${$t( 'Insert Variable' )}...</button>
+            </div>
+
             <textarea name="cfg-paragraph" v-model="tempConfiguration.content" id="textarea-cfg-paragraph" class="m2-input__textarea | m2c-paragraph-configurator__textarea"></textarea>
         </div>
     </form>`,
     props: {
         /*
-         * Single's component configuration 
+         * Single's component configuration
          */
         configuration: {
             type: Object,
@@ -44,6 +52,15 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
             },
         },
         restToken: {
+            type: String,
+            default: '',
+        },
+        wysiwygConfig: {
+            type: String,
+            default: '',
+        },
+        /* Obtain base-url for the image uploader */
+        uploaderBaseUrl: {
             type: String,
             default: '',
         },
@@ -61,9 +78,20 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 content: '',
                 errorMessage: '',
             },
+
+            isEditorVisible: true,
+
+            // wysiwyg editor object
+            editor: undefined,
         };
     },
     ready(): void {
+        // Check if wysiwygConfig was passed - means that editor is enabled in admin panel
+        if ( this.wysiwygConfig !== '' ) {
+            this.wysiwygCfg = JSON.parse( this.wysiwygConfig );
+            this.wysiwygCfg.height = '300px';
+        }
+
         // Init loader and hide it
         $( 'body' ).one().loadingPopup( {
             timeout: false,
@@ -94,9 +122,19 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 component.tempConfiguration.title = response.data.title;
                 component.tempConfiguration.content = response.data.content;
 
+                // initialize customized WYSIWYG
+                if ( component.wysiwygCfg ) {
+                    component.initWysiwyg();
+                }
+
             }, ( response: any ): void => {
                 $( 'body' ).trigger( 'hideLoadingPopup' );
             } );
+        } else {
+            // initialize customized WYSIWYG
+            if ( this.wysiwygCfg ) {
+                this.initWysiwyg();
+            }
         }
     },
     events: {
@@ -158,6 +196,62 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         stripSpaces( str: string ): void {
             const striped: string = str.split( ' ' ).join( '-' ).toLowerCase();
             this.tempConfiguration.identifier = striped;
+        },
+        /* Opens modal with M2 built-in widget chooser
+         */
+        openWidgetModal(): void {
+            widgetTools.openDialog( `${this.wysiwygCfg.widget_window_url}widget_target_id/textarea-cfg-paragraph` );
+        },
+        /* Opens modal with M2 built-in media uploader
+         */
+        openMediaModal(): void {
+            MediabrowserUtility.openDialog( `${this.uploaderBaseUrl}target_element_id/textarea-cfg-paragraph`,
+                'auto',
+                'auto',
+                $t( 'Insert File...' ),
+                {
+                    closed: true,
+                },
+            );
+        },
+        /* Opens modal with M2 built-in variables
+         */
+        openMagentoVariablesModal(): void {
+            MagentovariablePlugin.loadChooser( `${window.location.origin}/admin/admin/system_variable/wysiwygPlugin/`, 'textarea-cfg-paragraph' );
+        },
+        initWysiwyg(): void {
+            const _this: any = this;
+
+            window.tinyMCE_GZ = window.tinyMCE_GZ || {};
+            window.tinyMCE_GZ.loaded = true;
+
+            require( [
+                'mage/translate',
+                'mage/adminhtml/events',
+                'm2cTinyMceWysiwygSetup',
+                'mage/adminhtml/wysiwyg/widget',
+            ], function(): void {
+                // Setup (this global variable is already set in constructor.phtml)
+                csWysiwygEditor = new m2cTinyMceWysiwygSetup( 'textarea-cfg-paragraph', _this.wysiwygCfg );
+
+                // Initialization
+                csWysiwygEditor.setup( 'exact' );
+                _this.isEditorVisible = true;
+
+                // Set listener for enable/disable editor button
+                Event.observe( 'toggle-wysiwyg', 'click', function(): void {
+                    csWysiwygEditor.toggle();
+                    _this.isEditorVisible = !_this.isEditorVisible;
+                }.bind( csWysiwygEditor ) );
+
+                // Set handlers for editor
+                const editorFormValidationHandler = csWysiwygEditor.onFormValidation.bind( csWysiwygEditor );
+                varienGlobalEvents.attachEventHandler( 'formSubmit', editorFormValidationHandler );
+                varienGlobalEvents.clearEventHandlers( 'open_browser_callback' );
+
+                // Add callback for editor's IMAGE button to open file uploader while clicked
+                varienGlobalEvents.attachEventHandler( 'open_browser_callback', csWysiwygEditor.openFileBrowser );
+            } );
         },
     },
 };

@@ -222,4 +222,7 @@
 .m2c-paragraph-configurator__textarea {
   min-height: 200px; }
 
+.m2c-paragraph-configurator__wysiwyg-buttons {
+  margin: 1rem 0; }
+
 /*# sourceMappingURL=m2c-paragraph-configurator.css.map */

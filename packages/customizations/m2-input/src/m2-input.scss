@@ -37,6 +37,10 @@ $namespace: 'm2-';
             border-color: #adadad;
             color: #303030;
         }
+
+        &--limited-width {
+            max-width: 450px;
+        }
     }
 
     &__textarea {
