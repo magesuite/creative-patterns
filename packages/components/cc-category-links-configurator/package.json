@@ -1,0 +1,8 @@
+{
+    "name": "cc-category-links-configurator",
+    "version": "0.0.1",
+    "description": "Configuration for category links component",
+    "main": "src/cc-category-links-configurator.ts",
+    "author": "Piotr Lohunko",
+    "license": "ISC"
+}
