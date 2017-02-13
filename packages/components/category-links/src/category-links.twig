@@ -1,6 +1,6 @@
 <div class="{{ namespace }}category-links {{ mix }}">
     <{{ titleTag }} class="{{ namespace }}category-links__title">
-        {{ category.name }}
+        {{ categories.main_category.name }}
     </{{ titleTag }}>
 
     <div class="{{ namespace }}category-links__dropdown {{ namespace }}category-links-dropdown">
@@ -9,18 +9,18 @@
             {{ allProductsLabel }}
 
             <span class="{{ namespace }}category-links__qty">
-                {{ category.qty }}
+                {{ categories.main_category.products_count }}
             </span>
         </div>
 
         <div class="{{ namespace }}category-links__list-wrapper | {{ namespace }}category-links-dropdown__content">
-            <ul class="{{ namespace }}category-links__list | {{ namespace }}dropdown__content">
-                {% for subcategory in subcategories %}
+            <ul class="{{ namespace }}category-links__list">
+                {% for category in categories.sub_categories %}
                     <li class="{{ namespace }}category-links__list-item">
-                        <a href="{{ subcategory.href }}" class="{{ namespace }}category-links__link">
-                            {{ subcategory.name }}
+                        <a href="{{ category.url }}" class="{{ namespace }}category-links__link">
+                            {{ category.name }}
                             <span class="{{ namespace }}category-links__qty">
-                                {{ subcategory.qty }}
+                                {{ category.products_count }}
                             </span>
                         </a>
                     </li>
@@ -29,10 +29,10 @@
 
             <ul class="{{ namespace }}category-links__list-all">
                 <li class="{{ namespace }}category-links__list-all-item">
-                    <a href="{{ category.href }}" class="{{ namespace }}category-links__link">
+                    <a href="{{ categories.main_category.url }}" class="{{ namespace }}category-links__link">
                         {{ allProductsLabel }}
                         <span class="{{ namespace }}category-links__qty">
-                            {{ category.qty }}
+                            {{ categories.main_category.products_count }}
                         </span>
                     </a>
                 </li>
