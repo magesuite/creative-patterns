@@ -9,7 +9,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    opacity: .6; }
+    opacity: .6;
+    width: 100%;
+    height: auto; }
   .cc-component-hero-carousel-preview__slides {
     position: absolute;
     top: 80px;
