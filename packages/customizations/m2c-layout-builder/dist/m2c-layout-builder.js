@@ -39,6 +39,30 @@ var actionButton = {
 };
 
 /**
+ * Button preview component.
+ * This component is responsible for displaying preview of button component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentButtonPreview = {
+    template: "<div class=\"cc-component-button-preview\">\n        <button type=\"button\">{{ configuration.label }}</button>\n    </div>",
+    props: {
+        /**
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+};
+
+/**
  * Headline preview component.
  * This component is responsible for displaying preview of headline component in Layout Builder (admin panel)
  * @type {vuejs.ComponentOption} Vue component object.
@@ -218,6 +242,7 @@ var layoutBuilder = {
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
         'cc-component-placeholder': componentPlaceholder,
+        'cc-component-button-preview': ccComponentButtonPreview,
         'cc-component-headline-preview': ccComponentHeadlinePreview,
         'cc-component-image-teaser-preview': ccComponentImageTeaserPreview,
         'cc-component-hero-carousel-preview': ccComponentHeroCarouselPreview,
@@ -523,7 +548,7 @@ var m2cParagraphConfigurator = {
         },
         wysiwygConfig: {
             type: String,
-            default: ''
+            default: '',
         },
         /* Obtain base-url for the image uploader */
         uploaderBaseUrl: {
@@ -673,7 +698,7 @@ var m2cParagraphConfigurator = {
                 'mage/translate',
                 'mage/adminhtml/events',
                 'm2cTinyMceWysiwygSetup',
-                'mage/adminhtml/wysiwyg/widget'
+                'mage/adminhtml/wysiwyg/widget',
             ], function () {
                 // Setup (this global variable is already set in constructor.phtml)
                 csWysiwygEditor = new m2cTinyMceWysiwygSetup('textarea-cfg-paragraph', _this.wysiwygCfg);

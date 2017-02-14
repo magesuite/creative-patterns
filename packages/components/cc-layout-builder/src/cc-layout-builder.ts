@@ -1,5 +1,6 @@
 import actionButton from '../../action-button/src/action-button';
 
+import ccComponentButtonPreview from '../../cc-component-button-preview/src/cc-component-button-preview';
 import ccComponentHeadlinePreview from '../../cc-component-headline-preview/src/cc-component-headline-preview';
 import ccComponentImageTeaserPreview from '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
 import ccComponentHeroCarouselPreview from '../../cc-component-hero-carousel-preview/src/cc-component-hero-carousel-preview';
@@ -37,6 +38,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
         'cc-component-placeholder': componentPlaceholder,
+        'cc-component-button-preview': ccComponentButtonPreview,
         'cc-component-headline-preview': ccComponentHeadlinePreview,
         'cc-component-image-teaser-preview': ccComponentImageTeaserPreview,
         'cc-component-hero-carousel-preview': ccComponentHeroCarouselPreview,

@@ -17,6 +17,17 @@ $namespace: 'm2-';
         font-weight: 600;
     }
 
+    &__addon-wrapper {
+        position: relative;
+        min-width: 4rem;
+        max-width: 100%;
+        width: 50%;
+
+        #{$root}__input {
+            width: 100% !important;
+        }
+    }
+
     &__input {
         line-height: 1.36;
         font-size: 1.4rem;

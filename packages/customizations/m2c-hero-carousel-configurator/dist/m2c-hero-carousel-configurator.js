@@ -337,6 +337,7 @@ var m2cHeroCarouselConfigurator = {
              * we don't want that since this should be url for CTA
              */
             this.configuration.items[index].href = '';
+            this.wWidgetListener();
         },
         /* Sets listener for widget chooser
          * It triggers component.onChange to update component's configuration
@@ -347,6 +348,29 @@ var m2cHeroCarouselConfigurator = {
             $('.m2c-hero-carousel-configurator__cta-target-link').on('change', function () {
                 component.onChange();
             });
+        },
+        /*
+         * Check if widget chooser is loaded. If not, wait for it
+         */
+        wWidgetListener: function () {
+            if (typeof wWidget !== 'undefined' && widgetTools.dialogWindow[0].innerHTML !== '') {
+                this.disableNotLinksOptions();
+            }
+            else {
+                setTimeout(this.wWidgetListener, 300);
+            }
+        },
+        /*
+         * Hide all options in widget chooser that are not links
+         */
+        disableNotLinksOptions: function () {
+            if (wWidget.widgetEl && wWidget.widgetEl.options) {
+                $(wWidget.widgetEl.options).each(function (i, el) {
+                    if (el.value.split('\\').pop() !== 'Link' && i !== 0) {
+                        $(el).hide();
+                    }
+                });
+            }
         },
         /**
          * Creates new hero item and adds it to a specified index.

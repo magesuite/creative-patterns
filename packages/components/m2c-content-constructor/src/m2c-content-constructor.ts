@@ -9,6 +9,7 @@ import modal from 'Magento_Ui/js/modal/modal';
 import uiRegistry from 'uiRegistry';
 import 'loadingPopup';
 
+import m2cButtonConfigurator from '../../../customizations/m2c-button-configurator/src/m2c-button-configurator';
 import m2cCategoryLinksConfigurator from '../../../customizations/m2c-category-links-configurator/src/m2c-category-links-configurator';
 import m2cHeadlineConfigurator from '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
 import m2cHeroCarouselConfigurator from '../../../customizations/m2c-hero-carousel-configurator/src/m2c-hero-carousel-configurator';
@@ -94,6 +95,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'm2c-hero-carousel-configurator': m2cHeroCarouselConfigurator,
         'm2c-product-carousel-configurator': m2cProductCarouselConfigurator,
         'm2c-category-links-configurator': m2cCategoryLinksConfigurator,
+        'm2c-button-configurator': m2cButtonConfigurator,
     },
     props: {
         configuration: {

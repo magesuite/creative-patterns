@@ -1,0 +1,27 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cc-button-configurator component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-button-configurator.css">
+    </head>
+    <body>
+        <h1>cc-button-configurator Component Demo</h1>
+
+        {% include '../cc-button-configurator.twig' %}
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+        <script src="../cc-button-configurator.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'cc-button-configurator': ccButtonConfigurator
+                }
+            } );
+        </script>
+    </body>
+</html>

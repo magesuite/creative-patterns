@@ -1,0 +1,8 @@
+{
+    "name": "cc-button-configurator",
+    "version": "0.0.1",
+    "description": "This component is responsible for creating button component via admin panel",
+    "main": "src/cc-button-configurator.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
