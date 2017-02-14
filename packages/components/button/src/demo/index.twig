@@ -1,0 +1,25 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>button component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <h1>button Component Demo</h1>
+
+        {% include '../button.twig' with {
+            'namespace': 'cs-',
+            'configuration': {
+                'label': 'All Products',
+                'products_count': 988,
+                'target': 'http://creativestyle.de'
+            }
+        } %}
+
+        <script src="../button.js"></script>
+    </body>
+</html>

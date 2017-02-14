@@ -1,0 +1,9 @@
+<a href="{{ configuration.target }}" class="{{ namespace }}button {{ mix }}">
+    {{ configuration.label }}
+
+    {% if configuration.products_count is not empty %}
+    <span class="{{ namepsace }}button__span">
+        {{ configuration.products_count }}
+    </span>
+    {% endif %}
+</a>
