@@ -1,0 +1,17 @@
+// m2c-button-configurator
+// This component is responsible for creating and configuring button component in M2C
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@import '../../m2-input/src/m2-input';
+
+.m2c-button-configurator {
+    &__widget-chooser-trigger {
+        cursor: pointer;
+        transition: background .2s linear;
+
+        &:hover {
+            background: darken( #e3e3e3, 5% );
+        }
+    }
+}

@@ -223,6 +223,13 @@
     color: #303030;
     font-size: 1.4rem;
     font-weight: 600; }
+  .m2-input__addon-wrapper {
+    position: relative;
+    min-width: 4rem;
+    max-width: 100%;
+    width: 50%; }
+    .m2-input__addon-wrapper .m2-input__input, .m2-input__addon-wrapper .m2-input__textarea, .m2-input__addon-wrapper .m2-input__select {
+      width: 100% !important; }
   .m2-input__input, .m2-input__textarea, .m2-input__select {
     line-height: 1.36;
     font-size: 1.4rem;

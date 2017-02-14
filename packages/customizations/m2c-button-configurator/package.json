@@ -1,0 +1,8 @@
+{
+    "name": "m2c-button-configurator",
+    "version": "0.0.1",
+    "description": "This component is responsible for creating and configuring button component in M2C",
+    "main": "src/m2c-button-configurator.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

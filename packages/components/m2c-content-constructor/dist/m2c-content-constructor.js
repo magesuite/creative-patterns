@@ -80,6 +80,107 @@ var ccComponentConfigurator = {
 };
 
 /**
+ * button configurator component.
+ * This component is responsible for displaying buttons configuration form
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccButtonConfigurator = {
+    mixins: [
+        ccComponentConfigurator,
+    ],
+    template: "<form class=\"cc-button-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-label\" class=\"cs-input__label\">Label:</label>\n            <input type=\"text\" v-model=\"configuration.label\" id=\"cfg-label\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-target\" class=\"cs-input__label\">Target:</label>\n            <input type=\"text\" v-model=\"configuration.target\" id=\"cfg-target\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    props: {
+        configuration: {
+            type: Object,
+            default: {
+                label: '',
+                target: '',
+            },
+        },
+    },
+};
+
+var m2cButtonConfigurator = {
+    mixins: [
+        ccButtonConfigurator,
+    ],
+    template: "<form class=\"m2c-button-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-label\" class=\"m2-input__label\">" + $t('Label') + ":</label>\n            <input type=\"text\" v-model=\"configuration.label\" id=\"cfg-label\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-addon m2-input--type-inline | m2c-button-configurator__item-form-element\">\n            <label for=\"cfg-target\" class=\"m2-input__label\">" + $t('Target') + ":</label>\n            <div class=\"m2-input__addon-wrapper\">\n                <input type=\"text\" class=\"m2-input__input m2-input--type-readonly | m2c-button-configurator__target\" readonly v-model=\"configuration.target\" id=\"cfg-target\">\n                <span class=\"m2-input__addon | m2c-button-configurator__widget-chooser-trigger\" @click=\"openCtaTargetModal()\">\n                    <svg class=\"m2-input__addon-icon\">\n                        <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }\"></use>\n                    </svg>\n                </span>\n            </div>\n        </div>\n    </form>",
+    props: {
+        /*
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+            default: {
+                label: '',
+                target: '',
+            },
+        },
+        /* Get assets for displaying component images */
+        assetsSrc: {
+            type: String,
+            default: '',
+        },
+    },
+    events: {
+        /**
+         * Listen on save event from Content Configurator component.
+         */
+        'cc-component-configurator__save': function () {
+            this.onSave();
+        },
+    },
+    methods: {
+        /* Opens modal with M2 built-in widget chooser
+         */
+        openCtaTargetModal: function () {
+            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/widget_target_id/cfg-target");
+            /* clean current value since widget chooser doesn't do that to allow multiple widgets
+             * we don't want that since this should be url for CTA
+             */
+            this.configuration.target = '';
+            this.wWidgetListener();
+        },
+        /* Sets listener for widget chooser
+         * It triggers component.onChange to update component's configuration
+         * after value of target input is changed
+         */
+        widgetSetListener: function () {
+            var component = this;
+            $('.m2c-button-configurator__cta-target-link').on('change', function () {
+                component.onChange();
+            });
+        },
+        /*
+         * Check if widget chooser is loaded. If not, wait for it
+         */
+        wWidgetListener: function () {
+            if (typeof wWidget !== 'undefined' && widgetTools.dialogWindow[0].innerHTML !== '') {
+                this.disableNotLinksOptions();
+            }
+            else {
+                setTimeout(this.wWidgetListener, 300);
+            }
+        },
+        /*
+         * Hide all options in widget chooser that are not links
+         */
+        disableNotLinksOptions: function () {
+            if (wWidget.widgetEl && wWidget.widgetEl.options) {
+                $(wWidget.widgetEl.options).each(function (i, el) {
+                    if (el.value.split('\\').pop() !== 'Link' && i !== 0) {
+                        $(el).hide();
+                    }
+                });
+            }
+        },
+    },
+    ready: function () {
+        this.widgetSetListener();
+    },
+};
+
+/**
  * Category links configurator component.
  * This component is responsible for displaying category links configuration form
  * @type {vuejs.ComponentOption} Vue component object.
@@ -398,6 +499,7 @@ var m2cHeroCarouselConfigurator = {
              * we don't want that since this should be url for CTA
              */
             this.configuration.items[index].href = '';
+            this.wWidgetListener();
         },
         /* Sets listener for widget chooser
          * It triggers component.onChange to update component's configuration
@@ -408,6 +510,29 @@ var m2cHeroCarouselConfigurator = {
             $('.m2c-hero-carousel-configurator__cta-target-link').on('change', function () {
                 component.onChange();
             });
+        },
+        /*
+         * Check if widget chooser is loaded. If not, wait for it
+         */
+        wWidgetListener: function () {
+            if (typeof wWidget !== 'undefined' && widgetTools.dialogWindow[0].innerHTML !== '') {
+                this.disableNotLinksOptions();
+            }
+            else {
+                setTimeout(this.wWidgetListener, 300);
+            }
+        },
+        /*
+         * Hide all options in widget chooser that are not links
+         */
+        disableNotLinksOptions: function () {
+            if (wWidget.widgetEl && wWidget.widgetEl.options) {
+                $(wWidget.widgetEl.options).each(function (i, el) {
+                    if (el.value.split('\\').pop() !== 'Link' && i !== 0) {
+                        $(el).hide();
+                    }
+                });
+            }
         },
         /**
          * Creates new hero item and adds it to a specified index.
@@ -986,6 +1111,7 @@ var m2cImageTeaserConfigurator = {
             /* clean current value since widget chooser doesn't do that to allow multiple widgets
              * we don't want that since this should be url for CTA */
             component.configuration.items[index].ctaTarget = '';
+            this.wWidgetListener();
         },
         /* Sets listener for widget chooser
          * It triggers component.onChange to update component's configuration
@@ -996,6 +1122,29 @@ var m2cImageTeaserConfigurator = {
             $('.m2c-image-teaser-configurator__cta-target-link').on('change', function () {
                 component.onChange();
             });
+        },
+        /*
+         * Check if widget chooser is loaded. If not, wait for it
+         */
+        wWidgetListener: function () {
+            if (typeof wWidget !== 'undefined' && widgetTools.dialogWindow[0].innerHTML !== '') {
+                this.disableNotLinksOptions();
+            }
+            else {
+                setTimeout(this.wWidgetListener, 300);
+            }
+        },
+        /*
+         * Hide all options in widget chooser that are not links
+         */
+        disableNotLinksOptions: function () {
+            if (wWidget.widgetEl && wWidget.widgetEl.options) {
+                $(wWidget.widgetEl.options).each(function (i, el) {
+                    if (el.value.split('\\').pop() !== 'Link' && i !== 0) {
+                        $(el).hide();
+                    }
+                });
+            }
         },
         /* Checks if it's possible to display Delete button
          * This function is used in component's template
@@ -1853,6 +2002,7 @@ var m2cContentConstructor = {
         'm2c-hero-carousel-configurator': m2cHeroCarouselConfigurator,
         'm2c-product-carousel-configurator': m2cProductCarouselConfigurator,
         'm2c-category-links-configurator': m2cCategoryLinksConfigurator,
+        'm2c-button-configurator': m2cButtonConfigurator,
     },
     props: {
         configuration: {

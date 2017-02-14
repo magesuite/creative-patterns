@@ -130,7 +130,7 @@ var m2cParagraphConfigurator = {
         },
         wysiwygConfig: {
             type: String,
-            default: ''
+            default: '',
         },
         /* Obtain base-url for the image uploader */
         uploaderBaseUrl: {
@@ -280,7 +280,7 @@ var m2cParagraphConfigurator = {
                 'mage/translate',
                 'mage/adminhtml/events',
                 'm2cTinyMceWysiwygSetup',
-                'mage/adminhtml/wysiwyg/widget'
+                'mage/adminhtml/wysiwyg/widget',
             ], function () {
                 // Setup (this global variable is already set in constructor.phtml)
                 csWysiwygEditor = new m2cTinyMceWysiwygSetup('textarea-cfg-paragraph', _this.wysiwygCfg);
