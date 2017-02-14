@@ -1,0 +1,8 @@
+{
+    "name": "cc-component-button-preview",
+    "version": "0.0.1",
+    "description": "This component is responsible for previews of the button component in M2C&#x27;s layout builder",
+    "main": "src/cc-component-button-preview.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
