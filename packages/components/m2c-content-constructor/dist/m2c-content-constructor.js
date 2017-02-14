@@ -80,6 +80,35 @@ var ccComponentConfigurator = {
 };
 
 /**
+ * Category links configurator component.
+ * This component is responsible for displaying category links configuration form
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccCategoryLinksConfigurator = {
+    mixins: [
+        ccComponentConfigurator,
+    ],
+    template: "<form class=\"cc-category-links-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-main_category_id\" class=\"cs-input__label\">Main category ID:</label>\n            <input type=\"text\" v-model=\"configuration.main_category_id\" id=\"cfg-main_category_id\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-sub_categories_ids\" class=\"cs-input__label\">Subcategories ID's:</label>\n            <input type=\"text\" v-model=\"configuration.sub_categories_ids\" id=\"cfg-sub_categories_ids\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"cs-input cs-input--type-inline\">\n            <label for=\"cfg-shownumbers\" class=\"cs-input__label\">Show numbers:</label>\n            <input type=\"checkbox\" v-model=\"configuration.shownumber\" id=\"cfg-shownumbers\" class=\"cs-input__input\" @change=\"onChange\">\n        </div>\n        <button type=\"submit\">Save</button>\n    </form>",
+    props: {
+        configuration: {
+            type: Object,
+            default: {
+                main_category_id: '',
+                sub_categories_ids: '',
+                shownumber: false,
+            },
+        },
+    },
+};
+
+var m2cCategoryLinksConfigurator = {
+    mixins: [
+        ccCategoryLinksConfigurator,
+    ],
+    template: "<form class=\"m2c-category-links-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-main_category_id\" class=\"m2-input__label\">Main category ID:</label>\n            <input type=\"text\" v-model=\"configuration.main_category_id\" id=\"cfg-main_category_id\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-sub_categories_ids\" class=\"m2-input__label\">Subcategories ID's:</label>\n            <input type=\"text\" v-model=\"configuration.sub_categories_ids\" id=\"cfg-sub_categories_ids\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n        <div class=\"m2-input m2-input--type-inline\">\n            <label for=\"cfg-shownumbers\" class=\"m2-input__label\">Show numbers:</label>\n            <input type=\"checkbox\" v-model=\"configuration.shownumber\" id=\"cfg-shownumbers\" class=\"m2-input__input\" @change=\"onChange\">\n        </div>\n    </form>",
+};
+
+/**
  * Headline configurator component.
  * This component is responsible for displaying headlines configuration form
  * @type {vuejs.ComponentOption} Vue component object.
@@ -1106,7 +1135,7 @@ var m2cParagraphConfigurator = {
         },
         wysiwygConfig: {
             type: String,
-            default: ''
+            default: '',
         },
         /* Obtain base-url for the image uploader */
         uploaderBaseUrl: {
@@ -1256,7 +1285,7 @@ var m2cParagraphConfigurator = {
                 'mage/translate',
                 'mage/adminhtml/events',
                 'm2cTinyMceWysiwygSetup',
-                'mage/adminhtml/wysiwyg/widget'
+                'mage/adminhtml/wysiwyg/widget',
             ], function () {
                 // Setup (this global variable is already set in constructor.phtml)
                 csWysiwygEditor = new m2cTinyMceWysiwygSetup('textarea-cfg-paragraph', _this.wysiwygCfg);
@@ -1823,6 +1852,7 @@ var m2cContentConstructor = {
         'm2c-paragraph-configurator': m2cParagraphConfigurator,
         'm2c-hero-carousel-configurator': m2cHeroCarouselConfigurator,
         'm2c-product-carousel-configurator': m2cProductCarouselConfigurator,
+        'm2c-category-links-configurator': m2cCategoryLinksConfigurator,
     },
     props: {
         configuration: {
