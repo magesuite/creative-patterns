@@ -8,9 +8,11 @@
         <div class="{{ namespace }}category-links__subtitle | {{ namespace }}category-links-dropdown__trigger">
             {{ allProductsLabel }}
 
+            {% if shownumbers %}
             <span class="{{ namespace }}category-links__qty">
                 {{ categories.main_category.products_count }}
             </span>
+            {% endif %}
         </div>
 
         <div class="{{ namespace }}category-links__list-wrapper | {{ namespace }}category-links-dropdown__content">
@@ -19,9 +21,12 @@
                     <li class="{{ namespace }}category-links__list-item">
                         <a href="{{ category.url }}" class="{{ namespace }}category-links__link">
                             {{ category.name }}
+
+                            {% if shownumbers %}
                             <span class="{{ namespace }}category-links__qty">
                                 {{ category.products_count }}
                             </span>
+                            {% endif %}
                         </a>
                     </li>
                 {% endfor %}
@@ -31,9 +36,13 @@
                 <li class="{{ namespace }}category-links__list-all-item">
                     <a href="{{ categories.main_category.url }}" class="{{ namespace }}category-links__link">
                         {{ allProductsLabel }}
+
+
+                        {% if shownumbers %}
                         <span class="{{ namespace }}category-links__qty">
                             {{ categories.main_category.products_count }}
                         </span>
+                        {% endif %}
                     </a>
                 </li>
             </ul>

@@ -19,8 +19,8 @@ const ccCategoryLinksConfigurator: vuejs.ComponentOption = {
             <input type="text" v-model="configuration.sub_categories_ids" id="cfg-sub_categories_ids" class="cs-input__input" @change="onChange">
         </div>
         <div class="cs-input cs-input--type-inline">
-            <label for="cfg-shownumbers" class="cs-input__label">Show numbers:</label>
-            <input type="checkbox" v-model="configuration.shownumber" id="cfg-shownumbers" class="cs-input__input" @change="onChange">
+            <label for="cfg-shownumbers" class="cs-input__label">Show products count:</label>
+            <input type="checkbox" v-model="configuration.shownumbers" id="cfg-shownumbers" class="cs-input__input" @change="onChange">
         </div>
         <button type="submit">Save</button>
     </form>`,
@@ -30,7 +30,7 @@ const ccCategoryLinksConfigurator: vuejs.ComponentOption = {
             default: {
                 main_category_id: '',
                 sub_categories_ids: '',
-                shownumber: false,
+                shownumbers: false,
             },
         },
     },
