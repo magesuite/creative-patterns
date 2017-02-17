@@ -14,8 +14,8 @@ const m2cCategoryLinksConfigurator: vuejs.ComponentOption = {
             <input type="text" v-model="configuration.sub_categories_ids" id="cfg-sub_categories_ids" class="m2-input__input" @change="onChange">
         </div>
         <div class="m2-input m2-input--type-inline">
-            <label for="cfg-shownumbers" class="m2-input__label">Show numbers:</label>
-            <input type="checkbox" v-model="configuration.shownumber" id="cfg-shownumbers" class="m2-input__input" @change="onChange">
+            <label for="cfg-shownumbers" class="m2-input__label">Show products count:</label>
+            <input type="checkbox" v-model="configuration.shownumbers" id="cfg-shownumbers" class="m2-input__input" @change="onChange">
         </div>
     </form>`,
 };
