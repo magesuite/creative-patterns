@@ -43,6 +43,13 @@ interface ImageTeaserOptions {
     isSlider?: boolean;
 
     /**
+     * Defines if slides should be centered
+     * Default: false
+     * @type {boolean}
+     */
+    centeredSlides?: boolean;
+
+    /**
      * Defines if teaser should be a carousel until given breakpoint
      * Default: false
      * @type {boolean}
@@ -88,6 +95,7 @@ export default class ImageTeaser {
             isSliderMobile: Boolean( this._$container.data( 'mobile-is-slider' ) ) || false,
             carouselBreakpoint: breakpoint.tablet,
             loop: true,
+            centeredSlides: false,
             breakpoints: {
                 [ maxMobileWidth ]: {
                     slidesPerView: parseInt( this._$container.data( 'mobile-items-per-view' ), 10 ) || parseInt( this._$container.data( 'items-per-view' ), 10 ) || 1,
