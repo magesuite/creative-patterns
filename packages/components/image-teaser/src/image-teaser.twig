@@ -21,7 +21,15 @@
                         {% endif %}
 
                         <figure class="{{ namespace }}image-teaser__figure">
-                            <img class="{{ namespace }}image-teaser__image" src="{{ item.image.src }}" srcset="{{ item.image.srcSet }}" alt="{{ item.image.alt }}">
+                            <img
+                                class="{{ namespace }}image-teaser__image"
+                                src="{{ item.image.src }}" srcset="{{ item.image.srcSet }}"
+                                alt="{% if item.image.alt is defined %}{{ item.image.alt }}
+                                     {% elseif item.headline is defined %}{{ item.headline|raw  }}
+                                     {% elseif item.subheadline is defined %}{{ item.subheadline|raw  }}
+                                     {% else %}Teaser image
+                                     {% endif %}"
+                            >
                         </figure>
 
                         <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayVariant }}">
