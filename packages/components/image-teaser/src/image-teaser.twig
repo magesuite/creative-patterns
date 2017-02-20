@@ -23,7 +23,9 @@
                         <figure class="{{ namespace }}image-teaser__figure">
                             <img
                                 class="{{ namespace }}image-teaser__image"
-                                src="{{ item.image.src }}" srcset="{{ item.image.srcSet }}"
+                                src="{{ item.image.src }}"
+                                srcset="{{ item.image.srcSet }}"
+                                sizes="{{ sizes }}"
                                 alt="{% if item.image.alt %}{{ item.image.alt }}
                                      {% elseif item.headline %}{{ item.headline|raw  }}
                                      {% elseif item.subheadline %}{{ item.subheadline|raw  }}
