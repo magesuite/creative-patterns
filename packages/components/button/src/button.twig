@@ -1,9 +1,9 @@
-<a href="{{ configuration.target }}" class="{{ namespace }}button {{ mix }}">
-    {{ configuration.label }}
+<a href="{{ target }}" class="{{ namespace }}button {{ mix }}">
+    {{ label }}
 
-    {% if configuration.products_count is not empty %}
-    <span class="{{ namepsace }}button__span">
-        {{ configuration.products_count }}
+    {% if products_count is not empty %}
+    <span class="{{ namespace }}button__span">
+        ({{ products_count }})
     </span>
     {% endif %}
 </a>
