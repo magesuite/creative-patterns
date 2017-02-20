@@ -15,9 +15,9 @@
                                         class="{{ namespace }}hero__image"
                                         src="{{ item.image.src }}"
                                         srcset="{{ item.image.srcSet }}"
-                                        alt="{% if item.image.alt is defined %}{{ item.image.alt }}
-                                        {% elseif item.headline is defined %}{{ item.headline|raw  }}
-                                        {% elseif item.subheadline is defined %}{{ item.subheadline|raw  }}
+                                        alt="{% if item.image.alt %}{{ item.image.alt }}
+                                        {% elseif item.headline %}{{ item.headline|raw  }}
+                                        {% elseif item.subheadline %}{{ item.subheadline|raw  }}
                                         {% else %}Hero carousel slide
                                         {% endif %}"
                                     >
