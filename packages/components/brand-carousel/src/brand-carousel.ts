@@ -58,18 +58,72 @@ export default class BrandCarousel {
 
         this._$element = $element || $( `.${this._options.teaserName}` );
 
-        this._init();
+        if ( this._$element.length ) {
+            this._items = this._$element.find( $( `.${this._options.teaserName}__slide` ) );
+        }
+
+        if ( this._options.breakpoints ) {
+            this._breakpointsArray = Object.keys( this._options.breakpoints );
+        }
+
+        if ( this._$element.length && this._items.length > 1 ) {
+            let throttler: number;
+            const _this: any = this;
+
+            $( window ).on( 'resize', function(): void {
+                clearTimeout( throttler );
+                throttler = setTimeout( function(): void {
+                    _this._init();
+                }, 250 );
+            } );
+
+            this._init();
+        }
     }
 
     public getInstance(): any {
         return this._instance;
     }
 
+    protected _getSlidesPerView(): number {
+        let next: number = Math.max.apply( null, this._breakpointsArray );
+        const wWidth: number = $( window ).width();
+        
+        if ( wWidth >= next ) {
+            return this._options.slidesPerView;
+        } else {
+            for ( let i: number = 0; i < this._breakpointsArray.length; i++ ) {
+                if ( this._breakpointsArray[ i ] >= wWidth && this._breakpointsArray[ i ] < next ) {
+                    next = this._breakpointsArray[ i ];
+                }
+            }
+
+            return this._options.breakpoints[ next ].slidesPerView;
+        }
+    }
+
     /**
      * Initializes all $element's with previously defined options
      */
     protected _init(): void {
-        if ( this._$element.length && this._$element.find( `.${this._options.teaserName}__slide` ).length > 1 ) {
+        if ( this._breakpointsArray ) {
+            if ( this._items.length > this._getSlidesPerView() ) {
+                if ( !this._instance ) {
+                    this._$element.addClass( `${this._options.teaserName}--slider` );
+                    this._instance = new csTeaser( this._$element, this._options );
+                }
+            } else {
+                if ( this._instance ) {
+                    this._instance.destroy();
+                    this._$element
+                        .removeClass( `${this._options.teaserName}--slider` )
+                        .find( `.${this._options.teaserName}__slides` ).removeAttr( 'style' )
+                        .find( `.${this._options.teaserName}__slide` ).removeAttr( 'style' );
+                    this._instance = undefined;
+                }
+            }
+        } else {
+            this._$element.addClass( `${this._options.teaserName}--slider` );
             this._instance = new csTeaser( this._$element, this._options );
         }
     }

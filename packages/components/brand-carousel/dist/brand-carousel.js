@@ -182,16 +182,66 @@ var BrandCarousel = (function () {
             centeredSlides: true,
         }, options);
         this._$element = $element || $("." + this._options.teaserName);
-        this._init();
+        if (this._$element.length) {
+            this._items = this._$element.find($("." + this._options.teaserName + "__slide"));
+        }
+        if (this._options.breakpoints) {
+            this._breakpointsArray = Object.keys(this._options.breakpoints);
+        }
+        if (this._$element.length && this._items.length > 1) {
+            var throttler_1;
+            var _this_1 = this;
+            $(window).on('resize', function () {
+                clearTimeout(throttler_1);
+                throttler_1 = setTimeout(function () {
+                    _this_1._init();
+                }, 250);
+            });
+            this._init();
+        }
     }
     BrandCarousel.prototype.getInstance = function () {
         return this._instance;
+    };
+    BrandCarousel.prototype._getSlidesPerView = function () {
+        var next = Math.max.apply(null, this._breakpointsArray);
+        var wWidth = $(window).width();
+        if (wWidth >= next) {
+            return this._options.slidesPerView;
+        }
+        else {
+            for (var i = 0; i < this._breakpointsArray.length; i++) {
+                if (this._breakpointsArray[i] >= wWidth && this._breakpointsArray[i] < next) {
+                    next = this._breakpointsArray[i];
+                }
+            }
+            return this._options.breakpoints[next].slidesPerView;
+        }
     };
     /**
      * Initializes all $element's with previously defined options
      */
     BrandCarousel.prototype._init = function () {
-        if (this._$element.length && this._$element.find("." + this._options.teaserName + "__slide").length > 1) {
+        if (this._breakpointsArray) {
+            if (this._items.length > this._getSlidesPerView()) {
+                if (!this._instance) {
+                    this._$element.addClass(this._options.teaserName + "--slider");
+                    this._instance = new csTeaser(this._$element, this._options);
+                }
+            }
+            else {
+                if (this._instance) {
+                    this._instance.destroy();
+                    this._$element
+                        .removeClass(this._options.teaserName + "--slider")
+                        .find("." + this._options.teaserName + "__slides").removeAttr('style')
+                        .find("." + this._options.teaserName + "__slide").removeAttr('style');
+                    this._instance = undefined;
+                }
+            }
+        }
+        else {
+            this._$element.addClass(this._options.teaserName + "--slider");
             this._instance = new csTeaser(this._$element, this._options);
         }
     };
