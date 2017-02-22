@@ -227,6 +227,10 @@ const layoutBuilder: vuejs.ComponentOption = {
         transformComponentTypeToText( componentType: string ): string {
             return componentType.replace( '-', ' ' );
         },
+
+        isPossibleToEdit( componentType: string ): boolean {
+            return componentType === 'brand-carousel';
+        },
     },
 };
 
