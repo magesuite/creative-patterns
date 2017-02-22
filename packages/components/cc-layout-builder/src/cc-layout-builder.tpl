@@ -23,7 +23,7 @@
                         </button>
                     </template>
                     <template slot="cc-component-actions__bottom">
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings" @click="editComponentSettings( $index )">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings" :class="[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]" :disabled="isPossibleToEdit( component.type )" @click="editComponentSettings( $index )">
                             <svg class="action-button__icon">
                                 <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_settings' }"></use>
                             </svg>
