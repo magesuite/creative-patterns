@@ -22,6 +22,10 @@
         height: 100%;
         -webkit-overflow-scrolling: touch;
 
+        &--current {
+            overflow-y: auto;
+        }
+
         & & {
             position: absolute;
             left: 105%;
@@ -32,10 +36,6 @@
             &--active {
                 transform: translateX( -105% );
                 transform: translate3d( -105%, 0, 0 );
-            }
-
-            &--current {
-                overflow-y: auto;
             }
         }
     }
