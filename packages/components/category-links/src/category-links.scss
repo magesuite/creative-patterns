@@ -8,40 +8,23 @@
 @mixin category-links {
     $root: &;
 
-    @include media( '>=tablet', '<laptop' ) {
-        display: flex;
-    }
-
-    &__title {
-        @include media( '>=tablet', '<laptop' ) {
-            flex: 1 1 auto;
-        }
-    }
-
-    &__dropdown {
-        @include media( '>=tablet', '<laptop' ) {
-            flex: 0 1 auto;
-            width: 300px
-        }
-    }
-
     // it's visible only on mobile as a dropdown trigger
     &__subtitle {
         padding: 1rem;
         font-weight: bold;
         border-bottom: 1px solid #ccc;
 
-        @include media( '>=laptop' ) {
+        @include media( '>=tablet' ) {
             display: none;
         }
     }
 
     &__list-wrapper {
-        @include media( '>=laptop' ) {
+        @include media( '>=tablet' ) {
             display: flex;
         }
 
-        @include media( '<laptop' ) {
+        @include media( '<tablet' ) {
             background: #fff;
             box-shadow: 0 0 10px rgba( 0, 0, 0, .3 );
         }
@@ -55,14 +38,14 @@
     }
 
     &__list {
-        @include media( '>=laptop' ) {
+        @include media( '>=tablet' ) {
             flex: 1 1 auto;
             margin-top: -0.5rem;
             margin-left: -0.5rem;
         }
 
         &-item {
-            @include media( '>=laptop' ) {
+            @include media( '>=tablet' ) {
                 display: inline-block;
                 margin-top: 0.5rem;
                 margin-left: 0.5rem;
@@ -71,7 +54,7 @@
     }
 
     &__list-all {
-        @include media( '>=laptop' ) {
+        @include media( '>=tablet' ) {
             flex: 0 1 auto;
             margin-left: 1rem;
             padding-left: 1rem;
@@ -89,12 +72,12 @@
         font-weight: bold;
         text-decoration: none;
 
-        @include media( '<laptop' ) {
+        @include media( '<tablet' ) {
             display: block;
             padding: 1rem;
         }
 
-        @include media( '>=laptop' ) {
+        @include media( '>=tablet' ) {
             white-space: nowrap;
         }
     }
@@ -109,14 +92,14 @@
     position: relative;
 
     &__trigger {
-        @include media( '<laptop' ) {
+        @include media( '<tablet' ) {
             position: relative;
             z-index: 25;
         }
     }
 
     &__content {
-        @include media( '<laptop' ) {
+        @include media( '<tablet' ) {
             position: absolute;
             top: 0;
             left: 0;
@@ -133,7 +116,7 @@
         &--out {
         }
         &--in {
-            @include media( '<laptop' ) {
+            @include media( '<tablet' ) {
                 height: auto;
                 opacity: 1;
                 transform: translateY( 0 );
