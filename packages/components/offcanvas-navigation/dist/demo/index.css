@@ -62,6 +62,8 @@
     overflow-x: hidden;
     height: 100%;
     -webkit-overflow-scrolling: touch; }
+    .offcanvas-navigation__list--current {
+      overflow-y: auto; }
     .offcanvas-navigation__list .offcanvas-navigation__list {
       position: absolute;
       left: 105%;
@@ -77,8 +79,6 @@
                 transform: translateX(-105%);
         -webkit-transform: translate3d(-105%, 0, 0);
                 transform: translate3d(-105%, 0, 0); }
-      .offcanvas-navigation__list .offcanvas-navigation__list--current {
-        overflow-y: auto; }
   .offcanvas-navigation__item {
     width: 100%;
     display: -webkit-box;

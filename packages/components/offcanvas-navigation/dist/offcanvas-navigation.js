@@ -66,13 +66,17 @@ var OffcanvasNavigation = (function () {
         event.preventDefault();
         var $levelToHide = $(event.target).closest("." + this._options.className + "__list");
         $levelToHide.removeClass(this._options.className + "__list--active " + this._options.className + "__list--current");
-        $levelToHide.closest("." + this._options.className + "__list--active").addClass(this._options.className + "__list--current");
+        $levelToHide.parent().closest("." + this._options.className + "__list").addClass(this._options.className + "__list--current");
     };
     /**
      * Resets levels to root.
      */
     OffcanvasNavigation.prototype._resetLevels = function () {
-        this._$element.find("." + this._options.className + "__list").removeClass(this._options.className + "__list--active " + this._options.className + "__list--current");
+        var $levelsToHide = this._$element.find("." + this._options.className + "__list");
+        // Reset all levels.
+        $levelsToHide.removeClass(this._options.className + "__list--active " + this._options.className + "__list--current");
+        // Set root level to current.
+        $levelsToHide.eq(0).addClass(this._options.className + "__list--current");
     };
     /**
      * Sets up event listeners for a component.
