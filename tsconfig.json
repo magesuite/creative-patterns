@@ -26,6 +26,9 @@
     "src/components/packages-list/packages-list.ts",
     "src/components/packages-search/packages-search.ts",
     "src/library.ts",
+    "node_modules/@types/jasmine-jquery/index.d.ts",
+    "node_modules/@types/jasmine/index.d.ts",
+    "node_modules/@types/jquery/index.d.ts",
     "packages/components/action-button/src/action-button.ts",
     "packages/components/action-button/src/tests/e2e/action-button.ts",
     "packages/components/action-button/src/tests/unit/action-button.ts",
@@ -225,4 +228,4 @@
     "packages/utilities/cs-toggler/src/class.cs-toggler.ts",
     "packages/utilities/cs-toggler/src/tests/unit/cs-toggler.ts"
   ]
-}
+}
