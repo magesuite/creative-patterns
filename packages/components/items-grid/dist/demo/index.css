@@ -795,7 +795,8 @@ html {
         height: 18rem; } }
   .cs-grid-product__image {
     max-height: 100%;
-    max-width: 100%; }
+    max-width: 100%;
+    width: auto; }
   .cs-grid-product__badges {
     position: absolute;
     top: 1rem;
