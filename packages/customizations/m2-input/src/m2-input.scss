@@ -68,6 +68,61 @@ $namespace: 'm2-';
         background-size: auto, 3.2rem 100%, 1px 100%;
     }
 
+    &__fake-select {
+        @extend .#{$namespace}input__input;
+        min-height: 3.1rem;
+        line-height: 3rem;
+        padding: 0 3.6rem 0 1rem;
+        position: relative;
+        cursor: pointer;
+        width: 100% !important;
+
+        &:hover:not( :disabled ):not( :focus ):not( #{$root}__fake-select--active ) {
+            &:before {
+                border-color: #878787;
+            }
+        }
+
+        &:before {
+            background-color: #e3e3e3;
+            border-left: 1px solid #adadad;
+            border-top: 1px solid #adadad;
+            bottom: 0;
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 3.2rem;
+            height: 3.1rem;
+        }
+
+        &:after {
+            border-color: #000 transparent transparent transparent;
+            border-style: solid;
+            border-width: .5rem .4rem 0 .4rem;
+            content: '';
+            height: 0;
+            position: absolute;
+            right: 1.1rem;
+            bottom: 1.15rem;
+            transition: all .2s linear;
+            width: 0;
+        }
+
+        &--active {
+            border-color: #007bdb;
+
+            &:before,
+            &:hover {
+                border-color: #007bdb !important;
+            }
+
+            &:after {
+                transform: rotate( -180deg );
+            }
+        }
+    }
+
     &--type-inline {
         #{$root}__label {
             width: 25%;
@@ -88,6 +143,7 @@ $namespace: 'm2-';
     &--type-radio {
 
         #{$root}__label {
+            position: relative;
             padding: 0 0 0 2.6rem;
             line-height: 1.36rem;
 
@@ -99,16 +155,39 @@ $namespace: 'm2-';
                 border: 1px solid #adadad;
                 line-height: inherit;
                 text-indent: 0;
+                -webkit-font-smoothing: antialiased;
+                font-family: 'Admin Icons';
+                font-style: normal;
+                font-weight: normal;
+                speak: none;
+                font-size: 1.1rem;
+                line-height: 125%;
             }
         }
 
-        #{$root}__checkbox,
-        #{$root}__radio {
+        #{$root}__checkbox {
             &:checked + #{$root}__label:before {
                 content: '\e62d';
                 color: #514943;
-                font-size: 1.1rem;
-                line-height: 125%;
+                
+            }
+        }
+
+        #{$root}__radio {
+            &:checked + #{$root}__label {
+                &:before {
+                    content: '';
+                }
+
+                &:after {
+                    content: '';
+                    width: .8rem;
+                    height: .8rem;
+                    top: 50%;
+                    left: .4rem;
+                    transform: translateY( -50% );
+                    background-color: #007bdb;
+                }
             }
         }
     }

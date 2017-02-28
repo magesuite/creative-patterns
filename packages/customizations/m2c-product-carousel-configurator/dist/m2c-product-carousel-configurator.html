@@ -1,9 +1,11 @@
 <template id="m2c-product-carousel-form">
     <form class="m2c-product-carousel-configurator  | " >
+
         <div class="m2-input m2-input--type-inline">
-            <label for="cfg-pc-category" class="m2-input__label">Category ID:</label>
-            <input type="number" v-model="configuration.category_id" id="cfg-pc-category" class="m2-input__input" @change="onChange">
+            <label class="m2-input__label">Categories</label>
+            <input type="hidden" v-model="configuration.category_id" @change="onChange" id="cp-products-carousel">
         </div>
+
         <div class="m2-input m2-input--type-inline">
             <label for="cfg-pc-order-by" class="m2-input__label">Order by:</label>
             <select name="cfg-pc-order-by" class="m2-input__select" id="cfg-pc-order-by" v-model="configuration.order_by" @change="onChange">
@@ -27,4 +29,4 @@
         </div>
     </form>
 </template>
-<m2c-product-carousel-configurator class="m2c-product-carousel-configurator " :configuration="initialComponentConfiguration"></m2c-product-carousel-configurator>
+<m2c-product-carousel-configurator class="m2c-product-carousel-configurator " :configuration="initialComponentConfiguration" :categories-data-url="categoryDataProviderEndpoint"></m2c-product-carousel-configurator>

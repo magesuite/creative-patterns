@@ -5,6 +5,7 @@
 // Version 0.0.1
 
 @import '../../cc-component-picker/src/cc-component-picker';
+@import '../../cc-category-picker/src/cc-category-picker';
 @import '../../../customizations/m2c-layout-builder/src/m2c-layout-builder';
 @import '../../../customizations/m2c-headline-configurator/src/m2c-headline-configurator';
 @import '../../../customizations/m2c-image-teaser-configurator/src/m2c-image-teaser-configurator';
@@ -15,6 +16,7 @@
 
 .m2c-content-constructor {
     &__modal {
+        min-height: calc( 100vh - 200px );
         display: none;
         padding-bottom: 2.6rem;
 
