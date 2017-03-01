@@ -162,6 +162,33 @@ export default class Navigation {
                 break;
             }
         }
+        this._removeEmptyColumns( $flyout, flyoutColumnCount );
+    }
+
+    /**
+     * Removes empty columns from flyout.
+     * Because e.g. categories in flyout cannot break there may be a situation when
+     * flyout will be higher then the limit but adding more columns won't do any good.
+     * This method checks how many columns can be removed before flyout becomes higher.
+     *
+     * @param  {JQuery} $flyout           Flyout element.
+     * @param  {number} flyoutColumnCount Current number of colums to speed up performance.
+     */
+    protected _removeEmptyColumns($flyout: JQuery, flyoutColumnCount: number): void {
+        const $flyoutColumns: JQuery = $flyout.find( `.${this._options.flyoutColumnsClassName}` );
+        let flyoutHeight: number = $flyout.height();
+        let prevFlyoutHeight: number;
+
+        for ( ; flyoutColumnCount > 0; flyoutColumnCount -= 1 ) {
+            this._setColumnCount( $flyoutColumns, flyoutColumnCount );
+            prevFlyoutHeight = flyoutHeight;
+            flyoutHeight = $flyout.height();
+
+            if ( flyoutHeight !== prevFlyoutHeight ) {
+                this._setColumnCount( $flyoutColumns, flyoutColumnCount + 1 );
+                break;
+            }
+        }
     }
 
     /**
