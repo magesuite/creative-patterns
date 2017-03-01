@@ -1,35 +1,69 @@
 .cc-component-hero-carousel-preview {
-  overflow: hidden; }
-  .cc-component-hero-carousel-preview__background {
-    height: 230px;
-    position: relative;
+  overflow: hidden;
+  position: relative;
+  font-size: 0; }
+  .cc-component-hero-carousel-preview__scene {
     width: 100%;
-    overflow: hidden; }
-  .cc-component-hero-carousel-preview__background-image {
+    display: inline-block;
+    white-space: nowrap; }
+  .cc-component-hero-carousel-preview__slide {
+    display: inline-block;
+    position: relative;
+    width: 74%;
+    padding: 0 .65rem; }
+  .cc-component-hero-carousel-preview__slide-content {
     position: absolute;
     top: 0;
     left: 0;
-    opacity: .6;
     width: 100%;
-    height: auto; }
-  .cc-component-hero-carousel-preview__slides {
-    position: absolute;
-    top: 80px;
+    height: calc( 100% - 8rem);
+    padding: 3rem;
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    width: 100%; }
-  .cc-component-hero-carousel-preview__slide {
-    height: 45px;
-    width: auto;
-    border: 2px solid #fff;
-    margin: 0 3px; }
-  .cc-component-hero-carousel-preview__item-image {
-    width: calc( 100% - 20px); }
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 1.45rem; }
+  .cc-component-hero-carousel-preview__headline, .cc-component-hero-carousel-preview__subheadline, .cc-component-hero-carousel-preview__paragraph {
+    margin: 0 0 .5rem !important;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333 !important;
+    padding: .5rem 2rem; }
+  .cc-component-hero-carousel-preview__headline {
+    text-transform: uppercase;
+    font-weight: 600 !important;
+    font-size: 3rem !important; }
+  .cc-component-hero-carousel-preview__subheadline {
+    font-size: 1.8rem !important; }
+  .cc-component-hero-carousel-preview__button {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #333 !important;
+    border-color: #fff !important;
+    border-radius: 2px !important; }
+  .cc-component-hero-carousel-preview__image {
+    width: 100%;
+    display: block;
+    box-sizing: border-box; }
+    .cc-component-hero-carousel-preview__image--border {
+      border: 1px dashed #e4e1d9; }
+  .cc-component-hero-carousel-preview__thumbs {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, 0, 0);
+            transform: translate3d(-50%, 0, 0);
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden; }
+  .cc-component-hero-carousel-preview__thumb {
+    margin: 0 .25rem;
+    border: 2px solid #fff; }
 
 /*# sourceMappingURL=cc-component-hero-carousel-preview.css.map */

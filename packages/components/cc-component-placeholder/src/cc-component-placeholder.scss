@@ -1,35 +1,71 @@
 .cc-component-placeholder {
-    position: relative;
-    display: flex;
-    width: 100%;
-    align-content: stretch;
-    align-items: stretch;
-    padding: 11px;
-    border: 1px dashed #bfbfbf;
-    box-sizing: border-box;
+    &__component {
+        &--decorated {
+            border: 1px dashed #e4e1d9;
+            background-color: #f7f7f7;
+        }
 
-    &__content {
-        width: 100%;
+        &--header,
+        &--footer {
+            position: relative; 
+            height: 0; 
+            width: 100%; 
+        }
+
+        &--header {
+            padding: 0 0 calc( 100% * 3 / 50 + 2.3rem );
+        }
+
+        &--footer {
+            padding: 0 0 calc( 100% * 9 / 50 + 2.3rem );
+        }
+
+        &-icon {
+            position: absolute; 
+            height: calc( 100% - 2.3rem ); 
+            width: calc( 100% - 2.3rem ); 
+            left: 1.15rem; 
+            top: 1.15rem;
+        }
     }
 
-    &:before {
+    &__loading {
         position: absolute;
-        top: 10px;
-        left: 10px;
-        width: calc( 100% - ( 2 * 11px ) );
-        height: calc( 100% - ( 2 * 11px ) );
-        z-index: -1;
-        border: 1px dashed rgba( #bfbfbf, .5 );
-        content: ' ';
-    }
-
-    &--look_white-bg {
-        background-color: #fff;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.45rem;
+        color: #333;
     }
 
     &__headline {
-        margin: 0 0 1em;
-        text-align: center;
+        position: absolute;
+        top: 1.15rem;
+        left: 1.15rem;
+        color: #fff !important;
+        line-height: 1 !important;
+        margin: 0;
         text-transform: uppercase;
+        z-index: -1;
+        opacity: 0;
+        transform: translate3d( 0, -1rem, 0 );
+        backface-visibility: hidden;
+        transition: all .25s ease-in-out;
+        will-change: z-index;
+
+        .c-layout-builder__component:hover &,
+        .m2c-layout-builder__component:hover & {
+            transform: translate3d( 0, 0, 0 );
+            z-index: 4;
+            opacity: 1;
+        }
+    }
+
+    &__content {
+        width: 100%;
     }
 }

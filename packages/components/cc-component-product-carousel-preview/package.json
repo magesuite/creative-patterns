@@ -1,0 +1,8 @@
+{
+    "name": "cc-component-product-carousel-preview",
+    "version": "0.0.1",
+    "description": "This component is responsible for displaying preview of product carousel on M2C dasboard",
+    "main": "src/cc-component-product-carousel-preview.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

@@ -1,43 +1,87 @@
-.cc-component-image-teaser-preview {
-  overflow: hidden; }
-  .cc-component-image-teaser-preview__items {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    width: 100%;
-    -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-            flex-wrap: wrap;
-    overflow-x: auto; }
-  .cc-component-image-teaser-preview__item-wrapper-outer {
-    width: calc( 100% / 3);
-    min-width: 250px; }
-  .cc-component-image-teaser-preview__item-wrapper-inner {
-    position: relative;
-    margin: 0 10px 0 0;
-    padding: 10px;
-    border: 1px dashed #bfbfbf; }
-    .cc-component-image-teaser-preview__item-wrapper-inner:before {
-      content: '';
-      display: block;
-      padding-top: 56.25%; }
-    .cc-component-image-teaser-preview__item-wrapper-outer:last-child .cc-component-image-teaser-preview__item-wrapper-inner {
-      margin-right: 0; }
+.cc-component-image-teaser-preview__scene {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none; }
+
+.cc-component-image-teaser-preview__item {
+  width: calc( 100% - .565rem);
+  position: relative;
+  margin: 0 .565rem; }
+  .cc-component-image-teaser-preview__scene--2-in-row .cc-component-image-teaser-preview__item {
+    width: calc( 50% - .565rem); }
+  .cc-component-image-teaser-preview__scene--4-in-row .cc-component-image-teaser-preview__item {
+    width: calc( 25% - .565rem); }
+  .cc-component-image-teaser-preview__scene--6-in-row .cc-component-image-teaser-preview__item {
+    width: calc( 100% / 6 - .565rem); }
+  .cc-component-image-teaser-preview__item:first-child {
+    margin-left: 0; }
+  .cc-component-image-teaser-preview__item:last-child {
+    margin-right: 0; }
   .cc-component-image-teaser-preview__item-image {
+    display: block;
+    box-sizing: border-box; }
+    .cc-component-image-teaser-preview__item-image--border {
+      border: 1px dashed #e4e1d9; }
+  .cc-component-image-teaser-preview__item-content {
     position: absolute;
-    width: calc( 100% - 20px);
-    max-height: calc( 100% - 20px);
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px; }
-  .cc-component-image-teaser-preview__item-index {
-    position: absolute;
-    top: 10px;
-    width: calc( 100% - 20px);
-    text-align: center;
-    color: #000 !important;
-    padding: .5em 0; }
+    bottom: 1px;
+    left: 1px;
+    width: calc( 100% - 2px);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.85); }
+    .cc-component-image-teaser-preview__scene--6-in-row .cc-component-image-teaser-preview__item-content {
+      width: 100%;
+      position: static;
+      padding: .25rem 1rem 0;
+      background: transparent; }
+
+.cc-component-image-teaser-preview__headline, .cc-component-image-teaser-preview__subheadline, .cc-component-image-teaser-preview__paragraph, .cc-component-image-teaser-preview__button {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.15 !important; }
+  .cc-component-image-teaser-preview__headline:first-child, .cc-component-image-teaser-preview__subheadline:first-child, .cc-component-image-teaser-preview__paragraph:first-child, .cc-component-image-teaser-preview__button:first-child {
+    margin-top: 0; }
+
+.cc-component-image-teaser-preview__headline {
+  margin: 0;
+  font-size: 1.65rem !important;
+  color: #333 !important;
+  font-weight: 600 !important; }
+  .cc-component-image-teaser-preview__scene--6-in-row .cc-component-image-teaser-preview__headline {
+    font-size: 1.45rem !important; }
+
+.cc-component-image-teaser-preview__subheadline {
+  margin: .5rem 0 0;
+  font-size: 1.45rem !important;
+  font-weight: 400 !important;
+  color: #888 !important; }
+
+.cc-component-image-teaser-preview__paragraph {
+  margin: .5rem 0 0;
+  font-size: 1.15rem !important;
+  font-weight: 300 !important;
+  color: #888 !important; }
+  .cc-component-image-teaser-preview__scene--6-in-row .cc-component-image-teaser-preview__paragraph {
+    white-space: normal; }
+
+.cc-component-image-teaser-preview__button {
+  margin: .75rem 0 0;
+  border: none !important;
+  background: #888 !important;
+  color: #fff !important;
+  font-size: 1.25rem !important;
+  border-radius: 2px !important;
+  font-weight: 400 !important; }
 
 /*# sourceMappingURL=cc-component-image-teaser-preview.css.map */

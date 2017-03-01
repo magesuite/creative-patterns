@@ -11,25 +11,16 @@
 .cc-component-actions {
     $root: &;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
+    padding: .5rem;
+    background: #fff;
+    box-shadow: 0 0 10px 3px rgba( 0, 0, 0, .25 );
 
-    &__top,
-    &__bottom {
+    &__buttons {
         display: flex;
-        flex-direction: column;
     }
 
     &__button {
-        display: block;
-        margin: 0 0 10px;
-
-        #{$root}__bottom & {
-            &:last-child {
-                margin: 0;
-            }
-        }
+        margin: .5rem;
     }
+
 }
