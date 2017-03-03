@@ -12,9 +12,16 @@
                     {% endfor %}
                 </ul>
             {% endif %}
-            
+
             <figure class="{{ namespace }}grid-product__figure">
-                <img class="{{ namespace }}grid-product__image {{ image.mix }}" src="{{ image.src }}" alt="{{ image.alt }}" width="{{ image.width }}" height="{{ image.height }}">
+                {% if lazyload %}
+                    <img class="{{ namespace }}grid-product__image {{ image.mix }} | lazyload" data-src="{{ image.src }}" alt="{{ image.alt }}" width="{{ image.width }}" height="{{ image.height }}">
+                    <noscript>
+                        <img class="{{ namespace }}grid-product__image {{ image.mix }}" src="{{ image.src }}" alt="{{ image.alt }}" width="{{ image.width }}" height="{{ image.height }}">
+                    </noscript>
+                {% else %}
+                    <img class="{{ namespace }}grid-product__image {{ image.mix }}" src="{{ image.src }}" alt="{{ image.alt }}" width="{{ image.width }}" height="{{ image.height }}">
+                {% endif %}
             </figure>
         </a>
 

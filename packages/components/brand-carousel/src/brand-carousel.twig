@@ -11,7 +11,14 @@
 
                             {% if brand.image.src %}
                                 <figure class="{{ namespace }}brand-carousel__figure">
-                                    <img class="{{ namespace }}brand-carousel__image" src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
+                                    {% if lazyload %}
+                                        <img class="{{ namespace }}brand-carousel__image lazyload" data-src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
+                                        <noscript>
+                                            <img class="{{ namespace }}brand-carousel__image" src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
+                                        </noscript>
+                                    {% else %}
+                                        <img class="{{ namespace }}brand-carousel__image" src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
+                                    {% endif %}
                                 </figure>
                             {% endif %}
                         {% if brand.href %}

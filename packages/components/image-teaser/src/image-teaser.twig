@@ -21,16 +21,41 @@
                         {% endif %}
 
                         <figure class="{{ namespace }}image-teaser__figure">
-                            <img
-                                class="{{ namespace }}image-teaser__image"
-                                src="{{ item.image.src }}"
-                                srcset="{{ item.image.srcSet }}"
-                                sizes="{{ sizes }}"
-                                alt="{% if item.image.alt %}{{ item.image.alt }}
-                                     {% elseif item.headline %}{{ item.headline|raw  }}
-                                     {% elseif item.subheadline %}{{ item.subheadline|raw  }}
-                                     {% else %}Teaser image{% endif %}"
-                            >
+                            {% if lazyload %}
+                                <img
+                                    class="{{ namespace }}image-teaser__image | lazyload"
+                                    data-src="{{ item.image.src }}"
+                                    data-srcset="{{ item.image.srcSet }}"
+                                    sizes="{{ sizes }}"
+                                    alt="{% if item.image.alt %}{{ item.image.alt }}
+                                         {% elseif item.headline %}{{ item.headline|raw  }}
+                                         {% elseif item.subheadline %}{{ item.subheadline|raw  }}
+                                         {% else %}Teaser image{% endif %}"
+                                >
+                                <noscript>
+                                    <img
+                                        class="{{ namespace }}image-teaser__image"
+                                        src="{{ item.image.src }}"
+                                        srcset="{{ item.image.srcSet }}"
+                                        sizes="{{ sizes }}"
+                                        alt="{% if item.image.alt %}{{ item.image.alt }}
+                                             {% elseif item.headline %}{{ item.headline|raw  }}
+                                             {% elseif item.subheadline %}{{ item.subheadline|raw  }}
+                                             {% else %}Teaser image{% endif %}"
+                                    >
+                                </noscript>
+                            {% else %}
+                                <img
+                                    class="{{ namespace }}image-teaser__image"
+                                    src="{{ item.image.src }}"
+                                    srcset="{{ item.image.srcSet }}"
+                                    sizes="{{ sizes }}"
+                                    alt="{% if item.image.alt %}{{ item.image.alt }}
+                                         {% elseif item.headline %}{{ item.headline|raw  }}
+                                         {% elseif item.subheadline %}{{ item.subheadline|raw  }}
+                                         {% else %}Teaser image{% endif %}"
+                                >
+                            {% endif %}
                         </figure>
 
                         <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayVariant }}">
