@@ -33,7 +33,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         <div class="m2c-hero-carousel-configurator__global-configuration">
             <div class="m2-input">
                 <label for="cfg-hc-hero-display-variant" class="m2-input__label">${$t( 'Mobile display variant' )}:</label>
-                <select name="cfg-hc-hero-display-variant" class="m2-input__select" id="cfg-hc-hero-display-variant" v-model="configuration.mobileDisplayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                <select name="cfg-hc-hero-display-variant" class="m2-input__select" id="cfg-hc-hero-display-variant" v-model="configuration.mobileDisplayVariant" style="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
                     <option value="slider">${$t( 'Display as slider' )}</option>
                     <option value="list">${$t( 'Display as list - one under another' )}</option>
                 </select>
@@ -43,7 +43,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         <cc-component-adder class="cc-component-adder cc-component-adder--static" v-show="!configuration.items.length">
             <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button | m2c-hero-carousel-configurator__item-action-button" @click="createNewHeroItem( 0 )">
                 <svg class="action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon">
-                    <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }"></use>
+                    <use xlink:href="#icon_plus"></use>
                 </svg>
             </button>
         </cc-component-adder>
@@ -53,7 +53,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                 <cc-component-adder class="cc-component-adder cc-component-adder--first">
                     <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button | m2c-hero-carousel-configurator__item-action-button" @click="createNewHeroItem( $index )">
                         <svg class="action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon">
-                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }"></use>
+                            <use xlink:href="#icon_plus"></use>
                         </svg>
                     </button>
                 </cc-component-adder>
@@ -79,17 +79,17 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                                     <template slot="cc-component-actions__buttons">
                                         <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up | m2c-hero-carousel-configurator__item-action-button" @click="moveHeroItemUp( $index )" :class="[ isFirstHeroItem( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isFirstHeroItem( $index )">
                                             <svg class="action-button__icon action-button__icon--size_100">
-                                                <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-up' }"></use>
+                                                <use xlink:href="#icon_arrow-up"></use>
                                             </svg>
                                         </button>
                                         <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down | m2c-hero-carousel-configurator__item-action-button" @click="moveHeroItemDown( $index )" :class="[ isLastHeroItem( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isLastHeroItem( $index )">
                                             <svg class="action-button__icon action-button__icon--size_100">
-                                                <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_arrow-down' }"></use>
+                                                <use xlink:href="#icon_arrow-down"></use>
                                             </svg>
                                         </button>
                                         <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete | m2c-hero-carousel-configurator__item-action-button" @click="deleteHeroItem( $index )">
                                             <svg class="action-button__icon">
-                                                <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_trash-can' }"></use>
+                                                <use xlink:href="#icon_trash-can"></use>
                                             </svg>
                                         </button>
                                     </template>
@@ -129,7 +129,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                             <input type="text" class="m2-input__input m2-input--type-readonly | m2c-hero-carousel-configurator__cta-target-link" readonly v-model="configuration.items[$index].href" id="hero-ctatarget-output-{{ $index }}">
                             <span class="m2-input__addon | m2c-hero-carousel-configurator__widget-chooser-trigger" @click="openCtaTargetModal( $index )">
                                 <svg class="m2-input__addon-icon">
-                                    <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }"></use>
+                                    <use xlink:href="#icon_link"></use>
                                 </svg>
                             </span>
                         </div>
@@ -139,7 +139,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                 <cc-component-adder class="cc-component-adder cc-component-adder--last">
                     <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button | m2c-hero-carousel-configurator__item-action-button" @click="createNewHeroItem( $index + 1 )">
                         <svg class="action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon">
-                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_plus' }"></use>
+                            <use xlink:href="#icon_plus"></use>
                         </svg>
                     </button>
                 </cc-component-adder>
@@ -266,7 +266,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                 component.onChange();
             } );
         },
-        /* 
+        /*
          * Check if widget chooser is loaded. If not, wait for it
          */
         wWidgetListener(): void {
@@ -276,7 +276,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                 setTimeout( this.wWidgetListener, 300 );
             }
         },
-        /* 
+        /*
          * Hide all options in widget chooser that are not links
          */
         disableNotLinksOptions(): void {

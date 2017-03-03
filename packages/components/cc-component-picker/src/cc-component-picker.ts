@@ -30,7 +30,7 @@ const ccComponentPicker: vuejs.ComponentOption = {
                 <a class="cc-component-picker__component-link" href="#" @click.prevent="onPickComponent( component.type )">
                     <span class="cc-component-picker__component-figure">
                         <svg class="cc-component-picker__component-icon">
-                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_component-' + component.type }"></use>
+                            <use v-bind="{ 'xlink:href': '#icon_component-' + component.type }"></use>
                         </svg>
                     </span>
                     <span class="cc-component-picker__component-name">{{ component.name }}</span>

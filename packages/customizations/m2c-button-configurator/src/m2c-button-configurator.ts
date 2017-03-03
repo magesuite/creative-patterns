@@ -18,7 +18,7 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
                 <input type="text" class="m2-input__input m2-input--type-readonly | m2c-button-configurator__target" readonly v-model="configuration.target" id="cfg-target">
                 <span class="m2-input__addon | m2c-button-configurator__widget-chooser-trigger" @click="openCtaTargetModal()">
                     <svg class="m2-input__addon-icon">
-                        <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }"></use>
+                        <use xlink:href="#icon_link"></use>
                     </svg>
                 </span>
             </div>
@@ -73,7 +73,7 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
                 component.onChange();
             } );
         },
-        /* 
+        /*
          * Check if widget chooser is loaded. If not, wait for it
          */
         wWidgetListener(): void {
@@ -83,7 +83,7 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
                 setTimeout( this.wWidgetListener, 300 );
             }
         },
-        /* 
+        /*
          * Hide all options in widget chooser that are not links
          */
         disableNotLinksOptions(): void {

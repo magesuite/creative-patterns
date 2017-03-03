@@ -17,7 +17,7 @@ interface IComponentInformation {
 const ccComponentProductCarouselPreview: vuejs.ComponentOption = {
     template: `<div class="cc-component-product-carousel-preview">
         <svg class="cc-component-product-carousel-preview__arrow cc-component-product-carousel-preview__arrow--left">
-            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_dashboard-arrow-left' }"></use>
+            <use xlink:href="#icon_dashboard-arrow-left"></use>
         </svg>
 
         <ul class="cc-component-product-carousel-preview__list">
@@ -25,7 +25,7 @@ const ccComponentProductCarouselPreview: vuejs.ComponentOption = {
                 <li class="cc-component-product-carousel-preview__list-item">
                     <div class="cc-component-product-carousel-preview__product-wrapper">
                         <svg class="cc-component-product-carousel-preview__product">
-                            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_component-cc-product-teaser-item' }"></use>
+                            <use xlink:href="#icon_component-cc-product-teaser-item"></use>
                         </svg>
                     </div>
                 </li>
@@ -33,7 +33,7 @@ const ccComponentProductCarouselPreview: vuejs.ComponentOption = {
         </ul>
 
         <svg class="cc-component-product-carousel-preview__arrow cc-component-product-carousel-preview__arrow--right">
-            <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_dashboard-arrow-right' }"></use>
+            <use xlink:href="#icon_dashboard-arrow-right"></use>
         </svg>
     </div>`,
     props: {
