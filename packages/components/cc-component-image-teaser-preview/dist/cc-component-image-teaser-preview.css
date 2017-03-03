@@ -28,6 +28,7 @@
     margin-right: 0; }
   .cc-component-image-teaser-preview__item-image {
     display: block;
+    width: 100%;
     box-sizing: border-box; }
     .cc-component-image-teaser-preview__item-image--border {
       border: 1px dashed #e4e1d9; }
