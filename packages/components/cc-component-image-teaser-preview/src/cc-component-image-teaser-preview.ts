@@ -1,3 +1,4 @@
+import $ from 'jquery';
 /**
  * Single component information interface.
  */
@@ -9,7 +10,7 @@ interface IComponentInformation {
             headline: string,
             paragraph: string,
             ctaLabel: string,
-            ctaTarget: string,
+            href: string,
         },
     ];
 };
@@ -20,18 +21,28 @@ interface IComponentInformation {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 const ccComponentImageTeaserPreview: vuejs.ComponentOption = {
-    template: `<div class="cc-component-image-teaser-preview">
-        <div class="cc-component-image-teaser-preview__items">
-            <template v-for="item in configuration.items">
-                <div class="cc-component-image-teaser-preview__item-wrapper-outer" id="cc-image-teaser-item-{{ $index }}" v-show="configuration.items[$index].image">
-                    <div class="cc-component-image-teaser-preview__item-wrapper-inner">
-                        <div class="cc-component-image-teaser-preview__item">
-                            <img :src="configuration.items[$index].image" class="cc-component-image-teaser-preview__item-image">
-                            <h3 class="cc-component-image-teaser-preview__item-index">Banner {{ $index+1 }}/{{ configuration.items.length }}</h3>
+    template: `<div data-role="spinner" class="cc-component-placeholder__loading" v-show="isLoading">
+        <div class="spinner">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+    <div class="cc-component-image-teaser-preview" v-show="!isLoading">
+        <div class="cc-component-image-teaser-preview__wrapper">
+            <ul class="cc-component-image-teaser-preview__scene cc-component-image-teaser-preview__scene--{{ configuration.currentScenario.desktopLayout.id }}-in-row" v-el:scene>
+                <template v-for="item in configuration.items">
+                    <li class="cc-component-image-teaser-preview__item" v-show="configuration.items[$index].image">
+                        <img :src="configuration.items[$index].image" class="cc-component-image-teaser-preview__item-image">
+                        <div class="cc-component-image-teaser-preview__item-content">
+                            <h2 class="cc-component-image-teaser-preview__headline" v-if="configuration.items[$index].headline">{{ configuration.items[$index].headline }}</h2>
+                            <h3 class="cc-component-image-teaser-preview__subheadline" v-if="configuration.items[$index].subheadline">{{ configuration.items[$index].subheadline }}</h3>
+                            <p class="cc-component-image-teaser-preview__paragraph" v-if="configuration.items[$index].paragraph">{{ configuration.items[$index].paragraph }}</p>
+                            <template v-if="configuration.items[$index].href">
+                                <button type="button" class="cc-component-image-teaser-preview__button" v-if="configuration.items[$index].ctaLabel">{{ configuration.items[$index].ctaLabel }}</button>
+                            </template>
                         </div>
-                    </div>
-                </div>
-            </template>
+                    </li>
+                </template>
+            </ul>
         </div>
     </div>`,
     props: {
@@ -45,7 +56,35 @@ const ccComponentImageTeaserPreview: vuejs.ComponentOption = {
             type: [ String, Object, Array ],
             default: '',
         },
+        isLoading: {
+            type: Boolean,
+            default: true,
+        }
     },
+    ready(): void {
+        this.setImagesLoadListener();
+    },
+    methods: {
+        /**
+         * Checks for status of images if they're loaded.
+         * After they're all loaded spinner is hidden and content displayed.
+         */
+        setImagesLoadListener(): void {
+            const _this: any = this;
+            const $images = $( this.$els.scene ).find( 'img' );
+            let imagesCount: number = $images.length;
+
+            $images.load( function(): void {
+                imagesCount--;
+                if ( !imagesCount ) {
+                    _this.isLoading = false;
+                    $images.each( function(): void {
+                        $( this ).addClass( 'cc-component-image-teaser-preview__item-image--border' );
+                    } );
+                }
+            } ).filter( function(): boolean { return this.complete; } ).load();
+        },
+    }
 };
 
 export default ccComponentImageTeaserPreview;

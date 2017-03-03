@@ -7,40 +7,81 @@
     $root: &;
 
     overflow: hidden;
+    position: relative;
+    font-size: 0;
 
-    &__background {
-        height: 230px;
-        position: relative;
+    &__scene {
         width: 100%;
-        overflow: hidden;
-    }
-
-    &__background-image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: .6;
-        width: 100%;
-        height: auto;
-    }
-
-    &__slides {
-        position: absolute;
-        top: 80px;
-        display: flex;
-        justify-content: center;
-        width: 100%;
+        display: inline-block;
+        white-space: nowrap;
     }
 
     &__slide {
-        height: 45px;
-        width: auto;
+        display: inline-block;
+        position: relative;
+        width: 74%;
+        padding: 0 .65rem;
+    }
+
+    &__slide-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: calc( 100% - 8rem );
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.45rem;
+    }
+
+    &__headline,
+    &__subheadline,
+    &__paragraph {
+        margin: 0 0 .5rem !important;
+        background-color: rgba( 255, 255, 255, .9 );
+        color: #333 !important;
+        padding: .5rem 2rem;
+    }
+
+    &__headline {
+        text-transform: uppercase;
+        font-weight: 600 !important;
+        font-size: 3rem !important;
+    }
+
+    &__subheadline {
+        font-size: 1.8rem !important;
+    }
+
+    &__button {
+        background-color: rgba( 255, 255, 255, .9 ) !important;
+        color: #333 !important;
+        border-color: #fff !important;
+        border-radius: 2px !important;
+    }
+
+    &__image {
+        width: 100%;
+        display: block;
+        box-sizing: border-box;
+
+        &--border {
+            border: 1px dashed #e4e1d9;
+        }
+    }
+
+    &__thumbs {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translate3d( -50%, 0, 0 );
+        backface-visibility: hidden;
+    }
+
+    &__thumb {
+        margin: 0 .25rem;
         border: 2px solid #fff;
-        margin: 0 3px;
     }
-
-    &__item-image {
-        width: calc( 100% - 20px );
-    }
-
 }

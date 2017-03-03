@@ -1,9 +1,13 @@
+import $ from 'jquery';
+
 import actionButton from '../../action-button/src/action-button';
 
+import ccComponentBrandCarouselPreview from '../../cc-component-brand-carousel-preview/src/cc-component-brand-carousel-preview';
 import ccComponentButtonPreview from '../../cc-component-button-preview/src/cc-component-button-preview';
 import ccComponentHeadlinePreview from '../../cc-component-headline-preview/src/cc-component-headline-preview';
 import ccComponentImageTeaserPreview from '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
 import ccComponentHeroCarouselPreview from '../../cc-component-hero-carousel-preview/src/cc-component-hero-carousel-preview';
+import ccComponentProductCarouselPreview from '../../cc-component-product-carousel-preview/src/cc-component-product-carousel-preview';
 import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
@@ -38,10 +42,12 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
         'cc-component-placeholder': componentPlaceholder,
+        'cc-component-brand-carousel-preview': ccComponentBrandCarouselPreview,
         'cc-component-button-preview': ccComponentButtonPreview,
         'cc-component-headline-preview': ccComponentHeadlinePreview,
         'cc-component-image-teaser-preview': ccComponentImageTeaserPreview,
         'cc-component-hero-carousel-preview': ccComponentHeroCarouselPreview,
+        'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
     },
     props: {
@@ -180,9 +186,19 @@ const layoutBuilder: vuejs.ComponentOption = {
         moveComponentUp( index: number ): void {
             if ( index > 0 ) {
                 let previousComponent: IComponentInformation = this.components[ index - 1 ];
-                this.components.$set( index - 1, this.components[ index ] );
-                this.components.$set( index, previousComponent );
-                this.$dispatch( 'cc-layout-builder__update' );
+                const $thisComponent: any = $( `#${ this.components[ index ].id }` );
+                const $prevComponent: any = $( `#${ this.components[ index - 1 ].id }` );
+
+                $thisComponent.addClass( 'm2c-layout-builder__component--animating' ).css( 'transform', `translateY( ${ -Math.abs( $prevComponent.outerHeight( true ) ) }px )` );
+                $prevComponent.addClass( 'm2c-layout-builder__component--animating' ).css( 'transform', `translateY( ${ $thisComponent.outerHeight( true ) }px )` );
+
+                setTimeout( (): void => {
+                    this.components.$set( index - 1, this.components[ index ] );
+                    this.components.$set( index, previousComponent );
+                    this.$dispatch( 'cc-layout-builder__update' );
+                    $thisComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
+                    $prevComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
+                }, 400 );
             }
         },
         /**
@@ -192,9 +208,19 @@ const layoutBuilder: vuejs.ComponentOption = {
         moveComponentDown( index: number ): void {
             if ( index < this.components.length - 1 ) {
                 let previousComponent: IComponentInformation = this.components[ index + 1 ];
-                this.components.$set( index + 1, this.components[ index ] );
-                this.components.$set(  index, previousComponent );
-                this.$dispatch( 'cc-layout-builder__update' );
+                const $thisComponent: any = $( `#${ this.components[ index ].id }` );
+                const $nextComponent: any = $( `#${ this.components[ index + 1 ].id }` );
+
+                $thisComponent.addClass( 'm2c-layout-builder__component--animating' ).css( 'transform', `translateY( ${ $nextComponent.outerHeight( true ) }px )` );
+                $nextComponent.addClass( 'm2c-layout-builder__component--animating' ).css( 'transform', `translateY( ${ -Math.abs( $thisComponent.outerHeight( true ) ) }px )` );
+
+                setTimeout( (): void => {
+                    this.components.$set( index + 1, this.components[ index ] );
+                    this.components.$set(  index, previousComponent );
+                    this.$dispatch( 'cc-layout-builder__update' );
+                    $thisComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
+                    $nextComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
+                }, 400 );
             }
         },
         /**

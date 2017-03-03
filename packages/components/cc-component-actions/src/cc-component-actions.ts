@@ -11,11 +11,8 @@
  */
 const componentActions: vuejs.ComponentOption = {
     template: `<aside class="cc-component-actions | {{ class }}">
-        <div class="cc-component-actions__top">
-            <slot name="cc-component-actions__top"></slot>
-        </div>
-        <div class="cc-component-actions__bottom">
-            <slot name="cc-component-actions__bottom"></slot>
+        <div class="cc-component-actions__buttons">
+            <slot name="cc-component-actions__buttons"></slot>
         </div>
     </aside>`,
     props: {

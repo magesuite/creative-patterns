@@ -5,11 +5,12 @@
  */
 
 const componentAdder: vuejs.ComponentOption = {
-    template: `<section class="cc-component-adder | {{ class }}">
+    template: `<div class="cc-component-adder {{ class }}">
         <div class="cc-component-adder__button-wrapper" @click="onCreateComponent">
             <slot></slot>
         </div>
-    </section>`,
+        <span class="cc-component-adder__dashline"></span>
+    </div>`,
     props: {
         /**
          * Class property support to enable BEM mixes.
