@@ -67,7 +67,6 @@ $namespace: 'cc-' !default;
             }
 
             #{$root}__component-actions {
-                z-index: 5;
                 opacity: 1;
                 transform: translate3d( -50%, -50%, 0 );
             }
@@ -86,10 +85,9 @@ $namespace: 'cc-' !default;
         left: 50%;
         opacity: 0;
         transform: translate3d( -50%, -75%, 0 );
-        z-index: -1;
+        z-index: 5;
         backface-visibility: hidden;
         transition: all .25s ease-in-out;
-        will-change: z-index;
     }
 
     &__component-wrapper {

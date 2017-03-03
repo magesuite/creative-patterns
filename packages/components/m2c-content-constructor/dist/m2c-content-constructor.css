@@ -567,6 +567,7 @@
     margin-right: 0; }
   .cc-component-image-teaser-preview__item-image {
     display: block;
+    width: 100%;
     box-sizing: border-box; }
     .cc-component-image-teaser-preview__item-image--border {
       border: 1px dashed #e4e1d9; }
@@ -795,7 +796,6 @@
               transform: scale(1);
       opacity: 1; }
     .m2c-layout-builder__component:hover .m2c-layout-builder__component-actions {
-      z-index: 5;
       opacity: 1;
       -webkit-transform: translate3d(-50%, -50%, 0);
               transform: translate3d(-50%, -50%, 0); }
@@ -812,12 +812,11 @@
   opacity: 0;
   -webkit-transform: translate3d(-50%, -75%, 0);
           transform: translate3d(-50%, -75%, 0);
-  z-index: -1;
+  z-index: 5;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   -webkit-transition: all .25s ease-in-out;
-  transition: all .25s ease-in-out;
-  will-change: z-index; }
+  transition: all .25s ease-in-out; }
 
 .m2c-layout-builder__component-wrapper {
   margin: 0; }
