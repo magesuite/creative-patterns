@@ -250,6 +250,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             configuratorModalOptions.buttons[1].click = function (): void {
                 component.$broadcast( 'cc-component-configurator__save' );
             };
+            configuratorModalOptions.title = `${ $t( 'Configure your component' ) }<span class="m2c-content-constructor__modal-subheadline">${ this.transformComponentTypeToText( componentInformation.type ) }</span>`;
 
             // Configurator modal opened callback
             configuratorModalOptions.opened = function(): void {
@@ -316,6 +317,11 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                     console.warn( `Something went wrong, CMS block wasn\'t removed, please check if block with ID: ${cmsBlockId} exists in database` );
                 }
             } );
+        },
+
+        transformComponentTypeToText( componentType: string ): string {
+            const txt: string = componentType.replace( '-', ' ' );
+            return txt.charAt( 0 ).toUpperCase() + txt.slice( 1 );
         },
     },
 };
