@@ -1,0 +1,27 @@
+@import '../../cs-input/src/cs-input';
+
+// cc-products-grid-configurator
+// Configurator for products grid component.
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+$namespace: 'cc-' !default;
+
+.#{$namespace}products-grid-configurator {
+    &__columns {
+        display: flex;
+    }
+
+    &__column-left,
+    &__column-right {
+        width: calc( 50% - 1rem );
+    }
+
+    &__column-right {
+        margin-left: 2rem;
+    }
+
+    &__form-input {
+        width: 75%;
+    }
+}
