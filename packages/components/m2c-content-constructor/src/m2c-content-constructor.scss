@@ -16,5 +16,17 @@
     &__modal {
         display: none;
         padding-bottom: 2.6rem;
+
+        &-subheadline {
+            display: block;
+            color: #9c9c9c;
+            font-size: 1.65rem !important;
+            font-style: normal !important;
+            margin: .25rem 0 0 !important;
+
+            + span {
+                display: none !important;
+            }
+        }
     }
 }
