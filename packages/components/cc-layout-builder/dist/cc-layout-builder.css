@@ -557,50 +557,64 @@
   font-size: 0; }
   .cc-component-hero-carousel-preview__scene {
     width: 100%;
+    margin-left: -122%;
     display: inline-block;
     white-space: nowrap; }
+    .cc-component-hero-carousel-preview__scene--single {
+      margin-left: 0; }
   .cc-component-hero-carousel-preview__slide {
     display: inline-block;
     position: relative;
     width: 74%;
     padding: 0 .65rem; }
-  .cc-component-hero-carousel-preview__slide-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: calc( 100% - 8rem);
-    padding: 3rem;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    font-size: 1.45rem; }
-  .cc-component-hero-carousel-preview__headline, .cc-component-hero-carousel-preview__subheadline, .cc-component-hero-carousel-preview__paragraph {
-    margin: 0 0 .5rem !important;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #333 !important;
-    padding: .5rem 2rem; }
+    .cc-component-hero-carousel-preview__scene--single .cc-component-hero-carousel-preview__slide {
+      width: 100%;
+      padding: 0; }
+    .cc-component-hero-carousel-preview__slide-content {
+      position: absolute;
+      bottom: 1px;
+      left: calc( .65rem + 1px);
+      width: calc( 100% - 2px - 1.3rem);
+      text-align: center; }
+      .cc-component-hero-carousel-preview__scene--single .cc-component-hero-carousel-preview__slide-content {
+        left: 1px;
+        width: calc( 100% - 2px); }
+    .cc-component-hero-carousel-preview__slide-content-info {
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.85); }
+  .cc-component-hero-carousel-preview__headline, .cc-component-hero-carousel-preview__subheadline, .cc-component-hero-carousel-preview__paragraph, .cc-component-hero-carousel-preview__button {
+    max-width: 60%;
+    margin: .5rem auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.15 !important;
+    text-align: center; }
+    .cc-component-hero-carousel-preview__headline:first-child, .cc-component-hero-carousel-preview__subheadline:first-child, .cc-component-hero-carousel-preview__paragraph:first-child, .cc-component-hero-carousel-preview__button:first-child {
+      margin-top: 0; }
   .cc-component-hero-carousel-preview__headline {
-    text-transform: uppercase;
-    font-weight: 600 !important;
-    font-size: 3rem !important; }
-  .cc-component-hero-carousel-preview__subheadline {
-    font-size: 1.8rem !important; }
-  .cc-component-hero-carousel-preview__button {
-    background-color: rgba(255, 255, 255, 0.9) !important;
+    margin-top: 0;
+    font-size: 3.25rem !important;
     color: #333 !important;
-    border-color: #fff !important;
-    border-radius: 2px !important; }
+    font-weight: 600 !important; }
+  .cc-component-hero-carousel-preview__subheadline {
+    font-size: 1.85rem !important;
+    font-weight: 400 !important;
+    color: #888 !important; }
+  .cc-component-hero-carousel-preview__paragraph {
+    font-size: 1.45rem !important;
+    font-weight: 300 !important;
+    color: #888 !important; }
+  .cc-component-hero-carousel-preview__button {
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    border: none;
+    background: #adadad;
+    color: #fff;
+    font-size: 1.45rem;
+    border-radius: 2px;
+    font-weight: 400;
+    min-width: 25rem; }
   .cc-component-hero-carousel-preview__image {
     width: 100%;
     display: block;
@@ -608,14 +622,10 @@
     .cc-component-hero-carousel-preview__image--border {
       border: 1px dashed #e4e1d9; }
   .cc-component-hero-carousel-preview__thumbs {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    -webkit-transform: translate3d(-50%, 0, 0);
-            transform: translate3d(-50%, 0, 0);
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden; }
+    display: inline-block;
+    margin: 0 0 1.35rem; }
   .cc-component-hero-carousel-preview__thumb {
+    width: 100px;
     margin: 0 .25rem;
     border: 2px solid #fff; }
 
