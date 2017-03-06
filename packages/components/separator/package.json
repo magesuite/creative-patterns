@@ -1,0 +1,8 @@
+{
+    "name": "separator",
+    "version": "0.0.1",
+    "description": "This component is responsible for displaying separator on M2C&#x27;s page storefront",
+    "main": "src/separator.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

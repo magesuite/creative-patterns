@@ -215,7 +215,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 } );
             };
 
-            if ( componentType === 'brand-carousel' ) {
+            if ( componentType === 'brand-carousel' || componentType === 'separator' ) {
                 this.$emit( 'cc-component-configurator__saved', [] );
             } else {
                 this.initConfiguratorModal( {
