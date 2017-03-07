@@ -152,9 +152,11 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          */
         configuration: {
             type: Object,
-            default: {
-                mobileDisplayVariant: 'slider',
-                items: [ JSON.parse( JSON.stringify( heroItemDataPattern ) ) ],
+            default(): any {
+                return {
+                    mobileDisplayVariant: 'slider',
+                    items: [ JSON.parse( JSON.stringify( heroItemDataPattern ) ) ],
+                };
             },
         },
         /* get assets for displaying component images */

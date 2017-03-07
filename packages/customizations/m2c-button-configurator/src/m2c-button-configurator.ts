@@ -30,9 +30,11 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
          */
         configuration: {
             type: Object,
-            default: {
-                label: '',
-                target: '',
+            default(): Object {
+                return {
+                    label: '',
+                    target: '',
+                };
             },
         },
         /* Get assets for displaying component images */

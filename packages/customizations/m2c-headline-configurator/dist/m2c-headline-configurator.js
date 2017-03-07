@@ -83,9 +83,11 @@ var ccHeadlineConfigurator = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                title: '',
-                subtitle: '',
+            default: function () {
+                return {
+                    title: '',
+                    subtitle: '',
+                };
             },
         },
     },

@@ -83,10 +83,12 @@ var ccCategoryLinksConfigurator = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                main_category_id: '',
-                sub_categories_ids: '',
-                shownumbers: false,
+            default: function () {
+                return {
+                    main_category_id: '',
+                    sub_categories_ids: '',
+                    shownumbers: false,
+                };
             },
         },
     },

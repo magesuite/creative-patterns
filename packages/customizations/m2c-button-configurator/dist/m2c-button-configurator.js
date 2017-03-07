@@ -105,9 +105,11 @@ var m2cButtonConfigurator = {
          */
         configuration: {
             type: Object,
-            default: {
-                label: '',
-                target: '',
+            default: function () {
+                return {
+                    label: '',
+                    target: '',
+                };
             },
         },
         /* Get assets for displaying component images */

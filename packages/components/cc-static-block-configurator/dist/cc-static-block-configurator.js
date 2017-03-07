@@ -83,8 +83,10 @@ var ccStaticBlockConfigurator = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                identifier: '',
+            default: function () {
+                return {
+                    identifier: '',
+                };
             },
         },
     },

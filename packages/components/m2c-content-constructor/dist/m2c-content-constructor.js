@@ -111,9 +111,11 @@ var m2cButtonConfigurator = {
          */
         configuration: {
             type: Object,
-            default: {
-                label: '',
-                target: '',
+            default: function () {
+                return {
+                    label: '',
+                    target: '',
+                };
             },
         },
         /* Get assets for displaying component images */
@@ -193,10 +195,12 @@ var ccCategoryLinksConfigurator = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                main_category_id: '',
-                sub_categories_ids: '',
-                shownumbers: false,
+            default: function () {
+                return {
+                    main_category_id: '',
+                    sub_categories_ids: '',
+                    shownumbers: false,
+                };
             },
         },
     },
@@ -222,9 +226,11 @@ var ccHeadlineConfigurator = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                title: '',
-                subtitle: '',
+            default: function () {
+                return {
+                    title: '',
+                    subtitle: '',
+                };
             },
         },
     },
@@ -410,9 +416,11 @@ var m2cHeroCarouselConfigurator = {
          */
         configuration: {
             type: Object,
-            default: {
-                mobileDisplayVariant: 'slider',
-                items: [JSON.parse(JSON.stringify(heroItemDataPattern))],
+            default: function () {
+                return {
+                    mobileDisplayVariant: 'slider',
+                    items: [JSON.parse(JSON.stringify(heroItemDataPattern))],
+                };
             },
         },
         /* get assets for displaying component images */
@@ -1506,8 +1514,10 @@ var ccStaticBlockConfigurator = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                identifier: '',
+            default: function () {
+                return {
+                    identifier: '',
+                };
             },
         },
     },
