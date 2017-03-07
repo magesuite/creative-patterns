@@ -449,6 +449,26 @@
     -webkit-transform: translate3d(-50%, -50%, 0);
             transform: translate3d(-50%, -50%, 0); }
 
+.cc-component-button-preview {
+  margin: 2.4rem 0;
+  text-align: center; }
+  .cc-component-button-preview__button {
+    max-width: 60%;
+    margin: .5rem auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.15 !important;
+    text-align: center;
+    padding: 1rem 2rem;
+    border: none;
+    background: #adadad;
+    color: #fff;
+    font-size: 1.45rem;
+    border-radius: 2px;
+    font-weight: 400;
+    min-width: 25rem; }
+
 .cc-component-headline-preview {
   text-align: center;
   padding: 2rem 1rem; }

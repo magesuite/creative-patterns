@@ -13,7 +13,7 @@ interface IComponentInformation {
  */
 const ccComponentButtonPreview: vuejs.ComponentOption = {
     template: `<div class="cc-component-button-preview">
-        <button type="button">{{ configuration.label }}</button>
+        <button class="cc-component-button-preview__button" type="button">{{ configuration.label }}</button>
     </div>`,
     props: {
         /**
