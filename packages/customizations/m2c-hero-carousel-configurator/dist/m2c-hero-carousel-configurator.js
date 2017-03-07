@@ -248,9 +248,11 @@ var m2cHeroCarouselConfigurator = {
          */
         configuration: {
             type: Object,
-            default: {
-                mobileDisplayVariant: 'slider',
-                items: [JSON.parse(JSON.stringify(heroItemDataPattern))],
+            default: function () {
+                return {
+                    mobileDisplayVariant: 'slider',
+                    items: [JSON.parse(JSON.stringify(heroItemDataPattern))],
+                };
             },
         },
         /* get assets for displaying component images */

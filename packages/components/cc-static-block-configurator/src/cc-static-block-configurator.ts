@@ -22,8 +22,10 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                identifier: '',
+            default(): Object {
+                return {
+                    identifier: '',
+                };
             },
         },
     },

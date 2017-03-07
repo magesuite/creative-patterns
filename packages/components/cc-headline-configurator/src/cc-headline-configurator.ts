@@ -23,9 +23,11 @@ const ccHeadlineConfigurator: vuejs.ComponentOption = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                title: '',
-                subtitle: '',
+            default(): any {
+                return {
+                    title: '',
+                    subtitle: '',
+                };
             },
         },
     },

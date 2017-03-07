@@ -45,7 +45,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
          */
         configuration: {
             type: Object,
-            default(): any {
+            default(): Object {
                 return {
                     blockId: '',
                 };

@@ -27,10 +27,12 @@ const ccCategoryLinksConfigurator: vuejs.ComponentOption = {
     props: {
         configuration: {
             type: Object,
-            default: {
-                main_category_id: '',
-                sub_categories_ids: '',
-                shownumbers: false,
+            default(): Object {
+                return {
+                    main_category_id: '',
+                    sub_categories_ids: '',
+                    shownumbers: false,
+                };
             },
         },
     },
