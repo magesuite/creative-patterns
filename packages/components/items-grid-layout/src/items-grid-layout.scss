@@ -60,6 +60,60 @@
                 grid-row-start: 1;
                 grid-row-end: 3;
             }
+
+            &--hero-right {
+                /* autoprefixer: off */
+                -ms-grid-column: 2;
+                grid-column-start: 2;
+                grid-column-end: 4;
+                -ms-grid-row: 1;
+                grid-row-start: 1;
+                grid-row-end: 3;
+            }
+
+            &--hero-middle {
+                /* autoprefixer: off */
+                -ms-grid-column: 2;
+                grid-column-start: 2;
+                grid-column-end: 4;
+                -ms-grid-row: 2;
+                grid-row-start: 2;
+                grid-row-end: 4;
+            }
+        }
+
+        @include media( '>=laptop-lg' ) {
+            &--hero-right {
+                /* autoprefixer: off */
+                -ms-grid-column: 3;
+                grid-column-start: 3;
+                grid-column-end: 5;
+                -ms-grid-row: 1;
+                grid-row-start: 1;
+                grid-row-end: 3;
+            }
+        }
+
+        @include media( '>=tv' ) {
+            &--hero-right {
+                /* autoprefixer: off */
+                -ms-grid-column: 4;
+                grid-column-start: 4;
+                grid-column-end: 6;
+                -ms-grid-row: 1;
+                grid-row-start: 1;
+                grid-row-end: 3;
+            }
+
+            &--hero-middle {
+                /* autoprefixer: off */
+                -ms-grid-column: 3;
+                grid-column-start: 3;
+                grid-column-end: 5;
+                -ms-grid-row: 2;
+                grid-row-start: 2;
+                grid-row-end: 4;
+            }
         }
 
     }
