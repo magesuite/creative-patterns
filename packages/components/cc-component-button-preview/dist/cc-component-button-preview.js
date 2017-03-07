@@ -10,7 +10,7 @@
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccComponentButtonPreview = {
-    template: "<div class=\"cc-component-button-preview\">\n        <button type=\"button\">{{ configuration.label }}</button>\n    </div>",
+    template: "<div class=\"cc-component-button-preview\">\n        <button class=\"cc-component-button-preview__button\" type=\"button\">{{ configuration.label }}</button>\n    </div>",
     props: {
         /**
          * Single's component configuration
