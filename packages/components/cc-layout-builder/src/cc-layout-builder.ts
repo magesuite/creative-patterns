@@ -8,6 +8,7 @@ import ccComponentHeadlinePreview from '../../cc-component-headline-preview/src/
 import ccComponentImageTeaserPreview from '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
 import ccComponentHeroCarouselPreview from '../../cc-component-hero-carousel-preview/src/cc-component-hero-carousel-preview';
 import ccComponentProductCarouselPreview from '../../cc-component-product-carousel-preview/src/cc-component-product-carousel-preview';
+import ccComponentSeparatorPreview from '../../cc-component-separator-preview/src/cc-component-separator-preview';
 import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
@@ -49,6 +50,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-hero-carousel-preview': ccComponentHeroCarouselPreview,
         'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
+        'cc-component-separator-preview': ccComponentSeparatorPreview,
     },
     props: {
         /**
@@ -255,7 +257,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         },
 
         isPossibleToEdit( componentType: string ): boolean {
-            return componentType === 'brand-carousel';
+            return componentType === 'brand-carousel' || componentType === 'separator';
         },
     },
 };

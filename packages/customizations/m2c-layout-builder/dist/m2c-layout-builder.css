@@ -705,6 +705,17 @@
     color: #e1e1e1 !important;
     font-weight: 300 !important; }
 
+.cc-component-separator-preview {
+  position: absolute;
+  top: 3.9rem;
+  width: calc( 100% - 2.6rem); }
+  .cc-component-separator-preview__separator {
+    display: block;
+    margin: 2rem 0;
+    border: none;
+    height: 1px;
+    background: #cac3b4; }
+
 .m2c-layout-builder__component {
   position: relative;
   width: 100%;

@@ -244,6 +244,24 @@ var ccComponentProductCarouselPreview = {
 };
 
 /**
+ * Separator preview component.
+ * This component is responsible for displaying preview of separator component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentSeparatorPreview = {
+    template: "<div class=\"cc-component-separator-preview\">\n        <hr class=\"cc-component-separator-preview__separator\">\n    </div>",
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+};
+
+/**
  * CMS block preview component.
  * This component is responsible for displaying preview of CMS block component in Layout Builder (admin panel)
  * @type {vuejs.ComponentOption} Vue component object.
@@ -364,6 +382,7 @@ var layoutBuilder = {
         'cc-component-hero-carousel-preview': ccComponentHeroCarouselPreview,
         'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
+        'cc-component-separator-preview': ccComponentSeparatorPreview,
     },
     props: {
         /**
@@ -559,7 +578,7 @@ var layoutBuilder = {
             return componentType.replace('-', ' ');
         },
         isPossibleToEdit: function (componentType) {
-            return componentType === 'brand-carousel';
+            return componentType === 'brand-carousel' || componentType === 'separator';
         },
     },
 };
