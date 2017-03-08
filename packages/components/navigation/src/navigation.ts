@@ -183,8 +183,8 @@ export default class Navigation {
             this._setColumnCount( $flyoutColumns, flyoutColumnCount );
             prevFlyoutHeight = flyoutHeight;
             flyoutHeight = $flyout.height();
-
-            if ( flyoutHeight !== prevFlyoutHeight ) {
+            // Allow for small margin of error of 10px.
+            if ( Math.abs( flyoutHeight - prevFlyoutHeight ) > 10 ) {
                 this._setColumnCount( $flyoutColumns, flyoutColumnCount + 1 );
                 break;
             }
