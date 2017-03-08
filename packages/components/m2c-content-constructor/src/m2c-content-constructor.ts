@@ -124,6 +124,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        categoryDataProviderEndpoint: {
+            type: String,
+            default: '',
+        },
     },
     data(): Object {
         return {

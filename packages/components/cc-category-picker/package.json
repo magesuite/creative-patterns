@@ -1,0 +1,8 @@
+{
+    "name": "cc-category-picker",
+    "version": "0.0.1",
+    "description": "This component is an alternative for Magento&#x27;s default category picker. It provides nice-looking UI for selecting categories and copies its IDs to the hidden input",
+    "main": "src/cc-category-picker.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
