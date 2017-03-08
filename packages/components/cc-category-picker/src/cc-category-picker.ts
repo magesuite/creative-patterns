@@ -166,8 +166,6 @@ export default class CcCategoryPicker {
             return $( this ).next( 'label' ).clone().children().remove().end().text();
         } );
 
-        console.log(this._categoriesLabels);
-
         const crumbs: string = $( inputs ).map( function(): string {
             const label: string = $( this ).next( 'label' ).clone().children().remove().end().text();
             return templates.getCrumbTemplate( c.base, label, $t( 'Remove this category' ), this.value );

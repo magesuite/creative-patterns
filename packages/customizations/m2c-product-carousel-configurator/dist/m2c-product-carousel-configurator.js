@@ -190,7 +190,6 @@ var CcCategoryPicker = (function () {
         this._categoriesLabels = $(inputs).map(function () {
             return $(this).next('label').clone().children().remove().end().text();
         });
-        console.log(this._categoriesLabels);
         var crumbs = $(inputs).map(function () {
             var label = $(this).next('label').clone().children().remove().end().text();
             return templates.getCrumbTemplate(c.base, label, $t('Remove this category'), this.value);

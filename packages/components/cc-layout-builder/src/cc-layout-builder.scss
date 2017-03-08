@@ -17,6 +17,7 @@ $namespace: 'cc-' !default;
 @import '../../cc-component-product-carousel-preview/src/cc-component-product-carousel-preview';
 @import '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 @import '../../cc-component-separator-preview/src/cc-component-separator-preview';
+@import '../../cc-component-category-links-preview/src/cc-component-category-links-preview';
 
 .#{$namespace}layout-builder {
     $root: &;
