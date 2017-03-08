@@ -27,7 +27,7 @@ const m2cCategoryLinksConfigurator: vuejs.ComponentOption = {
          * Listen on save event from Content Configurator component.
          */
         'cc-component-configurator__save'(): void {
-            this.configuration.main_category_label = this.categoriesPicker._categoriesLabels;
+            this.configuration.main_category_labels = this.categoryPicker._categoriesLabels;
             this.configuration.sub_categories_labels = this.subCategoriesPicker._categoriesLabels;
             this.onSave();
         },

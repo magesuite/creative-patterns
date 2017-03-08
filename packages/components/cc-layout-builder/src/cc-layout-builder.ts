@@ -4,6 +4,7 @@ import actionButton from '../../action-button/src/action-button';
 
 import ccComponentBrandCarouselPreview from '../../cc-component-brand-carousel-preview/src/cc-component-brand-carousel-preview';
 import ccComponentButtonPreview from '../../cc-component-button-preview/src/cc-component-button-preview';
+import ccComponentCategoryLinksPreview from '../../cc-component-category-links-preview/src/cc-component-category-links-preview';
 import ccComponentHeadlinePreview from '../../cc-component-headline-preview/src/cc-component-headline-preview';
 import ccComponentImageTeaserPreview from '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
 import ccComponentHeroCarouselPreview from '../../cc-component-hero-carousel-preview/src/cc-component-hero-carousel-preview';
@@ -48,8 +49,9 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-headline-preview': ccComponentHeadlinePreview,
         'cc-component-image-teaser-preview': ccComponentImageTeaserPreview,
         'cc-component-hero-carousel-preview': ccComponentHeroCarouselPreview,
-        'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
+        'cc-component-category-links-preview': ccComponentCategoryLinksPreview,
         'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
+        'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-separator-preview': ccComponentSeparatorPreview,
     },
     props: {
