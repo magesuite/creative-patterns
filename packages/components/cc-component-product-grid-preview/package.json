@@ -1,0 +1,8 @@
+{
+    "name": "cc-component-product-grid-preview",
+    "version": "0.0.1",
+    "description": "This component is responsible for displaying preview of products-grid component in CC dashboard",
+    "main": "src/cc-component-product-grid-preview.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
