@@ -9,6 +9,7 @@ import ccComponentHeadlinePreview from '../../cc-component-headline-preview/src/
 import ccComponentImageTeaserPreview from '../../cc-component-image-teaser-preview/src/cc-component-image-teaser-preview';
 import ccComponentHeroCarouselPreview from '../../cc-component-hero-carousel-preview/src/cc-component-hero-carousel-preview';
 import ccComponentProductCarouselPreview from '../../cc-component-product-carousel-preview/src/cc-component-product-carousel-preview';
+import ccComponentProductGridPreview from '../../cc-component-product-grid-preview/src/cc-component-product-grid-preview';
 import ccComponentSeparatorPreview from '../../cc-component-separator-preview/src/cc-component-separator-preview';
 import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 
@@ -52,6 +53,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-category-links-preview': ccComponentCategoryLinksPreview,
         'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
         'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
+        'cc-component-product-grid-preview': ccComponentProductGridPreview,
         'cc-component-separator-preview': ccComponentSeparatorPreview,
     },
     props: {

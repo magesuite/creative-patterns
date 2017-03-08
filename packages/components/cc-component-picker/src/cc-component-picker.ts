@@ -34,8 +34,8 @@ const ccComponentPicker: vuejs.ComponentOption = {
                         </svg>
                     </span>
                     <span class="cc-component-picker__component-name">{{ component.name }}</span>
+                    <span class="cc-component-picker__component-description">{{ component.description }}</span>
                 </a>
-                <p class="cc-component-picker__component-description">{{ component.description }}</p>
             </li>
         </ul>
         <p class="cc-component-picker__no-components" v-if="!availableComponents.length">

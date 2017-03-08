@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import $t from 'mage/translate';
 
+import ccCategoryPicker from '../../../components/cc-category-picker/src/cc-category-picker';
 import ccProductsGridConfigurator from '../../../components/cc-products-grid-configurator/src/cc-products-grid-configurator';
 
 /**
@@ -18,7 +19,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
 
                 <div class="m2-input m2-input--type-inline">
                     <label for="cfg-pg-category" class="m2-input__label">${$t( 'Category ID' )}:</label>
-                    <input type="text" name="cfg-pg-category-select" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-category" v-model="configuration.category_id" @change="onChange">
+                    <input type="hidden" name="cfg-pg-category-select" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-category" v-model="configuration.category_id" @change="onChange">
                 </div>
                 <div class="m2-input m2-input--type-inline">
                     <label for="cfg-pg-order-by" class="m2-input__label">${$t( 'Order by:' )}</label>
@@ -56,14 +57,14 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
 
                 <div class="m2-input m2-input--type-inline">
                     <label for="cfg-pg-hero" class="m2-input__label">${$t( 'Hero image' )}:</label>
-                    <select name="cfg-pg-hero" class="m2-input__select" id="cfg-pg-hero" v-model="configuration.hero" @change="onChange">
-                        <option value="" selected="selected">${$t( 'No hero image' )}</option>
-                        <option value="1">${$t( 'Left' )}</option>
-                        <option value="2">${$t( 'Right' )}</option>
+                    <select name="cfg-pg-hero" class="m2-input__select" id="cfg-pg-hero" v-model="configuration.hero_position" @change="onChange">
+                        <option value="">${$t( 'No hero image' )}</option>
+                        <option value="left">${$t( 'Left' )}</option>
+                        <option value="right">${$t( 'Right' )}</option>
                     </select>
                 </div>
 
-                <div class="m2-input" v-if="configuration.hero">
+                <div class="m2-input" v-show="configuration.hero_position">
                     <div class="m2-input m2-input--type-inline">
                         <label for="cfg-pg-hero_headline" class="m2-input__label">${$t( 'Headline' )}:</label>
                         <input type="text" name="cfg-pg-hero_headline" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_headline" v-model="configuration.hero_headline" @change="onChange">
@@ -88,7 +89,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                 </div>
 
             </div>
-            <div v-bind:class="[ 'm2c-products-grid-configurator__column-right', configuration.hero_image ? 'm2c-products-grid-configurator__column-right--look-image-uploaded' : '' ]" v-show="configuration.hero">
+            <div v-bind:class="[ 'm2c-products-grid-configurator__column-right', configuration.hero_image ? 'm2c-products-grid-configurator__column-right--look-image-uploaded' : '' ]" v-show="configuration.hero_position">
                 <div class="m2c-products-grid-configurator__toolbar">
                     <template v-if="configuration.hero_image">
                         <a href="#" @click="getImageUploader()">${$t( 'Change image' )}</a>
@@ -116,11 +117,12 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     rows_desktop: 2,
                     rows_tablet: 2,
                     rows_mobile: 2,
+                    hero_position: '',
                     hero_image: '',
                     hero_headline: '',
                     hero_subheadline: '',
                     hero_url: '',
-                    hero_button_label: '',
+                    button_label: '',
                     decoded_image: '',
                     size_info: '',
                 };
@@ -141,6 +143,16 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        /* Obtain endpoint for getting categories data for category picker */
+        categoriesDataUrl: {
+            type: String,
+            default: '',
+        },
+    },
+    data(): Object {
+        return {
+            categoryPicker: undefined,
+        };
     },
     methods: {
         /* Opens M2's built-in image manager modal.
@@ -277,9 +289,22 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
         },
     },
     ready(): void {
+        const _this: any = this;
+
+        // Show loader
+        $( 'body' ).trigger( 'showLoadingPopup' );
+
+        // Get categories JSON with AJAX
+        this.$http.get( this.categoriesDataUrl ).then( ( response: any ): void => {
+            _this.categoryPicker = new ccCategoryPicker( $( '#cfg-pg-category' ), JSON.parse( response.body ) );
+            
+            // Hide loader
+            $( 'body' ).trigger( 'hideLoadingPopup' );
+        } );
+
         this.imageUploadListener();
         this.widgetSetListener();
-    }
+    },
 }
 
 export default m2cProductsGridConfigurator;

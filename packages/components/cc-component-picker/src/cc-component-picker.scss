@@ -6,13 +6,10 @@
 .cc-component-picker {
     $root: &;
 
-    overflow: hidden;
-
     &__list {
         display: flex;
         flex-wrap: wrap;
-        width: calc( 100% + 20px );
-        margin: 0 -10px;
+        margin: 0 -1rem;
         padding: 0;
         list-style: none;
 
@@ -27,17 +24,23 @@
     }
 
     &__list-item {
-        width: calc( ( 100% / 3 ) - 20px );
+        width: calc( ( 100% / 3 ) - 2rem );
         min-width: 250px;
-        margin: 10px;
+        margin: 1rem;
+        padding: 0;
     }
 
     &__component-link {
         display: block;
+        height: 100%;
+        padding: 10px;
+        box-shadow: 0 0 5px 0 rgba( 0, 0, 0, .12 );
+        transition: box-shadow .15s ease-in-out, color .15s linear;
 
         &:hover {
             text-decoration: none;
             color: #007bdb;
+            box-shadow: 0 0 15px 3px rgba( 0, 0, 0, .18 );
 
             #{$root}__component-figure {
                 border-color: #007bdb;
@@ -78,7 +81,10 @@
     }
 
     &__component-description {
+        display: block;
         margin: 1rem 0;
+        color: #303030;
+        line-height: 1.55;
     }
 
     @media screen and ( max-width: 990px ) {
