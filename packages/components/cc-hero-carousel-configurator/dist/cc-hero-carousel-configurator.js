@@ -182,7 +182,7 @@ var ccHeroCarouselConfigurator = {
     mixins: [
         ccComponentConfigurator,
     ],
-    template,
+    template: template,
     /**
      * Get dependencies
      */
