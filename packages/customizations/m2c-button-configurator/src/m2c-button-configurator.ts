@@ -15,7 +15,7 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
         <div class="m2-input m2-input--type-addon m2-input--type-inline | m2c-button-configurator__item-form-element">
             <label for="cfg-target" class="m2-input__label">${$t( 'Target' )}:</label>
             <div class="m2-input__addon-wrapper">
-                <input type="text" class="m2-input__input m2-input--type-readonly | m2c-button-configurator__target" readonly v-model="configuration.target" id="cfg-target">
+                <input type="text" class="m2-input__input | m2c-button-configurator__target" v-model="configuration.target" id="cfg-target">
                 <span class="m2-input__addon | m2c-button-configurator__widget-chooser-trigger" @click="openCtaTargetModal()">
                     <svg class="m2-input__addon-icon">
                         <use xlink:href="#icon_link"></use>
@@ -57,11 +57,6 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
         openCtaTargetModal(): void {
             widgetTools.openDialog( `${window.location.origin}/admin/admin/widget/index/widget_target_id/cfg-target` );
 
-            /* clean current value since widget chooser doesn't do that to allow multiple widgets
-             * we don't want that since this should be url for CTA
-             */
-            this.configuration.target = '';
-
             this.wWidgetListener();
         },
         /* Sets listener for widget chooser
@@ -81,9 +76,24 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
         wWidgetListener(): void {
             if ( typeof wWidget !== 'undefined' && widgetTools.dialogWindow[ 0 ].innerHTML !== '' ) {
                 this.disableNotLinksOptions();
+                this.setWidgetEvents();
             } else {
                 setTimeout( this.wWidgetListener, 300 );
             }
+        },
+        /*
+         * Override default onClick for "Insert Widget" button in widget's modal window
+         * to clear input's value before inserting new one
+         */
+        setWidgetEvents(): void {
+            const _this: any = this;
+            const button: any = widgetTools.dialogWindow[ 0 ].querySelector( '#insert_button' );
+
+            button.onclick = null;
+            button.addEventListener( 'click', function(): void {
+                _this.configuration.hero_url = '';
+                wWidget.insertWidget();
+            } );
         },
         /*
          * Hide all options in widget chooser that are not links

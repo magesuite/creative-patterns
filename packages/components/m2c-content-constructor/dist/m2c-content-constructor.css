@@ -1511,6 +1511,12 @@
     width: 50%; }
     .m2-input__addon-wrapper .m2-input__input, .m2-input__addon-wrapper .m2-input__textarea, .m2-input__addon-wrapper .m2-input__select, .m2-input__addon-wrapper .m2-input__fake-select {
       width: 100% !important; }
+  .m2-input__addon {
+    cursor: pointer;
+    -webkit-transition: background .15s linear;
+    transition: background .15s linear; }
+    .m2-input__addon:hover {
+      background: #cacaca; }
   .m2-input__input, .m2-input__textarea, .m2-input__select, .m2-input__fake-select {
     line-height: 1.36;
     font-size: 1.4rem;
@@ -1622,6 +1628,8 @@
         -ms-transform: translateY(-50%);
             transform: translateY(-50%);
     background-color: #007bdb; }
+  .m2-input--type-addon .m2-input__input, .m2-input--type-addon .m2-input__textarea, .m2-input--type-addon .m2-input__select, .m2-input--type-addon .m2-input__fake-select {
+    padding-right: 4.5rem; }
   .m2-input--type-required .m2-input__label:after {
     color: #eb5202;
     font-weight: 500;

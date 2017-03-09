@@ -28,6 +28,15 @@ $namespace: 'm2-';
         }
     }
 
+    &__addon {
+        cursor: pointer;
+        transition: background .15s linear;
+        
+        &:hover {
+            background: darken( #e3e3e3, 10% );
+        }
+    }
+
     &__input {
         line-height: 1.36;
         font-size: 1.4rem;
@@ -189,6 +198,12 @@ $namespace: 'm2-';
                     background-color: #007bdb;
                 }
             }
+        }
+    }
+
+    &--type-addon {
+        #{$root}__input {
+            padding-right: 4.5rem;
         }
     }
 
