@@ -17,7 +17,7 @@ const ccHeroCarouselConfigurator: vuejs.ComponentOption = {
     mixins: [
         ccComponentConfigurator,
     ],
-    template,
+    template: template,
     /**
      * Get dependencies
      */
