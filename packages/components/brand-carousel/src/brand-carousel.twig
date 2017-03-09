@@ -12,7 +12,7 @@
                             {% if brand.image.src %}
                                 <figure class="{{ namespace }}brand-carousel__figure">
                                     {% if lazyload %}
-                                        <img class="{{ namespace }}brand-carousel__image lazyload" data-src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
+                                        <img class="{{ namespace }}brand-carousel__image lazyload" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
                                         <noscript>
                                             <img class="{{ namespace }}brand-carousel__image" src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
                                         </noscript>
