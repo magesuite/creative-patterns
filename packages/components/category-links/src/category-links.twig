@@ -9,23 +9,22 @@
             {{ allProductsLabel }}
 
             {% if shownumbers %}
-            <span class="{{ namespace }}category-links__qty">
-                {{ categories.main_category.products_count }}
-            </span>
+            <span class="{{ namespace }}category-links__qty">{{ categories.main_category.products_count }}</span>
             {% endif %}
         </div>
 
         <div class="{{ namespace }}category-links__list-wrapper | {{ namespace }}category-links-dropdown__content">
             <ul class="{{ namespace }}category-links__list">
                 {% for category in categories.sub_categories %}
-                    <li class="{{ namespace }}category-links__list-item">
+
+                    {% set _loopIndex = loop.index %}
+
+                    <li class="{{ namespace }}category-links__list-item {% for hide in hideLinks %} {% if _loopIndex >= hide.from %} {{ hide.mix }} {% endif %}{% endfor %}">
                         <a href="{{ category.url }}" class="{{ namespace }}category-links__link">
                             {{ category.name }}
 
                             {% if shownumbers %}
-                            <span class="{{ namespace }}category-links__qty">
-                                {{ category.products_count }}
-                            </span>
+                            <span class="{{ namespace }}category-links__qty">{{ category.products_count }}</span>
                             {% endif %}
                         </a>
                     </li>
@@ -39,9 +38,13 @@
 
 
                         {% if shownumbers %}
-                        <span class="{{ namespace }}category-links__qty">
-                            {{ categories.main_category.products_count }}
-                        </span>
+                        <span class="{{ namespace }}category-links__qty">{{ categories.main_category.products_count }}</span>
+                        {% endif %}
+
+                        {% if allProductsIcon %}
+                        <svg class="{{ namespace }}category-links__list-all-icon">
+                            <use xlink:href="#{{ allProductsIcon }}"></use>
+                        </svg>
                         {% endif %}
                     </a>
                 </li>
