@@ -29,16 +29,31 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         ccHeroCarouselConfigurator,
     ],
     template: `<div class="m2c-hero-carousel-configurator | {{ class }}">
-        <div class="m2c-hero-carousel-configurator__modal" v-el:error-modal></div>
-        <div class="m2c-hero-carousel-configurator__global-configuration">
-            <div class="m2-input">
-                <label for="cfg-hc-hero-display-variant" class="m2-input__label">${$t( 'Mobile display variant' )}:</label>
-                <select name="cfg-hc-hero-display-variant" class="m2-input__select" id="cfg-hc-hero-display-variant" v-model="configuration.mobileDisplayVariant" style="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
-                    <option value="slider">${$t( 'Display as slider' )}</option>
-                    <option value="list">${$t( 'Display as list - one under another' )}</option>
-                </select>
+        <section class="m2c-hero-carousel-configurator__section">
+            <h3 class="m2c-hero-carousel-configurator__subtitle">Mobile Devices Scenario</h3>
+            <div class="m2c-hero-carousel-configurator__scenario-options">
+                <div class="m2c-hero-carousel-configurator__scenario-options-list">
+                    <li
+                        :class="{
+                            'm2c-hero-carousel-configurator__option--selected': configuration.mobileDisplayVariant.id == optionId,
+                        }"
+                        class="m2c-hero-carousel-configurator__option"
+                        v-for="(optionId, option) in scenarioOptions.mobileDisplayVariant"
+                        @click="setOption('mobileDisplayVariant', optionId)">
+                        <div class="m2c-hero-carousel-configurator__option-wrapper">
+                            <svg class="m2c-hero-carousel-configurator__option-icon">
+                                <use v-bind="{ 'xlink:href': '#' + option.iconId }"></use>
+                            </svg>
+                        </div>
+                        <p class="m2c-hero-carousel-configurator__option-name">
+                            {{ option.name }}
+                        </p>
+                    </li>
+                </ul>
             </div>
-        </div>
+        </section>
+
+        <h3 class="m2c-hero-carousel-configurator__title">Content</h3>
 
         <cc-component-adder class="cc-component-adder cc-component-adder--static" v-show="!configuration.items.length">
             <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button | m2c-hero-carousel-configurator__item-action-button" @click="createNewHeroItem( 0 )">
@@ -60,19 +75,13 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
 
                 <div class="m2c-hero-carousel-configurator__item-content">
                     <div v-bind:class="[ 'm2c-hero-carousel-configurator__item-col-left', configuration.items[$index].image ? 'm2c-hero-carousel-configurator__item-col-left--look-image-uploaded' : '' ]">
-                        <div class="m2c-hero-carousel-configurator__toolbar">
-                            <span class="m2c-hero-carousel-configurator__size-info">{{ configuration.items[$index].sizeInfo }}</span>
-                            <template v-if="configuration.items[$index].image">
-                                <a href="#" @click="getImageUploader( $index )">${$t( 'Change image' )}</a>
-                            </template>
-                            <template v-else>
-                                <a href="#" @click="getImageUploader( $index )">${$t( 'Upload image' )}</a>
-                            </template>
-                        </div>
                         <div class="m2c-hero-carousel-configurator__item-image-wrapper">
                             <img :src="configuration.items[$index].image" class="m2c-hero-carousel-configurator__item-image" v-show="configuration.items[$index].image">
                             <input type="hidden" v-model="configuration.items[$index].image">
                             <input type="hidden" class="m2c-hero-carousel-configurator__image-url" id="hero-img-{{$index}}">
+                            <svg class="m2c-hero-carousel-configurator__item-image-placeholder" v-show="!configuration.items[$index].image">
+                                <use xlink:href="#icon_image-placeholder"></use>
+                            </svg>
 
                             <div class="m2c-hero-carousel-configurator__item-actions">
                                 <cc-component-actions>
@@ -86,6 +95,12 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                                             <svg class="action-button__icon action-button__icon--size_100">
                                                 <use xlink:href="#icon_arrow-down"></use>
                                             </svg>
+                                        </button>
+                                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon | cc-component-actions__button cc-component-actions__button--upload-image | m2c-hero-carousel-configurator__item-action-button" @click="getImageUploader( $index )">
+                                                <svg class="action-button__icon action-button__icon--size_100">
+                                                    <use xlink:href="#icon_upload-image"></use>
+                                                </svg>
+                                                {{ configuration.items[$index].image ? imageUploadedText : noImageUploadedText }}
                                         </button>
                                         <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete | m2c-hero-carousel-configurator__item-action-button" @click="deleteHeroItem( $index )">
                                             <svg class="action-button__icon">
@@ -101,7 +116,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                     <div class="m2c-hero-carousel-configurator__item-col-right">
                         <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
                             <label for="cfg-hc-item{{ $index }}-variant" class="m2-input__label">${$t( 'Display variant' )}:</label>
-                            <select name="cfg-hc-item{{ $index }}-variant" class="m2-input__select" id="cfg-hc-item{{ $index }}-variant" v-model="configuration.items[$index].displayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                            <select name="cfg-hc-item{{ $index }}-variant" class="m2-input__select | m2c-hero-carousel-configurator__select" id="cfg-hc-item{{ $index }}-variant" v-model="configuration.items[$index].displayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
                                 <option value="variant-1">${$t( 'Text vertically centered on the left' )}</option>
                                 <option value="variant-2">${$t( 'Text vertically centered in the middle' )}</option>
                                 <option value="variant-3">${$t( 'Text on the bottom, left corner' )}</option>
@@ -120,18 +135,20 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                             <label for="cfg-hc-item{{ $index }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
                             <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-hc-item{{ $index }}-paragraph" class="m2-input__textarea" placeholder="(max 200 characters)" maxlength="200"></textarea>
                         </div>
-                        <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
-                            <label for="cfg-hc-item{{ $index }}-cta-label" class="m2-input__label">${$t( 'CTA label' )}:</label>
-                            <input type="text" v-model="configuration.items[$index].ctaLabel" id="cfg-hc-item{{ $index }}-cta-label" class="m2-input__input">
-                        </div>
-                        <div class="m2-input m2-input--type-addon | m2c-hero-carousel-configurator__item-form-element">
-                            <label for="hero-ctatarget-output-{{ $index }}" class="m2-input__label">${$t( 'CTA target link' )}:</label>
-                            <input type="text" class="m2-input__input | m2c-hero-carousel-configurator__cta-target-link" v-model="configuration.items[$index].href" id="hero-ctatarget-output-{{ $index }}">
-                            <span class="m2-input__addon | m2c-hero-carousel-configurator__widget-chooser-trigger" @click="openCtaTargetModal( $index )">
-                                <svg class="m2-input__addon-icon">
-                                    <use xlink:href="#icon_link"></use>
-                                </svg>
-                            </span>
+                        <div class="m2-input m2-input--group">
+                            <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
+                                <label for="cfg-hc-item{{ $index }}-cta-label" class="m2-input__label">${$t( 'CTA label' )}:</label>
+                                <input type="text" v-model="configuration.items[$index].ctaLabel" id="cfg-hc-item{{ $index }}-cta-label" class="m2-input__input">
+                            </div>
+                            <div class="m2-input m2-input--type-addon | m2c-hero-carousel-configurator__item-form-element">
+                                <label for="hero-ctatarget-output-{{ $index }}" class="m2-input__label">${$t( 'CTA target link' )}:</label>
+                                <input type="text" class="m2-input__input | m2c-hero-carousel-configurator__cta-target-link" v-model="configuration.items[$index].href" id="hero-ctatarget-output-{{ $index }}">
+                                <span class="m2-input__addon | m2c-hero-carousel-configurator__widget-chooser-trigger" @click="openCtaTargetModal( $index )">
+                                    <svg class="m2-input__addon-icon">
+                                        <use xlink:href="#icon_link"></use>
+                                    </svg>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -145,6 +162,8 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                 </cc-component-adder>
             </div>
         </template>
+
+        <div class="m2c-hero-carousel-configurator__modal" v-el:error-modal></div>
     </div>`,
     props: {
         /*
@@ -154,7 +173,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             type: Object,
             default(): any {
                 return {
-                    mobileDisplayVariant: 'slider',
+                    mobileDisplayVariant: {},
                     items: [ JSON.parse( JSON.stringify( heroItemDataPattern ) ) ],
                 };
             },
@@ -175,6 +194,25 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             default: '',
         },
     },
+    data(): any {
+        return {
+            imageUploadedText: $t( 'Change' ),
+            noImageUploadedText: $t( 'Upload' ),
+            scenarioOptions: {
+                // Mobile layout scenario elements.
+                mobileDisplayVariant: {
+                    'list': {
+                        name: 'Large teaser',
+                        iconId: 'ml_col',
+                    },
+                    'slider': {
+                        name: 'Slider',
+                        iconId: 'ml_slider',
+                    },
+                },
+            },
+        };
+    },
     events: {
         /**
          * Listen on save event from Content Configurator component.
@@ -185,6 +223,13 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         },
     },
     methods: {
+        getImageUploadText( index: number ): string {
+            return this.configuration.items[ index ].image ? $t( 'Change' ) : $t( 'Upload' );
+        },
+        setOption( optionCategory: string, optionId: string ): void {
+            this.configuration[ optionCategory ] = this.scenarioOptions[ optionCategory ][ optionId ];
+            this.configuration[ optionCategory ].id = optionId;
+        },
         /* Opens M2's built-in image manager modal
          * Manages all images: image upload from hdd, select image that was already uploaded to server
          * @param index {number} - index of image of hero item
@@ -315,9 +360,21 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          * @param {number} index Hero item's index in array.
          */
         moveHeroItemUp( index: number ): void {
+            const _this: any = this;
+
             if ( index > 0 ) {
-                this.configuration.items.splice( index - 1, 0, this.configuration.items.splice( index, 1 )[ 0 ] );
-                this.onChange();
+                const $thisItem: any = $( `#m2c-hero-carousel-item-${ index }` );
+                const $prevItem: any = $( `#m2c-hero-carousel-item-${ index - 1 }` );
+
+                $thisItem.addClass( 'm2c-hero-carousel-configurator__item--animating' ).css( 'transform', `translateY( ${ -Math.abs( $prevItem.outerHeight( true ) ) }px )` );
+                $prevItem.addClass( 'm2c-hero-carousel-configurator__item--animating' ).css( 'transform', `translateY( ${ $thisItem.outerHeight( true ) }px )` );
+
+                setTimeout( (): void => {
+                    _this.configuration.items.splice( index - 1, 0, _this.configuration.items.splice( index, 1 )[ 0 ] );
+                    _this.onChange();
+                    $thisItem.removeClass( 'm2c-hero-carousel-configurator__item--animating' ).css( 'transform', '' );
+                    $prevItem.removeClass( 'm2c-hero-carousel-configurator__item--animating' ).css( 'transform', '' );
+                }, 400 );
             }
         },
         /**
@@ -325,9 +382,21 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          * @param {number} index Hero item's index in array.
          */
         moveHeroItemDown( index: number ): void {
+            const _this: any = this;
+
             if ( index < this.configuration.items.length - 1 ) {
-                this.configuration.items.splice( index + 1, 0, this.configuration.items.splice( index, 1 )[ 0 ] );
-                this.onChange();
+                const $thisItem: any = $( `#m2c-hero-carousel-item-${ index }` );
+                const $nextItem: any = $( `#m2c-hero-carousel-item-${ index + 1 }` );
+
+                $thisItem.addClass( 'm2c-hero-carousel-configurator__item--animating' ).css( 'transform', `translateY( ${ $nextItem.outerHeight( true ) }px )` );
+                $nextItem.addClass( 'm2c-hero-carousel-configurator__item--animating' ).css( 'transform', `translateY( ${ -Math.abs( $thisItem.outerHeight( true ) ) }px )` );
+
+                setTimeout( (): void => {
+                    _this.configuration.items.splice( index + 1, 0, _this.configuration.items.splice( index, 1 )[ 0 ] );
+                    _this.onChange();
+                    $thisItem.removeClass( 'm2c-hero-carousel-configurator__item--animating' ).css( 'transform', '' );
+                    $nextItem.removeClass( 'm2c-hero-carousel-configurator__item--animating' ).css( 'transform', '' );
+                }, 400 );
             }
         },
         /**
@@ -416,6 +485,10 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
     ready(): void {
         this.imageUploadListener();
         this.widgetSetListener();
+
+        if ( !this.configuration.mobileDisplayVariant.id ) {
+            $( '.m2c-hero-carousel-configurator__option:first-child' ).click();
+        }
     },
 };
 

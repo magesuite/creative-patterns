@@ -8,13 +8,13 @@
     text-decoration: none;
     // Set font-size according to browser's default(usually 16px).
     font-size: 1rem;
-    // Size padding based on component's font-size(1rem/16px) for preserved proportions.
-    padding: 1.063em 3.125em;
+    padding: 1rem 2rem;
     cursor: pointer;
     // Add transparent border to ensure consistent sizing with buttons that have
     // colored border.
     border: 1px solid transparent;
     background: none;
+    white-space: nowrap;
     transition: color .15s, border-color .15s, background-color .15s;
 
     &__icon {
@@ -22,7 +22,7 @@
         height: 2rem;
         position: relative;
         top: -2px;
-        margin-right: .5em;
+        margin-right: .6rem;
         line-height: 1;
         vertical-align: middle;
         transition: fill .15s;

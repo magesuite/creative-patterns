@@ -5,10 +5,11 @@
   display: inline-block;
   text-decoration: none;
   font-size: 1rem;
-  padding: 1.063em 3.125em;
+  padding: 1rem 2rem;
   cursor: pointer;
   border: 1px solid transparent;
   background: none;
+  white-space: nowrap;
   -webkit-transition: color .15s, border-color .15s, background-color .15s;
   transition: color .15s, border-color .15s, background-color .15s; }
   .action-button__icon {
@@ -16,7 +17,7 @@
     height: 2rem;
     position: relative;
     top: -2px;
-    margin-right: .5em;
+    margin-right: .6rem;
     line-height: 1;
     vertical-align: middle;
     -webkit-transition: fill .15s;
