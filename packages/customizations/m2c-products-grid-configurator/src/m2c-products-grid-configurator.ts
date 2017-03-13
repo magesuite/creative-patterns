@@ -24,10 +24,12 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                 <div class="m2-input m2-input--type-inline">
                     <label for="cfg-pg-order-by" class="m2-input__label">${$t( 'Order by:' )}</label>
                     <select name="cfg-pg-order-by" class="m2-input__select" id="cfg-pg-order-by" v-model="configuration.order_by" @change="onChange">
-                        <option value="creation_date-DESC">${$t( 'Creation date: newest' )}</option>
-                        <option value="creation_date-ASC">${$t( 'Creation date: oldest' )}</option>
-                        <option value="price-DESC">${$t( 'Price: cheapest' )}</option>
-                        <option value="price-ASC">${$t( 'Price: most expensive' )}</option>
+                        <option value="creation_date">${$t( 'Creation date' )}</option>
+                        <option value="price">${$t( 'Price' )}</option>
+                    </select>
+                    <select name="cfg-pg-order-type" class="m2-input__select" v-model="configuration.order_type" @change="onChange">
+                        <option value="ASC">${$t( 'ASC' )}</option>
+                        <option value="DESC">${$t( 'DESC' )}</option>
                     </select>
                 </div>
                 <div class="m2-input m2-input--type-inline">
@@ -73,6 +75,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                         <label for="cfg-pg-hero_subheadline" class="m2-input__label">${$t( 'Subheadline' )}:</label>
                         <input type="text" name="cfg-pg-hero_subheadline" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_subheadline" v-model="configuration.hero_subheadline" @change="onChange">
                     </div>
+                    <div class="m2-input m2-input--type-inline">
+                        <label for="cfg-pg-hero_paragraph" class="m2-input__label | m2c-products-grid-configurator__form-label--textarea">${$t( 'Paragraph' )}:</label>
+                        <textarea type="text" name="cfg-pg-hero_paragraph" class="m2-input__textarea | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_paragraph" placeholder="${$t( '(max 200 characters)' )}" maxlength="200" v-model="configuration.hero_paragraph"></textarea>
+                    </div>
                     <div class="m2-input m2-input--type-addon m2-input--type-inline">
                         <label for="cfg-pg-hero_url" class="m2-input__label">${$t( 'Url' )}:</label>
                         <input type="text" name="cfg-pg-hero_url" class="m2-input__input | m2c-products-grid-configurator__form-input | m2c-products-grid__hero-url" id="cfg-pg-hero_url" v-model="configuration.hero_url">
@@ -113,7 +119,8 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             default(): Object {
                 return {
                     category_id: '',
-                    order_by: 'creation_date-DESC',
+                    order_by: 'creation_date',
+                    order_type: 'ASC',
                     rows_desktop: 2,
                     rows_tablet: 2,
                     rows_mobile: 2,
@@ -121,6 +128,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     hero_image: '',
                     hero_headline: '',
                     hero_subheadline: '',
+                    hero_paragraph: '',
                     hero_url: '',
                     button_label: '',
                     decoded_image: '',
@@ -305,7 +313,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
         // Get categories JSON with AJAX
         this.$http.get( this.categoriesDataUrl ).then( ( response: any ): void => {
             _this.categoryPicker = new ccCategoryPicker( $( '#cfg-pg-category' ), JSON.parse( response.body ) );
-            
+
             // Hide loader
             $( 'body' ).trigger( 'hideLoadingPopup' );
         } );
@@ -313,6 +321,6 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
         this.imageUploadListener();
         this.widgetSetListener();
     },
-}
+};
 
 export default m2cProductsGridConfigurator;
