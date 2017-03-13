@@ -132,6 +132,20 @@ $namespace: 'm2-';
         }
     }
 
+    &--group {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        &:not( #{$root}--type-checkbox ),
+        &:not( #{$root}--type-radio ) {
+            #{$root} {
+                width: calc( 50% - .75rem );
+                margin-top: 0 !important;
+            }
+        }
+    }
+
     &--type-inline {
         #{$root}__label {
             width: 25%;
@@ -218,7 +232,7 @@ $namespace: 'm2-';
         }
     }
 
-    + #{$root}:not( #{$root}--type-checkbox ):not( #{$root}--type-radio ) {
+    + #{$root}--type-inline:not( #{$root}--type-checkbox ):not( #{$root}--type-radio ) {
         margin: 3rem 0 0;
     }
 }

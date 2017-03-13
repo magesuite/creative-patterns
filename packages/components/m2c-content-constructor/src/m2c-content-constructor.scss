@@ -15,9 +15,14 @@
 
 
 .m2c-content-constructor {
+    max-width: 1280px;
+    margin: 0 auto;
+
     &__modal {
         min-height: calc( 100vh - 200px );
         display: none;
+        max-width: 1280px;
+        margin: 0 auto;
         padding-bottom: 2.6rem;
 
         &-subheadline {
