@@ -15,12 +15,31 @@
 
             <figure class="{{ namespace }}grid-product__figure">
                 {% if lazyload %}
-                    <img class="{{ namespace }}grid-product__image {{ image.mix }} | lazyload" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="{{ image.src }}" alt="{{ image.alt }}" {% if image.width %}width="{{ image.width }}"{% endif %} {% if image.height %}height="{{ image.height }}{% endif %}">
+                    <img
+                        class="{{ namespace }}grid-product__image {{ image.mix }} | lazyload"
+                        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                        data-src="{{ image.src }}"
+                        alt="{{ image.alt }}"
+                        {% if image.width %}width="{{ image.width }}"{% endif %}
+                        {% if image.height %}height="{{ image.height }}"{% endif %}
+                    >
                     <noscript>
-                        <img class="{{ namespace }}grid-product__image {{ image.mix }}" src="{{ image.src }}" alt="{{ image.alt }}" {% if image.width %}width="{{ image.width }}{%  endif  %}" {% if image.height %}height="{{ image.height }}{% endif %}">
+                        <img
+                            class="{{ namespace }}grid-product__image {{ image.mix }}"
+                            src="{{ image.src }}"
+                            alt="{{ image.alt }}"
+                            {% if image.width %}width="{{ image.width }}"{% endif %}
+                            {% if image.height %}height="{{ image.height }}"{% endif %}
+                        >
                     </noscript>
                 {% else %}
-                    <img class="{{ namespace }}grid-product__image {{ image.mix }}" src="{{ image.src }}" alt="{{ image.alt }}" width="{{ image.width }}" height="{{ image.height }}">
+                    <img
+                        class="{{ namespace }}grid-product__image {{ image.mix }}"
+                        src="{{ image.src }}"
+                        alt="{{ image.alt }}"
+                        {% if image.width %}width="{{ image.width }}"{% endif %}
+                        {% if image.height %}height="{{ image.height }}"{% endif %}
+                    >
                 {% endif %}
             </figure>
         </a>
