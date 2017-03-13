@@ -26,8 +26,8 @@
                                     class="{{ namespace }}image-teaser__image | lazyload"
                                     src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
                                     data-src="{{ item.image.src }}"
-                                    data-srcset="{{ item.image.srcSet }}"
-                                    sizes="{{ sizes }}"
+                                    {% if item.image.srcSet %}data-srcset="{{ item.image.srcSet }}"{% endif %}
+                                    {% if sizes %}data-sizes="{{ sizes }}"{% endif %}
                                     alt="{% if item.image.alt %}{{ item.image.alt }}
                                          {% elseif item.headline %}{{ item.headline|raw  }}
                                          {% elseif item.subheadline %}{{ item.subheadline|raw  }}
@@ -37,8 +37,8 @@
                                     <img
                                         class="{{ namespace }}image-teaser__image"
                                         src="{{ item.image.src }}"
-                                        srcset="{{ item.image.srcSet }}"
-                                        sizes="{{ sizes }}"
+                                        {% if item.image.srcSet %}srcset="{{ item.image.srcSet }}"{% endif %}
+                                        {% if sizes %}sizes="{{ sizes }}"{% endif %}
                                         alt="{% if item.image.alt %}{{ item.image.alt }}
                                              {% elseif item.headline %}{{ item.headline|raw  }}
                                              {% elseif item.subheadline %}{{ item.subheadline|raw  }}
@@ -49,8 +49,8 @@
                                 <img
                                     class="{{ namespace }}image-teaser__image"
                                     src="{{ item.image.src }}"
-                                    srcset="{{ item.image.srcSet }}"
-                                    sizes="{{ sizes }}"
+                                    {% if item.image.srcSet %}srcset="{{ item.image.srcSet }}"{% endif %}
+                                    {% if sizes %}sizes="{{ sizes }}"{% endif %}
                                     alt="{% if item.image.alt %}{{ item.image.alt }}
                                          {% elseif item.headline %}{{ item.headline|raw  }}
                                          {% elseif item.subheadline %}{{ item.subheadline|raw  }}
