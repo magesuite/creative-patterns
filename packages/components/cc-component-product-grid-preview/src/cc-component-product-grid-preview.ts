@@ -13,6 +13,7 @@ interface IComponentInformation {
     hero_image: string;
     hero_headline: string;
     hero_subheadline: string;
+    hero_paragraph: string;
     hero_url: string;
     hero_button_label: string;
     decoded_image: string;
@@ -36,6 +37,7 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
             <div class="cc-component-product-grid-preview__hero-content">
                 <h2 class="cc-component-product-grid-preview__headline" v-if="configuration.hero_headline">{{ configuration.hero_headline }}</h2>
                 <h3 class="cc-component-product-grid-preview__subheadline" v-if="configuration.hero_subheadline">{{ configuration.hero_subheadline }}</h3>
+                <p class="cc-component-product-grid-preview__paragraph" v-if="configuration.hero_paragraph">{{ configuration.hero_paragraph }}</p>
                 <template v-if="configuration.hero_url">
                     <button type="button" class="cc-component-product-grid-preview__button" v-if="configuration.button_label">{{ configuration.button_label }}</button>
                 </template>
