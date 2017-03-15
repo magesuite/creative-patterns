@@ -3432,6 +3432,12 @@
   height: calc( ( 100% - 3rem ) - 2rem);
   background: #f5f5f5; }
 
+.m2c-products-grid-configurator__form-label--textarea {
+  -webkit-align-self: flex-start;
+      -ms-flex-item-align: start;
+          align-self: flex-start;
+  margin-top: .6rem; }
+
 .m2c-products-grid-configurator__form-input {
   width: 75% !important; }
 

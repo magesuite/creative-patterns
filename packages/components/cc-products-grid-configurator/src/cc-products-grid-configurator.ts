@@ -22,10 +22,8 @@ const ccProductsGridConfigurator: vuejs.ComponentOption = {
             <div class="cs-input cs-input--type-inline">
                 <label for="cfg-pg-order-by" class="cs-input__label">Order by:</label>
                 <select name="cfg-pg-order-by" class="cs-input__select" id="cfg-pg-order-by" v-model="configuration.order_by" @change="onChange">
-                    <option value="creation_date-DESC">Creation date: newest</option>
-                    <option value="creation_date-ASC">Creation date: oldest</option>
-                    <option value="price-DESC">Price: cheapest</option>
-                    <option value="price-ASC">Price: most expensive</option>
+                    <option value="creation_date">Creation date:</option>
+                    <option value="price">Price:</option>
                 </select>
                 <select name="cfg-pg-order-type" class="cs-input__select" v-model="configuration.order_type" @change="onChange">
                     <option value="ASC">ASC</option>
@@ -103,8 +101,8 @@ const ccProductsGridConfigurator: vuejs.ComponentOption = {
             default(): Object {
                 return {
                     category_id: '',
-                    order_by: 'creation_date-DESC',
-                    order_type: 'DESC',
+                    order_by: 'creation_date',
+                    order_type: 'ASC',
                     rows_desktop: 2,
                     rows_tablet: 2,
                     rows_mobile: 2,
