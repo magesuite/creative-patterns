@@ -28,6 +28,8 @@ var Navigation = (function () {
             flyoutDefaultColumnCount: 4,
             resizeDebounce: 100,
             flyoutShowDelay: 200,
+            flyoutAlignTo: 'center',
+            flyoutAlignSwitch: 0,
         };
         // Don't throw errors if there is no navigation on the website.
         if ($element.length === 0) {
@@ -66,7 +68,15 @@ var Navigation = (function () {
         requestAnimationFrame(function () {
             _this._showFlyout($flyouts);
             _this._triggerReflow($flyouts);
-            $flyouts.each(function (index, flyout) { return _this._adjustFlyoutPosition($(flyout)); });
+            var alignTo = _this._options.flyoutAlignTo;
+            var alignSwitch = _this._options.flyoutAlignSwitch;
+            var switchAt = alignSwitch > 0 ? alignSwitch : alignSwitch + $flyouts.length;
+            $flyouts.each(function (index, flyout) {
+                if (index === switchAt && (alignTo === 'left' || alignTo === 'right')) {
+                    alignTo = alignTo === 'left' ? 'right' : 'left';
+                }
+                _this._adjustFlyoutPosition($(flyout), alignTo);
+            });
             _this._hideFlyout($flyouts);
         });
     };
@@ -124,7 +134,8 @@ var Navigation = (function () {
      * section is aligned to the center of trigger element as close as possible.
      * @param {JQuery} $flyout jQuery flyout element collection.
      */
-    Navigation.prototype._adjustFlyoutPosition = function ($flyout) {
+    Navigation.prototype._adjustFlyoutPosition = function ($flyout, alignTo) {
+        if (alignTo === void 0) { alignTo = 'center'; }
         var $flyoutColumns = $flyout.find("." + this._options.flyoutColumnsClassName);
         var flyoutClientRect = $flyout.get(0).getBoundingClientRect();
         var containerClientRect = this._containerClientRect;
@@ -133,9 +144,21 @@ var Navigation = (function () {
         if (flyoutClientRect.width === containerClientRect.width) {
             return;
         }
-        // Align center of columns with links to center of the flyout trigger.
-        var flyoutTransformLeft = Math.max(0, flyoutTriggerClientRect.left - containerClientRect.left + flyoutTriggerClientRect.width / 2 -
-            flyoutClientRect.width / 2);
+        var flyoutTransformLeft = 0;
+        if (alignTo === 'left') {
+            // Align left edge of columns with links to left edge of the flyout trigger.
+            flyoutTransformLeft = flyoutTriggerClientRect.left - containerClientRect.left;
+        }
+        else if (alignTo === 'right') {
+            // Align left edge of columns with links to left edge of the flyout trigger.
+            flyoutTransformLeft = flyoutTriggerClientRect.left + flyoutTriggerClientRect.width - containerClientRect.left - flyoutClientRect.width;
+        }
+        else {
+            // Align center of columns with links to center of the flyout trigger.
+            flyoutTransformLeft = flyoutTriggerClientRect.left - containerClientRect.left + flyoutTriggerClientRect.width / 2 - flyoutClientRect.width / 2;
+        }
+        // Make sure we don't pull flyout left out of container.
+        flyoutTransformLeft = Math.max(0, flyoutTransformLeft);
         // Check if flyout would overflow container on the right.
         if (flyoutTransformLeft + flyoutClientRect.right > containerClientRect.right) {
             // If it would then stick it to the right side.
