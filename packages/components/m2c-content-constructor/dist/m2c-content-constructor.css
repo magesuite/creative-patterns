@@ -3121,7 +3121,10 @@
     .m2c-hero-carousel-configurator__item-image {
       display: block;
       max-width: 100%;
-      max-height: 100%; }
+      max-height: 100%;
+      -webkit-flex-shrink: 0;
+          -ms-flex-negative: 0;
+              flex-shrink: 0; }
     .m2c-hero-carousel-configurator__item-image-placeholder {
       width: 8rem;
       height: 6.6rem;
