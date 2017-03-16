@@ -42,6 +42,23 @@ interface NavigationOptions {
      */
     flyoutVisibleClassName?: string;
     /**
+     * Tells how flyout should be aligned in relation to navigation item.
+     * Possible values are:
+     * - "center" - center of the flyout will be align to the center of an item.
+     * - "left" - left edge of the flyout will be aligned to the left edge of an item.
+     * - "right" - right edge of the flyout will be aligned to the left edge of an item.
+     * @type {string}
+     */
+    flyoutAlignTo?: string;
+    /**
+     * Tells when navigation should switch between "left" and "right" align modes.
+     * E.g. value "3" will align first 3 flyout normally and then switch, you
+     * can also write "-3" to align normally for all but last 3 flyouts.
+     *
+     * @type {number}
+     */
+    flyoutAlignSwitch?: number;
+    /**
      * Number of miliseconds to wait for next resize event before recalculating flyout positions.
      * @type {number}
      */
@@ -83,6 +100,8 @@ export default class Navigation {
         flyoutDefaultColumnCount: 4,
         resizeDebounce: 100,
         flyoutShowDelay: 200,
+        flyoutAlignTo: 'center',
+        flyoutAlignSwitch: 0,
     };
 
     /**
@@ -132,7 +151,16 @@ export default class Navigation {
         requestAnimationFrame( () => {
             this._showFlyout( $flyouts );
             this._triggerReflow( $flyouts );
-            $flyouts.each( ( index: number, flyout: HTMLElement ) => this._adjustFlyoutPosition( $( flyout ) ) );
+
+            let alignTo: string = this._options.flyoutAlignTo;
+            const alignSwitch = this._options.flyoutAlignSwitch;
+            const switchAt = alignSwitch > 0 ? alignSwitch : alignSwitch + $flyouts.length;
+            $flyouts.each( ( index: number, flyout: HTMLElement ) => {
+                if (index === switchAt && ( alignTo === 'left' || alignTo === 'right' ) ) {
+                    alignTo = alignTo === 'left' ? 'right' : 'left';
+                }
+                this._adjustFlyoutPosition( $( flyout ), alignTo );
+            } );
             this._hideFlyout( $flyouts );
         });
     }
@@ -196,7 +224,7 @@ export default class Navigation {
      * section is aligned to the center of trigger element as close as possible.
      * @param {JQuery} $flyout jQuery flyout element collection.
      */
-    protected _adjustFlyoutPosition( $flyout: JQuery ): void {
+    protected _adjustFlyoutPosition( $flyout: JQuery, alignTo: string = 'center' ): void {
         const $flyoutColumns: JQuery = $flyout.find( `.${this._options.flyoutColumnsClassName}` );
         const flyoutClientRect: ClientRect = $flyout.get( 0 ).getBoundingClientRect();
         const containerClientRect: ClientRect = this._containerClientRect;
@@ -207,9 +235,19 @@ export default class Navigation {
             return;
         }
 
-        // Align center of columns with links to center of the flyout trigger.
-        let flyoutTransformLeft: number = Math.max( 0, flyoutTriggerClientRect.left - containerClientRect.left + flyoutTriggerClientRect.width / 2 -
-            flyoutClientRect.width / 2  );
+        let flyoutTransformLeft: number = 0;
+        if ( alignTo === 'left' ) {
+            // Align left edge of columns with links to left edge of the flyout trigger.
+            flyoutTransformLeft = flyoutTriggerClientRect.left - containerClientRect.left;
+        } else if ( alignTo === 'right' ) {
+            // Align left edge of columns with links to left edge of the flyout trigger.
+            flyoutTransformLeft = flyoutTriggerClientRect.left + flyoutTriggerClientRect.width - containerClientRect.left - flyoutClientRect.width;
+        } else {
+            // Align center of columns with links to center of the flyout trigger.
+            flyoutTransformLeft = flyoutTriggerClientRect.left - containerClientRect.left + flyoutTriggerClientRect.width / 2 - flyoutClientRect.width / 2;
+        }
+        // Make sure we don't pull flyout left out of container.
+        flyoutTransformLeft = Math.max( 0, flyoutTransformLeft );
         // Check if flyout would overflow container on the right.
         if ( flyoutTransformLeft + flyoutClientRect.right > containerClientRect.right ) {
             // If it would then stick it to the right side.
