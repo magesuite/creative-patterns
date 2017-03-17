@@ -1,0 +1,11 @@
+/* Calculates how many products should be visible and sets display:block on them
+ * @param $cols { num } columns count
+ * @param $rows { num } rows count
+ * @param $adjustment { num } final value will be subtracted by this value (hero item takes N tiles)
+ */
+/* Get Basic styles and show only N first rows logic 
+ * @param $colsByBreakpoint { map } - columns configuration for each breakpoint
+ * @param $heroSizeByBreakpoint { map } - hero size (how many tiles it take) for each breakpoint
+*/
+
+/*# sourceMappingURL=products-grid.css.map */
