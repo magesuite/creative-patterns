@@ -59,29 +59,29 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
 
                 <div class="m2-input m2-input--type-inline">
                     <label for="cfg-pg-hero" class="m2-input__label">${$t( 'Hero image' )}:</label>
-                    <select name="cfg-pg-hero" class="m2-input__select" id="cfg-pg-hero" v-model="configuration.hero_position" @change="onChange">
+                    <select name="cfg-pg-hero" class="m2-input__select" id="cfg-pg-hero" v-model="configuration.hero.position" @change="onChange">
                         <option value="">${$t( 'No hero image' )}</option>
                         <option value="left">${$t( 'Left' )}</option>
                         <option value="right">${$t( 'Right' )}</option>
                     </select>
                 </div>
 
-                <div class="m2-input" v-show="configuration.hero_position">
+                <div class="m2-input" v-show="configuration.hero.position">
                     <div class="m2-input m2-input--type-inline">
                         <label for="cfg-pg-hero_headline" class="m2-input__label">${$t( 'Headline' )}:</label>
-                        <input type="text" name="cfg-pg-hero_headline" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_headline" v-model="configuration.hero_headline" @change="onChange">
+                        <input type="text" name="cfg-pg-hero_headline" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_headline" v-model="configuration.hero.headline" @change="onChange">
                     </div>
                     <div class="m2-input m2-input--type-inline">
                         <label for="cfg-pg-hero_subheadline" class="m2-input__label">${$t( 'Subheadline' )}:</label>
-                        <input type="text" name="cfg-pg-hero_subheadline" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_subheadline" v-model="configuration.hero_subheadline" @change="onChange">
+                        <input type="text" name="cfg-pg-hero_subheadline" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_subheadline" v-model="configuration.hero.subheadline" @change="onChange">
                     </div>
                     <div class="m2-input m2-input--type-inline">
                         <label for="cfg-pg-hero_paragraph" class="m2-input__label | m2c-products-grid-configurator__form-label--textarea">${$t( 'Paragraph' )}:</label>
-                        <textarea type="text" name="cfg-pg-hero_paragraph" class="m2-input__textarea | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_paragraph" placeholder="${$t( '(max 200 characters)' )}" maxlength="200" v-model="configuration.hero_paragraph"></textarea>
+                        <textarea type="text" name="cfg-pg-hero_paragraph" class="m2-input__textarea | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_paragraph" placeholder="${$t( '(max 200 characters)' )}" maxlength="200" v-model="configuration.hero.paragraph"></textarea>
                     </div>
                     <div class="m2-input m2-input--type-addon m2-input--type-inline">
                         <label for="cfg-pg-hero_url" class="m2-input__label">${$t( 'Url' )}:</label>
-                        <input type="text" name="cfg-pg-hero_url" class="m2-input__input | m2c-products-grid-configurator__form-input | m2c-products-grid__hero-url" id="cfg-pg-hero_url" v-model="configuration.hero_url">
+                        <input type="text" name="cfg-pg-hero_url" class="m2-input__input | m2c-products-grid-configurator__form-input | m2c-products-grid__hero-url" id="cfg-pg-hero_url" v-model="configuration.hero.href">
                         <span class="m2-input__addon | m2c-products-grid-configurator__widget-chooser-trigger" @click="openCtaTargetModal()">
                             <svg class="m2-input__addon-icon">
                                 <use v-bind="{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }"></use>
@@ -90,24 +90,24 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     </div>
                     <div class="m2-input m2-input--type-inline">
                         <label for="cfg-pg-hero_button_label" class="m2-input__label">${$t( 'Button label' )}:</label>
-                        <input type="text" name="cfg-pg-hero_button_label" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_button_label" v-model="configuration.button_label" @change="onChange">
+                        <input type="text" name="cfg-pg-hero_button_label" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-hero_button_label" v-model="configuration.hero.button.label" @change="onChange">
                     </div>
                 </div>
 
             </div>
-            <div v-bind:class="[ 'm2c-products-grid-configurator__column-right', configuration.hero_image ? 'm2c-products-grid-configurator__column-right--look-image-uploaded' : '' ]" v-show="configuration.hero_position">
+            <div v-bind:class="[ 'm2c-products-grid-configurator__column-right', configuration.hero.image.src ? 'm2c-products-grid-configurator__column-right--look-image-uploaded' : '' ]" v-show="configuration.hero.position">
                 <div class="m2c-products-grid-configurator__toolbar">
-                    <template v-if="configuration.hero_image">
+                    <template v-if="configuration.hero.image.src">
                         <a href="#" @click="getImageUploader()">${$t( 'Change image' )}</a>
                     </template>
                     <template v-else>
                         <a href="#" @click="getImageUploader()">${$t( 'Upload image' )}</a>
                     </template>
-                    <span class="m2c-image-teaser-configurator__size-info">{{ configuration.size_info }}</span>
+                    <span class="m2c-image-teaser-configurator__size-info">{{ configuration.hero.size_info }}</span>
                 </div>
                 <div class="m2c-products-grid-configurator__image-wrapper">
-                    <img :src="configuration.hero_image" class="m2c-image-teaser-configurator__item-image" v-show="configuration.hero_image">
-                    <input type="hidden" v-model="configuration.hero_image">
+                    <img :src="configuration.hero.image.src" class="m2c-image-teaser-configurator__item-image" v-show="configuration.hero.image.src">
+                    <input type="hidden" v-model="configuration.hero.image.src">
                     <input type="hidden" class="m2c-products-grid-configurator__image-url" id="products-grid-img">
                 </div>
             </div>
@@ -124,15 +124,22 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     rows_desktop: 2,
                     rows_tablet: 2,
                     rows_mobile: 2,
-                    hero_position: '',
-                    hero_image: '',
-                    hero_headline: '',
-                    hero_subheadline: '',
-                    hero_paragraph: '',
-                    hero_url: '',
-                    button_label: '',
-                    decoded_image: '',
-                    size_info: '',
+                    hero: {
+                        position: '',
+                        image: {
+                            src: '',
+                            alt: '',
+                        },
+                        headline: '',
+                        subheadline: '',
+                        paragraph: '',
+                        href: '',
+                        button: {
+                            label: '',
+                        },
+                        decoded_image: '',
+                        size_info: '',
+                    },
                 };
             },
         },
@@ -209,13 +216,13 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
             const imgEndpoint: string = this.imageEndpoint.replace( '{/encoded_image}', encodedImage );
 
-            this.configuration.decoded_image = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
+            this.configuration.hero.decoded_image = Base64 ? Base64.decode( encodedImage ) : window.atob( encodedImage );
 
             const img: any = new Image();
             img.onload = function(): void {
                 const ar: string = _this.getAspectRatio( img.naturalWidth, img.naturalHeight );
-                _this.configuration.hero_image = img.getAttribute( 'src' );
-                _this.configuration.size_info = `${img.naturalWidth}x${img.naturalHeight}px (${ar})`;
+                _this.configuration.hero.image.src = img.getAttribute( 'src' );
+                _this.configuration.hero.size_info = `${img.naturalWidth}x${img.naturalHeight}px (${ar})`;
                 _this.onChange();
             };
             img.src = imgEndpoint;
@@ -287,7 +294,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
 
             button.onclick = null;
             button.addEventListener( 'click', function(): void {
-                _this.configuration.hero_url = '';
+                _this.configuration.hero.href = '';
                 wWidget.insertWidget();
             } );
         },

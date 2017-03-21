@@ -1,0 +1,8 @@
+{
+    "name": "products-grid",
+    "version": "0.0.1",
+    "description": "This component displays products grid configured in M2C PG component",
+    "main": "src/products-grid.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

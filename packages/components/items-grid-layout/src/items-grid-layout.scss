@@ -8,37 +8,61 @@
     $mobileGutter: .35rem;
     $tabletUpGutter: .5rem;
 
-    display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 50% 50%;
     width: calc( 100% + ( 2 * #{$mobileGutter} ) );
     margin: 0 -#{$mobileGutter};
     padding: 0;
     list-style: none;
 
+    @supports ( display: grid ) {
+        /* autoprefixer: off */
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: 50% 50%;
+    }
+
     @include media( '>=tablet' ) {
         width: calc( 100% + ( 2 * #{$tabletUpGutter} ) );
         margin: 0 -#{$tabletUpGutter};
-        grid-template-columns: 25% 25% 25% 25%;
+        
+        @supports ( display: grid ) {
+            /* autoprefixer: off */
+            grid-template-columns: 33.3333% 33.3333% 33.3333%;
+        }
+    }
 
-        &#{$root}--in-column {
-            grid-template-columns: 33.333% 33.3333% 33.3333%;
+    @include media( '>=laptop' ) {
+        @supports ( display: grid ) {
+            /* autoprefixer: off */
+            grid-template-columns: 25% 25% 25% 25%;
+
+            &#{$root}--in-column {
+                /* autoprefixer: off */
+                grid-tempalte-columns: 33.3333% 33.3333% 33.3333%;
+            }
         }
     }
 
     @include media( '>=laptop-lg' ) {
-        grid-template-columns: 20% 20% 20% 20% 20%;
+        @supports ( display: grid ) {
+            /* autoprefixer: off */
+            grid-template-columns: 20% 20% 20% 20% 20%;
 
-        &#{$root}--in-column {
-            grid-template-columns: 25% 25% 25% 25%;
+            &#{$root}--in-column {
+                /* autoprefixer: off */
+                grid-template-columns: 25% 25% 25% 25%;
+            }
         }
     }
 
-    @include media( '>=tv' ) {
-        grid-template-columns: 16.6666% 16.6666% 16.6666% 16.6666% 16.6666% 16.6666%;
+    @include media( '>=desktop' ) {
+        @supports ( display: grid ) {
+            /* autoprefixer: off */
+            grid-template-columns: 16.6666% 16.6666% 16.6666% 16.6666% 16.6666% 16.6666%;
 
-        &#{$root}--in-column {
-            grid-template-columns: 20% 20% 20% 20% 20%;
+            &#{$root}--in-column {
+                /* autoprefixer: off */
+                grid-template-columns: 20% 20% 20% 20% 20%;
+            }
         }
     }
 
@@ -52,67 +76,79 @@
             margin: 0 $tabletUpGutter 2 * $tabletUpGutter;
 
             &--hero {
-                /* autoprefixer: off */
-                -ms-grid-column: 1;
-                grid-column-start: 1;
-                grid-column-end: 3;
-                -ms-grid-row: 1;
-                grid-row-start: 1;
-                grid-row-end: 3;
+                @supports ( display: grid ) {
+                    /* autoprefixer: off */
+                    grid-column-start: 1;
+                    grid-column-end: 3;
+                    grid-row-start: 1;
+                    grid-row-end: 3;
+                }
             }
 
             &--hero-right {
-                /* autoprefixer: off */
-                -ms-grid-column: 2;
-                grid-column-start: 2;
-                grid-column-end: 4;
-                -ms-grid-row: 1;
-                grid-row-start: 1;
-                grid-row-end: 3;
+                @supports ( display: grid ) {
+                    /* autoprefixer: off */
+                    grid-column-start: 2;
+                    grid-column-end: 4;
+                    grid-row-start: 1;
+                    grid-row-end: 3;
+                }
             }
 
             &--hero-middle {
-                /* autoprefixer: off */
-                -ms-grid-column: 2;
-                grid-column-start: 2;
-                grid-column-end: 4;
-                -ms-grid-row: 2;
-                grid-row-start: 2;
-                grid-row-end: 4;
+                @supports ( display: grid ) {
+                    /* autoprefixer: off */
+                    grid-column-start: 2;
+                    grid-column-end: 4;
+                    grid-row-start: 2;
+                    grid-row-end: 4;
+                }
+            }
+        }
+
+        @include media( '>=laptop' ) {
+            &--hero-right {
+                @supports ( display: grid ) {
+                    /* autoprefixer: off */
+                    grid-column-start: 3;
+                    grid-column-end: 5;
+                    grid-row-start: 1;
+                    grid-row-end: 3;
+                }
             }
         }
 
         @include media( '>=laptop-lg' ) {
             &--hero-right {
-                /* autoprefixer: off */
-                -ms-grid-column: 3;
-                grid-column-start: 3;
-                grid-column-end: 5;
-                -ms-grid-row: 1;
-                grid-row-start: 1;
-                grid-row-end: 3;
+                @supports ( display: grid ) {
+                    /* autoprefixer: off */
+                    grid-column-start: 4;
+                    grid-column-end: 6;
+                    grid-row-start: 1;
+                    grid-row-end: 3;
+                }
             }
         }
 
-        @include media( '>=tv' ) {
+        @include media( '>=desktop' ) {
             &--hero-right {
-                /* autoprefixer: off */
-                -ms-grid-column: 4;
-                grid-column-start: 4;
-                grid-column-end: 6;
-                -ms-grid-row: 1;
-                grid-row-start: 1;
-                grid-row-end: 3;
+                @supports ( display: grid ) {
+                    /* autoprefixer: off */
+                    grid-column-start: 5;
+                    grid-column-end: 7;
+                    grid-row-start: 1;
+                    grid-row-end: 3;
+                }
             }
 
             &--hero-middle {
-                /* autoprefixer: off */
-                -ms-grid-column: 3;
-                grid-column-start: 3;
-                grid-column-end: 5;
-                -ms-grid-row: 2;
-                grid-row-start: 2;
-                grid-row-end: 4;
+                @supports ( display: grid ) {
+                    /* autoprefixer: off */
+                    grid-column-start: 3;
+                    grid-column-end: 5;
+                    grid-row-start: 2;
+                    grid-row-end: 4;
+                }
             }
         }
 

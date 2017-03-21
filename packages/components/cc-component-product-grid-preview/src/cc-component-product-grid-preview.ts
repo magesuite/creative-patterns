@@ -9,15 +9,7 @@ interface IComponentInformation {
     rows_desktop: number;
     rows_tablet: number;
     rows_mobile: number;
-    hero: string;
-    hero_image: string;
-    hero_headline: string;
-    hero_subheadline: string;
-    hero_paragraph: string;
-    hero_url: string;
-    hero_button_label: string;
-    decoded_image: string;
-    size_info: string;
+    hero: any;
 };
 
 /**
@@ -32,14 +24,14 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
         </div>
     </div>
     <div class="cc-component-product-grid-preview" v-show="!isLoading" v-el:scene>
-        <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero_position == 'left' && configuration.hero_image">
-            <img :src="configuration.hero_image" class="cc-component-product-grid-preview__hero-image">
+        <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero.position == 'left' && configuration.hero.image.src">
+            <img :src="configuration.hero.image.src" class="cc-component-product-grid-preview__hero-image">
             <div class="cc-component-product-grid-preview__hero-content">
-                <h2 class="cc-component-product-grid-preview__headline" v-if="configuration.hero_headline">{{ configuration.hero_headline }}</h2>
-                <h3 class="cc-component-product-grid-preview__subheadline" v-if="configuration.hero_subheadline">{{ configuration.hero_subheadline }}</h3>
-                <p class="cc-component-product-grid-preview__paragraph" v-if="configuration.hero_paragraph">{{ configuration.hero_paragraph }}</p>
-                <template v-if="configuration.hero_url">
-                    <button type="button" class="cc-component-product-grid-preview__button" v-if="configuration.button_label">{{ configuration.button_label }}</button>
+                <h2 class="cc-component-product-grid-preview__headline" v-if="configuration.hero.headline">{{ configuration.hero.headline }}</h2>
+                <h3 class="cc-component-product-grid-preview__subheadline" v-if="configuration.hero.subheadline">{{ configuration.hero.subheadline }}</h3>
+                <p class="cc-component-product-grid-preview__paragraph" v-if="configuration.hero.paragraph">{{ configuration.hero.paragraph }}</p>
+                <template v-if="configuration.hero.href">
+                    <button type="button" class="cc-component-product-grid-preview__button" v-if="configuration.hero.button.label">{{ configuration.hero.button.label }}</button>
                 </template>
             </div>
         </div>
@@ -56,13 +48,14 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
             </template>
         </ul>
 
-        <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero_position == 'right' && configuration.hero_image">
-            <img :src="configuration.hero_image" class="cc-component-product-grid-preview__hero-image">
+        <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero.position == 'right' && configuration.hero.image.src">
+            <img :src="configuration.hero.image.src" class="cc-component-product-grid-preview__hero-image">
             <div class="cc-component-product-grid-preview__hero-content">
-                <h2 class="cc-component-product-grid-preview__headline" v-if="configuration.hero_headline">{{ configuration.hero_headline }}</h2>
-                <h3 class="cc-component-product-grid-preview__subheadline" v-if="configuration.hero_subheadline">{{ configuration.hero_subheadline }}</h3>
-                <template v-if="configuration.hero_url">
-                    <button type="button" class="cc-component-product-grid-preview__button" v-if="configuration.button_label">{{ configuration.button_label }}</button>
+                <h2 class="cc-component-product-grid-preview__headline" v-if="configuration.hero.headline">{{ configuration.hero.headline }}</h2>
+                <h3 class="cc-component-product-grid-preview__subheadline" v-if="configuration.hero.subheadline">{{ configuration.hero.subheadline }}</h3>
+                <p class="cc-component-product-grid-preview__paragraph" v-if="configuration.hero.paragraph">{{ configuration.hero.paragraph }}</p>
+                <template v-if="configuration.hero.href">
+                    <button type="button" class="cc-component-product-grid-preview__button" v-if="configuration.hero.button.label">{{ configuration.hero.button.label }}</button>
                 </template>
             </div>
         </div>
@@ -85,8 +78,8 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
     },
     computed: {
         itemsGridClass(): string {
-            if ( this.configuration.hero_position ) {
-                return `cc-component-product-grid-preview__list cc-component-product-grid-preview__list--${ this.configuration.hero_position }`;
+            if ( this.configuration.hero.position ) {
+                return `cc-component-product-grid-preview__list cc-component-product-grid-preview__list--${ this.configuration.hero.position }`;
             }
 
             return 'cc-component-product-grid-preview__list';
@@ -118,7 +111,7 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
         },
 
         getItemsCount(): number {
-            return this.configuration.hero_position ? 6 : 10;
+            return this.configuration.hero.position ? 6 : 10;
         }
     },
 };

@@ -1,0 +1,111 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>products-grid component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <h1>products-grid Component Demo</h1>
+
+        {% set items = [] %}
+        {% for i in 0..19 %}
+            {% set content %}
+                {% include locate( 'grid-product/grid-product.twig' ) with {
+                    namespace: 'cs-',
+                    showWrapper: false,
+                    url: '#',
+                    image: {
+                        src: '../images/product.jpg',
+                        alt: 'Karissa V-Neck Tee - product image',
+                    },
+                    name: 'Karissa V-Neck Tee',
+                    price: {
+                        content: '<div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>'
+                    },
+                    swatches: {
+                        asAddon: false,
+                        mix: 'cs-grid-product__swatches--color-only',
+                        content: '<div class="cs-swatches cs-swatches--mini cs-swatches--color-only cs-swatches--static" data-role="swatch-options"><div class="cs-swatches__attribute color" attribute-code="color" attribute-id="93" option-selected="57"><span class="cs-swatches__attribute-label">Color</span><span class="cs-swatches__attribute-selected">Purple</span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch color" option-type="1" option-id="57" option-label="Purple" option-tooltip-thumb="" option-tooltip-value="#ef3dff"  style="background: #ef3dff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color" option-type="1" option-id="59" option-label="White" option-tooltip-thumb="" option-tooltip-value="#ffffff" " style="background: #ffffff no-repeat center; background-size: initial;"></div><div class="cs-swatches__swatch color disabled" option-type="1" option-id="60" option-label="Yellow" option-tooltip-thumb="" option-tooltip-value="#ffd500" " style="background: #ffd500 no-repeat center; background-size: initial;"></div></div></div><div class="cs-swatches__attribute size" attribute-code="size" attribute-id="142"><span class="cs-swatches__attribute-label">Size</span><span class="cs-swatches__attribute-selected"></span><div class="cs-swatches__list clearfix"><div class="cs-swatches__swatch text" option-type="0" option-id="167" option-label="XS" option-tooltip-thumb="" option-tooltip-value="XS">XS</div><div class="cs-swatches__swatch text" option-type="0" option-id="168" option-label="S" option-tooltip-thumb="" option-tooltip-value="S">S</div><div class="cs-swatches__swatch text" option-type="0" option-id="169" option-label="M" option-tooltip-thumb="" option-tooltip-value="M">M</div><div class="cs-swatches__swatch text" option-type="0" option-id="170" option-label="L" option-tooltip-thumb="" option-tooltip-value="L">L</div><div class="cs-swatches__swatch text disabled" option-type="0" option-id="171" option-label="XL" option-tooltip-thumb="" option-tooltip-value="XL" disabled="disabled">Extra Large</div></div></div></div>'
+                    }
+                } %}
+            {% endset %}
+
+            {% set items = items|merge( [ {
+                mix: 'cs-grid-product',
+                content: content
+            } ] ) %}
+
+        {% endfor %}
+
+        <div>
+            <h4>Without hero item</h4>
+
+            {% include locate('products-grid/products-grid.twig') with {
+                namespace: 'cs-',
+                rows_mobile: 2,
+                rows_tablet: 2,
+                rows_desktop: 2,
+                items: items
+            } %}
+        </div>
+
+        <div>
+            <h4>With hero item on the left</h4>
+
+            {% include locate('products-grid/products-grid.twig') with {
+                namespace: 'cs-',
+                rows_mobile: 3,
+                rows_tablet: 3,
+                rows_desktop: 3,
+                hero: {
+                    position: 'left',
+                    href: '#',
+                    image: {
+                        src: '../images/rot-pg1-it1.jpg'
+                    },
+                    headline: '',
+                    subheadline: 'Das Geheimnis der Medizin besteht darin, den Patienten abzulenken, während die Natur sich selber hilft. <br><br>Frau Dr. Nina Münch',
+                    paragraph: 'Allgemeinmedizin, Hausarzt',
+                    button: {
+                        label: 'Check it!',
+                        labelClass: 'cs-button__label',
+                        class: 'cs-button cs-button--look-attention'
+                    }
+                },
+                items: items
+            } %}
+        </div>
+
+        <div>
+            <h4>With hero item on the right</h4>
+
+            {% include locate('products-grid/products-grid.twig') with {
+                namespace: 'cs-',
+                rows_mobile: 4,
+                rows_tablet: 4,
+                rows_desktop: 4,
+                hero: {
+                    position: 'right',
+                    href: '#',
+                    image: {
+                        src: '../images/rot-pg2-it1.jpg'
+                    },
+                    headline: 'Ausgewählte Produkte',
+                    subheadline: 'Achten Sie auf Ihre Gesundheit während der kalten Jahreszeit',
+                    paragraph: 'Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.',
+                    button: {
+                        label: 'Check it!',
+                        labelClass: 'cs-button__label',
+                        class: 'cs-button cs-button--look-attention'
+                    }
+                },
+                items: items
+            } %}
+        </div>
+    </body>
+</html>

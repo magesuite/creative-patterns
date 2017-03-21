@@ -1,0 +1,53 @@
+@import '../../../cs-button/src/cs-button';
+@import '../../../items-grid-layout/src/items-grid-layout';
+@import '../../../grid-product/src/demo/index';
+@import '../products-grid.scss';
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+
+    > h2 {
+        margin: 3em 1em 1em;
+        text-align: center;
+    }
+}
+
+.cs-items-grid-layout {
+    @include itemsGridLayout();
+}
+
+/* This map contains breakpoint names as keys according to the breakpoints map for RWD
+ * Value represens count of columns per row for given breakpoint
+ * If you need to show all products for given breakpoint, the value should be 0
+ * */
+$colsByBreakpoint: (
+    phone: 8,
+    phone-lg: 8,
+    tablet: 3,
+    laptop: 4,
+    laptop-lg: 5,
+    desktop: 5,
+    tv: 6
+);
+
+/* This map contains breakpoint names as keys according to the breakpoints map for RWD
+ * Value represens size of hero item for given breakpoint
+ * If you don't have any hero items in your project, put 'none' as value for all keys
+ * */
+$heroSizeByBreakpoint: (
+    phone: 0,
+    phone-lg: 0,
+    tablet: 4,
+    laptop: 4,
+    laptop-lg: 4,
+    desktop: 4,
+    tv: 4
+);
+
+.cs-products-grid {
+    /* Get Basic styles and show only N first rows logic 
+     * @param $colsByBreakpoint { map } - columns configuration for each breakpoint
+     * @param $heroSizeByBreakpoint { map } - hero size (how many tiles it take) for each breakpoint
+    */
+    @include productsGrid( $colsByBreakpoint, $heroSizeByBreakpoint );
+}
