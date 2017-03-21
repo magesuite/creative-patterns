@@ -445,8 +445,10 @@ var CcCategoryPicker = (function () {
             var values = this._$output[0].value.split(',');
             for (var i = 0; i < values.length; i++) {
                 var $cb = this._$wrapper.find("." + this._options.classes.menu.content + " input[value=\"" + values[i] + "\"]");
-                $cb.prop('checked', true);
-                this._orderedCheckboxes.push($cb[0]);
+                if ($cb.length) {
+                    $cb.prop('checked', true);
+                    this._orderedCheckboxes.push($cb[0]);
+                }
             }
             this.updatePicker(this._orderedCheckboxes);
         }

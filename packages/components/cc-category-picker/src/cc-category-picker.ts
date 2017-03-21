@@ -478,8 +478,11 @@ export default class CcCategoryPicker {
 
             for ( let i: number = 0; i < values.length; i++ ) {
                 const $cb = this._$wrapper.find( `.${ this._options.classes.menu.content } input[value="${ values[ i ] }"]` );
-                $cb.prop( 'checked', true );
-                this._orderedCheckboxes.push( $cb[ 0 ] );
+                
+                if ( $cb.length ) {
+                    $cb.prop( 'checked', true );
+                    this._orderedCheckboxes.push( $cb[ 0 ] );
+                }
             }
 
             this.updatePicker( this._orderedCheckboxes );
