@@ -5,7 +5,7 @@
 
                 {% for brand in brands %}
                     <li class="{{ namespace }}brand-carousel__slide">
-                        {% if brand.href %}
+                        {% if linkBrands and brand.href %}
                             <a href="{{ brand.href }}" class="{{ namespace }}brand-carousel__slide-link">
                         {% endif %}
 
