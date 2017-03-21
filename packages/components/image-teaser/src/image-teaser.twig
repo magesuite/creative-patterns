@@ -21,31 +21,18 @@
                         {% endif %}
 
                         <figure class="{{ namespace }}image-teaser__figure">
-                            {% if lazyload %}
-                                <img
-                                    class="{{ namespace }}image-teaser__image | lazyload"
-                                    src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-                                    data-src="{{ item.image.src }}"
-                                    {% if item.image.srcSet %}data-srcset="{{ item.image.srcSet }}"{% endif %}
-                                    {% if sizes %}data-sizes="{{ sizes }}"{% endif %}
-                                    alt="{% if item.image.alt %}{{ item.image.alt }}
-                                         {% elseif item.headline %}{{ item.headline|raw  }}
-                                         {% elseif item.subheadline %}{{ item.subheadline|raw  }}
-                                         {% else %}Teaser image{% endif %}"
-                                >
-                                <noscript>
-                                    <img
-                                        class="{{ namespace }}image-teaser__image"
-                                        src="{{ item.image.src }}"
-                                        {% if item.image.srcSet %}srcset="{{ item.image.srcSet }}"{% endif %}
-                                        {% if sizes %}sizes="{{ sizes }}"{% endif %}
-                                        alt="{% if item.image.alt %}{{ item.image.alt }}
-                                             {% elseif item.headline %}{{ item.headline|raw  }}
-                                             {% elseif item.subheadline %}{{ item.subheadline|raw  }}
-                                             {% else %}Teaser image{% endif %}"
-                                    >
-                                </noscript>
-                            {% else %}
+                            <img
+                                class="{{ namespace }}image-teaser__image | swiper-lazy"
+                                src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                                data-src="{{ item.image.src }}"
+                                {% if item.image.srcSet %}data-srcset="{{ item.image.srcSet }}"{% endif %}
+                                {% if sizes %}sizes="{{ sizes }}"{% endif %}
+                                alt="{% if item.image.alt %}{{ item.image.alt }}
+                                     {% elseif item.headline %}{{ item.headline|raw  }}
+                                     {% elseif item.subheadline %}{{ item.subheadline|raw  }}
+                                     {% else %}Teaser image{% endif %}"
+                            >
+                            <noscript>
                                 <img
                                     class="{{ namespace }}image-teaser__image"
                                     src="{{ item.image.src }}"
@@ -56,7 +43,7 @@
                                          {% elseif item.subheadline %}{{ item.subheadline|raw  }}
                                          {% else %}Teaser image{% endif %}"
                                 >
-                            {% endif %}
+                            </noscript>
                         </figure>
 
                         <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayVariant }}">

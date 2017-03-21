@@ -246,6 +246,10 @@ var ImageTeaser = (function () {
                 },
                 _a
             ),
+            preloadImages: false,
+            lazyLoading: true,
+            lazyLoadingInPrevNext: true,
+            lazyLoadingOnTransitionStart: true,
         };
         this._options = $.extend(this._swiperDefaults, this._options);
         if (this._options.isSlider) {
@@ -267,8 +271,8 @@ var ImageTeaser = (function () {
     /**
      * Initializes teaser
      */
-    ImageTeaser.prototype._initTeaser = function () {
-        this._instance = new csTeaser(this._$container, this._options);
+    ImageTeaser.prototype._initTeaser = function ($element) {
+        this._instance = new csTeaser($element, this._options);
     };
     /**
      * Initializes teaser only for mobiles
@@ -277,7 +281,7 @@ var ImageTeaser = (function () {
         if ($(window).width() < this._options.carouselBreakpoint) {
             if (!this._instance) {
                 this._$container.addClass(this._options.teaserName + "--slider");
-                this._initTeaser();
+                this._initTeaser(this._$container);
             }
         }
         else {

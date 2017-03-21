@@ -57,14 +57,14 @@ interface ImageTeaserOptions {
     isSliderMobile?: boolean;
 
     /**
-     * Defines breakpoint, where carousel should be destroyed and teaser shall display as standard image teaser 
+     * Defines breakpoint, where carousel should be destroyed and teaser shall display as standard image teaser
      * Default: breakpoint.tablet
      * @type {number}
      */
     carouselBreakpoint?: number;
 
     /**
-     * Defines carousel behaviour depending on given fallback 
+     * Defines carousel behaviour depending on given fallback
      * Default: {
      *     breakpoint.tablet - 1
      * }
@@ -75,6 +75,9 @@ interface ImageTeaserOptions {
 
 export default class ImageTeaser {
     protected _options: ImageTeaserOptions;
+    protected _$container: JQuery;
+    protected _swiperDefaults: object;
+    protected _instance: any;
 
     /**
      * Creates new ImageTeaser component with optional settings.
@@ -102,6 +105,10 @@ export default class ImageTeaser {
                     slidesPerGroup: parseInt( this._$container.data( 'mobile-items-per-view' ), 10 ) || parseInt( this._$container.data( 'items-per-view' ), 10 ) || 1,
                 },
             },
+            preloadImages: false,
+            lazyLoading: true,
+            lazyLoadingInPrevNext: true,
+            lazyLoadingOnTransitionStart: true,
         };
 
         this._options = $.extend ( this._swiperDefaults, this._options );
@@ -128,8 +135,8 @@ export default class ImageTeaser {
     /**
      * Initializes teaser
      */
-    protected _initTeaser(): void {
-        this._instance = new csTeaser( this._$container, this._options );
+    protected _initTeaser( $element: JQuery ): void {
+        this._instance = new csTeaser( $element, this._options );
     }
 
     /**
@@ -139,7 +146,7 @@ export default class ImageTeaser {
         if ( $( window ).width() < this._options.carouselBreakpoint ) {
             if ( !this._instance ) {
                 this._$container.addClass( `${this._options.teaserName}--slider` );
-                this._initTeaser();
+                this._initTeaser( this._$container );
             }
         } else {
             if ( this._instance ) {

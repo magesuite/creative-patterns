@@ -180,6 +180,8 @@ var BrandCarousel = (function () {
             calculateSlides: false,
             loop: true,
             centeredSlides: true,
+            lazyLoading: true,
+            lazyLoadingOnTransitionStart: true,
         }, options);
         this._$element = $element || $("." + this._options.teaserName);
         if (this._$element.length) {

@@ -11,14 +11,10 @@
 
                             {% if brand.image.src %}
                                 <figure class="{{ namespace }}brand-carousel__figure">
-                                    {% if lazyload %}
-                                        <img class="{{ namespace }}brand-carousel__image lazyload" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
-                                        <noscript>
-                                            <img class="{{ namespace }}brand-carousel__image" src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
-                                        </noscript>
-                                    {% else %}
+                                    <img class="{{ namespace }}brand-carousel__image swiper-lazy" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
+                                    <noscript>
                                         <img class="{{ namespace }}brand-carousel__image" src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
-                                    {% endif %}
+                                    </noscript>
                                 </figure>
                             {% endif %}
                         {% if brand.href %}
