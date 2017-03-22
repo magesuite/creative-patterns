@@ -54,6 +54,8 @@ export default class BrandCarousel {
             calculateSlides: false,
             loop: true,
             centeredSlides: true,
+            lazyLoading: true,
+            lazyLoadingOnTransitionStart: true,
         }, options );
 
         this._$element = $element || $( `.${this._options.teaserName}` );
@@ -88,7 +90,7 @@ export default class BrandCarousel {
     protected _getSlidesPerView(): number {
         let next: number = Math.max.apply( null, this._breakpointsArray );
         const wWidth: number = $( window ).width();
-        
+
         if ( wWidth >= next ) {
             return this._options.slidesPerView;
         } else {
