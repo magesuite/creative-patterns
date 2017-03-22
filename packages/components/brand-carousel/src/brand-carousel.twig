@@ -11,9 +11,22 @@
 
                             {% if brand.image.src %}
                                 <figure class="{{ namespace }}brand-carousel__figure">
-                                    <img class="{{ namespace }}brand-carousel__image swiper-lazy" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" data-src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
+                                    <img
+                                        class="{{ namespace }}brand-carousel__image lazyload"
+                                        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                                        data-src="{{ brand.image.src }}"
+                                        alt="{{ brand.image.alt }}"
+                                        {% if brand.image.width %}width="{{ brand.image.width }}"{% endif %}
+                                        {% if brand.image.height %}height="{{ brand.image.height }}"{% endif %}
+                                    >
                                     <noscript>
-                                        <img class="{{ namespace }}brand-carousel__image" src="{{ brand.image.src }}" alt="{{ brand.image.alt }}">
+                                        <img
+                                            class="{{ namespace }}brand-carousel__image"
+                                            src="{{ brand.image.src }}"
+                                            alt="{{ brand.image.alt }}"
+                                            {% if brand.image.width %}width="{{ brand.image.width }}"{% endif %}
+                                            {% if brand.image.height %}height="{{ brand.image.height }}"{% endif %}
+                                        >
                                     </noscript>
                                 </figure>
                             {% endif %}
