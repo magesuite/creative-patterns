@@ -95,7 +95,7 @@
         &--in {
             @include media( '<tablet' ) {
                 position: relative;
-                z-index: 25;
+                z-index: 5;
             }
         }
     }
@@ -111,14 +111,14 @@
             overflow: hidden;
             height: 0;
             opacity: 0;
-            transform: translateY( 2.5rem );
+            transform: translateY( 3.5rem );
             transition: opacity .05s linear, transform .11s ease-in-out;
         }
         &--out {
         }
         &--in {
             @include media( '<tablet' ) {
-                z-index: 20;
+                z-index: 4;
                 height: auto;
                 opacity: 1;
                 transform: translateY( 0 );
