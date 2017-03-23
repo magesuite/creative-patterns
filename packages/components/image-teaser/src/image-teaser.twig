@@ -22,7 +22,7 @@
 
                         <figure class="{{ namespace }}image-teaser__figure">
                             <img
-                                class="{{ namespace }}image-teaser__image | swiper-lazy"
+                                class="{{ namespace }}image-teaser__image | {{ isSlider and isSliderMobile ? 'swiper-lazy' : 'lazyload' }}"
                                 src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
                                 data-src="{{ item.image.src }}"
                                 {% if item.image.srcSet %}data-srcset="{{ item.image.srcSet }}"{% endif %}
@@ -31,6 +31,8 @@
                                      {% elseif item.headline %}{{ item.headline|raw  }}
                                      {% elseif item.subheadline %}{{ item.subheadline|raw  }}
                                      {% else %}Teaser image{% endif %}"
+                                {% if item.width %}width="{{ item.width }}"{% endif %}
+                                {% if item.height %}height="{{ item.height }}"{% endif %}
                             >
                             <noscript>
                                 <img
@@ -42,6 +44,8 @@
                                          {% elseif item.headline %}{{ item.headline|raw  }}
                                          {% elseif item.subheadline %}{{ item.subheadline|raw  }}
                                          {% else %}Teaser image{% endif %}"
+                                    {% if item.width %}width="{{ item.width }}"{% endif %}
+                                    {% if item.height %}height="{{ item.height }}"{% endif %}
                                 >
                             </noscript>
                         </figure>
