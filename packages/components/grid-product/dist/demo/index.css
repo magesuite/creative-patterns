@@ -796,7 +796,10 @@ html {
   .cs-grid-product__image {
     max-height: 100%;
     max-width: 100%;
-    width: auto; }
+    width: auto;
+    -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+            flex-shrink: 0; }
   .cs-grid-product__badges {
     position: absolute;
     top: 1rem;
@@ -839,7 +842,8 @@ html {
       .cs-grid-product__name-link {
         display: -webkit-box;
         -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical; } }
+        -webkit-box-orient: vertical;
+        max-width: 100%; } }
   .cs-grid-product__price {
     text-align: center; }
   .cs-grid-product__comment {
