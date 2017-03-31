@@ -162,6 +162,7 @@
         max-height: 100%;
         max-width: 100%;
         width: auto;
+        flex-shrink: 0;
     }
 
     &__badges {
