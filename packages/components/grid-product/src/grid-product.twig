@@ -20,6 +20,8 @@
                         src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
                         data-src="{{ image.src }}"
                         alt="{{ image.alt }}"
+                        {% if image.srcset %}data-srcset="{{ image.srcset }}"{% endif %}
+                        {% if sizes %}sizes="{{ sizes }}"{% endif %}
                         {% if image.width %}width="{{ image.width }}"{% endif %}
                         {% if image.height %}height="{{ image.height }}"{% endif %}
                     >
@@ -28,6 +30,8 @@
                             class="{{ namespace }}grid-product__image {{ image.mix }}"
                             src="{{ image.src }}"
                             alt="{{ image.alt }}"
+                            {% if image.srcset %}data-srcset="{{ image.srcset }}"{% endif %}
+                            {% if sizes %}sizes="{{ sizes }}"{% endif %}
                             {% if image.width %}width="{{ image.width }}"{% endif %}
                             {% if image.height %}height="{{ image.height }}"{% endif %}
                         >
@@ -37,6 +41,8 @@
                         class="{{ namespace }}grid-product__image {{ image.mix }}"
                         src="{{ image.src }}"
                         alt="{{ image.alt }}"
+                        {% if image.srcset %}srcset="{{ image.srcset }}"{% endif %}
+                        {% if sizes %}sizes="{{ sizes }}"{% endif %}
                         {% if image.width %}width="{{ image.width }}"{% endif %}
                         {% if image.height %}height="{{ image.height }}"{% endif %}
                     >
