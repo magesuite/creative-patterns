@@ -574,7 +574,9 @@ var m2cProductCarouselConfigurator = {
         $('body').trigger('showLoadingPopup');
         // Get categories JSON with AJAX
         this.$http.get(this.categoriesDataUrl).then(function (response) {
-            _this.categoryPicker = new CcCategoryPicker($('#cp-products-carousel'), JSON.parse(response.body));
+            _this.categoryPicker = new CcCategoryPicker($('#cp-products-carousel'), JSON.parse(response.body), {
+                multiple: false,
+            });
             // Hide loader
             $('body').trigger('hideLoadingPopup');
         });

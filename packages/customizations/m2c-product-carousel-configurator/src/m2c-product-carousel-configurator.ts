@@ -32,7 +32,9 @@ const m2cProductCarouselConfigurator: vuejs.ComponentOption = {
 
         // Get categories JSON with AJAX
         this.$http.get( this.categoriesDataUrl ).then( ( response: any ): void => {
-            _this.categoryPicker = new ccCategoryPicker( $( '#cp-products-carousel' ), JSON.parse( response.body ) );
+            _this.categoryPicker = new ccCategoryPicker( $( '#cp-products-carousel' ), JSON.parse( response.body ), {
+                multiple: false,
+            } );
             
             // Hide loader
             $( 'body' ).trigger( 'hideLoadingPopup' );
