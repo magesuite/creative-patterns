@@ -1028,6 +1028,9 @@ body {
       display: grid;
       grid-template-rows: auto;
       grid-template-columns: 50% 50%; } }
+  @supports (display: -ms-grid) {
+    .cs-items-grid-layout {
+      display: block; } }
   @media (min-width: 48em) {
     .cs-items-grid-layout {
       width: calc( 100% + ( 2 * 0.5rem ));
@@ -1043,7 +1046,7 @@ body {
         grid-template-columns: 25% 25% 25% 25%; }
         .cs-items-grid-layout.cs-items-grid-layout--in-column {
           /* autoprefixer: off */
-          grid-tempalte-columns: 33.3333% 33.3333% 33.3333%; } } }
+          grid-template-columns: 33.3333% 33.3333% 33.3333%; } } }
   @media (min-width: 80em) {
     @supports (display: grid) {
       .cs-items-grid-layout {

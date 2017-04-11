@@ -20,6 +20,10 @@
         grid-template-columns: 50% 50%;
     }
 
+    @supports ( display: -ms-grid ) {
+        display: block;
+    }
+
     @include media( '>=tablet' ) {
         width: calc( 100% + ( 2 * #{$tabletUpGutter} ) );
         margin: 0 -#{$tabletUpGutter};
