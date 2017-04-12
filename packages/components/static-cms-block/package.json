@@ -1,0 +1,8 @@
+{
+    "name": "static-cms-block",
+    "version": "0.0.1",
+    "description": "This componnet handles M2C Static Blocks&#x27;s frontend ",
+    "main": "src/static-cms-block.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}
