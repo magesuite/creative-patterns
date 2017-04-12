@@ -254,7 +254,7 @@ export default class Navigation {
             flyoutTransformLeft = Math.floor( containerClientRect.width - flyoutClientRect.width );
         }
 
-        this._setTransform( $flyout, `translate3d(${Math.round(flyoutTransformLeft)}px, 0, 0)` );
+        this._setTransform( $flyout, `translate3d(${flyoutTransformLeft}px, 0, 0)` );
     }
 
     /**
