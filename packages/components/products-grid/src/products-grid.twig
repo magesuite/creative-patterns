@@ -21,9 +21,9 @@
                     data-src="{{ hero.image.src }}"
                     {% if hero.image.srcSet %}data-srcset="{{ hero.image.srcSet }}"{% endif %}
                     {% if sizes %}data-sizes="{{ sizes }}"{% endif %}
-                    alt="{% if hero.image.alt %}{{ hero.image.alt }}
-                         {% elseif hero.headline %}{{ hero.headline|raw  }}
-                         {% elseif hero.subheadline %}{{ hero.subheadline|raw  }}
+                    alt="{% if hero.image.alt %}{{ hero.image.alt|e }}
+                         {% elseif hero.headline %}{{ hero.headline|e  }}
+                         {% elseif hero.subheadline %}{{ hero.subheadline|e  }}
                          {% else %}Teaser image{% endif %}"
                 >
                 <noscript>
@@ -32,9 +32,9 @@
                         src="{{ hero.image.src }}"
                         {% if hero.image.srcSet %}srcset="{{ hero.image.srcSet }}"{% endif %}
                         {% if sizes %}sizes="{{ sizes }}"{% endif %}
-                        alt="{% if hero.image.alt %}{{ hero.image.alt }}
-                            {% elseif hero.headline %}{{ hero.headline|raw  }}
-                            {% elseif hero.subheadline %}{{ hero.subheadline|raw  }}
+                        alt="{% if hero.image.alt %}{{ hero.image.alt|e }}
+                            {% elseif hero.headline %}{{ hero.headline|e  }}
+                            {% elseif hero.subheadline %}{{ hero.subheadline|e  }}
                             {% else %}Teaser image{% endif %}"
                     >
                 </noscript>
@@ -44,9 +44,9 @@
                     src="{{ hero.image.src }}"
                     {% if hero.image.srcSet %}srcset="{{ hero.image.srcSet }}"{% endif %}
                     {% if sizes %}sizes="{{ sizes }}"{% endif %}
-                    alt="{% if hero.image.alt %}{{ hero.image.alt }}
-                        {% elseif hero.headline %}{{ hero.headline|raw  }}
-                        {% elseif hero.subheadline %}{{ hero.subheadline|raw  }}
+                    alt="{% if hero.image.alt %}{{ hero.image.alt|e }}
+                        {% elseif hero.headline %}{{ hero.headline|e  }}
+                        {% elseif hero.subheadline %}{{ hero.subheadline|e  }}
                         {% else %}Teaser image{% endif %}"
                 >
             {% endif %}
