@@ -18,8 +18,8 @@
                 <img
                     class="{{ namespace }}products-grid__hero-image | lazyload"
                     src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-                    data-src="{{ hero_image.src }}"
-                    {% if hero_image.srcSet %}data-srcset="{{ hero_image.srcSet }}"{% endif %}
+                    data-src="{{ hero.image.src }}"
+                    {% if hero.image.srcSet %}data-srcset="{{ hero.image.srcSet }}"{% endif %}
                     {% if sizes %}data-sizes="{{ sizes }}"{% endif %}
                     alt="{% if hero.image.alt %}{{ hero.image.alt }}
                          {% elseif hero.headline %}{{ hero.headline|raw  }}
