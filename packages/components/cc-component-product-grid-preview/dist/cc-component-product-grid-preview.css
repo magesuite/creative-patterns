@@ -11,7 +11,6 @@
   .cc-component-product-grid-preview__hero {
     position: relative;
     width: calc( 40% - .65rem);
-    height: 0;
     padding: 0 0 calc( ( 40% * 324 / 263 ) - .65rem);
     overflow: hidden;
     border: 1px dashed #e4e1d9; }
