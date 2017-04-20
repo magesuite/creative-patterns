@@ -66,6 +66,7 @@ export default class Offcanvas {
      * @return {Promise<Offcanvas>} Promise that resolves after offcanvas is shown.
      */
     public show(): Promise<Offcanvas> {
+        $( 'body, html' ).addClass( `no-scroll` );
         this._$trigger.addClass( `${this._options.triggerClassName}--active` );
         return Promise.all( [
             this._showOverlay(),
@@ -80,6 +81,7 @@ export default class Offcanvas {
      * @return {Promise<Offcanvas>} Promise that resolves after offcanvas is hidden.
      */
     public hide(): Promise<Offcanvas> {
+        $( 'body, html' ).removeClass( `no-scroll` );
         this._$trigger.removeClass( `${this._options.triggerClassName}--active` );
         return Promise.all( [
             this._hideOverlay(),

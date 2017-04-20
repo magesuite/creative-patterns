@@ -63,7 +63,7 @@ export default class OffcanvasNavigation {
      */
     protected _showLevel( event: Event ): void  {
         event.preventDefault();
-        const $levelToShow = $( event.target ).next();
+        const $levelToShow = $( event.target ).hasClass( `${this._options.className}__link--parent` ) ? $( event.target ).next() : $( event.target ).parents( `.${this._options.className}__link--parent` ).first().next();
         const $currentLevel = $(`.${this._options.className}__list--current`);
         if ( $currentLevel.length > 0 ) {
             $currentLevel.animate( { scrollTop: 0 }, 'medium', () => {

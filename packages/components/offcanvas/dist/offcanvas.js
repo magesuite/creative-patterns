@@ -49,6 +49,7 @@ var Offcanvas = (function () {
      */
     Offcanvas.prototype.show = function () {
         var _this = this;
+        $('body, html').addClass("no-scroll");
         this._$trigger.addClass(this._options.triggerClassName + "--active");
         return Promise.all([
             this._showOverlay(),
@@ -64,6 +65,7 @@ var Offcanvas = (function () {
      */
     Offcanvas.prototype.hide = function () {
         var _this = this;
+        $('body, html').removeClass("no-scroll");
         this._$trigger.removeClass(this._options.triggerClassName + "--active");
         return Promise.all([
             this._hideOverlay(),

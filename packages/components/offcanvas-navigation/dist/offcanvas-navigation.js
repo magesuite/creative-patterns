@@ -46,7 +46,7 @@ var OffcanvasNavigation = (function () {
     OffcanvasNavigation.prototype._showLevel = function (event) {
         var _this = this;
         event.preventDefault();
-        var $levelToShow = $(event.target).next();
+        var $levelToShow = $(event.target).hasClass(this._options.className + "__link--parent") ? $(event.target).next() : $(event.target).parents("." + this._options.className + "__link--parent").first().next();
         var $currentLevel = $("." + this._options.className + "__list--current");
         if ($currentLevel.length > 0) {
             $currentLevel.animate({ scrollTop: 0 }, 'medium', function () {
