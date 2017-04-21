@@ -68,6 +68,11 @@ interface NavigationOptions {
      * @type {number}
      */
     flyoutShowDelay?: number;
+    /**
+     * Round transform left on flyout to avoid blur in text..
+     * @type {boolean}
+     */
+    roundTransformLeft?: boolean;
 };
 
 /**
@@ -102,6 +107,7 @@ export default class Navigation {
         flyoutShowDelay: 200,
         flyoutAlignTo: 'center',
         flyoutAlignSwitch: 0,
+        roundTransformLeft: true,
     };
 
     /**
@@ -254,7 +260,10 @@ export default class Navigation {
             flyoutTransformLeft = Math.floor( containerClientRect.width - flyoutClientRect.width );
         }
 
+        flyoutTransformLeft = this._options.roundTransformLeft ? Math.round( flyoutTransformLeft ) : flyoutTransformLeft;
+
         this._setTransform( $flyout, `translate3d(${flyoutTransformLeft}px, 0, 0)` );
+
     }
 
     /**
