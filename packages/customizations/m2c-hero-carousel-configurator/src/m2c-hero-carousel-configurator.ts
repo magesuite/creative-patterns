@@ -32,7 +32,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         <section class="m2c-hero-carousel-configurator__section">
             <h3 class="m2c-hero-carousel-configurator__subtitle">Mobile Devices Scenario</h3>
             <div class="m2c-hero-carousel-configurator__scenario-options">
-                <div class="m2c-hero-carousel-configurator__scenario-options-list">
+                <ul class="m2c-hero-carousel-configurator__scenario-options-list">
                     <li
                         :class="{
                             'm2c-hero-carousel-configurator__option--selected': configuration.mobileDisplayVariant.id == optionId,
@@ -110,7 +110,6 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                                     </template>
                                 </cc-component-actions>
                             </div>
-
                         </div>
                     </div>
                     <div class="m2c-hero-carousel-configurator__item-col-right">
@@ -133,7 +132,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                         </div>
                         <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
                             <label for="cfg-hc-item{{ $index }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
-                            <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-hc-item{{ $index }}-paragraph" class="m2-input__textarea" placeholder="(max 200 characters)" maxlength="200"></textarea>
+                            <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-hc-item{{ $index }}-paragraph" class="m2-input__textarea" placeholder="(${$t( 'max 200 characters' )})" maxlength="200"></textarea>
                         </div>
                         <div class="m2-input m2-input--group">
                             <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
@@ -223,9 +222,6 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
         },
     },
     methods: {
-        getImageUploadText( index: number ): string {
-            return this.configuration.items[ index ].image ? $t( 'Change' ) : $t( 'Upload' );
-        },
         setOption( optionCategory: string, optionId: string ): void {
             this.configuration[ optionCategory ] = this.scenarioOptions[ optionCategory ][ optionId ];
             this.configuration[ optionCategory ].id = optionId;

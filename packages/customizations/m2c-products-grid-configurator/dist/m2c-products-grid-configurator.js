@@ -523,6 +523,60 @@ var ccComponentConfigurator = {
 };
 
 /**
+ * Action button component version.
+ * Small component that allows to set it's content.
+ *
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var actionButton = {
+    template: "<button class=\"action-button {{ class }}\" @click=\"_onClick\">\n        <slot></slot>\n    </button>",
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+    methods: {
+        /**
+         * Button click handler.
+         * This handler triggers "action-button__click" event up the DOM chain when called.
+         * @param {Event} event Click event object.
+         */
+        _onClick: function (event) {
+            this.$dispatch('action-button__click', event);
+        },
+    },
+};
+
+/**
+ * Component actions component.
+ * This component is responsible for displaying and handling user interactions of
+ * side utility navigation for each component that supports:
+ * - Moving component up,
+ * - Moving component down,
+ * - Opening component settings,
+ * - Deleting component.
+ *
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var componentActions = {
+    template: "<aside class=\"cc-component-actions | {{ class }}\">\n        <div class=\"cc-component-actions__buttons\">\n            <slot name=\"cc-component-actions__buttons\"></slot>\n        </div>\n    </aside>",
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: String,
+            default: '',
+            coerce: function (value) { return value.replace('cc-component-actions', ''); },
+        },
+    },
+};
+
+/**
  * Product grid configurator component.
  * This component is responsible for displaying products grid  configuration form
  * @type {vuejs.ComponentOption} Vue component object.
@@ -532,6 +586,13 @@ var ccProductsGridConfigurator = {
         ccComponentConfigurator,
     ],
     template: "<form class=\"cc-products-grid-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"cc-products-grid-configurator__columns\">\n        <div class=\"cc-products-grid-configurator__column-left\">\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-pg-category\" class=\"cs-input__label\">Select Category:</label>\n                <input type=\"text\" name=\"cfg-pg-category-select\" class=\"cs-input__input\" id=\"cfg-pg-category\" v-model=\"configuration.category_id\" @change=\"onChange\">\n            </div>\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-pg-order-by\" class=\"cs-input__label\">Order by:</label>\n                <select name=\"cfg-pg-order-by\" class=\"cs-input__select\" id=\"cfg-pg-order-by\" v-model=\"configuration.order_by\" @change=\"onChange\">\n                    <option value=\"creation_date\">Creation date:</option>\n                    <option value=\"price\">Price:</option>\n                </select>\n                <select name=\"cfg-pg-order-type\" class=\"cs-input__select\" v-model=\"configuration.order_type\" @change=\"onChange\">\n                    <option value=\"ASC\">ASC</option>\n                    <option value=\"DESC\">DESC</option>\n                </select>\n            </div>\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-pg-rows_desktop\" class=\"cs-input__label\">Rows desktop:</label>\n                <select name=\"cfg-pg-rows_desktop\" class=\"cs-input__select\" id=\"cfg-pg-rows_desktop\" v-model=\"configuration.rows_desktop\" @change=\"onChange\" number>\n                    <option value=\"2\">2</option>\n                    <option value=\"3\">3</option>\n                    <option value=\"4\">4</option>\n                </select>\n            </div>\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-pg-rows_tablet\" class=\"cs-input__label\">Rows tablet:</label>\n                <select name=\"cfg-pg-rows_tablet\" class=\"cs-input__select\" id=\"cfg-pg-rows_tablet\" v-model=\"configuration.rows_tablet\" @change=\"onChange\" number>\n                    <option value=\"2\">2</option>\n                    <option value=\"3\">3</option>\n                    <option value=\"4\">4</option>\n                </select>\n            </div>\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-pg-rows_mobile\" class=\"cs-input__label\">Rows mobile:</label>\n                <select name=\"cfg-pg-rows_mobile\" class=\"cs-input__select\" id=\"cfg-pg-rows_mobile\" v-model=\"configuration.rows_mobile\" @change=\"onChange\" number>\n                    <option value=\"2\">2</option>\n                    <option value=\"3\">3</option>\n                    <option value=\"4\">4</option>\n                </select>\n            </div>\n        </div>\n        <div class=\"cc-products-grid-configurator__column-right\">\n            <div class=\"cs-input cs-input--type-inline\">\n                <label for=\"cfg-pg-hero\" class=\"cs-input__label\">Hero image:</label>\n                <select name=\"cfg-pg-hero\" class=\"cs-input__select\" id=\"cfg-pg-hero\" v-model=\"configuration.hero\" @change=\"onChange\">\n                    <option value=\"\" selected=\"selected\">No hero image</option>\n                    <option value=\"1\">Left</option>\n                    <option value=\"2\">Right</option>\n                </select>\n            </div>\n\n            <div class=\"cs-input\" v-if=\"configuration.hero\">\n\n                <div class=\"cs-input cs-input--type-inline\">\n                    <label for=\"cfg-pg-hero_image\" class=\"cs-input__label\">Upload image:</label>\n                    <a href=\"#\" class=\"\" href=\"#\">Upload image</a>\n                    <input type=\"hidden\" name=\"cfg-pg-hero_image\" class=\"cs-input__input\" id=\"cfg-pg-hero_image\" v-model=\"configuration.hero_image\" @change=\"onChange\">\n                </div>\n                <div class=\"cs-input cs-input--type-inline\">\n                    <label for=\"cfg-pg-hero_headline\" class=\"cs-input__label\">Headline:</label>\n                    <input type=\"text\" name=\"cfg-pg-hero_headline\" class=\"cs-input__input\" id=\"cfg-pg-hero_headline\" v-model=\"configuration.hero_headline\" @change=\"onChange\">\n                </div>\n                <div class=\"cs-input cs-input--type-inline\">\n                    <label for=\"cfg-pg-hero_subheadline\" class=\"cs-input__label\">Subheadline:</label>\n                    <input type=\"text\" name=\"cfg-pg-hero_subheadline\" class=\"cs-input__input\" id=\"cfg-pg-hero_subheadline\" v-model=\"configuration.hero_subheadline\" @change=\"onChange\">\n                </div>\n                <div class=\"cs-input cs-input--type-inline\">\n                    <label for=\"cfg-pg-hero_url\" class=\"cs-input__label\">Url:</label>\n                    <input type=\"text\" name=\"cfg-pg-hero_url\" class=\"cs-input__input\" id=\"cfg-pg-hero_url\" v-model=\"configuration.hero_url\" @change=\"onChange\">\n                </div>\n                <div class=\"cs-input cs-input--type-inline\">\n                    <label for=\"cfg-pg-hero_button_label\" class=\"cs-input__label\">CTA button label:</label>\n                    <input type=\"text\" name=\"cfg-pg-hero_button_label\" class=\"cs-input__input\" id=\"cfg-pg-hero_button_label\" v-model=\"configuration.button_label\" @change=\"onChange\">\n                </div>\n\n            </div>\n        </div>\n        </div>\n\n        <button type=\"submit\">Save</button>\n    </form>",
+    /**
+     * Get dependencies
+     */
+    components: {
+        'action-button': actionButton,
+        'cc-component-actions': componentActions,
+    },
     props: {
         configuration: {
             type: Object,
@@ -563,7 +624,7 @@ var m2cProductsGridConfigurator = {
     mixins: [
         ccProductsGridConfigurator,
     ],
-    template: "<form class=\"m2c-products-grid-configurator {{ classes }} | {{ mix }}\" {{ attributes }} @submit.prevent=\"onSave\">\n        <div class=\"m2c-products-grid-configurator__columns\">\n            <div class=\"m2c-products-grid-configurator__column-left\">\n\n                <div class=\"m2-input m2-input--type-inline\">\n                    <label for=\"cfg-pg-category\" class=\"m2-input__label\">" + $t('Category ID') + ":</label>\n                    <input type=\"hidden\" name=\"cfg-pg-category-select\" class=\"m2-input__input | m2c-products-grid-configurator__form-input\" id=\"cfg-pg-category\" v-model=\"configuration.category_id\" @change=\"onChange\">\n                </div>\n                <div class=\"m2-input m2-input--type-inline\">\n                    <label for=\"cfg-pg-order-by\" class=\"m2-input__label\">" + $t('Order by:') + "</label>\n                    <select name=\"cfg-pg-order-by\" class=\"m2-input__select\" id=\"cfg-pg-order-by\" v-model=\"configuration.order_by\" @change=\"onChange\">\n                        <option value=\"creation_date\">" + $t('Creation date') + "</option>\n                        <option value=\"price\">" + $t('Price') + "</option>\n                    </select>\n                    <select name=\"cfg-pg-order-type\" class=\"m2-input__select\" v-model=\"configuration.order_type\" @change=\"onChange\">\n                        <option value=\"ASC\">" + $t('ASC') + "</option>\n                        <option value=\"DESC\">" + $t('DESC') + "</option>\n                    </select>\n                </div>\n                <div class=\"m2-input m2-input--type-inline\">\n                    <label for=\"cfg-pg-rows_desktop\" class=\"m2-input__label\">" + $t('Rows desktop') + ":</label>\n                    <select name=\"cfg-pg-rows_desktop\" class=\"m2-input__select\" id=\"cfg-pg-rows_desktop\" v-model=\"configuration.rows_desktop\" @change=\"onChange\" number>\n                        <option value=\"2\">2</option>\n                        <option value=\"3\">3</option>\n                        <option value=\"4\">4</option>\n                    </select>\n                </div>\n                <div class=\"m2-input m2-input--type-inline\">\n                    <label for=\"cfg-pg-rows_tablet\" class=\"m2-input__label\">" + $t('Rows tablet') + ":</label>\n                    <select name=\"cfg-pg-rows_tablet\" class=\"m2-input__select\" id=\"cfg-pg-rows_tablet\" v-model=\"configuration.rows_tablet\" @change=\"onChange\" number>\n                        <option value=\"2\">2</option>\n                        <option value=\"3\">3</option>\n                        <option value=\"4\">4</option>\n                    </select>\n                </div>\n                <div class=\"m2-input m2-input--type-inline\">\n                    <label for=\"cfg-pg-rows_mobile\" class=\"m2-input__label\">" + $t('Rows mobile') + ":</label>\n                    <select name=\"cfg-pg-rows_mobile\" class=\"m2-input__select\" id=\"cfg-pg-rows_mobile\" v-model=\"configuration.rows_mobile\" @change=\"onChange\" number>\n                        <option value=\"2\">2</option>\n                        <option value=\"3\">3</option>\n                        <option value=\"4\">4</option>\n                    </select>\n                </div>\n\n                <div class=\"m2-input m2-input--type-inline\">\n                    <label for=\"cfg-pg-hero\" class=\"m2-input__label\">" + $t('Hero image') + ":</label>\n                    <select name=\"cfg-pg-hero\" class=\"m2-input__select\" id=\"cfg-pg-hero\" v-model=\"configuration.hero.position\" @change=\"onChange\">\n                        <option value=\"\">" + $t('No hero image') + "</option>\n                        <option value=\"left\">" + $t('Left') + "</option>\n                        <option value=\"right\">" + $t('Right') + "</option>\n                    </select>\n                </div>\n\n                <div class=\"m2-input\" v-show=\"configuration.hero.position\">\n                    <div class=\"m2-input m2-input--type-inline\">\n                        <label for=\"cfg-pg-hero_headline\" class=\"m2-input__label\">" + $t('Headline') + ":</label>\n                        <input type=\"text\" name=\"cfg-pg-hero_headline\" class=\"m2-input__input | m2c-products-grid-configurator__form-input\" id=\"cfg-pg-hero_headline\" v-model=\"configuration.hero.headline\" @change=\"onChange\">\n                    </div>\n                    <div class=\"m2-input m2-input--type-inline\">\n                        <label for=\"cfg-pg-hero_subheadline\" class=\"m2-input__label\">" + $t('Subheadline') + ":</label>\n                        <input type=\"text\" name=\"cfg-pg-hero_subheadline\" class=\"m2-input__input | m2c-products-grid-configurator__form-input\" id=\"cfg-pg-hero_subheadline\" v-model=\"configuration.hero.subheadline\" @change=\"onChange\">\n                    </div>\n                    <div class=\"m2-input m2-input--type-inline\">\n                        <label for=\"cfg-pg-hero_paragraph\" class=\"m2-input__label | m2c-products-grid-configurator__form-label--textarea\">" + $t('Paragraph') + ":</label>\n                        <textarea type=\"text\" name=\"cfg-pg-hero_paragraph\" class=\"m2-input__textarea | m2c-products-grid-configurator__form-input\" id=\"cfg-pg-hero_paragraph\" placeholder=\"" + $t('(max 200 characters)') + "\" maxlength=\"200\" v-model=\"configuration.hero.paragraph\"></textarea>\n                    </div>\n                    <div class=\"m2-input m2-input--type-addon m2-input--type-inline\">\n                        <label for=\"cfg-pg-hero_url\" class=\"m2-input__label\">" + $t('Url') + ":</label>\n                        <input type=\"text\" name=\"cfg-pg-hero_url\" class=\"m2-input__input | m2c-products-grid-configurator__form-input | m2c-products-grid__hero-url\" id=\"cfg-pg-hero_url\" v-model=\"configuration.hero.href\">\n                        <span class=\"m2-input__addon | m2c-products-grid-configurator__widget-chooser-trigger\" @click=\"openCtaTargetModal()\">\n                            <svg class=\"m2-input__addon-icon\">\n                                <use v-bind=\"{ 'xlink:href': assetsSrc + 'images/sprites.svg#icon_link' }\"></use>\n                            </svg>\n                        </span>\n                    </div>\n                    <div class=\"m2-input m2-input--type-inline\">\n                        <label for=\"cfg-pg-hero_button_label\" class=\"m2-input__label\">" + $t('Button label') + ":</label>\n                        <input type=\"text\" name=\"cfg-pg-hero_button_label\" class=\"m2-input__input | m2c-products-grid-configurator__form-input\" id=\"cfg-pg-hero_button_label\" v-model=\"configuration.hero.button.label\" @change=\"onChange\">\n                    </div>\n                </div>\n\n            </div>\n            <div v-bind:class=\"[ 'm2c-products-grid-configurator__column-right', configuration.hero.image.src ? 'm2c-products-grid-configurator__column-right--look-image-uploaded' : '' ]\" v-show=\"configuration.hero.position\">\n                <div class=\"m2c-products-grid-configurator__toolbar\">\n                    <template v-if=\"configuration.hero.image.src\">\n                        <a href=\"#\" @click=\"getImageUploader()\">" + $t('Change image') + "</a>\n                    </template>\n                    <template v-else>\n                        <a href=\"#\" @click=\"getImageUploader()\">" + $t('Upload image') + "</a>\n                    </template>\n                    <span class=\"m2c-image-teaser-configurator__size-info\">{{ configuration.hero.size_info }}</span>\n                </div>\n                <div class=\"m2c-products-grid-configurator__image-wrapper\">\n                    <img :src=\"configuration.hero.image.src\" class=\"m2c-image-teaser-configurator__item-image\" v-show=\"configuration.hero.image.src\">\n                    <input type=\"hidden\" v-model=\"configuration.hero.image.src\">\n                    <input type=\"hidden\" class=\"m2c-products-grid-configurator__image-url\" id=\"products-grid-img\">\n                </div>\n            </div>\n        </div>\n    </form>",
+    template: "<div class=\"m2c-products-grid-configurator {{ classes }} | {{ mix }}\" {{ attributes }}>\n        <section class=\"m2c-products-grid-configurator__section\">\n            <h3 class=\"m2c-products-grid-configurator__subtitle\">" + $t('Data source') + ":</h3>\n            <div class=\"m2c-products-grid-configurator__scenario-options m2c-products-grid-configurator__scenario-options--inputs\">\n                <div class=\"m2-input m2-input--type-inline | m2c-products-grid-configurator__section-option\">\n                    <label for=\"cfg-pg-category\" class=\"m2-input__label | m2c-products-grid-configurator__section-option-label\">" + $t('Category ID') + ":</label>\n                    <select class=\"m2-input__select tmp-select\" style=\"width:25em\">\n                        <option>" + $t('Select...') + "</option>\n                    </select>\n                    <input type=\"hidden\" name=\"cfg-pg-category-select\" class=\"m2-input__input | m2c-products-grid-configurator__form-input\" id=\"cfg-pg-category\" v-model=\"configuration.category_id\" @change=\"onChange\">\n                </div>\n                <div class=\"m2-input m2-input--type-inline | m2c-products-grid-configurator__section-option\">\n                    <label for=\"cfg-pg-order-by\" class=\"m2-input__label | m2c-products-grid-configurator__section-option-label\">" + $t('Order by') + ":</label>\n                    <select name=\"cfg-pg-order-by\" class=\"m2-input__select\" id=\"cfg-pg-order-by\" v-model=\"configuration.order_by\" @change=\"onChange\">\n                        <option value=\"creation_date\">" + $t('Creation date') + "</option>\n                        <option value=\"price\">" + $t('Price') + "</option>\n                    </select>\n                    <select name=\"cfg-pg-order-type\" class=\"m2-input__select\" v-model=\"configuration.order_type\" @change=\"onChange\">\n                        <option value=\"ASC\">" + $t('Ascending') + "</option>\n                        <option value=\"DESC\">" + $t('Descending') + "</option>\n                    </select>\n                </div>\n            </div>\n        </section>\n\n        <section class=\"m2c-products-grid-configurator__section\">\n            <h3 class=\"m2c-products-grid-configurator__subtitle\">" + $t('Mobile Layout') + ":</h3>\n            <div class=\"m2c-products-grid-configurator__scenario-options\">\n                <ul class=\"m2c-products-grid-configurator__scenario-options-list\">\n                    <li\n                        :class=\"{\n                            'm2c-products-grid-configurator__option--selected': configuration.rows_mobile == optionId,\n                        }\"\n                        class=\"m2c-products-grid-configurator__option\"\n                        v-for=\"(optionId, option) in scenarioOptions.rows_mobile\"\n                        @click=\"setOption('rows_mobile', optionId)\">\n                        <div class=\"m2c-products-grid-configurator__option-wrapper\">\n                            <svg class=\"m2c-products-grid-configurator__option-icon\">\n                                <use v-bind=\"{ 'xlink:href': '#' + option.iconId }\"></use>\n                            </svg>\n                        </div>\n                        <p class=\"m2c-products-grid-configurator__option-name\">\n                            {{ option.name }}\n                        </p>\n                    </li>\n                </ul>\n            </div>\n        </section>\n\n        <section class=\"m2c-products-grid-configurator__section\">\n            <h3 class=\"m2c-products-grid-configurator__subtitle\">" + $t('Tablet Layout') + ":</h3>\n            <div class=\"m2c-products-grid-configurator__scenario-options\">\n                <ul class=\"m2c-products-grid-configurator__scenario-options-list\">\n                    <li\n                        :class=\"{\n                            'm2c-products-grid-configurator__option--selected': configuration.rows_tablet == optionId,\n                        }\"\n                        class=\"m2c-products-grid-configurator__option\"\n                        v-for=\"(optionId, option) in scenarioOptions.rows_tablet\"\n                        @click=\"setOption('rows_tablet', optionId)\">\n                        <div class=\"m2c-products-grid-configurator__option-wrapper\">\n                            <svg class=\"m2c-products-grid-configurator__option-icon\">\n                                <use v-bind=\"{ 'xlink:href': '#' + option.iconId }\"></use>\n                            </svg>\n                        </div>\n                        <p class=\"m2c-products-grid-configurator__option-name\">\n                            {{ option.name }}\n                        </p>\n                    </li>\n                </ul>\n            </div>\n        </section>\n\n        <section class=\"m2c-products-grid-configurator__section\">\n            <h3 class=\"m2c-products-grid-configurator__subtitle\">" + $t('Desktop Layout') + ":</h3>\n            <div class=\"m2c-products-grid-configurator__scenario-options\">\n                <ul class=\"m2c-products-grid-configurator__scenario-options-list\">\n                    <li\n                        :class=\"{\n                            'm2c-products-grid-configurator__option--selected': configuration.rows_desktop == optionId,\n                        }\"\n                        class=\"m2c-products-grid-configurator__option\"\n                        v-for=\"(optionId, option) in scenarioOptions.rows_desktop\"\n                        @click=\"setOption('rows_desktop', optionId)\">\n                        <div class=\"m2c-products-grid-configurator__option-wrapper\">\n                            <svg class=\"m2c-products-grid-configurator__option-icon\">\n                                <use v-bind=\"{ 'xlink:href': '#' + option.iconId }\"></use>\n                            </svg>\n                        </div>\n                        <p class=\"m2c-products-grid-configurator__option-name\">\n                            {{ option.name }}\n                        </p>\n                    </li>\n                </ul>\n            </div>\n        </section>\n\n        <section class=\"m2c-products-grid-configurator__section\">\n            <h3 class=\"m2c-products-grid-configurator__subtitle\">" + $t('Hero Teaser') + ":</h3>\n            <div class=\"m2c-products-grid-configurator__scenario-options\">\n                <ul class=\"m2c-products-grid-configurator__scenario-options-list\">\n                    <li\n                        :class=\"{\n                            'm2c-products-grid-configurator__option--selected': configuration.hero.position == optionId,\n                        }\"\n                        class=\"m2c-products-grid-configurator__option\"\n                        v-for=\"(optionId, option) in scenarioOptions.hero.position\"\n                        @click=\"setOption('hero', optionId, 'position')\">\n                        <div class=\"m2c-products-grid-configurator__option-wrapper\">\n                            <svg class=\"m2c-products-grid-configurator__option-icon\">\n                                <use v-bind=\"{ 'xlink:href': '#' + option.iconId }\"></use>\n                            </svg>\n                        </div>\n                        <p class=\"m2c-products-grid-configurator__option-name\">\n                            {{ option.name }}\n                        </p>\n                    </li>\n                </ul>\n            </div>\n        </section>\n\n        <div class=\"m2c-products-grid-configurator__item\" v-show=\"configuration.hero.position\">\n            <div class=\"m2c-hero-carousel-configurator__item-content\">\n                <div v-bind:class=\"[ 'm2c-products-grid-configurator__item-col-left', configuration.hero.image.src ? 'm2c-products-grid-configurator__item-col-left--look-image-uploaded' : '' ]\">\n                    <div class=\"m2c-products-grid-configurator__item-image-wrapper\">\n                        <img :src=\"configuration.hero.image.src\" class=\"m2c-image-teaser-configurator__item-image\" v-show=\"configuration.hero.image.src\">\n                        <input type=\"hidden\" v-model=\"configuration.hero.image.src\">\n                        <input type=\"hidden\" class=\"m2c-products-grid-configurator__image-url\" id=\"products-grid-img\">\n                        <svg class=\"m2c-products-grid-configurator__item-image-placeholder\" v-show=\"!configuration.hero.image.src\">\n                            <use xlink:href=\"#icon_image-placeholder\"></use>\n                        </svg>\n\n                        <div class=\"m2c-products-grid-configurator__item-actions\">\n                            <cc-component-actions>\n                                <template slot=\"cc-component-actions__buttons\">\n                                    <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon | cc-component-actions__button cc-component-actions__button--upload-image | m2c-products-grid-configurator__item-action-button\" @click=\"getImageUploader()\">\n                                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                                <use xlink:href=\"#icon_upload-image\"></use>\n                                            </svg>\n                                            {{ configuration.hero.image.src ? imageUploadedText : noImageUploadedText }}\n                                    </button>\n                                </template>\n                            </cc-component-actions>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"m2c-products-grid-configurator__item-col-right\">\n                    <div class=\"m2-input | m2c-products-grid-configurator__item-form-element\">\n                        <label for=\"cfg-pg-hero_headline\" class=\"m2-input__label\">" + $t('Headline') + ":</label>\n                        <input type=\"text\" name=\"cfg-pg-hero_headline\" class=\"m2-input__input\" id=\"cfg-pg-hero_headline\" v-model=\"configuration.hero.headline\" @change=\"onChange\">\n                    </div>\n                    <div class=\"m2-input | m2c-products-grid-configurator__item-form-element\">\n                        <label for=\"cfg-pg-hero_subheadline\" class=\"m2-input__label\">" + $t('Subheadline') + ":</label>\n                        <input type=\"text\" name=\"cfg-pg-hero_subheadline\" class=\"m2-input__input\" id=\"cfg-pg-hero_subheadline\" v-model=\"configuration.hero.subheadline\" @change=\"onChange\">\n                    </div>\n                    <div class=\"m2-input | m2c-products-grid-configurator__item-form-element\">\n                        <label for=\"cfg-pg-hero_paragraph\" class=\"m2-input__label | m2c-products-grid-configurator__form-label--textarea\">" + $t('Paragraph') + ":</label>\n                        <textarea type=\"text\" name=\"cfg-pg-hero_paragraph\" class=\"m2-input__textarea\" id=\"cfg-pg-hero_paragraph\" placeholder=\"" + $t('(max 200 characters)') + "\" maxlength=\"200\" v-model=\"configuration.hero.paragraph\"></textarea>\n                    </div>\n                    <div class=\"m2-input m2-input--group\">\n                        <div class=\"m2-input | m2c-products-grid-configurator__item-form-element\">\n                            <label for=\"cfg-pg-hero_button_label\" class=\"m2-input__label\">" + $t('Button label') + ":</label>\n                            <input type=\"text\" name=\"cfg-pg-hero_button_label\" class=\"m2-input__input\" id=\"cfg-pg-hero_button_label\" v-model=\"configuration.hero.button.label\" @change=\"onChange\">\n                        </div>\n                        <div class=\"m2-input m2-input--type-addon | m2c-products-grid-configurator__item-form-element\">\n                            <label for=\"cfg-pg-hero_url\" class=\"m2-input__label\">" + $t('Url') + ":</label>\n                            <input type=\"text\" name=\"cfg-pg-hero_url\" class=\"m2-input__input | m2c-products-grid__hero-url\" id=\"cfg-pg-hero_url\" v-model=\"configuration.hero.href\">\n                            <span class=\"m2-input__addon | m2c-products-grid-configurator__widget-chooser-trigger\" @click=\"openCtaTargetModal()\">\n                                <svg class=\"m2-input__addon-icon\">\n                                    <use xlink:href=\"#icon_link\"></use>\n                                </svg>\n                            </span>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>",
     props: {
         configuration: {
             type: Object,
@@ -617,10 +678,81 @@ var m2cProductsGridConfigurator = {
     },
     data: function () {
         return {
+            imageUploadedText: $t('Change'),
+            noImageUploadedText: $t('Upload'),
             categoryPicker: undefined,
+            scenarioOptions: {
+                rows_mobile: {
+                    2: {
+                        name: $t('2 rows of products'),
+                        iconId: 'pr_2',
+                    },
+                    3: {
+                        name: $t('3 rows of products'),
+                        iconId: 'pr_3',
+                    },
+                    4: {
+                        name: $t('4 rows of products'),
+                        iconId: 'pr_4',
+                    },
+                },
+                rows_tablet: {
+                    2: {
+                        name: $t('2 rows of products'),
+                        iconId: 'pr_2',
+                    },
+                    3: {
+                        name: $t('3 rows of products'),
+                        iconId: 'pr_3',
+                    },
+                    4: {
+                        name: $t('4 rows of products'),
+                        iconId: 'pr_4',
+                    },
+                },
+                rows_desktop: {
+                    2: {
+                        name: $t('2 rows of products'),
+                        iconId: 'pr_2',
+                    },
+                    3: {
+                        name: $t('3 rows of products'),
+                        iconId: 'pr_3',
+                    },
+                    4: {
+                        name: $t('4 rows of products'),
+                        iconId: 'pr_4',
+                    },
+                },
+                hero: {
+                    position: {
+                        '': {
+                            name: $t('No Hero Teaser'),
+                            iconId: 'no_teaser',
+                        },
+                        'left': {
+                            name: $t('Hero Teaser on the left'),
+                            iconId: 'teaser_left',
+                        },
+                        'right': {
+                            name: $t('Hero Teaser on the right'),
+                            iconId: 'teaser_right',
+                        }
+                    }
+                },
+            },
         };
     },
     methods: {
+        setOption: function (optionCategory, optionId, key) {
+            //this.configuration[ optionCategory ] = this.scenarioOptions[ optionCategory ][ optionId ];
+            if (key) {
+                this.configuration[optionCategory][key] = optionId;
+            }
+            else {
+                this.configuration[optionCategory] = optionId;
+            }
+        },
         /* Opens M2's built-in image manager modal.
          * Manages all images: image upload from hdd, select image that was already uploaded to server.
          * @param index {number} - index of image of image teaser.
@@ -754,6 +886,7 @@ var m2cProductsGridConfigurator = {
             });
             // Hide loader
             $('body').trigger('hideLoadingPopup');
+            $('.tmp-select').remove();
         });
         this.imageUploadListener();
         this.widgetSetListener();
