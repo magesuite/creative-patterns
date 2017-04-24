@@ -121,6 +121,7 @@ var m2cParagraphConfigurator = {
             default: function () {
                 return {
                     blockId: '',
+                    title: '',
                 };
             },
         },
@@ -186,6 +187,7 @@ var m2cParagraphConfigurator = {
                 component_1.tempConfiguration.identifier = response.data.identifier;
                 component_1.tempConfiguration.title = response.data.title;
                 component_1.tempConfiguration.content = response.data.content;
+                component_1.configuration.title = response.data.title;
                 // initialize customized WYSIWYG
                 if (component_1.wysiwygCfg) {
                     component_1.initWysiwyg();
@@ -231,6 +233,7 @@ var m2cParagraphConfigurator = {
                 // If status is OK update component's configuration and run Save to save component data
                 if (response.ok) {
                     component.configuration.blockId = response.data.id;
+                    component.configuration.title = response.data.title;
                     // Hide loader
                     $('body').trigger('hideLoadingPopup');
                     component.onSave();

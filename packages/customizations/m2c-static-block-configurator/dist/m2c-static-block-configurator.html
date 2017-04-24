@@ -2,7 +2,7 @@
     <form class="m2c-static-block-configurator  | "  @submit.prevent="onSave">
         <div class="m2-input m2-input--type-inline">
             <label for="cfg-static-block" class="m2-input__label">Static block:</label>
-            <select name="select" class="m2-input__select" id="cfg-static-block" v-model="configuration.identifier" @change="onChange">
+            <select name="select" class="m2-input__select" id="cfg-static-block" v-model="configuration.identifier"  v-el:cms-blocks-select @change="onChange">
                 <option value="">-- Select CMS Block --</option>
                             </select>
         </div>

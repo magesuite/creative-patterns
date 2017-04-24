@@ -48,6 +48,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
             default(): Object {
                 return {
                     blockId: '',
+                    title: '',
                 };
             },
         },
@@ -121,6 +122,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 component.tempConfiguration.identifier = response.data.identifier;
                 component.tempConfiguration.title = response.data.title;
                 component.tempConfiguration.content = response.data.content;
+                component.configuration.title = response.data.title;
 
                 // initialize customized WYSIWYG
                 if ( component.wysiwygCfg ) {
@@ -171,6 +173,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 // If status is OK update component's configuration and run Save to save component data
                 if ( response.ok ) {
                     component.configuration.blockId = response.data.id;
+                    component.configuration.title = response.data.title;
 
                     // Hide loader
                     $( 'body' ).trigger( 'hideLoadingPopup' );

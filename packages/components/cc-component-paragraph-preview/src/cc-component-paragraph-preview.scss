@@ -1,9 +1,9 @@
-// cc-component-static-cms-block-preview
-// Preview of CMS block component for layout builder
+// cc-component-paragraph-preview
+// This component is repsonsible for displaying preview of Paragraph component in M2C dashboard
 //
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
-.cc-component-static-cms-block-preview {
+.cc-component-paragraph-preview {
     padding: 1.2rem;
     box-sizing: border-box;
     background: #f7f7f7;
@@ -32,7 +32,7 @@
         height: 37%;
         min-height: 4.1rem;
         margin: 0;
-        padding: 0 3rem;
+        padding: 0 3rem 0 10%;
         font-size: 2vw !important;
         color: #adadad !important;
         font-weight: 600 !important;

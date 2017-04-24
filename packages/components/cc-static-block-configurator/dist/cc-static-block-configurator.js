@@ -86,6 +86,7 @@ var ccStaticBlockConfigurator = {
             default: function () {
                 return {
                     identifier: '',
+                    title: '',
                 };
             },
         },

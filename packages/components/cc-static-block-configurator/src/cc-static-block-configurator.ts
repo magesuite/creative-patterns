@@ -25,6 +25,7 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
             default(): Object {
                 return {
                     identifier: '',
+                    title: '',
                 };
             },
         },

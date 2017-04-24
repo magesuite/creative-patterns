@@ -86,6 +86,7 @@ var ccStaticBlockConfigurator = {
             default: function () {
                 return {
                     identifier: '',
+                    title: '',
                 };
             },
         },
@@ -97,6 +98,18 @@ var m2cStaticBlockConfigurator = {
         ccStaticBlockConfigurator,
     ],
     template: '#m2c-static-blocks-form',
+    events: {
+        /**
+         * Listen on save event from Content Configurator component.
+         */
+        'cc-component-configurator__save': function () {
+            var selectedOption = this.$els.cmsBlocksSelect.options[this.$els.cmsBlocksSelect.selectedIndex];
+            if (this.configuration.identifier === selectedOption.value && this.configuration.identifier !== '') {
+                this.configuration.title = selectedOption.text;
+                this.onSave();
+            }
+        },
+    },
 };
 
 return m2cStaticBlockConfigurator;
