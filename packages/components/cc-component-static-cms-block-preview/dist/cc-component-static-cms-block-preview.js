@@ -10,7 +10,7 @@
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccComponentStaticCmsBlockPreview = {
-    template: "<div class=\"cc-component-static-cms-block-preview\">\n        <h2 class=\"cc-component-static-cms-block-preview__block-id\">CMS Block ID: {{ configuration.identifier }}</h2>\n    </div>",
+    template: "<div class=\"cc-component-static-cms-block-preview\">\n        <div class=\"cc-component-static-cms-block-preview__content\">\n            <svg class=\"cc-component-static-cms-block-preview__bg\">\n                <use xlink:href=\"#icon_component-cms-block-preview\"></use>\n            </svg>\n            <h2 class=\"cc-component-static-cms-block-preview__title\">{{ configuration.title }}</h2>\n        </div>\n    </div>",
     props: {
         /**
          * Single's component configuration

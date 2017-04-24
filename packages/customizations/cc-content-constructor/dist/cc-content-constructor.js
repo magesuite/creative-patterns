@@ -238,6 +238,30 @@ var ccComponentHeroCarouselPreview = {
 };
 
 /**
+ * Paragraph preview component.
+ * This component is responsible for displaying preview of Paragraph component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentParagraphPreview = {
+    template: "<div class=\"cc-component-paragraph-preview\">\n        <div class=\"cc-component-paragraph-preview__content\">\n            <svg class=\"cc-component-paragraph-preview__bg\">\n                <use xlink:href=\"#icon_component-paragraph-preview\"></use>\n            </svg>\n            <h2 class=\"cc-component-paragraph-preview__title\">{{ configuration.title }}</h2>\n        </div>\n    </div>",
+    props: {
+        /**
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    }
+};
+
+/**
  * Product carousel preview component.
  * This component is responsible for displaying preview of product carousel component in Layout Builder (admin panel)
  * @type {vuejs.ComponentOption} Vue component object.
@@ -350,7 +374,7 @@ var ccComponentSeparatorPreview = {
  * @type {vuejs.ComponentOption} Vue component object.
  */
 var ccComponentStaticCmsBlockPreview = {
-    template: "<div class=\"cc-component-static-cms-block-preview\">\n        <h2 class=\"cc-component-static-cms-block-preview__block-id\">CMS Block ID: {{ configuration.identifier }}</h2>\n    </div>",
+    template: "<div class=\"cc-component-static-cms-block-preview\">\n        <div class=\"cc-component-static-cms-block-preview__content\">\n            <svg class=\"cc-component-static-cms-block-preview__bg\">\n                <use xlink:href=\"#icon_component-cms-block-preview\"></use>\n            </svg>\n            <h2 class=\"cc-component-static-cms-block-preview__title\">{{ configuration.title }}</h2>\n        </div>\n    </div>",
     props: {
         /**
          * Single's component configuration
@@ -465,6 +489,7 @@ var layoutBuilder = {
         'cc-component-hero-carousel-preview': ccComponentHeroCarouselPreview,
         'cc-component-category-links-preview': ccComponentCategoryLinksPreview,
         'cc-component-static-cms-block-preview': ccComponentStaticCmsBlockPreview,
+        'cc-component-paragraph-preview': ccComponentParagraphPreview,
         'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-product-grid-preview': ccComponentProductGridPreview,
         'cc-component-separator-preview': ccComponentSeparatorPreview,

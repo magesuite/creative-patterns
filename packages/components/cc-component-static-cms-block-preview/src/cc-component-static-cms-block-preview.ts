@@ -3,6 +3,7 @@
  */
 interface IComponentInformation {
     identifier: string;
+    title: string;
 }
 
 /**
@@ -12,7 +13,12 @@ interface IComponentInformation {
  */
 const ccComponentStaticCmsBlockPreview: vuejs.ComponentOption = {
     template: `<div class="cc-component-static-cms-block-preview">
-        <h2 class="cc-component-static-cms-block-preview__block-id">CMS Block ID: {{ configuration.identifier }}</h2>
+        <div class="cc-component-static-cms-block-preview__content">
+            <svg class="cc-component-static-cms-block-preview__bg">
+                <use xlink:href="#icon_component-cms-block-preview"></use>
+            </svg>
+            <h2 class="cc-component-static-cms-block-preview__title">{{ configuration.title }}</h2>
+        </div>
     </div>`,
     props: {
         /**

@@ -30,6 +30,7 @@ var Navigation = (function () {
             flyoutShowDelay: 200,
             flyoutAlignTo: 'center',
             flyoutAlignSwitch: 0,
+            roundTransformLeft: true,
         };
         // Don't throw errors if there is no navigation on the website.
         if ($element.length === 0) {
@@ -164,6 +165,7 @@ var Navigation = (function () {
             // If it would then stick it to the right side.
             flyoutTransformLeft = Math.floor(containerClientRect.width - flyoutClientRect.width);
         }
+        flyoutTransformLeft = this._options.roundTransformLeft ? Math.round(flyoutTransformLeft) : flyoutTransformLeft;
         this._setTransform($flyout, "translate3d(" + flyoutTransformLeft + "px, 0, 0)");
     };
     /**
