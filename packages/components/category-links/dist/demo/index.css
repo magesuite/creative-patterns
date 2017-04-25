@@ -52,7 +52,6 @@ body {
 @media (min-width: 48em) {
   .cs-category-links__list-wrapper {
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex; } }
 
@@ -69,7 +68,6 @@ body {
 @media (min-width: 48em) {
   .cs-category-links__list {
     -webkit-box-flex: 1;
-    -webkit-flex: 1 1 auto;
         -ms-flex: 1 1 auto;
             flex: 1 1 auto;
     margin-top: -0.5rem;
@@ -84,7 +82,6 @@ body {
 @media (min-width: 48em) {
   .cs-category-links__list-all {
     -webkit-box-flex: 0;
-    -webkit-flex: 0 1 auto;
         -ms-flex: 0 1 auto;
             flex: 0 1 auto;
     margin-left: 1rem;
@@ -93,11 +90,9 @@ body {
 
 .cs-category-links__list-all-item {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   height: 100%; }
@@ -133,7 +128,6 @@ body {
       height: 0;
       opacity: 0;
       -webkit-transform: translateY(3.5rem);
-          -ms-transform: translateY(3.5rem);
               transform: translateY(3.5rem);
       -webkit-transition: opacity .05s linear, -webkit-transform .11s ease-in-out;
       transition: opacity .05s linear, -webkit-transform .11s ease-in-out;
@@ -145,7 +139,6 @@ body {
       height: auto;
       opacity: 1;
       -webkit-transform: translateY(0);
-          -ms-transform: translateY(0);
               transform: translateY(0); } }
 
 /*# sourceMappingURL=index.css.map */

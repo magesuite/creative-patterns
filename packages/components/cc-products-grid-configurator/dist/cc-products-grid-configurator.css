@@ -12,9 +12,8 @@
   word-wrap: break-word;
   cursor: pointer; }
   .cs-input__label--look-top-align {
-    -webkit-align-self: flex-start;
-        -ms-flex-item-align: start;
-            align-self: flex-start; }
+    -ms-flex-item-align: start;
+        align-self: flex-start; }
 
 .cs-input__input, .cs-input__textarea, .cs-input__select {
   width: 100%;
@@ -75,11 +74,9 @@
 
 .cs-input--type-inline {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   max-width: 800px; }
@@ -102,9 +99,8 @@
       margin-left: 1em; }
 
 .cs-input--type-textarea {
-  -webkit-align-self: flex-start;
-      -ms-flex-item-align: start;
-          align-self: flex-start;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
   padding-top: .5rem; }
 
 .cs-input--type-checkbox, .cs-input--type-radio {
@@ -121,7 +117,6 @@
       top: 50%;
       left: 0;
       -webkit-transform: translateY(-50%);
-          -ms-transform: translateY(-50%);
               transform: translateY(-50%);
       background-color: #fff;
       border: 1px solid #a8a8a8;
@@ -167,7 +162,6 @@
   background-color: #333;
   border-radius: .55rem;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   content: ''; }
 
@@ -194,15 +188,12 @@
     border-left: 1px solid #adadad;
     background: #e3e3e3;
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-    -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
     -webkit-box-align: center;
-    -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center; }
   .cs-input--type-addon .cs-input__addon-icon {
@@ -215,7 +206,6 @@
 
 .cs-products-grid-configurator__columns {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex; }
 

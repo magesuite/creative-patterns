@@ -1,6 +1,5 @@
 import path from '../paths';
 
-import clean from 'postcss-clean';
 import autoprefixer from 'autoprefixer';
 import flexbugs from 'postcss-flexbugs-fixes';
 
@@ -9,7 +8,7 @@ import flexbugs from 'postcss-flexbugs-fixes';
  */
 export default {
     watch: [
-        path.src + '**/*.{css,scss,sass}'
+        path.src + '**/*.{css,scss,sass}',
     ],
     src: path.src + '**/*.{css,scss,sass}',
     dest: path.dist,
@@ -26,14 +25,13 @@ export default {
                     'opera >= 23',
                     'ios >= 7',
                     'android >= 4.2',
-                    'bb >= 10'
-                ]
+                    'bb >= 10',
+                ],
             }
         ),
-        clean()
     ],
     sass: {
         precision: 10,
-        errLogToConsole: true
-    }
+        errLogToConsole: true,
+    },
 };

@@ -35,7 +35,6 @@
   font-size: 1rem;
   list-style: none;
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   margin: 0 auto;
@@ -46,17 +45,14 @@
   border-top: 1px solid #ddd; }
   .cs-info-bar--align_stretch {
     -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
         -ms-flex-pack: justify;
             justify-content: space-between; }
   .cs-info-bar--align_left {
     -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
         -ms-flex-pack: start;
             justify-content: flex-start; }
   .cs-info-bar--align_right {
     -webkit-box-pack: end;
-    -webkit-justify-content: flex-end;
         -ms-flex-pack: end;
             justify-content: flex-end; }
   .cs-info-bar__item {

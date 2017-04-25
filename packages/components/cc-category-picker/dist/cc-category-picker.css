@@ -191,7 +191,6 @@
         background-color: transparent; }
         .cc-category-picker__crumb-remove:hover:before {
           -webkit-transform: scale(1.5);
-              -ms-transform: scale(1.5);
                   transform: scale(1.5); }
     .cc-category-picker__crumb:hover {
       border-color: #908379; }
@@ -223,7 +222,6 @@
       text-align: left !important; }
       .cc-category-picker__results-label:before {
         -webkit-transform: none !important;
-            -ms-transform: none !important;
                 transform: none !important;
         top: 0 !important; }
     .cc-category-picker__results-path {

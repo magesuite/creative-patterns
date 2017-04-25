@@ -5,6 +5,8 @@ import sass from 'gulp-sass';
 import postcss from 'gulp-postcss';
 import merge from 'merge-stream';
 import browserSync from 'browser-sync';
+import gulpif from 'gulp-if';
+import cleanCSS from 'gulp-clean-css';
 
 import { getPackages } from '../../../utils';
 import environment from '../../../environment';
@@ -44,7 +46,7 @@ module.exports = function() {
         const packageSettings = settings.generate( packageDir );
 
         return this.gulp.src( packageSettings.src )
-            .pipe( sourcemaps.init() )
+            .pipe( gulpif( !environment.production, sourcemaps.init() ) )
             .pipe( sass( packageSettings.sass )
                 .on( 'error', sass.logError )
                 .on( 'error', ( error ) => {
@@ -59,7 +61,8 @@ module.exports = function() {
                 } )
             )
             .pipe( postcss( packageSettings.postcss ) )
-            .pipe( sourcemaps.write( '.' ) )
+            .pipe( gulpif( environment.production, cleanCSS( settings.cleancss ) ) )
+            .pipe( gulpif( !environment.production, sourcemaps.write( '.' ) ) )
             .pipe( this.gulp.dest( packageSettings.dest ) );
     } );
 

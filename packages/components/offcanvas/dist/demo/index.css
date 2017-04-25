@@ -10,12 +10,10 @@
   transition: background-color .3s, transform 1ms .3s;
   transition: background-color .3s, transform 1ms .3s, -webkit-transform 1ms .3s;
   -webkit-transform: scale(0);
-      -ms-transform: scale(0);
           transform: scale(0);
   cursor: pointer; }
   .offcanvas__overlay--visible {
     -webkit-transform: scale(1);
-        -ms-transform: scale(1);
             transform: scale(1);
     background: rgba(0, 0, 0, 0.7);
     -webkit-transition: background-color .3s;
@@ -28,7 +26,6 @@
   left: 0;
   background: #fff;
   -webkit-transform: translateX(-105%);
-      -ms-transform: translateX(-105%);
           transform: translateX(-105%);
   -webkit-transform: translate3d(-105%, 0, 0);
           transform: translate3d(-105%, 0, 0);
@@ -40,7 +37,6 @@
   max-width: 400px; }
   .offcanvas__drawer--visible {
     -webkit-transform: translateX(0);
-        -ms-transform: translateX(0);
             transform: translateX(0);
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0); }
