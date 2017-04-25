@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import $t from 'mage/translate';
 
 import ccCategoryLinksConfigurator from '../../../components/cc-category-links-configurator/src/cc-category-links-configurator';
 import ccCategoryPicker from '../../../components/cc-category-picker/src/cc-category-picker';
@@ -9,17 +10,22 @@ const m2cCategoryLinksConfigurator: vuejs.ComponentOption = {
     ],
     template: `<form class="m2c-category-links-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <div class="m2-input m2-input--type-inline">
-            <label class="m2-input__label">Category</label>
+            <label class="m2-input__label">${$t( 'Category' )}</label>
             <input type="hidden" v-model="configuration.main_category_id" id="cp-main">
         </div>
         <div class="m2-input m2-input--type-inline">
-            <label class="m2-input__label">Subcategories</label>
+            <label class="m2-input__label">${$t( 'Subcategories' )}</label>
             <input type="hidden" v-model="configuration.sub_categories_ids" id="cp-sub">
         </div>
         
         <div class="m2-input m2-input--type-inline">
-            <label for="cfg-shownumbers" class="m2-input__label">Show products count:</label>
-            <input type="checkbox" v-model="configuration.shownumbers" id="cfg-shownumbers" class="m2-input__input" @change="onChange">
+            <label for="cfg-shownumbers" class="m2-input__label">${$t( 'Show products count' )}</label>
+            <div class="admin__actions-switch" data-role="switcher">
+                <input type="checkbox" class="admin__actions-switch-checkbox" id="cfg-shownumbers" name="use_name_in_product_search" v-model="configuration.shownumbers" @change="onChange">
+                <label class="admin__actions-switch-label" for="cfg-shownumbers">
+                    <span class="admin__actions-switch-text" data-text-on="${$t( 'Yes' )}" data-text-off="${$t( 'No' )}"></span>
+                </label>
+            </div>
         </div>
     </form>`,
     events: {

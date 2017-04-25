@@ -21,6 +21,7 @@
     &__modal {
         min-height: calc( 100vh - 200px );
         display: none;
+        min-width: 800px;
         max-width: 1280px;
         margin: 0 auto;
         padding-bottom: 2.6rem;

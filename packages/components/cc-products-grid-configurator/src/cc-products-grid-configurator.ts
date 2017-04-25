@@ -1,5 +1,8 @@
 import ccComponentConfigurator from '../../cc-component-configurator/src/cc-component-configurator';
 
+import actionButton from '../../action-button/src/action-button';
+import componentActions from '../../cc-component-actions/src/cc-component-actions';
+
 import $ from 'jquery';
 import $t from 'mage/translate';
 
@@ -95,6 +98,13 @@ const ccProductsGridConfigurator: vuejs.ComponentOption = {
 
         <button type="submit">Save</button>
     </form>`,
+    /**
+     * Get dependencies
+     */
+    components: {
+        'action-button': actionButton,
+        'cc-component-actions': componentActions,
+    },
     props: {
         configuration: {
             type: Object,
