@@ -28,11 +28,9 @@
   box-sizing: border-box; }
   .cs-html-select__trigger {
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-    -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center;
     position: relative;
@@ -75,16 +73,13 @@
     overflow: hidden;
     float: left;
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
         -ms-flex-direction: column;
             flex-direction: column;
     -webkit-box-pack: center;
-    -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
     height: 100%;
@@ -109,7 +104,6 @@
     -webkit-transform: translate3d(50%, -50%, 0);
             transform: translate3d(50%, -50%, 0);
     -webkit-transform-origin: 50% 30%;
-        -ms-transform-origin: 50% 30%;
             transform-origin: 50% 30%;
     -webkit-transition: -webkit-transform .25s ease;
     transition: -webkit-transform .25s ease;
@@ -129,18 +123,14 @@
     .cs-html-select__trigger-caret-arrow:before {
       left: 0;
       -webkit-transform: rotate(40deg);
-          -ms-transform: rotate(40deg);
               transform: rotate(40deg);
       -webkit-transform-origin: 0 50%;
-          -ms-transform-origin: 0 50%;
               transform-origin: 0 50%; }
     .cs-html-select__trigger-caret-arrow:after {
       right: 0;
       -webkit-transform: rotate(-40deg);
-          -ms-transform: rotate(-40deg);
               transform: rotate(-40deg);
       -webkit-transform-origin: 100% 50%;
-          -ms-transform-origin: 100% 50%;
               transform-origin: 100% 50%; }
   .cs-html-select__trigger-subtext {
     position: absolute;

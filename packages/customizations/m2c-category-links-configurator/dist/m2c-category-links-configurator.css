@@ -16,9 +16,8 @@
   word-wrap: break-word;
   cursor: pointer; }
   .m2-input__label--look-top-align {
-    -webkit-align-self: flex-start;
-        -ms-flex-item-align: start;
-            align-self: flex-start; }
+    -ms-flex-item-align: start;
+        align-self: flex-start; }
 
 .m2-input__input, .m2-input__textarea, .m2-input__select, .m2-input__fake-select {
   width: 100%;
@@ -79,11 +78,9 @@
 
 .m2-input--type-inline {
   display: -webkit-box;
-  display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-  -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
   max-width: 800px; }
@@ -106,9 +103,8 @@
       margin-left: 1em; }
 
 .m2-input--type-textarea {
-  -webkit-align-self: flex-start;
-      -ms-flex-item-align: start;
-          align-self: flex-start;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
   padding-top: .5rem; }
 
 .m2-input--type-checkbox, .m2-input--type-radio {
@@ -125,7 +121,6 @@
       top: 50%;
       left: 0;
       -webkit-transform: translateY(-50%);
-          -ms-transform: translateY(-50%);
               transform: translateY(-50%);
       background-color: #fff;
       border: 1px solid #a8a8a8;
@@ -171,7 +166,6 @@
   background-color: #333;
   border-radius: .55rem;
   -webkit-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
           transform: translateY(-50%);
   content: ''; }
 
@@ -198,15 +192,12 @@
     border-left: 1px solid #adadad;
     background: #e3e3e3;
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
-    -webkit-justify-content: center;
         -ms-flex-pack: center;
             justify-content: center;
     -webkit-box-align: center;
-    -webkit-align-items: center;
         -ms-flex-align: center;
             align-items: center; }
   .m2-input--type-addon .m2-input__addon-icon {
@@ -301,15 +292,12 @@
         border-color: #007bdb !important; }
       .m2-input__fake-select--active:after {
         -webkit-transform: rotate(-180deg);
-            -ms-transform: rotate(-180deg);
                 transform: rotate(-180deg); }
   .m2-input--group {
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
         -ms-flex-pack: justify;
             justify-content: space-between;
     width: 100%; }
@@ -333,7 +321,6 @@
       height: 1.6rem;
       top: 50%;
       -webkit-transform: translateY(-50%);
-          -ms-transform: translateY(-50%);
               transform: translateY(-50%);
       border: 1px solid #adadad;
       line-height: inherit;
@@ -357,7 +344,6 @@
     top: 50%;
     left: .4rem;
     -webkit-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
             transform: translateY(-50%);
     background-color: #007bdb; }
   .m2-input--type-addon .m2-input__input, .m2-input--type-addon .m2-input__textarea, .m2-input--type-addon .m2-input__select, .m2-input--type-addon .m2-input__fake-select {

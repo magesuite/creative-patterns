@@ -94,7 +94,6 @@
   box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.25); }
   .cc-component-actions__buttons {
     display: -webkit-box;
-    display: -webkit-flex;
     display: -ms-flexbox;
     display: flex; }
   .cc-component-actions__button {
