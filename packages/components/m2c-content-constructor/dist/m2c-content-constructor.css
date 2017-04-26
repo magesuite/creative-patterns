@@ -2013,7 +2013,7 @@
   padding: 22px 28px;
   border-color: inherit;
   border-style: dashed;
-  border-width: 2px; }
+  border-width: 1px; }
   .m2c-image-teaser-configurator__option-wrapper:after {
     content: '';
     position: absolute;
