@@ -21,7 +21,6 @@
     width: 100%;
     display: block;
     padding: .5em;
-    -webkit-transition: .3s;
     transition: .3s; }
   .cs-image-teaser__text-primary {
     display: block;

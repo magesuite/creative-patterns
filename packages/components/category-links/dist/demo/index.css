@@ -129,7 +129,6 @@ body {
       opacity: 0;
       -webkit-transform: translateY(3.5rem);
               transform: translateY(3.5rem);
-      -webkit-transition: opacity .05s linear, -webkit-transform .11s ease-in-out;
       transition: opacity .05s linear, -webkit-transform .11s ease-in-out;
       transition: opacity .05s linear, transform .11s ease-in-out;
       transition: opacity .05s linear, transform .11s ease-in-out, -webkit-transform .11s ease-in-out; } }
