@@ -55,7 +55,7 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
         /* Opens modal with M2 built-in widget chooser
          */
         openCtaTargetModal(): void {
-            widgetTools.openDialog( `${window.location.origin}/admin/admin/widget/index/widget_target_id/cfg-target` );
+            widgetTools.openDialog( `${window.location.origin}/admin/admin/widget/index/filter_widgets/Link/widget_target_id/cfg-target` );
 
             this.wWidgetListener();
         },
@@ -71,40 +71,22 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
             } );
         },
         /*
-         * Check if widget chooser is loaded. If not, wait for it
-         */
-        wWidgetListener(): void {
-            if ( typeof wWidget !== 'undefined' && widgetTools.dialogWindow[ 0 ].innerHTML !== '' ) {
-                this.disableNotLinksOptions();
-                this.setWidgetEvents();
-            } else {
-                setTimeout( this.wWidgetListener, 300 );
-            }
-        },
-        /*
+         * Check if widget chooser is loaded. If not, wait for it, if yes:
          * Override default onClick for "Insert Widget" button in widget's modal window
          * to clear input's value before inserting new one
          */
-        setWidgetEvents(): void {
-            const _this: any = this;
-            const button: any = widgetTools.dialogWindow[ 0 ].querySelector( '#insert_button' );
+        wWidgetListener(): void {
+            if ( typeof wWidget !== 'undefined' && widgetTools.dialogWindow[ 0 ].innerHTML !== '' ) {
+                const _this: any = this;
+                const button: any = widgetTools.dialogWindow[ 0 ].querySelector( '#insert_button' );
 
-            button.onclick = null;
-            button.addEventListener( 'click', function(): void {
-                _this.configuration.hero_url = '';
-                wWidget.insertWidget();
-            } );
-        },
-        /*
-         * Hide all options in widget chooser that are not links
-         */
-        disableNotLinksOptions(): void {
-            if ( wWidget.widgetEl && wWidget.widgetEl.options ) {
-                $( wWidget.widgetEl.options ).each( function( i: boolean, el: any ): void {
-                    if ( el.value.split( '\\' ).pop() !== 'Link' && i !== 0 ) {
-                        $( el ).hide();
-                    }
+                button.onclick = null;
+                button.addEventListener( 'click', function(): void {
+                    _this.configuration.target = '';
+                    wWidget.insertWidget();
                 } );
+            } else {
+                setTimeout( this.wWidgetListener, 300 );
             }
         },
     },

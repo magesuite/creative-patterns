@@ -658,7 +658,7 @@ var m2cImageTeaserConfigurator = {
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
         openCtaTargetModal: function (index) {
-            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/widget_target_id/image-teaser-ctatarget-output-" + index);
+            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/filter_widgets/Link/widget_target_id/image-teaser-ctatarget-output-" + index);
             this.wWidgetListener(index);
         },
         /* Sets listener for widget chooser
@@ -672,43 +672,26 @@ var m2cImageTeaserConfigurator = {
             });
         },
         /*
-         * Check if widget chooser is loaded. If not, wait for it
+         * Check if widget chooser is loaded. If not, wait for it, if yes:
+         * Override default onClick for "Insert Widget" button in widget's modal window
+         * to clear input's value before inserting new one
+         * @param {number} index Hero item's index in array.
          */
         wWidgetListener: function (itemIndex) {
             var _this = this;
             if (typeof wWidget !== 'undefined' && widgetTools.dialogWindow[0].innerHTML !== '') {
-                this.disableNotLinksOptions();
-                this.setWidgetEvents(itemIndex);
+                var _this_1 = this;
+                var button = widgetTools.dialogWindow[0].querySelector('#insert_button');
+                button.onclick = null;
+                button.addEventListener('click', function () {
+                    _this_1.configuration.items[itemIndex].href = '';
+                    wWidget.insertWidget();
+                });
             }
             else {
                 window.setTimeout(function () {
                     _this.wWidgetListener(itemIndex);
                 }, 300);
-            }
-        },
-        /*
-         * Override default onClick for "Insert Widget" button in widget's modal window
-         * to clear input's value before inserting new one
-         */
-        setWidgetEvents: function (itemIndex) {
-            var _this = this;
-            var button = widgetTools.dialogWindow[0].querySelector('#insert_button');
-            button.onclick = null;
-            button.addEventListener('click', function () {
-                _this.configuration.items[itemIndex].href = '';
-                wWidget.insertWidget();
-            });
-        },
-        /*
-         * Hide all options in widget chooser that are not links
-         */
-        disableNotLinksOptions: function () {
-            if (wWidget.widgetEl && wWidget.widgetEl.options) {
-                $(wWidget.widgetEl.options).each(function (i, el) {
-                    if (el.value.split('\\').pop() !== 'Link' && i !== 0) {
-                        $(el).hide();
-                    }
-                });
             }
         },
         /* Checks if it's possible to display Delete button

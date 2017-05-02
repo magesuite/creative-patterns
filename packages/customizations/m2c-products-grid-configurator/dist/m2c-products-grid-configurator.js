@@ -838,40 +838,22 @@ var m2cProductsGridConfigurator = {
             });
         },
         /*
-         * Check if widget chooser is loaded. If not, wait for it
-         */
-        wWidgetListener: function () {
-            if (typeof wWidget !== 'undefined' && widgetTools.dialogWindow[0].innerHTML !== '') {
-                this.disableNotLinksOptions();
-                this.setWidgetEvents();
-            }
-            else {
-                setTimeout(this.wWidgetListener, 300);
-            }
-        },
-        /*
+         * Check if widget chooser is loaded. If not, wait for it, if yes:
          * Override default onClick for "Insert Widget" button in widget's modal window
          * to clear input's value before inserting new one
          */
-        setWidgetEvents: function () {
-            var _this = this;
-            var button = widgetTools.dialogWindow[0].querySelector('#insert_button');
-            button.onclick = null;
-            button.addEventListener('click', function () {
-                _this.configuration.hero.href = '';
-                wWidget.insertWidget();
-            });
-        },
-        /*
-         * Hide all options in widget chooser that are not links
-         */
-        disableNotLinksOptions: function () {
-            if (wWidget.widgetEl && wWidget.widgetEl.options) {
-                $(wWidget.widgetEl.options).each(function (i, el) {
-                    if (el.value.split('\\').pop() !== 'Link' && i !== 0) {
-                        $(el).hide();
-                    }
+        wWidgetListener: function () {
+            if (typeof wWidget !== 'undefined' && widgetTools.dialogWindow[0].innerHTML !== '') {
+                var _this_1 = this;
+                var button = widgetTools.dialogWindow[0].querySelector('#insert_button');
+                button.onclick = null;
+                button.addEventListener('click', function () {
+                    _this_1.configuration.hero.href = '';
+                    wWidget.insertWidget();
                 });
+            }
+            else {
+                setTimeout(this.wWidgetListener, 300);
             }
         },
     },
