@@ -75,7 +75,6 @@ const m2cCategoryLinksConfigurator: vuejs.ComponentOption = {
 
             this.categoryPicker = new ccCategoryPicker( $( '#cp-main' ), categories, {
                 multiple: false,
-                disableLastLevelItems: true,
             } );
 
             if ( this.configuration.main_category_id !== '' ) {
