@@ -98,6 +98,7 @@ export default class CcCategoryPicker {
                 select: $t( 'Select...' ),
                 doneButton: $t( 'Done' ),
                 search: $t( 'Type category name to search...' ),
+                empty: $t( 'There are no categories matching your selection' ),
             },
             classes: {
                 base: 'cc-category-picker',
@@ -230,6 +231,8 @@ export default class CcCategoryPicker {
             this._afterBuild( false );
             this._rebuildValues();
             this._setEvents();
+        } else {
+            this._$wrapper.find( `.${ this._options.classes.menu.content }` ).html( this._options.placeholders.empty );
         }
     }
 
@@ -271,15 +274,20 @@ export default class CcCategoryPicker {
         let tpl: string = '';
 
         if ( this._options.showChildren && this._options.showSearch ) {
-            tpl = templates.getComponentTemplate( this._options.classes, this._options.placeholders, disabledClass );
+            tpl = templates.getComponentTemplate( c, t, disabledClass );
         } else {
-            tpl = templates.getMinimalComponentTemplate( this._options.classes, this._options.placeholders, disabledClass );
+            tpl = templates.getMinimalComponentTemplate( c, t, disabledClass );
         }
 
         this._$output.wrap( `<div class="${ c.base }"></div>` );
         this._$wrapper = this._$output.parent( `.${ c.base }` );
         this._$wrapper.append( tpl );
-        this._$wrapper.find( `.${ c.menu.content }` ).html( this._getContents( this._categoriesData.optgroup, '' ) );
+
+        if ( this._categoriesData.optgroup ) {
+            this._$wrapper.find( `.${ c.menu.content }` ).html( this._getContents( this._categoriesData.optgroup, '' ) );
+        } else {
+            this._$wrapper.find( `.${ c.menu.content }` ).html( t.empty );
+        }
     }
 
     /**
