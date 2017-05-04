@@ -133,7 +133,7 @@ const csTeaser: any = function( $element: any, settings: any ): void {
     };
 
     const postInit: any = function(): void {
-        if ( swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination ) {
+        if ( ( swiperInstance.originalParams.slidesPerView !== 1 || swiperInstance.params.calculateSlides ) && !swiperInstance.params.onlyBulletPagination ) {
 
             const totalSlidesNumber: number = swiperInstance.slides.length;
             const totalGroupNumber: number = Math.ceil( totalSlidesNumber / swiperInstance.params.slidesPerGroup );
