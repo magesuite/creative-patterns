@@ -97,6 +97,8 @@
                     width: 70%;
                 }
             }
+
+
         }
 
         &--content-display-scenario-1 {
@@ -110,6 +112,12 @@
             #{$root}__wrapper--content-display-inside & {
                 align-items: flex-end;
                 text-align: left;
+                @include media( '>=tablet' ) { //There is so small image in this scenario on medium screen
+                    align-items: center;
+                }
+                @include media( '>=laptop-lg' ) {
+                    align-items: flex-end;
+                }
             }
         }
 
@@ -128,80 +136,129 @@
                 transform: translateX( -50% );
                 justify-content: center;
                 align-items: flex-end;
+
+                @include media( '>=tablet' ) {//There is so small image in this scenario on medium screen
+                    align-items: center;
+                }
+                @include media( '>=laptop-lg' ) {
+                    align-items: flex-end;
+                }
             }
         }
     }
 
     &__headline {
         margin: 0;
-        font-size: 1rem;
+        font-size: 1.5rem;
         line-height: 1;
         text-transform: uppercase;
 
         @include media( '>=phone' ) {
-            font-size: 1.15rem;
+            font-size: 2rem;
+            #{$root}--items-in-row-1 & {
+                font-size: 2rem;
+            }
         }
 
         @include media( '>=phone-lg' ) {
-            font-size: 3.75vw;
+            font-size: 2.39rem;
+            #{$root}--items-in-row-1 & {
+                font-size: 3.75vw;
+            }
         }
 
         @include media( '>=tablet' ) {
-            font-size: 4vw;
 
-            #{$root}--items-in-row-2:not( #{$root}--slider ) & {
-                font-size: 2.75vw;
+            #{$root}--items-in-row-1 & {
+                font-size: 4vw;
             }
 
-            #{$root}--items-in-row-3:not( #{$root}--slider ) &,
-            #{$root}--items-in-row-4:not( #{$root}--slider ) & {
+            #{$root}--items-in-row-2 & {
+                font-size: 2.45vw;
+            }
+
+            #{$root}--items-in-row-3 & {
                 font-size: 2.25vw;
             }
 
-            #{$root}--items-in-row-6:not( #{$root}--slider ) & {
-                font-size: 1.75vw;
+            #{$root}--items-in-row-3#{$root}--slider & {
+                font-size: 2.05vw;
+            }
+
+            #{$root}--items-in-row-4 & {
+                font-size: 2vw;
+            }
+
+            #{$root}--items-in-row-4#{$root}--slider & {
+                font-size: 1.9vw;
+            }
+
+            #{$root}--items-in-row-6 & {
+                font-size: 1.5vw;
             }
         }
 
         @include media( '>=laptop' ) {
-            font-size: 3vw;
 
-            #{$root}--items-in-row-2:not( #{$root}--slider ) & {
+            #{$root}--items-in-row-1 & {
+                font-size: 3.5vw;
+            }
+
+            #{$root}--items-in-row-2  & {
                 font-size: 2.35vw;
             }
 
-            #{$root}--items-in-row-3:not( #{$root}--slider ) & {
-                font-size: 2.05vw;
+            #{$root}--items-in-row-3 & {
+                font-size: 1.9vw;
             }
 
-            #{$root}--items-in-row-4:not( #{$root}--slider ) & {
-                font-size: 2.05vw;
+            #{$root}--items-in-row-4 & {
+                font-size: 1.6vw;
             }
 
-            #{$root}--items-in-row-6:not( #{$root}--slider ) & {
-                font-size: 1.45vw;
+            #{$root}--items-in-row-6 & {
+                font-size: 1.35vw;
             }
         }
 
         @include media( '>=laptop-lg' ) {
-            font-size: 2.39rem;
 
-            #{$root}--items-in-row-2:not( #{$root}--slider ) & {
-                font-size: 1.83rem;
+            #{$root}--items-in-row-1 & {
+                font-size: 4.65rem;
             }
 
-            #{$root}--items-in-row-3:not( #{$root}--slider ) & {
-                font-size: 1.53rem;
+            #{$root}--items-in-row-2 & {
+                font-size: 2.9rem;
             }
 
-            #{$root}--items-in-row-4:not( #{$root}--slider ) & {
-                font-size: 1.38rem;
+            #{$root}--items-in-row-3 &,
+            #{$root}--items-in-row-4 & {
+                font-size: 2.7rem;
             }
 
-            #{$root}--items-in-row-6:not( #{$root}--slider ) & {
-                font-size: 1.04rem;
+            #{$root}--items-in-row-3#{$root}--slider & {
+                font-size: 2.5rem;
+            }
+
+            #{$root}--items-in-row-4#{$root}--slider & {
+                font-size: 2.3rem;
+            }
+
+            #{$root}--items-in-row-6 & {
+                font-size: 1.7rem;
             }
         }
+
+        //In scenario with 2 images in row on mobile below styles overwrite all above font-sizes
+        #{$root}--items-in-row-mobile-2 & {
+            @include media( '<tablet' ) {
+                font-size: 3.5vw;
+            }
+            @include media( '<phone' ) {
+                font-size: 3.8vw;
+            }
+        }
+
 
         + #{$root}__subheadline {
             margin: .25em 0 0;
@@ -210,93 +267,159 @@
 
     &__subheadline {
         margin: 0;
-        font-size: .89rem;
+        font-size: 1.2rem;
         line-height: 1;
         font-weight: 300;
 
+        @include media( '>=phone' ) {
+            font-size: 1.4rem;
+        }
+
         @include media( '>=phone-lg' ) {
-            font-size: 2.59vw;
+            font-size: 1.69rem;
         }
 
         @include media( '>=tablet' ) {
-            font-size: 2.55vw;
 
-            #{$root}--items-in-row-2:not( #{$root}--slider ) & {
-                font-size: 2.21vw;
+            #{$root}--items-in-row-1 & {
+                font-size: 2.55vw;
             }
 
-            #{$root}--items-in-row-3:not( #{$root}--slider ) & {
+            #{$root}--items-in-row-2 & {
+                font-size: 2vw;
+            }
+
+            #{$root}--items-in-row-3 & {
                 font-size: 1.78vw;
             }
 
-            #{$root}--items-in-row-4:not( #{$root}--slider ) & {
-                font-size: 1.98vw;
+            #{$root}--items-in-row-3#{$root}--slider & {
+                font-size: 1.5vw;
             }
 
-            #{$root}--items-in-row-6:not( #{$root}--slider ) & {
-                font-size: 1.68vw;
+            #{$root}--items-in-row-4 & {
+                font-size: 1.5vw;
+            }
+
+            #{$root}--items-in-row-4#{$root}--slider & {
+                font-size: 1.4vw;
+            }
+
+            #{$root}--items-in-row-6 & {
+                font-size: 1.2vw;
             }
         }
 
         @include media( '>=laptop' ) {
-            font-size: 2.25vw;
 
-            #{$root}--items-in-row-2:not( #{$root}--slider ) & {
+            #{$root}--items-in-row-1 & {
+                font-size: 2.25vw;
+            }
+
+            #{$root}--items-in-row-2 & {
                 font-size: 1.85vw;
             }
 
-            #{$root}--items-in-row-3:not( #{$root}--slider ) &,
-            #{$root}--items-in-row-4:not( #{$root}--slider ) & {
-                font-size: 1.66vw;
+            #{$root}--items-in-row-3 & {
+                font-size: 1.5vw;
             }
 
-            #{$root}--items-in-row-6:not( #{$root}--slider ) & {
-                font-size: 1.39vw;
+            #{$root}--items-in-row-4 & {
+                font-size: 1.35vw;
+            }
+
+            #{$root}--items-in-row-6 & {
+                font-size: 1.3vw;
             }
         }
 
         @include media( '>=laptop-lg' ) {
-            font-size: 1.69rem;
 
-            #{$root}--items-in-row-2:not( #{$root}--slider ) & {
-                font-size: 1.23rem;
+            #{$root}--items-in-row-1 & {
+                font-size: 2.85rem;
             }
 
-            #{$root}--items-in-row-3:not( #{$root}--slider ) & {
-                font-size: 1.13rem;
+            #{$root}--items-in-row-2 & {
+                font-size: 2.2rem;
             }
 
-            #{$root}--items-in-row-6:not( #{$root}--slider ) & {
-                font-size: 1rem;
+            #{$root}--items-in-row-3 &,
+            #{$root}--items-in-row-4 & {
+                font-size: 2rem;
+            }
+
+            #{$root}--items-in-row-3#{$root}--slider & {
+                font-size: 1.8rem;
+            }
+
+            #{$root}--items-in-row-4#{$root}--slider & {
+                font-size: 1.6rem;
+            }
+
+            #{$root}--items-in-row-6 & {
+                font-size: 1.2rem;
+            }
+
+            #{$root}--items-in-row-6 #{$root}__wrapper--content-display-outside & {
+                font-size: 1.6rem;
+            }
+
+        }
+
+        //In scenario with 2 images in row on mobile below styles overwrite all above font-sizes
+        #{$root}--items-in-row-mobile-2 & {
+            @include media( '<tablet' ) {
+                font-size: 2.5vw;
+            }
+            @include media( '<phone' ) {
+                font-size: 3vw;
             }
         }
     }
 
     &__text {
-        font-size: 1rem;
         line-height: 1.18;
+        display: none;
 
         @include media( '>=tablet' ) {
-            #{$root}--items-in-row-3:not( #{$root}--slider ) &,
-            #{$root}--items-in-row-4:not( #{$root}--slider ) & {
-                font-size: .89rem;
-            }
+            font-size: 1.4rem;
 
-            #{$root}--items-in-row-6:not( #{$root}--slider ) & {
-                font-size: .81rem;
+            #{$root}__wrapper--content-display-outside &,
+            #{$root}--items-in-row-1 & {
+                display: block;
             }
         }
+
+        @include media( '>=laptop-lg' ) {
+            #{$root}--items-in-row-2 & {
+                display: block;
+            }
+        }
+
+
     }
 
     &__cta {
+        display: none;
         @include media( '>=tablet' ) {
+            display: block;
+            margin-top: .7rem;
+
             #{$root}--items-in-row-2:not( #{$root}--slider ) & {
                 padding: 1em 2.5em;
             }
 
-            #{$root}--items-in-row-3:not( #{$root}--slider ) &,
-            #{$root}--items-in-row-4:not( #{$root}--slider ) & {
-                padding: .75em 1.75em;
+            #{$root}--items-in-row-3 #{$root}__wrapper--content-display-inside &,
+            #{$root}--items-in-row-4 #{$root}__wrapper--content-display-inside &,
+            #{$root}--items-in-row-6 #{$root}__wrapper--content-display-inside & {
+                display: none;
+            }
+
+        }
+
+        @include media( '>=laptop' ) {
+            #{$root}--items-in-row-3:not( #{$root}--slider ) #{$root}__wrapper--content-display-inside & {
+                display: block;
             }
 
             #{$root}--items-in-row-6:not( #{$root}--slider ) & {
