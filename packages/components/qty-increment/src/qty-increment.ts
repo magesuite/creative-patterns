@@ -59,7 +59,7 @@ export default class QtyIncrement {
         this._$decrementBtn     = this._$container.find( `.${this._options.namespace}qty-increment__button--decrement` );
         this._$incrementBtn     = this._$container.find( `.${this._options.namespace}qty-increment__button--increment` );
         this._minValue          = this._options.minValue || 1;
-        this._maxValue          = this._options.maxValue || 10;
+        this._maxValue          = this._options.maxValue || null;
 
         this._errorHandler      = this._options.errorHandler || this._defaultErrorHandler;
 
@@ -81,7 +81,7 @@ export default class QtyIncrement {
         }
 
         // If value of input is less than minimum, disable increase button, otherwise, enable button
-        if ( currentValue >= this._maxValue ) {
+        if ( this._maxValue &&currentValue >= this._maxValue ) {
             this._$container.find( $( `.${this._options.namespace}qty-increment__button--increment` ) ).attr( 'disabled', 'disabled' ).addClass( `${this._options.namespace}qty-increment__button--disabled` );
         } else {
             this._$container.find( $( `.${this._options.namespace}qty-increment__button--increment` ) ).removeAttr( 'disabled' ).removeClass( `${this._options.namespace}qty-increment__button--disabled` );
@@ -89,7 +89,7 @@ export default class QtyIncrement {
     }
 
     protected _defaultErrorHandler(): void {
-        if ( parseFloat( this._$input.val() ) > this._maxValue ) {
+        if ( this._maxValue && parseFloat( this._$input.val() ) > this._maxValue ) {
             alert( `The maximum value is ${this._maxValue}.` );
         } else if ( parseFloat( this._$input.val() ) < this._minValue ) {
             alert( `The minimum value is ${this._minValue}.` );
@@ -102,13 +102,13 @@ export default class QtyIncrement {
     protected _validate(): boolean {
         let isValid: boolean = false;
 
-        if ( parseFloat( this._$input.val() ) > this._maxValue || parseFloat( this._$input.val() ) < this._minValue ) {
+        if ( parseFloat( this._$input.val() ) < this._minValue || ( this._maxValue && parseFloat( this._$input.val() )  > this._maxValue ) ) {
 
             // trigger errorHandler method to show error
             this._errorHandler();
 
             // Set minimum/maximum after error appeared
-            if ( parseFloat( this._$input.val() ) > this._maxValue ) {
+            if ( ( this._maxValue && parseFloat( this._$input.val() )  > this._maxValue ) && parseFloat( this._$input.val() ) > this._maxValue ) {
                 this._$input.val( this._maxValue );
             } else if ( parseFloat( this._$input.val() ) < this._minValue ) {
                 this._$input.val( this._minValue );
@@ -137,9 +137,9 @@ export default class QtyIncrement {
                 newVal = parseFloat( oldValue ) + 1;
 
                 // Don't allow incrementing above maxValue
-                if ( oldValue < this._maxValue ) {
+                if ( this._maxValue && oldValue < this._maxValue ) {
                     newVal = parseFloat( oldValue ) + 1;
-                } else {
+                } else if ( this._maxValue && oldValue >= this._maxValue ) {
                     newVal = this._maxValue;
                 }
 
