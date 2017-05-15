@@ -58,8 +58,8 @@ export default class QtyIncrement {
         this._$input            = this._$container.find( `.${this._options.namespace}qty-increment__input` );
         this._$decrementBtn     = this._$container.find( `.${this._options.namespace}qty-increment__button--decrement` );
         this._$incrementBtn     = this._$container.find( `.${this._options.namespace}qty-increment__button--increment` );
-        this._minValue          = this._options.minValue || 1;
-        this._maxValue          = this._options.maxValue || null;
+        this._minValue          = parseInt( this._$input.data( 'min-value' ) ) || 1;
+        this._maxValue          = parseInt( this._$input.data( 'max-value' ) ) || null;
 
         this._errorHandler      = this._options.errorHandler || this._defaultErrorHandler;
 
