@@ -1,0 +1,42 @@
+@mixin genderDetection() {
+    $root: &;
+
+    &__input-wrapper {
+        position: relative;
+        z-index: 2;
+    }
+
+    &__content {
+        position: relative;
+        padding: .5rem;
+        background: #f1f1f1;
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 800px;
+        box-sizing: border-box;
+        z-index: -1;
+        opacity: 0;
+        transform: translate3d( 0, -2rem, 0 );
+        transition: transform .2s cubic-bezier( 0, .92, .09, 1 ), opacity .15s ease-in-out;
+
+        #{$root}--static & {
+            transition: none;
+        }
+
+        &--active,
+        #{$root}--static & {
+            z-index: 3;
+            opacity: 1;
+            transform: translate3d( 0, 0, 0 );
+        }
+
+        .#{$namespace}input {
+            margin: 0 2rem 0 0;
+        }
+    }
+
+    &__source {
+        margin-bottom: 0;
+    }
+}

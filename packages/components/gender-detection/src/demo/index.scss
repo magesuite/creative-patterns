@@ -1,0 +1,55 @@
+@import '../../../cs-input/src/cs-input';
+@import '../../../select/src/select';
+@import '../gender-detection';
+
+html {
+    font-family: Open Sans, Arial, sans-serif;
+}
+
+body.loading {
+    .demo__loading {
+        display: block;
+    }
+}
+
+.demo {
+    &__pages {
+        margin: 1rem 0 2rem;
+        padding: 1.5rem;
+        list-style: none;
+        display: inline-block;
+        background: #f7f7f7;
+        border-radius: 4px;
+
+        li {
+            font-size: 95%;
+            margin: .5rem 0;
+        }
+
+        a {
+            color: #000;
+        }
+
+        span {
+            color: #888;
+        }
+    }
+
+    &__loading {
+        display: none;
+        position: absolute;
+        bottom: 2rem;
+        right: 2rem;
+        font-size: 3rem;
+
+        .loading & {
+            display: block;
+        }
+    }
+}
+
+.cs-gender-detection {
+    @include genderDetection();
+    margin-bottom: 5rem;
+}
+
