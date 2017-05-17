@@ -19,8 +19,8 @@ var QtyIncrement = (function () {
         this._$input = this._$container.find("." + this._options.namespace + "qty-increment__input");
         this._$decrementBtn = this._$container.find("." + this._options.namespace + "qty-increment__button--decrement");
         this._$incrementBtn = this._$container.find("." + this._options.namespace + "qty-increment__button--increment");
-        this._minValue = this._options.minValue || 1;
-        this._maxValue = this._options.maxValue || 10;
+        this._minValue = parseInt(this._$input.data('min-value')) || 1;
+        this._maxValue = parseInt(this._$input.data('max-value')) || null;
         this._errorHandler = this._options.errorHandler || this._defaultErrorHandler;
         this._attachEvents();
         this._updateButtonsState();
@@ -38,7 +38,7 @@ var QtyIncrement = (function () {
             this._$container.find($("." + this._options.namespace + "qty-increment__button--decrement")).removeAttr('disabled').removeClass(this._options.namespace + "qty-increment__button--disabled");
         }
         // If value of input is less than minimum, disable increase button, otherwise, enable button
-        if (currentValue >= this._maxValue) {
+        if (this._maxValue && currentValue >= this._maxValue) {
             this._$container.find($("." + this._options.namespace + "qty-increment__button--increment")).attr('disabled', 'disabled').addClass(this._options.namespace + "qty-increment__button--disabled");
         }
         else {
@@ -46,7 +46,7 @@ var QtyIncrement = (function () {
         }
     };
     QtyIncrement.prototype._defaultErrorHandler = function () {
-        if (parseFloat(this._$input.val()) > this._maxValue) {
+        if (this._maxValue && parseFloat(this._$input.val()) > this._maxValue) {
             alert("The maximum value is " + this._maxValue + ".");
         }
         else if (parseFloat(this._$input.val()) < this._minValue) {
@@ -58,11 +58,11 @@ var QtyIncrement = (function () {
      */
     QtyIncrement.prototype._validate = function () {
         var isValid = false;
-        if (parseFloat(this._$input.val()) > this._maxValue || parseFloat(this._$input.val()) < this._minValue) {
+        if (parseFloat(this._$input.val()) < this._minValue || (this._maxValue && parseFloat(this._$input.val()) > this._maxValue)) {
             // trigger errorHandler method to show error
             this._errorHandler();
             // Set minimum/maximum after error appeared
-            if (parseFloat(this._$input.val()) > this._maxValue) {
+            if ((this._maxValue && parseFloat(this._$input.val()) > this._maxValue) && parseFloat(this._$input.val()) > this._maxValue) {
                 this._$input.val(this._maxValue);
             }
             else if (parseFloat(this._$input.val()) < this._minValue) {
@@ -88,10 +88,10 @@ var QtyIncrement = (function () {
             if ($btn.get(0) === _this._$incrementBtn.get(0)) {
                 newVal = parseFloat(oldValue) + 1;
                 // Don't allow incrementing above maxValue
-                if (oldValue < _this._maxValue) {
+                if (_this._maxValue && oldValue < _this._maxValue) {
                     newVal = parseFloat(oldValue) + 1;
                 }
-                else {
+                else if (_this._maxValue && oldValue >= _this._maxValue) {
                     newVal = _this._maxValue;
                 }
             }

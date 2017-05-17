@@ -1,0 +1,53 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gender-detection component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="demo__header">
+    <h1>gender-detection Component Demo</h1>
+
+    <p>This component can be only used once per page. Therefore demos are splitted into separated pages.</p>
+
+    <ul class="demo__pages">
+        <li><span>Demo #1: Default</span></li>
+        <li><a href="demo-static.html">Demo #2: Static - gender section always visible</a></li>
+        <li><a href="demo-select.html">Demo #3: Select instead of radios</a></li>
+        <li><a href="demo-cs-select.html">Demo #4: cs-select component instead of radios</a></li>
+        <li><a href="demo-delay.html">Demo #5: Delayed input selection and ajax loading</a></li>
+    </ul>
+</div>
+
+        <h4>Default</h4>
+        <div class="cs-gender-detection" data-api-key="zaPowHWPadlkkzgGzg">
+            <div class="cs-input | cs-gender-detection__input-wrapper">
+                <label class="cs-input__label" for="firstname"><span>First Name</span></label>
+                <div class="cs-input__control">
+                    <input type="text" id="firstname" name="firstname" value="" title="First Name" class="cs-input__input | cs-gender-detection__source">
+                </div>
+            </div>
+            <div class="cs-gender-detection__content">
+                <div class="cs-input cs-input--type-radio">
+                    <input type="radio" name="gender-detection" class="cs-input__radio" id="gd-1" data-gender="male"/>
+                    <label for="gd-1" class="cs-input__label">Male</label>
+                </div>
+
+                <div class="cs-input cs-input--type-radio">
+                    <input type="radio" name="gender-detection" class="cs-input__radio" id="gd-2" data-gender="female"/>
+                    <label for="gd-2" class="cs-input__label  cs-input__label--big">Female</label>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="../gender-detection.js"></script>
+        <script>
+            var demo = new genderDetection( $('.cs-gender-detection') );
+        </script>
+    </body>
+</html>

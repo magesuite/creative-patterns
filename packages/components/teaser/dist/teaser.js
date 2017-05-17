@@ -126,7 +126,7 @@ var csTeaser = function ($element, settings) {
         swiperInstance.params = $.extend(swiperInstance.params, currentSettings);
     };
     var postInit = function () {
-        if (swiperInstance.params.slidesPerView !== 1 && !swiperInstance.params.onlyBulletPagination) {
+        if ((swiperInstance.originalParams.slidesPerView !== 1 || swiperInstance.params.calculateSlides) && !swiperInstance.params.onlyBulletPagination) {
             var totalSlidesNumber = swiperInstance.slides.length;
             var totalGroupNumber = Math.ceil(totalSlidesNumber / swiperInstance.params.slidesPerGroup);
             if (totalGroupNumber > swiperInstance.params.paginationBreakpoint) {
