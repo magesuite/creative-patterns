@@ -1,0 +1,47 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>gender-detection component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        {% include './header.twig' with {'current': 4} %}
+
+        <h4>With cs-select component instead of radios</h4>
+        <div class="cs-gender-detection" data-api-key="zaPowHWPadlkkzgGzg">
+            <div class="cs-input | cs-gender-detection__input-wrapper">
+                <label class="cs-input__label" for="firstname"><span>First Name</span></label>
+                <div class="cs-input__control">
+                    <input type="text" id="firstname" name="firstname" value="" title="First Name" class="cs-input__input | cs-gender-detection__source">
+                </div>
+            </div>
+            <div class="cs-gender-detection__content">
+                <div class="cs-input">
+                    {% include locate( 'select/select.twig' ) with {
+                        namespace: 'cs-',
+                        params: 'title="Choose one of the following..." data-gender',
+                        options: [
+                            { value: 'male', label: 'Male' },
+                            { value: 'female', label: 'Female' },
+                        ]
+                    } %}
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="/components/select/src/vendor/_ismobile.min.js"></script>
+        <script src="/components/select/src/vendor/bootstrap-select/_bootstrap-dropdown.js"></script>
+        <script src="/components/select/src/vendor/bootstrap-select/_bootstrap-select.js"></script>
+        <script src="/components/select/dist/select.js"></script>
+        <script src="../gender-detection.js"></script>
+        <script>
+            var csSelect = new select( $( '.cs-select' ) );
+            var demo = new genderDetection( $('.cs-gender-detection') );
+        </script>
+    </body>
+</html>

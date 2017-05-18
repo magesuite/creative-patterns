@@ -1,0 +1,13 @@
+<div class="demo__header">
+    <h1>gender-detection Component Demo</h1>
+
+    <p>This component can be only used once per page. Therefore demos are splitted into separated pages.</p>
+
+    <ul class="demo__pages">
+        <li>{{ current == 1 ? '<span>Demo #1: Default</span>' : '<a href="index.html">Demo #1: Default</a>' }}</li>
+        <li>{{ current == 2 ? '<span>Demo #2: Static - gender section always visible</span>' : '<a href="demo-static.html">Demo #2: Static - gender section always visible</a>' }}</li>
+        <li>{{ current == 3 ? '<span>Demo #3: Select instead of radios</span>' : '<a href="demo-select.html">Demo #3: Select instead of radios</a>' }}</li>
+        <li>{{ current == 4 ? '<span>Demo #4: cs-select component instead of radios</span>' : '<a href="demo-cs-select.html">Demo #4: cs-select component instead of radios</a>' }}</li>
+        <li>{{ current == 5 ? '<span>Demo #5: Delayed input selection and ajax loading</span>' : '<a href="demo-delay.html">Demo #5: Delayed input selection and ajax loading</a>' }}</li>
+    </ul>
+</div>
