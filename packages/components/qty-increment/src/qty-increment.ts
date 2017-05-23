@@ -161,6 +161,7 @@ export default class QtyIncrement {
             // If previous value of input is different than the one after user click, trigger change event.
             if ( oldValue !== newVal ) {
                 $( document ).trigger( `.${this._options.namespace}qty-increment:change`, this._$input );
+                this._$input.trigger( 'change' );
             }
         };
 
