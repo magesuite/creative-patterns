@@ -122,8 +122,14 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
                         disabled: false,
                         teasersLimit: true,
                     },
+                    'c-s': {
+                        name: 'Content width Slider',
+                        iconId: 'tw_content-slider',
+                        disabled: false,
+                        teasersLimit: false,
+                    },
                     'w-s': {
-                        name: 'Window slider',
+                        name: 'Window width Slider',
                         iconId: 'tw_window-slider',
                         disabled: false,
                         teasersLimit: false,
@@ -258,6 +264,17 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
 
                 ['w-s', '4', 'over', ['slider']],
                 ['w-s', '4', 'under', ['slider']],
+
+                ['c-s', '1', 'over', ['slider']],
+
+                ['c-s', '2', 'over', ['slider']],
+                ['c-s', '2', 'under', ['slider']],
+
+                ['c-s', '3', 'over', ['slider']],
+                ['c-s', '3', 'under', ['slider']],
+
+                ['c-s', '4', 'over', ['slider']],
+                ['c-s', '4', 'under', ['slider']],
             ],
         };
     },
@@ -282,12 +299,12 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
         },
     },
     created(): void {
-        if (this.configuration.ignoredItems === undefined) {
+        if ( this.configuration.ignoredItems === undefined ) {
             this.configuration.ignoredItems = [];
         }
     },
     methods: {
-        _collectPossibleOptions(filteredScenarios: Array<Array<any>>): any {
+        _collectPossibleOptions( filteredScenarios: Array<Array<any>> ): any {
             const teaserWidthIndex: number = 0;
             const desktopLayoutIndex: number = 1;
             const textPositionIndex: number = 2;
@@ -299,67 +316,67 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
                 mobileLayout: {},
             };
 
-            filteredScenarios.forEach((filteredScenario: Array<any>) => {
-                possibleOptions.teaserWidth[filteredScenario[teaserWidthIndex]] = true;
-                possibleOptions.desktopLayout[filteredScenario[desktopLayoutIndex]] = true;
-                possibleOptions.textPositioning[filteredScenario[textPositionIndex]] = true;
-                filteredScenario[mobileLayoutsIndex].forEach((mobileLayout: string) => {
-                    possibleOptions.mobileLayout[mobileLayout] = true;
-                });
-            });
+            filteredScenarios.forEach( ( filteredScenario: Array<any> ) => {
+                possibleOptions.teaserWidth[ filteredScenario[ teaserWidthIndex ] ] = true;
+                possibleOptions.desktopLayout[ filteredScenario[ desktopLayoutIndex ] ] = true;
+                possibleOptions.textPositioning[ filteredScenario[ textPositionIndex ] ] = true;
+                filteredScenario[ mobileLayoutsIndex ].forEach( ( mobileLayout: string ) => {
+                    possibleOptions.mobileLayout[ mobileLayout ] = true;
+                } );
+            } );
 
-            Object.keys(possibleOptions).forEach((scenarioElement: string): void => {
-                possibleOptions[scenarioElement] = Object.keys(possibleOptions[scenarioElement]);
+            Object.keys( possibleOptions ).forEach( ( scenarioElement: string ): void => {
+                possibleOptions[ scenarioElement ] = Object.keys( possibleOptions[ scenarioElement ] );
             });
 
             return possibleOptions;
         },
 
-        _findPossibleOptions(teaserWidth: string, desktopLayout: string, textPosition: string, mobileLayout: string): void {
+        _findPossibleOptions( teaserWidth: string, desktopLayout: string, textPosition: string, mobileLayout: string ): void {
             const teaserWidthIndex: number = 0;
             const desktopLayoutIndex: number = 1;
             const textPositionIndex: number = 2;
             const mobileLayoutsIndex: number = 3;
             // Make a copy of available scenarios to prevent reference copying.
-            let filteredScenarios: Array<Array<string>> = JSON.parse(JSON.stringify(this.availableScenarios));
+            let filteredScenarios: Array<Array<string>> = JSON.parse( JSON.stringify( this.availableScenarios ) );
 
-            if (teaserWidth) {
-                filteredScenarios = filteredScenarios.filter((availableScenario: any) => {
-                    return availableScenario[teaserWidthIndex] === teaserWidth;
-                });
+            if ( teaserWidth ) {
+                filteredScenarios = filteredScenarios.filter( ( availableScenario: any ) => {
+                    return availableScenario[ teaserWidthIndex ] === teaserWidth;
+                } );
             }
 
-            if (desktopLayout) {
-                filteredScenarios = filteredScenarios.filter((availableScenario: any) => {
-                    return availableScenario[desktopLayoutIndex] === desktopLayout;
-                });
+            if ( desktopLayout ) {
+                filteredScenarios = filteredScenarios.filter( ( availableScenario: any ) => {
+                    return availableScenario[ desktopLayoutIndex ] === desktopLayout;
+                } );
             }
 
-            if (textPosition) {
-                filteredScenarios = filteredScenarios.filter((availableScenario: any) => {
-                    return !textPosition || availableScenario[textPositionIndex] === textPosition;
-                });
+            if ( textPosition ) {
+                filteredScenarios = filteredScenarios.filter( ( availableScenario: any ) => {
+                    return !textPosition || availableScenario[ textPositionIndex ] === textPosition;
+                } );
             }
 
-            if (mobileLayout) {
-                filteredScenarios = filteredScenarios.filter((availableScenario: any) => {
-                    return availableScenario[mobileLayoutsIndex].indexOf(mobileLayout) !== -1;
-                });
-                filteredScenarios = filteredScenarios.map((availableScenario: any) => {
-                    availableScenario[mobileLayoutsIndex] = [mobileLayout];
+            if ( mobileLayout ) {
+                filteredScenarios = filteredScenarios.filter( ( availableScenario: any ) => {
+                    return availableScenario[ mobileLayoutsIndex ].indexOf( mobileLayout ) !== -1;
+                } );
+                filteredScenarios = filteredScenarios.map( ( availableScenario: any ) => {
+                    availableScenario[ mobileLayoutsIndex ] = [ mobileLayout ];
                     return availableScenario;
-                });
+                } );
             }
 
-            return this._collectPossibleOptions(filteredScenarios);
+            return this._collectPossibleOptions( filteredScenarios );
         },
 
         toggleOption( optionCategory: string, optionId: string ): void {
-            if (this.configuration.currentScenario[optionCategory].id) {
-                this.configuration.currentScenario[optionCategory] = {};
+            if ( this.configuration.currentScenario[ optionCategory ].id ) {
+                this.configuration.currentScenario[ optionCategory ] = {};
             } else {
-                this.configuration.currentScenario[optionCategory] = this.scenarioOptions[optionCategory][optionId];
-                this.configuration.currentScenario[optionCategory].id = optionId;
+                this.configuration.currentScenario[ optionCategory ] = this.scenarioOptions[ optionCategory ][ optionId ];
+                this.configuration.currentScenario[ optionCategory ].id = optionId;
             }
 
             this.togglePossibleOptions();
@@ -372,13 +389,13 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
             const itemsLimit: boolean = this.configuration.currentScenario.teaserWidth.teasersLimit;
 
             if ( itemsLimit && items.length > itemsNumber ) {
-                const removedItems: Array<any> = items.splice(itemsNumber, items.length - itemsNumber);
-                this.configuration.ignoredItems = removedItems.concat(this.configuration.ignoredItems);
-            } else if (items.length < itemsNumber) {
-                items.concat(this.configuration.ignoredItems.splice(0, itemsNumber - items.length));
+                const removedItems: Array<any> = items.splice( itemsNumber, items.length - itemsNumber );
+                this.configuration.ignoredItems = removedItems.concat( this.configuration.ignoredItems );
+            } else if ( items.length < itemsNumber ) {
+                items.concat( this.configuration.ignoredItems.splice( 0, itemsNumber - items.length ) );
 
-                for (let addedItems: number = 0; addedItems < itemsNumber - items.length; addedItems++) {
-                    items.push(JSON.parse(JSON.stringify(teaserItemPrototype)));
+                for ( let addedItems: number = 0; addedItems < itemsNumber - items.length; addedItems++ ) {
+                    items.push( JSON.parse( JSON.stringify( teaserItemPrototype ) ) );
                 }
             }
         },
@@ -392,11 +409,11 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
                 currentScenario.mobileLayout.id,
             );
 
-            Object.keys(this.scenarioOptions).forEach((optionCategory: string) => {
-                Object.keys(this.scenarioOptions[optionCategory]).forEach((scenarioOptionId: string) => {
-                    this.scenarioOptions[optionCategory][scenarioOptionId].disabled = possibleOptions[optionCategory].indexOf(scenarioOptionId) === -1;
-                });
-            });
+            Object.keys( this.scenarioOptions ).forEach( ( optionCategory: string ) => {
+                Object.keys( this.scenarioOptions[ optionCategory ] ).forEach( ( scenarioOptionId: string ) => {
+                    this.scenarioOptions[ optionCategory ][ scenarioOptionId ].disabled = possibleOptions[ optionCategory ].indexOf( scenarioOptionId ) === -1;
+                } );
+            } );
         },
 
         canAddTeaser(): boolean {
