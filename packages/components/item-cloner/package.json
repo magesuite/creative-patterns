@@ -1,0 +1,8 @@
+{
+    "name": "item-cloner",
+    "version": "0.0.1",
+    "description": "This component is responsible for cloning items",
+    "main": "src/item-cloner.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

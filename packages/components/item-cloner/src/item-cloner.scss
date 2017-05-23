@@ -1,0 +1,27 @@
+// item-cloner
+// This component is responsible for cloning items
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@mixin itemCloner() {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    transform: translate3d( 0, 0, 0 ); // Fixes z-index issue in Safari
+
+    &--visible {
+        width: auto;
+        height: auto;
+        overflow: visible;
+    }
+
+    &__clone {
+        display: block !important;
+        list-style: none;
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box;
+    }
+}
