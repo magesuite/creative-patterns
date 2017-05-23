@@ -21,9 +21,13 @@
             height: 100%;
             top: 0;
             transition: box-shadow .15s ease-in-out;
+
+            #{$root}.no-transition & {
+                transition: none;
+            }
         }
 
-        &:hover {
+        &--show-details {
             z-index: 3;
 
             &:before {
@@ -37,7 +41,12 @@
         box-shadow: none;
         background-color: #fff;
         padding: 1rem;
+        transform: translate3d( 0, 0, 0 ); // Fixes z-index issue in Safari
         transition: box-shadow .15s ease-in-out;
+
+        #{$root}.no-transition & {
+            transition: none;
+        }
 
         @include media( '>=laptop' ) {
             &:after {
@@ -50,10 +59,8 @@
                 z-index: -1;
                 background-color: #fff;
                 content: '';
-            }
 
-            #{$root}:hover & {
-                &:after {
+                #{$root}--show-details & {
                     height: 3rem;
                 }
             }
@@ -70,24 +77,26 @@
         align-items: center;
         flex-wrap: wrap;
         box-sizing: border-box;
+        position: absolute;
+        left: 0;
+        overflow: hidden;
+        z-index: -2;
+        opacity: 0;
+        transform: translateY( -100% );
+        transition: box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out;
 
-        @include media( '>=laptop' ) {
-            position: absolute;
-            left: 0;
-            overflow: hidden;
+        #{$root}.no-transition & {
+            transition: none;
+        }
+
+        #{$root}--show-details & {
+            opacity: 1;
+            box-shadow: 1px 3px 3rem 0 rgba( 30, 48, 67, .34 );
+            transform: translateY( 0 );
             z-index: -1;
-            opacity: 0;
-            transform: translateY( -100% );
-            transition: box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out;
 
-            #{$root}:hover & {
-                opacity: 1;
-                box-shadow: 1px 3px 3rem 0 rgba( 30, 48, 67, .34 );
-                transform: translateY( 0 );
-
-                &:after {
-                    height: 3rem;
-                }
+            &:after {
+                height: 3rem;
             }
         }
 
@@ -277,10 +286,19 @@
     &--in-carousel {
         #{$root}__main {
             width: 100%;
+            box-sizing: border-box;
         }
 
         #{$root}__addons {
             top: 100%;
+        }
+    }
+
+    &--hidden {
+        #{$root}__main,
+        #{$root}__addons,
+        #{$root}:before {
+            visibility: hidden !important;
         }
     }
 }

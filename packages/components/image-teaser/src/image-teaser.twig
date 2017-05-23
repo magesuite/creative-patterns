@@ -23,7 +23,7 @@
                         <figure class="{{ namespace }}image-teaser__figure">
                             <img
                                 class="{{ namespace }}image-teaser__image | {{ isSlider and isSliderMobile ? 'swiper-lazy' : 'lazyload' }}"
-                                src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                                src="{{ isSlider and isSliderMobile ? '' : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' }}"
                                 data-src="{{ item.image.src }}"
                                 {% if item.image.srcSet %}data-srcset="{{ item.image.srcSet }}"{% endif %}
                                 {% if sizes %}sizes="{{ sizes }}"{% endif %}
