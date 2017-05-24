@@ -73,6 +73,17 @@ interface IItemClonerSettings {
      * Defines component behaviour for touch devices
      * @type {Object}
      */
+
+     /**
+     * Define delay in miliseconds of hover class added
+     * @type {Number}
+     * @default {10}
+     */
+    delay?: number;
+    /**
+     * Defines component behaviour for touch devices
+     * @type {Object}
+     */
     touch?: IItemClonerTouchSettings;
     /**
      * On before show callback
@@ -127,6 +138,7 @@ export default class ItemCloner {
                 clonerHoverClass: 'cs-item-cloner--visible',
                 cloneZindex: 200,
                 breakpoint: breakpoint.laptop,
+                delay: 10,
                 touch: {
                     enabled: true,
                     displayAsStatic: false,
@@ -171,7 +183,9 @@ export default class ItemCloner {
 
             this.$wrapper.html( '' ).removeClass( this.settings.clonerHoverClass ).removeAttr( 'style' );
             this.$origins.filter( `.${ this.settings.originHoverClass }` ).removeClass( this.settings.originHoverClass );
-            clearTimeout( this._animationClassTimeout );
+            if ( this.settings.delay > 0 ) {
+                clearTimeout( this._animationClassTimeout );
+            }
             this.isActive = false;
             this.$origin = undefined;
             this.$clone = undefined;
@@ -192,6 +206,19 @@ export default class ItemCloner {
         }
 
         this.$wrapper = $( `.${ this.settings.clonerClass }` );
+    }
+
+    /**
+     * After clone has been created, this method sets it to active
+     * @param  {$origin} jquery object that will be cloned.
+     */
+    protected _setCloneActive(): void {
+        this.$clone.addClass( `${ this.settings.cloneContentHoverClass }` );
+        this.isActive = true;
+
+        if ( this.settings.onShown && typeof( this.settings.onShown ) === 'function' ) {
+            this.settings.onShown( this );
+        }
     }
 
     /**
@@ -232,14 +259,13 @@ export default class ItemCloner {
         /* Add another class indicating that cloned element should be in hover state
          * Timeout helps with CSS animations witch didn't run without it.
         */
-        this._animationClassTimeout = setTimeout( (): void => {
-            this.$clone.addClass( `${ this.settings.cloneContentHoverClass }` );
-            this.isActive = true;
-
-            if ( this.settings.onShown && typeof( this.settings.onShown ) === 'function' ) {
-                this.settings.onShown( this );
-            }
-        }, 10 );
+        if ( this.settings.delay > 0 ) {
+            this._animationClassTimeout = setTimeout( (): void => {
+                this._setCloneActive();
+            }, this.settings.delay );
+        } else {
+            this._setCloneActive();
+        }
     }
 
     /**
