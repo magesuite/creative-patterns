@@ -2,7 +2,7 @@
          {{ namespace }}image-teaser--items-in-row-{{ itemsPerRow }}
          {{ namespace }}image-teaser--items-in-row-mobile-{{ itemsPerRowMobile }}
          {% if isSlider %}{{ namespace }}image-teaser--slider{% endif %}
-         {% if currentScenario.teaserWidth.id == 'w-s' %} {{ namespace }}image-teaser--full-width-slider{% endif %}
+         {% if currentScenario.teaserWidth.id == 'w-s' or currentScenario.teaserWidth.id == 'c-s' %} {{ namespace }}image-teaser--full-width-slider{% endif %}
          {{ mix }}"
     data-items-per-view="{{ itemsPerView }}"
     {% if itemsPerViewMobile %}data-mobile-items-per-view="{{ itemsPerViewMobile }}" {% endif %}
