@@ -20,6 +20,7 @@
         -ms-flex: 1 1 auto;
             flex: 1 1 auto;
     width: 50%;
+    -webkit-transition: .3s;
     transition: .3s;
     text-decoration: none;
     color: inherit;

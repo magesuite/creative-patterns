@@ -60,7 +60,7 @@ module.exports = function() {
                     }
                 } )
             )
-            .pipe( postcss( packageSettings.postcss ) )
+            .pipe( postcss( packageSettings.postcss, { grid: false } ) )
             .pipe( gulpif( environment.production, cleanCSS( settings.cleancss ) ) )
             .pipe( gulpif( !environment.production, sourcemaps.write( '.' ) ) )
             .pipe( this.gulp.dest( packageSettings.dest ) );

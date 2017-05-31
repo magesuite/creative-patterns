@@ -8,6 +8,7 @@
     width: 0;
     background-color: rgba(254, 184, 35, 0.43);
     height: 1em;
+    -webkit-transition: width .3s;
     transition: width .3s; }
 
 .cs-reviews-summary {
