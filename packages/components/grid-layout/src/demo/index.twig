@@ -1,0 +1,227 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>grid-layout component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>grid-layout Component Demo</h1>
+
+            <button type="button" class="toggle-guidelines">Toggle guidelines visibility</button>
+
+            <ul class="legend">
+                <li class="grid-tile"><span></span> Grid tile</li>
+                <li class="product"><span></span>Product</li>
+            </ul>
+
+            {% set columnsConfig = '{
+                "phone": 1,
+                "phoneLg": 2,
+                "tablet": 3,
+                "laptop": 4,
+                "laptopLg": 4,
+                "desktop": 5,
+                "tv": 6
+            }' %}
+
+            {% set teasersConfig = '[
+                {
+                    "id": 1,
+                    "mobile": false,
+                    "size": {
+                        "x": 2,
+                        "y": 1
+                    },
+                    "gridPosition": {
+                        "x": "right",
+                        "y": 4
+                    }
+                },
+                {
+                    "id": 2,
+                    "mobile": true,
+                    "size": {
+                        "x": 2,
+                        "y": 1
+                    },
+                    "gridPosition": {
+                        "x": "left",
+                        "y": 5
+                    }
+                },
+                {
+                    "id": 3,
+                    "mobile": true,
+                    "size": {
+                        "x": 2,
+                        "y": 2
+                    },
+                    "gridPosition": {
+                        "x": "center",
+                        "y": 7
+                    }
+                },
+                {
+                    "id": 4,
+                    "mobile": true,
+                    "size": {
+                        "x": 1,
+                        "y": 1
+                    },
+                    "gridPosition": {
+                        "x": "right",
+                        "y": 111
+                    }
+                }
+            ]' %}
+
+
+            {% set content %}
+                {% include locate( 'grid-product/grid-product.twig' ) with {
+                    namespace: 'cs-',
+                    mix: 'cs-grid-product__hero',
+                    showWrapper: true,
+                    tag: 'div',
+                    url: '#',
+                    image: {
+                        src: '../images/product.jpg',
+                        alt: 'Karissa V-Neck Tee - product image',
+                    },
+                    name: 'Karissa V-Neck Tee<br>(HERO)',
+                    price: {
+                        content: '<div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>'
+                    },
+                    addons: {
+                        left: [
+                            {
+                                content: '<a href="#">Add to wishlist</a>'
+                            }
+                        ],
+                        right: [
+                            {
+                                mix: 'cs-grid-product__addon--in-stock',
+                                content: 'In stock',
+                            }
+                        ],
+                        bottom: [
+                            {
+                                content: '<form data-role="tocart-form" action="#" method="post"><input type="hidden" name="product" value="1824"><button type="submit" title="Add to Cart" class="action tocart primary | cs-button cs-button--look_default"><span>Add to Cart</span></button></form>'
+                            }
+                        ]
+                    }
+                } %}
+            {% endset %}
+
+            {% set items = [
+                {
+                    mix: 'cs-grid-layout__brick--x2 cs-grid-layout__brick--y2 cs-grid-layout__brick--hero',
+                    content: content
+                }
+            ] %}
+
+            {% for i in 0..49 %}
+                {% if i == 46 %}
+                    {% set mix = 'cs-grid-layout__brick--x2 cs-grid-layout__brick--teaser' %}
+                    {% set teaserId = 1 %}
+                    {% set content %}
+                        <div class="cs-grid-layout__teaser">
+                            <img src="../images/teaser.jpg" alt="teaser" class="cs-grid-layout__teaser-image">
+                        </div>
+                    {% endset %}
+                {% elseif i == 47 %}
+                    {% set mix = 'cs-grid-layout__brick--x2 cs-grid-layout__brick--teaser' %}
+                    {% set teaserId = 2 %}
+                    {% set content %}
+                        <div class="cs-grid-layout__teaser">
+                            <img src="../images/teaser.jpg" alt="teaser" class="cs-grid-layout__teaser-image">
+                        </div>
+                    {% endset %}
+                {% elseif i == 48 %}
+                    {% set mix = 'cs-grid-layout__brick--x2 cs-grid-layout__brick--y2 cs-grid-layout__brick--teaser' %}
+                    {% set teaserId = 3 %}
+                    {% set content %}
+                        <div class="cs-grid-layout__teaser">
+                            <img src="../images/teaser-vertical.jpg" alt="teaser" class="cs-grid-layout__teaser-image">
+                        </div>
+                    {% endset %}
+                {% elseif i == 49 %}
+                    {% set mix = 'cs-grid-layout__brick--teaser' %}
+                    {% set teaserId = 4 %}
+                    {% set content %}
+                        <div class="cs-grid-layout__teaser">
+                            <img src="../images/teaser-vertical.jpg" alt="teaser" class="cs-grid-layout__teaser-image">
+                        </div>
+                    {% endset %}
+                {% else %}
+                    {% set mix = '' %}
+                    {% set content %}
+                        {% include locate( 'grid-product/grid-product.twig' ) with {
+                            namespace: 'cs-',
+                            showWrapper: true,
+                            tag: 'div',
+                            url: '#',
+                            image: {
+                                src: '../images/product.jpg',
+                                alt: 'Karissa V-Neck Tee - product image',
+                            },
+                            name: 'Karissa V-Neck Tee',
+                            price: {
+                                content: '<div class="price-box price-final_price" data-role="priceBox" data-product-id="1956"><span class="price-container price-final_price tax weee"><span id="product-price-1956" data-price-amount="50" data-price-type="finalPrice" class="price-wrapper "><span class="price">$50.00</span></span></span></div>'
+                            },
+                            addons: {
+                                left: [
+                                    {
+                                        content: '<a href="#">Add to wishlist</a>'
+                                    }
+                                ],
+                                right: [
+                                    {
+                                        mix: 'cs-grid-product__addon--in-stock',
+                                        content: 'In stock',
+                                    }
+                                ],
+                                bottom: [
+                                    {
+                                        content: '<form data-role="tocart-form" action="#" method="post"><input type="hidden" name="product" value="1824"><button type="submit" title="Add to Cart" class="action tocart primary | cs-button cs-button--look_default"><span>Add to Cart</span></button></form>'
+                                    }
+                                ]
+                            }
+                        } %}
+                    {% endset %}
+                {% endif %}
+
+                {% set items = items|merge( [ {
+                    mix: mix,
+                    teaserId: teaserId,
+                    content: content
+                } ] ) %}
+            {% endfor %}
+
+        
+            {% include locate('grid-layout/grid-layout.twig') with {
+                namespace: 'cs-',
+                columnsConfiguration: columnsConfig,
+                teasersConfiguration: teasersConfig,
+                items: items,
+            } %}
+        </div>
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="../grid-layout.js"></script>
+
+        <script>
+            $( '.toggle-guidelines' ).on( 'click', function() {
+                $( 'body' ).toggleClass( 'guides' );
+            } );
+
+            var grid = new gridLayout( $( '.cs-grid-layout' ) );
+            console.log(grid);
+        </script>
+    </body>
+</html>

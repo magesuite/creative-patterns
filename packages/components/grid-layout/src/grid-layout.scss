@@ -1,0 +1,227 @@
+@import '../../../utilities/breakpoint/src/breakpoint';
+
+/**
+ * @param $bricksPerRow {map} - this map variable informs component how many columns there is in single row.
+ *                              Must have all specified breakpoints in project, and their keys must much
+ *                              keys of $breakpoint variable. Example:
+ *              $bricksPerRow: (
+ *                  phone: 1,
+ *                  phone-lg: 2,
+ *                  tablet: 3,
+ *                  laptop: 4,
+ *                  laptop-lg: 4,
+ *                  desktop: 5,
+ *                  tv: 6
+ *              );
+ *
+ * @param $bricksHeight {map} - this map variable informs about height of single grid item. 
+ *                              Unfortunately this has to be specified for browser that do not support CSS Grid Layout.
+ *                              The thing is that as a fallback we use floats (flexbox won't work) and for tiles (teasers, hero product) that is displayed in 2 rows this mixin has to know the height of single tile (1x1 size).
+ *                              Just like previously keys have to match breakpoint object key-names and each breakpoint has to be defined:
+ *              $bricksHeight: (
+ *                  phone: 379px,
+ *                  phone-lg: 379px,
+ *                  tablet: 443px,
+ *                  laptop: 443px,
+ *                  laptop-lg: 443px,
+ *                  desktop: 443px,
+ *                  tv: 443px
+ *              );
+ *
+ * @param $padding {in px} - defines gap between columns and rows (default value is 10px)
+ */
+@mixin gridLayout( $bricksPerRow, $bricksHeight, $padding: 10px ) {
+    $root: &;
+
+    &__grid {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__teaser {
+        max-height: 100%;
+        max-width: 100%;
+        overflow: hidden;
+
+        &-image {
+            height: 100%;
+        }
+    }
+
+    &__brick {
+        width: calc( 100% / #{ map-get( $bricksPerRow, phone ) } );
+        margin: 0;
+        position: relative;
+        padding: $padding;
+        box-sizing: border-box;
+        float: left;
+        height: map-get( $bricksHeight, phone ) + 2 * $padding;
+
+        &--right {
+            float: right;
+        }
+
+        &--hidden {
+            display: none !important;
+        }
+
+        @include media( '>=phone-lg' ) {
+            width: calc( 100% / #{ map-get( $bricksPerRow, phone-lg ) } );
+            height: map-get( $bricksHeight, phone-lg ) + 2 * $padding;
+
+            &--x2 {
+                width: calc( 100% / #{ map-get( $bricksPerRow, phone-lg ) } * 2 );
+            }
+
+            &--y2 {
+                height: 2 * map-get( $bricksHeight, phone-lg ) + 4 * $padding;
+            }
+        }
+
+        @include media( '>=tablet' ) {
+            width: calc( 100% / #{ map-get( $bricksPerRow, tablet ) } );
+            height: map-get( $bricksHeight, tablet ) + 2 * $padding;
+
+            &--x2 {
+                width: calc( 100% / #{ map-get( $bricksPerRow, tablet ) } * 2 );
+            }
+
+            &--y2 {
+                height: 2 * map-get( $bricksHeight, tablet ) + 4 * $padding;
+
+                &#{$root}__brick--left,
+                &#{$root}__brick--hero {
+                    float: left;
+                }
+            }
+        }
+
+        @include media( '>=laptop' ) {
+            width: calc( 100% / #{ map-get( $bricksPerRow, laptop ) } );
+            height: map-get( $bricksHeight, laptop ) + 2 * $padding;
+
+            &--x2 {
+                width: calc( 100% / #{ map-get( $bricksPerRow, laptop ) } * 2 );
+            }
+
+            &--y2 {
+                height: 2 * map-get( $bricksHeight, laptop ) + 4 * $padding;
+            }
+        }
+
+        @include media( '>=laptop-lg' ) {
+            width: calc( 100% / #{ map-get( $bricksPerRow, laptop-lg ) } );
+            height: map-get( $bricksHeight, laptop-lg ) + 2 * $padding;
+
+            &--x2 {
+                width: calc( 100% / #{ map-get( $bricksPerRow, laptop-lg ) } * 2 );
+            }
+
+            &--y2 {
+                height: 2 * map-get( $bricksHeight, laptop-lg ) + 4 * $padding;
+            }
+        }
+
+        @include media( '>=desktop' ) {
+            width: calc( 100% / #{ map-get( $bricksPerRow, desktop ) } );
+            height: map-get( $bricksHeight, desktop ) + 2 * $padding;
+
+            &--x2 {
+                width: calc( 100% / #{ map-get( $bricksPerRow, desktop ) } * 2 );
+            }
+
+            &--y2 {
+                height: 2 * map-get( $bricksHeight, desktop ) + 4 * $padding;
+            }
+        }
+
+        @include media( '>=tv' ) {
+            width: calc( 100% / #{ map-get( $bricksPerRow, tv ) } );
+            height: map-get( $bricksHeight, tv ) + 2 * $padding;
+
+            &--x2 {
+                width: calc( 100% / #{ map-get( $bricksPerRow, tv ) } * 2 );
+            }
+
+            &--y2 {
+                height: 2 * map-get( $bricksHeight, tv ) + 4 * $padding;
+            }
+        }
+
+        @include media( '<tablet' ) {
+            &--hero {
+                width: calc( 100% / #{ map-get( $bricksPerRow, phone-lg ) } );
+                height: map-get( $bricksHeight, phone-lg ) + 2 * $padding;
+            }
+        }
+
+        @include media( '<phone-lg' ) {
+            &--hero {
+                width: calc( 100% / #{ map-get( $bricksPerRow, phone ) } );
+                height: map-get( $bricksHeight, phone ) + 2 * $padding;
+            }
+        }
+    }
+
+    @supports ( display: grid ) and ( not( display: -ms-grid ) ) {
+        &__grid {
+            display: grid;
+            grid-template-columns: repeat( #{ map-get( $bricksPerRow, phone ) }, 1fr );
+            grid-template-rows: auto;
+
+            @include media( '>=phone-lg' ) {
+                grid-template-columns: repeat( #{ map-get( $bricksPerRow, phone-lg ) }, 1fr );
+            }
+
+            @include media( '>=tablet' ) {
+                grid-template-columns: repeat( #{ map-get( $bricksPerRow, tablet ) }, 1fr );
+            }
+
+            @include media( '>=laptop' ) {
+                grid-template-columns: repeat( #{ map-get( $bricksPerRow, laptop ) }, 1fr );
+            }
+
+            @include media( '>=laptop-lg' ) {
+                grid-template-columns: repeat( #{ map-get( $bricksPerRow, laptop-lg ) }, 1fr );
+            }
+
+            @include media( '>=desktop' ) {
+                grid-template-columns: repeat( #{ map-get( $bricksPerRow, desktop ) }, 1fr );
+            }
+
+            @include media( '>=tv' ) {
+                grid-template-columns: repeat( #{ map-get( $bricksPerRow, tv ) }, 1fr );
+            }
+        }
+
+        @include media( '>=phone-lg' ) {
+            &__brick {
+                width: auto;
+                display: grid;
+                align-items: stretch;
+
+                &--right {
+                    float: none;
+                }
+
+                &--x2 {
+                    width: auto;
+                    grid-column-end: span 2;
+                }
+
+                &--y2 {
+                    grid-row-end: span 2;
+                }
+
+                &--teaser {
+                    display: none;
+
+                    &-ready {
+                        display: grid;
+                    }
+                }
+            }
+        }
+    }
+}

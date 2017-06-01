@@ -109,6 +109,7 @@
     margin-bottom: 1em;
     cursor: pointer;
     border: 1px solid transparent;
+    -webkit-transition: border .4s;
     transition: border .4s; }
     .cs-product-thumbnails__item--is-selected {
       border: 1px solid #ddd;

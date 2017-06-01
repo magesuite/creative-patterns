@@ -110,6 +110,7 @@ var QtyIncrement = (function () {
             // If previous value of input is different than the one after user click, trigger change event.
             if (oldValue !== newVal) {
                 $(document).trigger("." + _this._options.namespace + "qty-increment:change", _this._$input);
+                _this._$input.trigger('change');
             }
         };
         this._eventListeners.keydownListener = function (e) {
