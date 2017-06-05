@@ -1441,5 +1441,43 @@ body {
     -webkit-box-align: end;
         -ms-flex-align: end;
             align-items: flex-end; }
+  .cs-products-grid__hero-headline {
+    line-height: 1.15;
+    font-size: 2rem; }
+    @media (min-width: 30em) {
+      .cs-products-grid__hero-headline {
+        font-size: calc( 10vw / 8); } }
+    @media (min-width: 48em) {
+      .cs-products-grid__hero-headline {
+        font-size: calc( 10vw / 3); } }
+    @media (min-width: 64em) {
+      .cs-products-grid__hero-headline {
+        font-size: calc( 10vw / 4); } }
+    @media (min-width: 80em) {
+      .cs-products-grid__hero-headline {
+        font-size: calc( 10vw / 5); } }
+    @media (min-width: 90em) {
+      .cs-products-grid__hero-headline {
+        font-size: calc( 10vw / 5); } }
+  .cs-products-grid__hero-subheadline {
+    line-height: 1.15;
+    font-size: 1.8rem; }
+    @media (min-width: 30em) {
+      .cs-products-grid__hero-subheadline {
+        font-size: calc( 8vw / 8); } }
+    @media (min-width: 48em) {
+      .cs-products-grid__hero-subheadline {
+        font-size: calc( 8vw / 3); } }
+    @media (min-width: 64em) {
+      .cs-products-grid__hero-subheadline {
+        font-size: calc( 8vw / 4); } }
+    @media (min-width: 80em) {
+      .cs-products-grid__hero-subheadline {
+        font-size: calc( 8vw / 5); } }
+    @media (min-width: 90em) {
+      .cs-products-grid__hero-subheadline {
+        font-size: calc( 8vw / 5); } }
+  .cs-products-grid__hero-text {
+    font-size: 1.5rem; }
 
 /*# sourceMappingURL=index.css.map */

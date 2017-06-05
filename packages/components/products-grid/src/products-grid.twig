@@ -6,6 +6,10 @@
     {% set items = [] %}
 {% endif %}
 
+{% if teasersConfig is not defined %}
+    {% set teasersConfig = '' %}
+{% endif %}
+
 {% if hero.position is defined and hero.position != '' %}
     {% set isHeroIncluded = true %}
     {% set content %}
@@ -85,16 +89,19 @@
     {% endset %}
 
     {% set collection = collection|merge( [ {
-        mix: 'cs-items-grid-layout__item--hero cs-items-grid-layout__item--hero-' ~ hero.position ~ ' | cs-grid-product | cs-products-grid__hero',
-        content: content
+        mix: hero.mix,
+        content: content,
+        teaserId: hero.teaserId
     } ] ) %}
 {% endif %}
 
 {% set collection = collection|merge( items ) %}
 
 <div class="{{ namespace }}products-grid {{ namespace }}products-grid--rows-mobile-{{ rows_mobile }} {{ namespace }}products-grid--rows-tablet-{{ rows_tablet }} {{ namespace }}products-grid--rows-desktop-{{ rows_desktop }} {% if isHeroIncluded %}{{ namespace }}products-grid--with-hero{% endif %}">
-    {% include locate('items-grid-layout/items-grid-layout.twig') with {
-        namespace: 'cs-',
-        items: collection
+    {% include locate('grid-layout/grid-layout.twig') with {
+        namespace: namespace,
+        items: collection,
+        columnsConfiguration: columnsConfig,
+        teasersConfiguration: teasersConfig
     } %}
 </div>

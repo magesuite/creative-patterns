@@ -72,6 +72,36 @@ body {
       body:after {
         content: '1920'; } }
 
+/**
+ * @param $bricksPerRow {map} - this map variable informs component how many columns there is in single row.
+ *                              Must have all specified breakpoints in project, and their keys must much
+ *                              keys of $breakpoint variable. Example:
+ *              $bricksPerRow: (
+ *                  phone: 1,
+ *                  phone-lg: 2,
+ *                  tablet: 3,
+ *                  laptop: 4,
+ *                  laptop-lg: 4,
+ *                  desktop: 5,
+ *                  tv: 6
+ *              );
+ *
+ * @param $bricksHeight {map} - this map variable informs about height of single grid item. 
+ *                              Unfortunately this has to be specified for browser that do not support CSS Grid Layout.
+ *                              The thing is that as a fallback we use floats (flexbox won't work) and for tiles (teasers, hero product) that is displayed in 2 rows this mixin has to know the height of single tile (1x1 size).
+ *                              Just like previously keys have to match breakpoint object key-names and each breakpoint has to be defined:
+ *              $bricksHeight: (
+ *                  phone: 379px,
+ *                  phone-lg: 379px,
+ *                  tablet: 443px,
+ *                  laptop: 443px,
+ *                  laptop-lg: 443px,
+ *                  desktop: 443px,
+ *                  tv: 443px
+ *              );
+ *
+ * @param $padding {in px} - defines gap between columns and rows (default value is 10px)
+ */
 html {
   font-family: Open Sans, Arial, sans-serif;
   background: #f0f0f0; }
@@ -93,7 +123,6 @@ html, body {
   cursor: pointer;
   border-radius: 4px;
   font-family: Open Sans, Arial, sans-serif;
-  -webkit-transition: background-color .15s linear;
   transition: background-color .15s linear; }
   .toggle-guidelines:hover, .toggle-guidelines:focus, .toggle-guidelines:active {
     background-color: #fff; }
@@ -289,10 +318,8 @@ html, body {
       content: '';
       height: 100%;
       top: 0;
-      -webkit-transition: box-shadow .15s ease-in-out;
       transition: box-shadow .15s ease-in-out; }
       .cs-grid-product.no-transition .cs-grid-product:before {
-        -webkit-transition: none;
         transition: none; }
     .cs-grid-product--show-details {
       z-index: 3; }
@@ -305,10 +332,8 @@ html, body {
     padding: 1rem;
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
-    -webkit-transition: box-shadow .15s ease-in-out;
     transition: box-shadow .15s ease-in-out; }
     .cs-grid-product.no-transition .cs-grid-product__main {
-      -webkit-transition: none;
       transition: none; }
     @media (min-width: 64em) {
       .cs-grid-product__main:after {
@@ -347,12 +372,10 @@ html, body {
     opacity: 0;
     -webkit-transform: translateY(-100%);
             transform: translateY(-100%);
-    -webkit-transition: box-shadow .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out;
     transition: box-shadow .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out;
     transition: box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out;
     transition: box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out; }
     .cs-grid-product.no-transition .cs-grid-product__addons {
-      -webkit-transition: none;
       transition: none; }
     .cs-grid-product--show-details .cs-grid-product__addons {
       opacity: 1;
@@ -485,7 +508,6 @@ html, body {
               transform: none;
       opacity: 1;
       height: auto;
-      -webkit-transition: none;
       transition: none;
       box-shadow: none !important;
       padding: .5rem 0 0;

@@ -99,13 +99,11 @@ var GridLayout = (function () {
         this.currentRowsCount = this.isCssGrid ? Math.ceil(this.virtualBricksLength / this.currentColsInRow) : Math.ceil(this.virtualBricksLength / this.currentColsInRow);
         if (this.isCssGrid) {
             this._setTeasersCSS();
-            console.log('Chaning CSS Grid style');
         }
         else {
             this.$grid.append(this.teasers);
             this.teasers = [];
             this._setTeasersPositions();
-            console.log('Recalculating teasers positions');
         }
     };
     /**

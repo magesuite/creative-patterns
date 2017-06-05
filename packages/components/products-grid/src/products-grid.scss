@@ -36,7 +36,7 @@
  * @param $colsByBreakpoint { map } - columns configuration for each breakpoint
  * @param $heroSizeByBreakpoint { map } - hero size (how many tiles it take) for each breakpoint
 */
-@mixin productsGrid( $colsByBreakpoint, $heroSizeByBreakpoint ) {
+@mixin productsGrid( $colsByBreakpoint, $heroSizeByBreakpoint, $fontSizeBaseHeadline: 10vw, $fontSizeBaseSubheadline: 8vw ) {
     $root: &;
 
     &__item {
@@ -356,5 +356,59 @@
         padding: 2rem;
         display: flex;
         align-items: flex-end;
+    }
+
+    &__hero-headline {
+        line-height: 1.15;
+        font-size: 2rem;
+
+        @include media( '>=phone-lg' ) {
+            font-size: calc( #{$fontSizeBaseHeadline} / #{map-get( $colsByBreakpoint, phone-lg )} );
+        }
+
+        @include media( '>=tablet' ) {
+            font-size: calc( #{$fontSizeBaseHeadline} / #{map-get( $colsByBreakpoint, tablet )} );
+        }
+
+        @include media( '>=laptop' ) {
+            font-size: calc( #{$fontSizeBaseHeadline} / #{map-get( $colsByBreakpoint, laptop )} );
+        }
+
+        @include media( '>=laptop-lg' ) {
+            font-size: calc( #{$fontSizeBaseHeadline} / #{map-get( $colsByBreakpoint, laptop-lg )} );
+        }
+
+        @include media( '>=desktop' ) {
+            font-size: calc( #{$fontSizeBaseHeadline} / #{map-get( $colsByBreakpoint, desktop )} );
+        }
+    }
+
+    &__hero-subheadline {
+        line-height: 1.15;
+        font-size: 1.8rem;
+
+        @include media( '>=phone-lg' ) {
+            font-size: calc( #{$fontSizeBaseSubheadline} / #{map-get( $colsByBreakpoint, phone-lg )} );
+        }
+
+        @include media( '>=tablet' ) {
+            font-size: calc( #{$fontSizeBaseSubheadline} / #{map-get( $colsByBreakpoint, tablet )} );
+        }
+
+        @include media( '>=laptop' ) {
+            font-size: calc( #{$fontSizeBaseSubheadline} / #{map-get( $colsByBreakpoint, laptop )} );
+        }
+
+        @include media( '>=laptop-lg' ) {
+            font-size: calc( #{$fontSizeBaseSubheadline} / #{map-get( $colsByBreakpoint, laptop-lg )} );
+        }
+
+        @include media( '>=desktop' ) {
+            font-size: calc( #{$fontSizeBaseSubheadline} / #{map-get( $colsByBreakpoint, desktop )} );
+        }
+    }
+
+    &__hero-text {
+        font-size: 1.5rem;
     }
 }

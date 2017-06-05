@@ -78,12 +78,10 @@ export default class GridLayout {
 
         if ( this.isCssGrid ) {
             this._setTeasersCSS();
-            console.log( 'Chaning CSS Grid style' );
         } else {
             this.$grid.append( this.teasers );
             this.teasers = [];
             this._setTeasersPositions();
-            console.log( 'Recalculating teasers positions' );
         }
     }
 
