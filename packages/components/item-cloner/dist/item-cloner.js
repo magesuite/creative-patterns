@@ -81,6 +81,7 @@ var ItemCloner = (function () {
             clonerHoverClass: 'cs-item-cloner--visible',
             cloneZindex: 200,
             breakpoint: breakpoint.laptop,
+            delay: 10,
             touch: {
                 enabled: true,
                 displayAsStatic: false,
@@ -117,7 +118,9 @@ var ItemCloner = (function () {
             }
             this.$wrapper.html('').removeClass(this.settings.clonerHoverClass).removeAttr('style');
             this.$origins.filter("." + this.settings.originHoverClass).removeClass(this.settings.originHoverClass);
-            clearTimeout(this._animationClassTimeout);
+            if (this.settings.delay > 0) {
+                clearTimeout(this._animationClassTimeout);
+            }
             this.isActive = false;
             this.$origin = undefined;
             this.$clone = undefined;
@@ -135,6 +138,17 @@ var ItemCloner = (function () {
             $('body').append("<div class=\"" + this.settings.clonerClass + "\"></div>");
         }
         this.$wrapper = $("." + this.settings.clonerClass);
+    };
+    /**
+     * After clone has been created, this method sets it to active
+     * @param  {$origin} jquery object that will be cloned.
+     */
+    ItemCloner.prototype._setCloneActive = function () {
+        this.$clone.addClass("" + this.settings.cloneContentHoverClass);
+        this.isActive = true;
+        if (this.settings.onShown && typeof (this.settings.onShown) === 'function') {
+            this.settings.onShown(this);
+        }
     };
     /**
      * Actually clones given element and replaces $wrapper's  HTML with it
@@ -167,13 +181,14 @@ var ItemCloner = (function () {
         /* Add another class indicating that cloned element should be in hover state
          * Timeout helps with CSS animations witch didn't run without it.
         */
-        this._animationClassTimeout = setTimeout(function () {
-            _this.$clone.addClass("" + _this.settings.cloneContentHoverClass);
-            _this.isActive = true;
-            if (_this.settings.onShown && typeof (_this.settings.onShown) === 'function') {
-                _this.settings.onShown(_this);
-            }
-        }, 10);
+        if (this.settings.delay > 0) {
+            this._animationClassTimeout = setTimeout(function () {
+                _this._setCloneActive();
+            }, this.settings.delay);
+        }
+        else {
+            this._setCloneActive();
+        }
     };
     /**
      * Setups events
