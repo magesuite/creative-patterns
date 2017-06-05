@@ -10,6 +10,7 @@
   border: 1px solid transparent;
   background: none;
   white-space: nowrap;
+  -webkit-transition: color .15s, border-color .15s, background-color .15s;
   transition: color .15s, border-color .15s, background-color .15s; }
   .action-button__icon {
     width: 2rem;
@@ -19,6 +20,7 @@
     margin-right: .6rem;
     line-height: 1;
     vertical-align: middle;
+    -webkit-transition: fill .15s;
     transition: fill .15s; }
     .action-button__icon--size_100 {
       height: 1.6rem;

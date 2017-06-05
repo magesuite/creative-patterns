@@ -64,6 +64,7 @@ body {
   color: #333;
   background-color: #fff;
   box-sizing: border-box;
+  -webkit-transition: border-color .15s linear;
   transition: border-color .15s linear;
   outline: none;
   font-size: .88rem; }
@@ -96,6 +97,7 @@ body {
           appearance: none;
   max-width: 100%;
   min-width: 15rem;
+  background-image: url("images/dropdown-arrows-bg.svg"), -webkit-linear-gradient(#e4e4e4, #e4e4e4), -webkit-linear-gradient(#a8a8a8, #a8a8a8);
   background-image: url("images/dropdown-arrows-bg.svg"), linear-gradient(#e4e4e4, #e4e4e4), linear-gradient(#a8a8a8, #a8a8a8);
   background-position: calc( 100% - 14px) -35px, 100%, calc( 100% - 2.2rem) 0;
   background-size: auto, 2.2rem 100%, 1px 100%;
@@ -104,6 +106,7 @@ body {
   padding-right: 3rem;
   padding-top: .38rem; }
   .cs-input__select:disabled {
+    background-image: url("images/dropdown-arrows-bg.svg"), -webkit-linear-gradient(#e4e4e4, #e4e4e4), -webkit-linear-gradient(#d1d1d1, #d1d1d1);
     background-image: url("images/dropdown-arrows-bg.svg"), linear-gradient(#e4e4e4, #e4e4e4), linear-gradient(#d1d1d1, #d1d1d1); }
 
 .cs-input--type-inline {
@@ -263,6 +266,7 @@ body {
     width: .75rem;
     height: .75rem;
     fill: #999;
+    -webkit-transition: fill .15s linear;
     transition: fill .15s linear; }
   .cs-button--look_default {
     background-color: #fff;
@@ -331,6 +335,7 @@ body {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+    -webkit-transition: border-color .15s linear;
     transition: border-color .15s linear; }
     .cs-button--look_remove:hover {
       border-color: #333; }
@@ -562,6 +567,7 @@ html {
       border-radius: 3px;
       border: 1px solid #eee;
       content: '';
+      -webkit-transition: border-color .15s linear;
       transition: border-color .15s linear; }
     .cs-swatches__swatch.color:hover:after, .cs-swatches__swatch--color:hover:after, .cs-swatches__swatch.image:hover:after, .cs-swatches__swatch--image:hover:after {
       border-color: #c8c8c8; }
@@ -584,6 +590,7 @@ html {
     margin: calc( .5em - 3px);
     background-color: #eee;
     border: 1px solid #eee;
+    -webkit-transition: border-color .15s linear, background-color .15s linear;
     transition: border-color .15s linear, background-color .15s linear; }
     .cs-swatches__swatch.text:hover, .cs-swatches__swatch--text:hover {
       border-color: #c8c8c8; }
@@ -677,8 +684,10 @@ html {
       content: '';
       height: 100%;
       top: 0;
+      -webkit-transition: box-shadow .15s ease-in-out;
       transition: box-shadow .15s ease-in-out; }
       .cs-grid-product.no-transition .cs-grid-product:before {
+        -webkit-transition: none;
         transition: none; }
     .cs-grid-product--show-details {
       z-index: 3; }
@@ -691,8 +700,10 @@ html {
     padding: 1rem;
     -webkit-transform: translate3d(0, 0, 0);
             transform: translate3d(0, 0, 0);
+    -webkit-transition: box-shadow .15s ease-in-out;
     transition: box-shadow .15s ease-in-out; }
     .cs-grid-product.no-transition .cs-grid-product__main {
+      -webkit-transition: none;
       transition: none; }
     @media (min-width: 64em) {
       .cs-grid-product__main:after {
@@ -731,10 +742,12 @@ html {
     opacity: 0;
     -webkit-transform: translateY(-100%);
             transform: translateY(-100%);
+    -webkit-transition: box-shadow .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out;
     transition: box-shadow .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out;
     transition: box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out;
     transition: box-shadow .15s ease-in-out, transform .15s ease-in-out, opacity .15s ease-in-out, -webkit-transform .15s ease-in-out; }
     .cs-grid-product.no-transition .cs-grid-product__addons {
+      -webkit-transition: none;
       transition: none; }
     .cs-grid-product--show-details .cs-grid-product__addons {
       opacity: 1;
@@ -867,6 +880,7 @@ html {
               transform: none;
       opacity: 1;
       height: auto;
+      -webkit-transition: none;
       transition: none;
       box-shadow: none !important;
       padding: .5rem 0 0;
@@ -939,6 +953,7 @@ html {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-transition-property: -webkit-transform;
   transition-property: -webkit-transform;
   transition-property: transform;
   transition-property: transform, -webkit-transform;
@@ -957,6 +972,7 @@ html {
   flex-wrap: wrap; }
 
 .swiper-container-free-mode > .swiper-wrapper, .swiper-container-free-mode > .cs-products-promo__slides {
+  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out;
   margin: 0 auto; }
 
@@ -979,6 +995,8 @@ html {
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: flex-start;
+  -webkit-transition-property: -webkit-transform, height;
+  -webkit-transition-property: height, -webkit-transform;
   transition-property: height, -webkit-transform;
   transition-property: transform, height;
   transition-property: transform, height, -webkit-transform; }
@@ -1053,6 +1071,7 @@ html {
 .swiper-pagination {
   position: absolute;
   text-align: center;
+  -webkit-transition: 300ms;
   transition: 300ms;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
@@ -1189,7 +1208,9 @@ button.swiper-pagination-bullet {
   z-index: 10; }
 
 .swiper-container-3d .swiper-slide-shadow-left {
+  background-image: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, 0.5)), to(transparent));
   /* Safari 4+, Chrome */
+  background-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 0.5), transparent);
   /* Chrome 10+, Safari 5.1+, iOS 5+ */
   /* Firefox 3.6-15 */
   /* Opera 11.10-12.00 */
@@ -1197,7 +1218,9 @@ button.swiper-pagination-bullet {
   /* Firefox 16+, IE10, Opera 12.50+ */ }
 
 .swiper-container-3d .swiper-slide-shadow-right {
+  background-image: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 0.5)), to(transparent));
   /* Safari 4+, Chrome */
+  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5), transparent);
   /* Chrome 10+, Safari 5.1+, iOS 5+ */
   /* Firefox 3.6-15 */
   /* Opera 11.10-12.00 */
@@ -1205,7 +1228,9 @@ button.swiper-pagination-bullet {
   /* Firefox 16+, IE10, Opera 12.50+ */ }
 
 .swiper-container-3d .swiper-slide-shadow-top {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.5)), to(transparent));
   /* Safari 4+, Chrome */
+  background-image: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.5), transparent);
   /* Chrome 10+, Safari 5.1+, iOS 5+ */
   /* Firefox 3.6-15 */
   /* Opera 11.10-12.00 */
@@ -1213,7 +1238,9 @@ button.swiper-pagination-bullet {
   /* Firefox 16+, IE10, Opera 12.50+ */ }
 
 .swiper-container-3d .swiper-slide-shadow-bottom {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.5)), to(transparent));
   /* Safari 4+, Chrome */
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.5), transparent);
   /* Chrome 10+, Safari 5.1+, iOS 5+ */
   /* Firefox 3.6-15 */
   /* Opera 11.10-12.00 */
@@ -1299,10 +1326,12 @@ button.swiper-pagination-bullet {
 
 /* Fade */
 .swiper-container-fade.swiper-container-free-mode .swiper-slide, .swiper-container-fade.swiper-container-free-mode .cs-products-promo__slide {
+  -webkit-transition-timing-function: ease-out;
   transition-timing-function: ease-out; }
 
 .swiper-container-fade .swiper-slide, .swiper-container-fade .cs-products-promo__slide {
   pointer-events: none;
+  -webkit-transition-property: opacity;
   transition-property: opacity; }
 
 .swiper-container-fade .swiper-slide .swiper-slide, .swiper-container-fade .cs-products-promo__slide .swiper-slide, .swiper-container-fade .swiper-slide .cs-products-promo__slide, .swiper-container-fade .cs-products-promo__slide .cs-products-promo__slide {
@@ -1488,6 +1517,7 @@ h1 {
     opacity: 0;
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+    -webkit-transition: opacity .15s linear;
     transition: opacity .15s linear; }
     .cs-products-promo__slide:after {
       display: block;
