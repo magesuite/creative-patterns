@@ -1,0 +1,28 @@
+$namespace: 'cs-';
+@import '../cookie-message.scss';
+@import '../../../cs-button/src/cs-button.scss';
+
+html {
+    font-family: Open Sans, Arial, sans-serif;
+}
+
+.spacer {
+    height: 200vh;
+}
+
+.#{$namespace}button {
+    font-size: 90%;
+    border-radius: 3px;
+    background: #0062cc;
+    color: #fff;
+    box-sizing: border-box;
+
+    &:hover {
+        border: 1px solid transparent;
+        background: darken( #0062cc, 8% );
+    }
+}
+
+.#{$namespace}cookie-message {
+    @include cookieMessage();
+}

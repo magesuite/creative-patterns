@@ -105,7 +105,6 @@
             transform: translate3d(50%, -50%, 0);
     -webkit-transform-origin: 50% 30%;
             transform-origin: 50% 30%;
-    -webkit-transition: -webkit-transform .25s ease;
     transition: -webkit-transform .25s ease;
     transition: transform .25s ease;
     transition: transform .25s ease, -webkit-transform .25s ease; }
@@ -159,7 +158,6 @@
       opacity: 0;
       -webkit-transform: translate3d(0, -10px, 0);
               transform: translate3d(0, -10px, 0);
-      -webkit-transition: opacity .32s ease, -webkit-transform .25s ease;
       transition: opacity .32s ease, -webkit-transform .25s ease;
       transition: transform .25s ease, opacity .32s ease;
       transition: transform .25s ease, opacity .32s ease, -webkit-transform .25s ease; }
@@ -197,7 +195,6 @@
     padding: .563em .625em;
     cursor: pointer;
     background-color: #fafafa;
-    -webkit-transition: background-color .15s linear, color .15s linear;
     transition: background-color .15s linear, color .15s linear; }
     .cs-html-select__menu-link:focus {
       outline: none;

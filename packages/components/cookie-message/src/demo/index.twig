@@ -1,0 +1,45 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>cookie-message component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="./index.css">
+    </head>
+    <body>
+        <h1>cookie-message Component Demo</h1>
+
+        <div class="status">
+            <p>Component status: <span></span></p>
+        </div>
+
+        {% include locate('cookie-message/cookie-message.twig') with {
+            namespace: 'cs-',
+            icon: {
+                src: '../images/cookie.svg',
+                alt: 'cookie image'
+            },
+            text: 'We use cookies. By using the website and agreeing to this policy, you consent to our use of cookies in accordance with the terms of <a href="#">Cookies Policy</a>.',
+            button: {
+                text: 'OK'
+            }
+        } %}
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="../cookie-message.js"></script>
+        <script>
+            var $status = $( '.status span' );
+            var cookiemsg = new cookieMessage( $( '.cs-cookie-message' ), {
+                onShown: function() {
+                    $status.text( 'Shown' ).css( 'color', 'limeGreen' );
+                },
+                onDestroyed: function() {
+                    $status.text( 'Destroyed' ).css( 'color', 'red' );
+                }
+            } );
+        </script>
+    </body>
+</html>
