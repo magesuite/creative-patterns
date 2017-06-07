@@ -24,7 +24,6 @@
   height: 100%;
   padding: 10px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.12);
-  -webkit-transition: box-shadow .15s ease-in-out, color .15s linear;
   transition: box-shadow .15s ease-in-out, color .15s linear; }
   .cc-component-picker__component-link:hover {
     text-decoration: none;
@@ -48,7 +47,6 @@
   margin: 0 0 1.15rem;
   padding: 7% 0;
   border: 1px dashed #cac3b4;
-  -webkit-transition: border-color .25s linear;
   transition: border-color .25s linear; }
   .cc-component-picker__component-figure:hover {
     text-decoration: none;

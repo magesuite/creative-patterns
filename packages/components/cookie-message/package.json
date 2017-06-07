@@ -1,0 +1,8 @@
+{
+    "name": "cookie-message",
+    "version": "0.0.1",
+    "description": "This component displays cookie message and sets cookie after user agree by clicking &quot;OK&quot; button",
+    "main": "src/cookie-message.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

@@ -40,7 +40,6 @@ body {
             transform: translateY(-50%);
     left: 1rem;
     color: #555;
-    -webkit-transition: .3s;
     transition: .3s; }
     .cs-search-field__label--is-floating {
       -webkit-transform: translateY(-2em);
