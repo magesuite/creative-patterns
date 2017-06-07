@@ -33,6 +33,11 @@
 @mixin gridLayout( $bricksPerRow, $bricksHeight, $padding: 10px ) {
     $root: &;
 
+    @if $padding > 0 {
+        margin-left: -#{$padding};
+        margin-right: -#{$padding};
+    }
+
     &__grid {
         margin: 0;
         padding: 0;

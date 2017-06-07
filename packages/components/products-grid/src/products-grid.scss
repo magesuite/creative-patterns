@@ -25,6 +25,10 @@
     @if $items < 1 {
         display: block;
     } @else {
+        &:nth-child( n+#{$items} ) {
+            display: none;
+        }
+        
         &:nth-child( -n+#{$items} ) {
             display: block;
         }
