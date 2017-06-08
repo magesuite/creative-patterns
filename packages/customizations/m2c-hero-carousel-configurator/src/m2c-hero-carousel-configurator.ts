@@ -10,6 +10,7 @@ const heroItemDataPattern: any = {
     image: '',
     decodedImage: '',
     displayVariant: 'variant-1',
+    colorScheme: 'light',
     headline: '',
     subheadline: '',
     paragraph: '',
@@ -113,14 +114,23 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                         </div>
                     </div>
                     <div class="m2c-hero-carousel-configurator__item-col-right">
-                        <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
-                            <label for="cfg-hc-item{{ $index }}-variant" class="m2-input__label">${$t( 'Display variant' )}:</label>
-                            <select name="cfg-hc-item{{ $index }}-variant" class="m2-input__select | m2c-hero-carousel-configurator__select" id="cfg-hc-item{{ $index }}-variant" v-model="configuration.items[$index].displayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
-                                <option value="variant-1">${$t( 'Text vertically centered on the left' )}</option>
-                                <option value="variant-2">${$t( 'Text vertically centered in the middle' )}</option>
-                                <option value="variant-3">${$t( 'Text on the bottom, left corner' )}</option>
-                                <option value="variant-4">${$t( 'Text on the bottom - centered' )}</option>
-                            </select>
+                        <div class="m2-input m2-input--group">
+                            <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
+                                <label for="cfg-hc-item{{ $index }}-variant" class="m2-input__label">${$t( 'Display variant' )}:</label>
+                                <select name="cfg-hc-item{{ $index }}-variant" class="m2-input__select | m2c-hero-carousel-configurator__select" id="cfg-hc-item{{ $index }}-variant" v-model="configuration.items[$index].displayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                                    <option value="variant-1">${$t( 'Text vertically centered on the left' )}</option>
+                                    <option value="variant-2">${$t( 'Text vertically centered in the middle' )}</option>
+                                    <option value="variant-3">${$t( 'Text on the bottom, left corner' )}</option>
+                                    <option value="variant-4">${$t( 'Text on the bottom - centered' )}</option>
+                                </select>
+                            </div>
+                            <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
+                                <label for="cfg-hc-item{{ $index }}-color-scheme" class="m2-input__label">${$t( 'Text color scheme' )}:</label>
+                                <select name="cfg-hc-item{{ $index }}-color-scheme" class="m2-input__select | m2c-hero-carousel-configurator__select" id="cfg-hc-item{{ $index }}-color-scheme" v-model="configuration.items[$index].colorScheme" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                                    <option value="light">${$t( 'Light' )}</option>
+                                    <option value="dark">${$t( 'Dark' )}</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="m2-input | m2c-hero-carousel-configurator__item-form-element">
                             <label for="cfg-hc-item{{ $index }}-headline" class="m2-input__label">${$t( 'Headline' )}:</label>

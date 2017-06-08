@@ -144,6 +144,10 @@ $namespace: 'm2-';
                 margin-top: 0 !important;
             }
         }
+
+        #{$root}__select {
+            width: 100%;
+        }
     }
 
     &--type-inline {

@@ -161,6 +161,24 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                 </div>
 
                 <div class="m2c-products-grid-configurator__item-col-right">
+                    <div class="m2-input m2-input--group">
+                        <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
+                            <label for="cfg-pg-hero_content-position-variant" class="m2-input__label">${$t( 'Display variant' )}:</label>
+                            <select name="cfg-pg-hero_content-position-variant" class="m2-input__select" id="cfg-pg-hero_content-position-variant" v-model="configuration.hero.displayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                                <option value="1">${$t( 'Text vertically centered on the left' )}</option>
+                                <option value="3">${$t( 'Text vertically centered in the middle' )}</option>
+                                <option value="2">${$t( 'Text on the bottom, left corner' )}</option>
+                                <option value="4">${$t( 'Text on the bottom - centered' )}</option>
+                            </select>
+                        </div>
+                        <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
+                            <label for="cfg-pg-hero_color-scheme" class="m2-input__label">${$t( 'Text color scheme' )}:</label>
+                            <select name="cfg-pg-hero_color-scheme" class="m2-input__select" id="cfg-pg-hero_color-scheme" v-model="configuration.hero.colorScheme" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                                <option value="light">${$t( 'Light' )}</option>
+                                <option value="dark">${$t( 'Dark' )}</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="m2-input | m2c-products-grid-configurator__item-form-element">
                         <label for="cfg-pg-hero_headline" class="m2-input__label">${$t( 'Headline' )}:</label>
                         <input type="text" name="cfg-pg-hero_headline" class="m2-input__input" id="cfg-pg-hero_headline" v-model="configuration.hero.headline" @change="onChange">
@@ -209,6 +227,8 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                             src: '',
                             alt: '',
                         },
+                        displayVariant: '1',
+                        colorScheme: 'light',
                         headline: '',
                         subheadline: '',
                         paragraph: '',

@@ -19,6 +19,8 @@ interface TeaserItem {
 const teaserItemPrototype: any = {
     image: '',
     decodedImage: '',
+    displayVariant: '1',
+    colorScheme: 'light',
     headline: '',
     paragraph: '',
     ctaLabel: 'More',

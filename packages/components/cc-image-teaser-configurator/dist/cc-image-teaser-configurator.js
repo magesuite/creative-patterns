@@ -175,6 +175,8 @@ var componentPlaceholder = {
 var teaserItemPrototype = {
     image: '',
     decodedImage: '',
+    displayVariant: '1',
+    colorScheme: 'light',
     headline: '',
     paragraph: '',
     ctaLabel: 'More',

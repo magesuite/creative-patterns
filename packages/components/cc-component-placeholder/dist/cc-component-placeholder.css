@@ -52,6 +52,7 @@
           transform: translate3d(0, -1rem, 0);
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
+  -webkit-transition: all .25s ease-in-out;
   transition: all .25s ease-in-out;
   will-change: z-index; }
   .c-layout-builder__component:hover .cc-component-placeholder__headline,

@@ -31,6 +31,7 @@
   color: #333;
   background-color: #fff;
   box-sizing: border-box;
+  -webkit-transition: border-color .15s linear;
   transition: border-color .15s linear;
   outline: none;
   font-size: .88rem; }
@@ -63,6 +64,7 @@
           appearance: none;
   max-width: 100%;
   min-width: 15rem;
+  background-image: url("images/dropdown-arrows-bg.svg"), -webkit-linear-gradient(#e4e4e4, #e4e4e4), -webkit-linear-gradient(#a8a8a8, #a8a8a8);
   background-image: url("images/dropdown-arrows-bg.svg"), linear-gradient(#e4e4e4, #e4e4e4), linear-gradient(#a8a8a8, #a8a8a8);
   background-position: calc( 100% - 14px) -35px, 100%, calc( 100% - 2.2rem) 0;
   background-size: auto, 2.2rem 100%, 1px 100%;
@@ -71,6 +73,7 @@
   padding-right: 3rem;
   padding-top: .38rem; }
   .m2-input__select:disabled {
+    background-image: url("images/dropdown-arrows-bg.svg"), -webkit-linear-gradient(#e4e4e4, #e4e4e4), -webkit-linear-gradient(#d1d1d1, #d1d1d1);
     background-image: url("images/dropdown-arrows-bg.svg"), linear-gradient(#e4e4e4, #e4e4e4), linear-gradient(#d1d1d1, #d1d1d1); }
 
 .m2-input--type-inline {
@@ -220,6 +223,7 @@
       width: 100% !important; }
   .m2-input__addon {
     cursor: pointer;
+    -webkit-transition: background .15s linear;
     transition: background .15s linear; }
     .m2-input__addon:hover {
       background: #cacaca; }
@@ -246,6 +250,7 @@
     padding-bottom: .5rem;
     padding-right: 4.4rem;
     padding-top: .5rem;
+    background-image: url("images/dropdown-arrows-bg.svg"), -webkit-linear-gradient(#e3e3e3, #e3e3e3), -webkit-linear-gradient(#adadad, #adadad);
     background-image: url("images/dropdown-arrows-bg.svg"), linear-gradient(#e3e3e3, #e3e3e3), linear-gradient(#adadad, #adadad);
     background-position: calc( 100% - 12px) -34px, 100%, calc( 100% - 3.2rem) 0;
     background-size: auto, 3.2rem 100%, 1px 100%; }
@@ -278,6 +283,7 @@
       position: absolute;
       right: 1.1rem;
       bottom: 1.15rem;
+      -webkit-transition: all .2s linear;
       transition: all .2s linear;
       width: 0; }
     .m2-input__fake-select--active {
@@ -298,6 +304,8 @@
     .m2-input--group:not(.m2-input--type-checkbox) .m2-input, .m2-input--group:not(.m2-input--type-radio) .m2-input {
       width: calc( 50% - .75rem);
       margin-top: 0 !important; }
+    .m2-input--group .m2-input__select {
+      width: 100%; }
   .m2-input--type-inline .m2-input__label {
     width: 25%;
     padding-right: 30px; }
