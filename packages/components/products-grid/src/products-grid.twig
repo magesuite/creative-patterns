@@ -56,8 +56,8 @@
             {% endif %}
         </figure>
 
-        <div class="{{ namespace }}products-grid__hero-content-wrapper">
-            <div class="{{ namespace }}products-grid__hero-content">
+        <div class="{{ namespace }}products-grid__hero-content-wrapper {{ namespace }}products-grid__hero-content-wrapper--variant-{{ hero.displayVariant }}">
+            <div class="{{ namespace }}products-grid__hero-content {{ namespace }}products-grid__hero-content--scheme-{{ hero.colorScheme }}">
                 {% if hero.headline %}
                     <h2 class="{{ namespace }}products-grid__hero-headline">{{ hero.headline|raw }}</h2>
                 {% endif %}

@@ -130,7 +130,6 @@
         display: block;
         padding: .6875em 1em;
         background-color: #fff;
-        -webkit-transition: background-color .15s linear;
         transition: background-color .15s linear; }
         .cc-category-picker__dropdown-item-content:hover {
           background-color: #e3e3e3; }
@@ -157,7 +156,6 @@
     padding: .3rem 2.4rem .4rem 1rem;
     position: relative;
     z-index: 5;
-    -webkit-transition: border-color .1s linear;
     transition: border-color .1s linear; }
     .cc-category-picker__crumb-remove {
       bottom: 0;
@@ -174,7 +172,6 @@
       padding: 0; }
       .cc-category-picker__crumb-remove:before {
         content: '\e62f';
-        -webkit-transition: color .1s linear;
         transition: color .1s linear;
         -webkit-font-smoothing: antialiased;
         font-family: 'Admin Icons';
@@ -182,7 +179,6 @@
         font-weight: normal;
         speak: none;
         color: #41362f;
-        -webkit-transition: -webkit-transform .15s ease-in-out;
         transition: -webkit-transform .15s ease-in-out;
         transition: transform .15s ease-in-out;
         transition: transform .15s ease-in-out, -webkit-transform .15s ease-in-out; }
@@ -211,7 +207,6 @@
     .cc-category-picker__results-item {
       padding: 1rem;
       background-color: #fff;
-      -webkit-transition: background-color .15s linear;
       transition: background-color .15s linear; }
       .cc-category-picker__results-item:hover {
         background-color: #e3e3e3; }

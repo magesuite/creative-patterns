@@ -103,7 +103,6 @@ body {
       border-radius: 3px;
       border: 1px solid #eee;
       content: '';
-      -webkit-transition: border-color .15s linear;
       transition: border-color .15s linear; }
     .cs-swatches__swatch.color:hover:after, .cs-swatches__swatch--color:hover:after, .cs-swatches__swatch.image:hover:after, .cs-swatches__swatch--image:hover:after {
       border-color: #c8c8c8; }
@@ -126,7 +125,6 @@ body {
     margin: calc( .5em - 3px);
     background-color: #eee;
     border: 1px solid #eee;
-    -webkit-transition: border-color .15s linear, background-color .15s linear;
     transition: border-color .15s linear, background-color .15s linear; }
     .cs-swatches__swatch.text:hover, .cs-swatches__swatch--text:hover {
       border-color: #c8c8c8; }
