@@ -237,7 +237,6 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                             label: '',
                         },
                         decoded_image: '',
-                        size_info: '',
                     },
                 };
             },
@@ -389,36 +388,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
 
             const img: any = new Image();
             img.onload = function(): void {
-                const ar: string = _this.getAspectRatio( img.naturalWidth, img.naturalHeight );
                 _this.configuration.hero.image.src = img.getAttribute( 'src' );
-                _this.configuration.hero.size_info = `${img.naturalWidth}x${img.naturalHeight}px (${ar})`;
                 _this.onChange();
             };
             img.src = imgEndpoint;
-        },
-
-        /* Returns greatest common divisor for 2 numbers
-         * @param a {number}
-         * @param b {number}
-         * @return {number} - greatest common divisor
-         */
-        getGreatestCommonDivisor( a: number, b: number ): number {
-            if ( !b ) {
-                return a;
-            }
-
-            return this.getGreatestCommonDivisor( b, a % b );
-        },
-
-        /* Returns Aspect ratio for 2 numbers based on GDC algoritm (greatest common divisor)
-         * @param a {number}
-         * @param b {number}
-         * @return {number} - greatest common divisor
-         */
-        getAspectRatio( a: number, b: number ): string {
-            const c: number = this.getGreatestCommonDivisor( a, b );
-
-            return `${( a / c )}:${( b / c )}`;
         },
 
         /*

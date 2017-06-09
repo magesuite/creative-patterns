@@ -606,8 +606,10 @@ var m2cImageTeaserConfigurator = {
                 _this.configuration.items[itemIndex].image = img.getAttribute('src');
                 _this.configuration.items[itemIndex].sizeInfo = img.naturalWidth + "x" + img.naturalHeight + "px (" + ar + ")";
                 _this.configuration.items[itemIndex].aspectRatio = ar;
-                _this.checkImageSizes();
-                _this.onChange();
+                setTimeout(function () {
+                    _this.checkImageSizes();
+                    _this.onChange();
+                }, 400);
             };
             img.src = imgEndpoint;
         },
@@ -734,7 +736,7 @@ var m2cImageTeaserConfigurator = {
                     confirm: function () {
                         component.configuration.items.splice(index, 1);
                         component.onChange();
-                    },
+                    }
                 },
             });
         },
@@ -750,7 +752,7 @@ var m2cImageTeaserConfigurator = {
                 if (itemsToCheck[i].aspectRatio !== itemsToCheck[0].aspectRatio) {
                     alert({
                         title: $t('Warning'),
-                        content: $t('Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend all images uploaded to have the same aspect ratio.'),
+                        content: $t('Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend to keep the same aspect ratio for all uploaded images.'),
                     });
                     return false;
                 }

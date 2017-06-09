@@ -1028,8 +1028,10 @@ var m2cHeroCarouselConfigurator = {
                 _this.configuration.items[itemIndex].image = img.getAttribute('src');
                 _this.configuration.items[itemIndex].sizeInfo = img.naturalWidth + "x" + img.naturalHeight + "px (" + ar + ")";
                 _this.configuration.items[itemIndex].aspectRatio = ar;
-                _this.checkImageSizes();
-                _this.onChange();
+                setTimeout(function () {
+                    _this.checkImageSizes();
+                    _this.onChange();
+                }, 400);
             };
             img.src = imgEndpoint;
         },
@@ -1171,7 +1173,7 @@ var m2cHeroCarouselConfigurator = {
                 if (itemsToCheck[i].aspectRatio !== itemsToCheck[0].aspectRatio) {
                     alert({
                         title: $t('Warning'),
-                        content: $t('Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend all images uploaded to have the same aspect ratio.'),
+                        content: $t('Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend to keep the same aspect ratio for all uploaded images.'),
                     });
                     return false;
                 }
@@ -1638,8 +1640,10 @@ var m2cImageTeaserConfigurator = {
                 _this.configuration.items[itemIndex].image = img.getAttribute('src');
                 _this.configuration.items[itemIndex].sizeInfo = img.naturalWidth + "x" + img.naturalHeight + "px (" + ar + ")";
                 _this.configuration.items[itemIndex].aspectRatio = ar;
-                _this.checkImageSizes();
-                _this.onChange();
+                setTimeout(function () {
+                    _this.checkImageSizes();
+                    _this.onChange();
+                }, 400);
             };
             img.src = imgEndpoint;
         },
@@ -1766,7 +1770,7 @@ var m2cImageTeaserConfigurator = {
                     confirm: function () {
                         component.configuration.items.splice(index, 1);
                         component.onChange();
-                    },
+                    }
                 },
             });
         },
@@ -1782,7 +1786,7 @@ var m2cImageTeaserConfigurator = {
                 if (itemsToCheck[i].aspectRatio !== itemsToCheck[0].aspectRatio) {
                     alert({
                         title: $t('Warning'),
-                        content: $t('Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend all images uploaded to have the same aspect ratio.'),
+                        content: $t('Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend to keep the same aspect ratio for all uploaded images.'),
                     });
                     return false;
                 }
@@ -2193,7 +2197,6 @@ var m2cProductsGridConfigurator = {
                             label: '',
                         },
                         decoded_image: '',
-                        size_info: '',
                     },
                 };
             },
@@ -2336,32 +2339,10 @@ var m2cProductsGridConfigurator = {
             this.configuration.hero.decoded_image = Base64 ? Base64.decode(encodedImage) : window.atob(encodedImage);
             var img = new Image();
             img.onload = function () {
-                var ar = _this.getAspectRatio(img.naturalWidth, img.naturalHeight);
                 _this.configuration.hero.image.src = img.getAttribute('src');
-                _this.configuration.hero.size_info = img.naturalWidth + "x" + img.naturalHeight + "px (" + ar + ")";
                 _this.onChange();
             };
             img.src = imgEndpoint;
-        },
-        /* Returns greatest common divisor for 2 numbers
-         * @param a {number}
-         * @param b {number}
-         * @return {number} - greatest common divisor
-         */
-        getGreatestCommonDivisor: function (a, b) {
-            if (!b) {
-                return a;
-            }
-            return this.getGreatestCommonDivisor(b, a % b);
-        },
-        /* Returns Aspect ratio for 2 numbers based on GDC algoritm (greatest common divisor)
-         * @param a {number}
-         * @param b {number}
-         * @return {number} - greatest common divisor
-         */
-        getAspectRatio: function (a, b) {
-            var c = this.getGreatestCommonDivisor(a, b);
-            return (a / c) + ":" + (b / c);
         },
         /*
          * Opens modal with M2 built-in widget chooser
