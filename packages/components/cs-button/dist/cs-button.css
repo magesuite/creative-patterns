@@ -23,7 +23,6 @@
     width: .75rem;
     height: .75rem;
     fill: #999;
-    -webkit-transition: fill .15s linear;
     transition: fill .15s linear; }
   .cs-button--look_default {
     background-color: #fff;
@@ -92,7 +91,6 @@
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    -webkit-transition: border-color .15s linear;
     transition: border-color .15s linear; }
     .cs-button--look_remove:hover {
       border-color: #333; }

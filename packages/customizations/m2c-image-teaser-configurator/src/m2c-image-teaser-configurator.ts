@@ -343,8 +343,10 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
                 _this.configuration.items[ itemIndex ].image = img.getAttribute( 'src' );
                 _this.configuration.items[ itemIndex ].sizeInfo = `${img.naturalWidth}x${img.naturalHeight}px (${ar})`;
                 _this.configuration.items[ itemIndex ].aspectRatio = ar;
-                _this.checkImageSizes();
-                _this.onChange();
+                setTimeout( (): void => {
+                    _this.checkImageSizes();
+                    _this.onChange();
+                }, 400 );
             };
             img.src = imgEndpoint;
         },
@@ -485,7 +487,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
                     confirm(): void {
                         component.configuration.items.splice( index, 1 );
                         component.onChange();
-                    },
+                    }
                 },
             } );
         },
@@ -495,14 +497,14 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
          * @param images {array} - array of all uploaded images
          */
         checkImageSizes(): boolean {
-            const itemsToCheck = JSON.parse(JSON.stringify(this.configuration.items)).filter((item: any): boolean => {
-                return Boolean(item.aspectRatio); // Filter out items without aspect ratio set yet.
-            });
+            const itemsToCheck = JSON.parse( JSON.stringify( this.configuration.items ) ).filter( ( item: any ): boolean => {
+                return Boolean( item.aspectRatio ); // Filter out items without aspect ratio set yet.
+            } );
             for ( let i: number = 0; i < itemsToCheck.length; i++ ) {
                 if ( itemsToCheck[ i ].aspectRatio !== itemsToCheck[ 0 ].aspectRatio ) {
                     alert( {
                         title: $t( 'Warning' ),
-                        content: $t( 'Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend all images uploaded to have the same aspect ratio.' ),
+                        content: $t( 'Images you have uploaded have different aspect ratio. This may cause this component to display wrong. We recommend to keep the same aspect ratio for all uploaded images.' ),
                     } );
                     return false;
                 }

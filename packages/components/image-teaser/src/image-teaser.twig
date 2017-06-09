@@ -51,7 +51,7 @@
                         </figure>
 
                         <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayVariant }}">
-                            <div class="{{ namespace }}image-teaser__content">
+                            <div class="{{ namespace }}image-teaser__content {{ namespace }}image-teaser__content--scheme-{{ item.colorScheme }}">
                                 {% if item.headline %}
                                     <h2 class="{{ namespace }}image-teaser__headline">{{ item.headline|raw }}</h2>
                                 {% endif %}

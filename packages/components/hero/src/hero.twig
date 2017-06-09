@@ -26,7 +26,7 @@
                             {% endif %}
 
                             <div class="{{ namespace }}hero__content-wrapper {{ namespace }}hero__content-wrapper--{{ item.displayVariant }}">
-                                <div class="{{ namespace }}hero__content">
+                                <div class="{{ namespace }}hero__content {{ namespace }}hero__content--scheme-{{ item.colorScheme }}">
                                     {% if item.headline %}
                                         <h2 class="{{ namespace }}hero__headline">{{ item.headline|raw }}</h2>
                                     {% endif %}
