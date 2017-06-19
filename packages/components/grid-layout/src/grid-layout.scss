@@ -169,7 +169,7 @@
         }
     }
 
-    @supports ( display: grid ) and ( not( display: -ms-grid ) ) {
+    @supports ( display: grid ) and ( grid-auto-flow: row ) {
         &__grid {
             display: grid;
             grid-template-columns: repeat( #{ map-get( $bricksPerRow, phone ) }, 1fr );

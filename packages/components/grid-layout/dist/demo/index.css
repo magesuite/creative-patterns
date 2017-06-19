@@ -237,7 +237,7 @@ html, body {
       .cs-grid-layout__brick--hero {
         width: calc( 100% / 1);
         height: 389px; } }
-  @supports ((display: -ms-grid) or (display: grid)) and (not (display: -ms-grid)) {
+  @supports ((display: -ms-grid) or (display: grid)) and (grid-auto-flow: row) {
     .cs-grid-layout__grid {
       display: -ms-grid;
       display: grid;

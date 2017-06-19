@@ -93,7 +93,7 @@ export default class GridLayout {
         if ( window.CSS && window.CSS.supports && typeof window.CSS.supports === 'function' ) {
             const currentCssDisplaySet: string = window.getComputedStyle( document.querySelector( `.${ this.settings.gridClass }` ) ).getPropertyValue( 'display' );
 
-            return CSS.supports( 'display', 'grid' ) && !CSS.supports( 'display', '-ms-grid' ) && currentCssDisplaySet === 'grid';
+            return CSS.supports( 'display', 'grid' ) && CSS.supports( 'grid-auto-flow', 'row' ) && currentCssDisplaySet === 'grid';
         }
         
         return false;
