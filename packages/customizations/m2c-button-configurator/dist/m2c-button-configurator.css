@@ -300,6 +300,8 @@
       margin-top: 0 !important; }
     .m2-input--group .m2-input__select {
       width: 100%; }
+    .m2-input--group-quarter:not(.m2-input--type-checkbox) .m2-input, .m2-input--group-quarter:not(.m2-input--type-radio) .m2-input {
+      width: calc( 25% - .75rem); }
   .m2-input--type-inline .m2-input__label {
     width: 25%;
     padding-right: 30px; }

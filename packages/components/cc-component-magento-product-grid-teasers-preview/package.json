@@ -1,0 +1,8 @@
+{
+    "name": "cc-component-magento-product-grid-teasers-preview",
+    "version": "0.0.1",
+    "description": " This component displays preview of magento-product-grid-teasers component in CC dashboard",
+    "main": "src/cc-component-magento-product-grid-teasers-preview.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

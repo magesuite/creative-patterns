@@ -13,6 +13,7 @@ import ccComponentProductCarouselPreview from '../../cc-component-product-carous
 import ccComponentProductGridPreview from '../../cc-component-product-grid-preview/src/cc-component-product-grid-preview';
 import ccComponentSeparatorPreview from '../../cc-component-separator-preview/src/cc-component-separator-preview';
 import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
+import ccComponentMagentoProductGridTeasersPreview from '../../cc-component-magento-product-grid-teasers-preview/src/cc-component-magento-product-grid-teasers-preview';
 
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
 import componentAdder from '../../cc-component-adder/src/cc-component-adder';
@@ -27,6 +28,7 @@ interface IComponentInformation {
     name: string;
     id: string;
     type: string;
+    section: string;
     data?: any;
 }
 
@@ -57,6 +59,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-product-grid-preview': ccComponentProductGridPreview,
         'cc-component-separator-preview': ccComponentSeparatorPreview,
+        'cc-component-magento-product-grid-teasers-preview': ccComponentMagentoProductGridTeasersPreview,
     },
     props: {
         /**
@@ -67,6 +70,10 @@ const layoutBuilder: vuejs.ComponentOption = {
             default: '',
         },
         assetsSrc: {
+            type: String,
+            default: '',
+        },
+        ccConfiguration: {
             type: String,
             default: '',
         },
@@ -95,6 +102,10 @@ const layoutBuilder: vuejs.ComponentOption = {
             type: Function,
             default: (): IComponentInformation => undefined,
         },
+        pageType: {
+            type: String,
+            default: 'cms_page_form.cms_page_form',
+        },
     },
     data(): any {
         return {
@@ -102,8 +113,9 @@ const layoutBuilder: vuejs.ComponentOption = {
         };
     },
     ready(): void {
-        // Set initial components configuration if provided.
+        this.ccConfig = this.ccConfiguration ? JSON.parse( this.ccConfiguration ) : {};
         this.components = this.componentsConfiguration ? JSON.parse( this.componentsConfiguration ) : [];
+        this.sortComponentsBySections();
         this.$dispatch( 'cc-layout-builder__update' );
     },
     methods: {
@@ -125,6 +137,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         addComponentInformation( index: number, componentInfo: IComponentInformation ): void {
             if ( componentInfo ) {
                 this.components.splice( index, 0, componentInfo );
+                this.setComponentsPlacementInfo();
                 this.$dispatch( 'cc-layout-builder__update' );
             }
         },
@@ -137,6 +150,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         setComponentInformation( index: number, componentInfo: IComponentInformation ): void {
             if ( componentInfo ) {
                 this.components.$set( index, componentInfo );
+                this.setComponentsPlacementInfo();
                 this.$dispatch( 'cc-layout-builder__update' );
             }
         },
@@ -203,6 +217,7 @@ const layoutBuilder: vuejs.ComponentOption = {
                 setTimeout( (): void => {
                     this.components.$set( index - 1, this.components[ index ] );
                     this.components.$set( index, previousComponent );
+                    this.setComponentsPlacementInfo();
                     this.$dispatch( 'cc-layout-builder__update' );
                     $thisComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
                     $prevComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
@@ -225,6 +240,7 @@ const layoutBuilder: vuejs.ComponentOption = {
                 setTimeout( (): void => {
                     this.components.$set( index + 1, this.components[ index ] );
                     this.components.$set(  index, previousComponent );
+                    this.setComponentsPlacementInfo();
                     this.$dispatch( 'cc-layout-builder__update' );
                     $thisComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
                     $nextComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
@@ -239,6 +255,39 @@ const layoutBuilder: vuejs.ComponentOption = {
             if ( window.confirm( 'Are you sure you want to delete this item?' ) ) {
                 this.components.splice( index, 1 );
                 this.$dispatch( 'cc-layout-builder__update' );
+            }
+        },
+        /**
+         * Goes through all components and assigns section.
+         * F.e. CC on category has 3 sections (top, grid [magento, not editable], and bottom)
+         * In this example this methods sets TOP for all components that are above special component dedicated for category page, GRID for special component and BOTTOM for all components under.
+         */
+        setComponentsPlacementInfo(): any {
+            const sections: any = this.ccConfig.sections[ this.pageType ];
+
+            if ( sections.length > 1 ) {
+                let sectionIndex: number = 0;
+
+                for ( let i: number = 0; i < this.components.length; i++ ) {
+                    if ( this.ccConfig.specialComponents.indexOf( this.components[ i ].type ) !== -1 ) {
+                        sectionIndex++;
+                        this.components[ i ].section = sections[ sectionIndex ];
+                        sectionIndex++;
+                    } else {
+                        this.components[ i ].section = sections[ sectionIndex ];
+                    }
+                }
+            }
+        },
+        /**
+         * Sorts components by their sections. 
+         * Order is defined by ccConfig.sections[ this.pageType ]
+         */
+        sortComponentsBySections(): void {
+            if ( this.components.length && this.ccConfig.sections[ this.pageType ].length > 1 ) {
+                this.components.sort( ( a: any, b: any ): any => {
+                    return this.ccConfig.sections[ this.pageType ].indexOf( a.section ) - this.ccConfig.sections[ this.pageType ].indexOf( b.section );
+                } );
             }
         },
         /**
@@ -264,6 +313,10 @@ const layoutBuilder: vuejs.ComponentOption = {
 
         isPossibleToEdit( componentType: string ): boolean {
             return componentType === 'brand-carousel' || componentType === 'separator';
+        },
+
+        isPossibleToDelete( componentType: string ): boolean {
+            return this.ccConfig.specialComponents.indexOf( componentType ) !== -1;
         },
     },
 };

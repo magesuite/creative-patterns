@@ -148,6 +148,15 @@ $namespace: 'm2-';
         #{$root}__select {
             width: 100%;
         }
+
+        &-quarter {
+            &:not( #{$root}--type-checkbox ),
+            &:not( #{$root}--type-radio ) {
+                #{$root} {
+                    width: calc( 25% - .75rem );
+                }
+            }
+        }
     }
 
     &--type-inline {

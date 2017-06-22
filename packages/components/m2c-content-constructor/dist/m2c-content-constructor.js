@@ -2442,6 +2442,389 @@ var m2cStaticBlockConfigurator = {
 };
 
 /**
+ * Magento product-grid teasers configurator component.
+ * This component will be responsible for configuration of image teasers inside native products grid on M2 category pages
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccMagentoProductGridTeasersConfigurator = {
+    mixins: [
+        ccComponentConfigurator,
+    ],
+    template: "<div class=\"cc-magento-product-grid-teasers-configurator | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewTeaser( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use xlink:href=\"../images/sprites.svg#icon_plus\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"item in configuration.teasers\">\n        <div class=\"cc-magento-product-grid-teasers-configurator__item\">\n            <div class=\"cc-magento-product-grid-teasers-configurator__item-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__top\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveTeaserUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"../images/sprites.svg#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveTeaserDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"../images/sprites.svg#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                    <template slot=\"cc-component-actions__bottom\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteTeaser( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"../images/sprites.svg#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-magento-product-grid-teasers-configurator__item-content\">\n                <div class=\"cc-magento-product-grid-teasers__item-image\"></div>\n                <div class=\"cc-magento-product-grid-teasers__item-options\">\n                    <div class=\"cs-input\">\n                        <label for=\"cfg-mpg-teaser{{ $index }}-variant\" class=\"cs-input__label\">Display variant:</label>\n                        <select name=\"cfg-mpg-teaser{{ $index }}-variant\" class=\"cs-input__select\" id=\"cfg-mpg-teaser{{ $index }}-variant\" v-model=\"configuration.displayVariant\">\n                            <option value=\"variant-1\">Text vertically centered on the left</option>\n                            <option value=\"variant-2\">Text vertically centered in the middle</option>\n                            <option value=\"variant-3\">Text on the bottom, left corner</option>\n                            <option value=\"variant-4\">Text on the bottom - centered</option>\n                        </select>\n                    </div>\n                    <div class=\"cs-input\">\n                        <label for=\"cfg-mpg-teaser{{ $index }}-headline\" class=\"cs-input__label\">Headline:</label>\n                        <input type=\"text\" v-model=\"configuration.items[$index].headline\" id=\"cfg-mpg-teaser{{ $index }}-headline\" class=\"cs-input__input\">\n                    </div>\n                    <div class=\"cs-input\">\n                        <label for=\"cfg-mpg-teaser{{ $index }}-paragraph\" class=\"cs-input__label\">Paragraph:</label>\n                        <textarea type=\"text\" v-model=\"configuration.items[$index].paragraph\" id=\"cfg-mpg-teaser{{ $index }}-paragraph\" class=\"cs-input__textarea\" placeholder=\"(max 200 characters)\" maxlength=\"200\"></textarea>\n                    </div>\n                    <div class=\"cs-input\">\n                        <label for=\"cfg-mpg-teaser{{ $index }}-ctaLabel\" class=\"cs-input__label\">CTA label:</label>\n                        <input type=\"text\" v-model=\"configuration.items[$index].ctaLabel\" id=\"cfg-mpg-teaser{{ $index }}-ctaLabel\" class=\"cs-input__input\">\n                    </div>\n                    <div class=\"cs-input cs-input--type-addon\">\n                        <label for=\"cfg-mpg-teaser{{ $index }}-cta-label\" class=\"cs-input__label\">CTA label:</label>\n                        <input type=\"text\" v-model=\"configuration.items[$index].ctaLabel\" id=\"cfg-mpg-teaser{{ $index }}-cta-label\" class=\"cs-input__input\">\n                    </div>\n                    <div class=\"cs-input cs-input--type-addon\">\n                        <label for=\"cfg-mpg-teaser{{ $index }}-cta-target\" class=\"cs-input__label\">CTA target link:</label>\n                        <input type=\"text\" v-model=\"configuration.items[$index].ctaTarget\" id=\"cfg-mpg-teaser{{ $index }}-cta-target\" class=\"cs-input__input\">\n                        <span class=\"cs-input__addon\">\n                            <svg class=\"cs-input__addon-icon\">\n                                <use xlink:href=\"../images/sprites.svg#icon_link\"></use>\n                            </svg>\n                        </span>\n                    </div>\n                </div>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"configuration.items.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewTeaser( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"../images/sprites.svg#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</div>",
+    /**
+     * Get dependencies
+     */
+    components: {
+        'action-button': actionButton,
+        'cc-component-adder': componentAdder,
+        'cc-component-actions': componentActions,
+        'cc-component-placeholder': componentPlaceholder,
+    },
+    props: {
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+        /**
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+            default: function () {
+                return {
+                    teasers: [],
+                };
+            },
+        },
+    },
+};
+
+// Pattern for teaser Item
+var teaserDataPattern = {
+    sizeSelect: '2x1',
+    size: {
+        x: 2,
+        y: 1
+    },
+    position: 'left',
+    row: 1,
+    isAvailableForMobile: 1,
+    image: '',
+    decodedImage: '',
+    displayVariant: 'variant-1',
+    colorScheme: 'light',
+    headline: '',
+    subheadline: '',
+    paragraph: '',
+    ctaLabel: $t('Check offer'),
+    href: '',
+};
+/**
+ * M2C skin for magento product grid teasers configurator component.
+ * This component will be responsible for configuration of image teasers inside native products grid on M2 category pages
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var m2cMagentoProductGridTeasersConfigurator = {
+    mixins: [
+        ccMagentoProductGridTeasersConfigurator,
+    ],
+    template: "<div class=\"m2c-magento-product-grid-teasers-configurator | {{ class }}\">\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--static\" v-show=\"!configuration.teasers.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button | m2c-magento-product-grid-teasers-configurator__item-action-button\" @click=\"createNewTeaser( 0 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n\n        <template v-for=\"item in configuration.teasers\">\n            <div class=\"m2c-magento-product-grid-teasers-configurator__item\" id=\"m2c-magento-pg-teaser-{{ $index }}\">\n                <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n                    <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button | m2c-magento-product-grid-teasers-configurator__item-action-button\" @click=\"createNewTeaser( $index )\">\n                        <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                            <use xlink:href=\"#icon_plus\"></use>\n                        </svg>\n                    </button>\n                </cc-component-adder>\n\n                <div class=\"m2c-magento-product-grid-teasers-configurator__item-content\">\n                    <div v-bind:class=\"[ 'm2c-magento-product-grid-teasers-configurator__item-col-left', configuration.teasers[$index].image ? 'm2c-magento-product-grid-teasers-configurator__item-col-left--look-image-uploaded' : '' ]\">\n                        <div class=\"m2c-magento-product-grid-teasers-configurator__item-image-wrapper\">\n                            <img :src=\"configuration.teasers[$index].image\" class=\"m2c-magento-product-grid-teasers-configurator__item-image\" v-show=\"configuration.teasers[$index].image\">\n                            <input type=\"hidden\" v-model=\"configuration.teasers[$index].image\">\n                            <input type=\"hidden\" class=\"m2c-magento-product-grid-teasers-configurator__image-url\" id=\"mpg-teaser-img-{{$index}}\">\n                            <svg class=\"m2c-magento-product-grid-teasers-configurator__item-image-placeholder\" v-show=\"!configuration.teasers[$index].image\">\n                                <use xlink:href=\"#icon_image-placeholder\"></use>\n                            </svg>\n\n                            <div class=\"m2c-magento-product-grid-teasers-configurator__item-actions\">\n                                <cc-component-actions>\n                                    <template slot=\"cc-component-actions__buttons\">\n                                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up | m2c-magento-product-grid-teasers-configurator__item-action-button\" @click=\"moveHeroItemUp( $index )\" :class=\"[ isFirstTeaser( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstTeaser( $index )\">\n                                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                                <use xlink:href=\"#icon_arrow-up\"></use>\n                                            </svg>\n                                        </button>\n                                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down | m2c-magento-product-grid-teasers-configurator__item-action-button\" @click=\"moveHeroItemDown( $index )\" :class=\"[ isLastTeaser( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastTeaser( $index )\">\n                                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                                <use xlink:href=\"#icon_arrow-down\"></use>\n                                            </svg>\n                                        </button>\n                                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon | cc-component-actions__button cc-component-actions__button--upload-image | m2c-magento-product-grid-teasers-configurator__item-action-button\" @click=\"getImageUploader( $index )\">\n                                                <svg class=\"action-button__icon action-button__icon--size_100\">\n                                                    <use xlink:href=\"#icon_upload-image\"></use>\n                                                </svg>\n                                                {{ configuration.teasers[$index].image ? imageUploadedText : noImageUploadedText }}\n                                        </button>\n                                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete | m2c-magento-product-grid-teasers-configurator__item-action-button\" @click=\"deleteTeaser( $index )\">\n                                            <svg class=\"action-button__icon\">\n                                                <use xlink:href=\"#icon_trash-can\"></use>\n                                            </svg>\n                                        </button>\n                                    </template>\n                                </cc-component-actions>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"m2c-magento-product-grid-teasers-configurator__item-col-right\">\n                        <div class=\"m2-input m2-input--group m2-input--group-quarter\">\n                            <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                                <label for=\"cfg-mpg-teaser{{ $index }}-size-select\" class=\"m2-input__label\">" + $t('Teaser size') + ":</label>\n                                <select name=\"cfg-mpg-teaser{{ $index }}-size-select\" class=\"m2-input__select | m2c-magento-product-grid-teasers-configurator__select\" id=\"cfg-mpg-teaser{{ $index }}-size-select\" v-model=\"configuration.teasers[$index].sizeSelect\" v-bind=\"{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }\" @change=\"setTeaserSize($index)\">\n                                    <option value=\"1x1\">" + $t('1x1') + "</option>\n                                    <option value=\"1x2\">" + $t('1x2') + "</option>\n                                    <option value=\"2x1\">" + $t('2x1') + "</option>\n                                    <option value=\"2x2\">" + $t('2x2') + "</option>\n                                </select>\n                            </div>\n                            <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                                <label for=\"cfg-mpg-teaser{{ $index }}-position\" class=\"m2-input__label\">" + $t('Position') + ":</label>\n                                <select name=\"cfg-mpg-teaser{{ $index }}-position\" class=\"m2-input__select | m2c-magento-product-grid-teasers-configurator__select\" id=\"cfg-mpg-teaser{{ $index }}-position\" v-model=\"configuration.teasers[$index].position\" v-bind=\"{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }\">\n                                    <option value=\"left\">" + $t('Left') + "</option>\n                                    <option value=\"center\">" + $t('Center') + "</option>\n                                    <option value=\"right\">" + $t('Right') + "</option>\n                                </select>\n                            </div>\n                            <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                                <label for=\"cfg-mpg-teaser{{ $index }}-row\" class=\"m2-input__label\">" + $t('Row') + ":</label>\n                                <select name=\"cfg-mpg-teaser{{ $index }}-row\" class=\"m2-input__select | m2c-magento-product-grid-teasers-configurator__select\" id=\"cfg-mpg-teaser{{ $index }}-row\" v-model=\"configuration.teasers[$index].row\" v-bind=\"{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }\">\n                                    <option v-for=\"i in rowsCount\" value=\"{{ i + 1 }}\">{{ i + 1 }}</option>\n                                    <option value=\"1000\">" + $t('as last') + "</option>\n                                </select>\n                            </div>\n                            <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                                <label for=\"cfg-mpg-teaser{{ $index }}-mobile\" class=\"m2-input__label\">" + $t('Show in mobiles') + ":</label>\n                                <div class=\"admin__actions-switch\" data-role=\"switcher\">\n                                    <input type=\"checkbox\" class=\"admin__actions-switch-checkbox\" id=\"cfg-mpg-teaser{{ $index }}-mobile\" name=\"cfg-mpg-teaser{{ $index }}-mobile\" v-model=\"configuration.teasers[$index].isAvailableForMobile\">\n                                    <label class=\"admin__actions-switch-label\" for=\"cfg-mpg-teaser{{ $index }}-mobile\"\">\n                                        <span class=\"admin__actions-switch-text\" data-text-on=\"" + $t('Yes') + "\" data-text-off=\"" + $t('No') + "\"></span>\n                                    </label>\n                                </div>\n                            </div>\n                        </div>\n                        <div class=\"m2-input m2-input--group\">\n                            <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                                <label for=\"cfg-mpg-teaser{{ $index }}-variant\" class=\"m2-input__label\">" + $t('Display variant') + ":</label>\n                                <select name=\"cfg-mpg-teaser{{ $index }}-variant\" class=\"m2-input__select | m2c-magento-product-grid-teasers-configurator__select\" id=\"cfg-mpg-teaser{{ $index }}-variant\" v-model=\"configuration.teasers[$index].displayVariant\" v-bind=\"{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }\">\n                                    <option value=\"variant-1\">" + $t('Text vertically centered on the left') + "</option>\n                                    <option value=\"variant-2\">" + $t('Text vertically centered in the middle') + "</option>\n                                    <option value=\"variant-3\">" + $t('Text on the bottom, left corner') + "</option>\n                                    <option value=\"variant-4\">" + $t('Text on the bottom - centered') + "</option>\n                                </select>\n                            </div>\n                            <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                                <label for=\"cfg-mpg-teaser{{ $index }}-color-scheme\" class=\"m2-input__label\">" + $t('Text color scheme') + ":</label>\n                                <select name=\"cfg-mpg-teaser{{ $index }}-color-scheme\" class=\"m2-input__select | m2c-magento-product-grid-teasers-configurator__select\" id=\"cfg-mpg-teaser{{ $index }}-color-scheme\" v-model=\"configuration.teasers[$index].colorScheme\" v-bind=\"{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }\">\n                                    <option value=\"light\">" + $t('Light') + "</option>\n                                    <option value=\"dark\">" + $t('Dark') + "</option>\n                                </select>\n                            </div>\n                        </div>\n                        <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                            <label for=\"cfg-mpg-teaser{{ $index }}-headline\" class=\"m2-input__label\">" + $t('Headline') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.teasers[$index].headline\" id=\"cfg-mpg-teaser{{ $index }}-headline\" class=\"m2-input__input\">\n                        </div>\n                        <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                            <label for=\"cfg-mpg-teaser{{ $index }}-subheadline\" class=\"m2-input__label\">" + $t('Subheadline') + ":</label>\n                            <input type=\"text\" v-model=\"configuration.teasers[$index].subheadline\" id=\"cfg-mpg-teaser{{ $index }}-subheadline\" class=\"m2-input__input\">\n                        </div>\n                        <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                            <label for=\"cfg-mpg-teaser{{ $index }}-paragraph\" class=\"m2-input__label\">" + $t('Paragraph') + ":</label>\n                            <textarea type=\"text\" v-model=\"configuration.teasers[$index].paragraph\" id=\"cfg-mpg-teaser{{ $index }}-paragraph\" class=\"m2-input__textarea\" placeholder=\"(" + $t('max 200 characters') + ")\" maxlength=\"200\"></textarea>\n                        </div>\n                        <div class=\"m2-input m2-input--group\">\n                            <div class=\"m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                                <label for=\"cfg-mpg-teaser{{ $index }}-cta-label\" class=\"m2-input__label\">" + $t('CTA label') + ":</label>\n                                <input type=\"text\" v-model=\"configuration.teasers[$index].ctaLabel\" id=\"cfg-mpg-teaser{{ $index }}-cta-label\" class=\"m2-input__input\">\n                            </div>\n                            <div class=\"m2-input m2-input--type-addon | m2c-magento-product-grid-teasers-configurator__item-form-element\">\n                                <label for=\"teaser-ctatarget-output-{{ $index }}\" class=\"m2-input__label\">" + $t('CTA target link') + ":</label>\n                                <input type=\"text\" class=\"m2-input__input | m2c-magento-product-grid-teasers-configurator__cta-target-link\" v-model=\"configuration.teasers[$index].href\" id=\"teaser-ctatarget-output-{{ $index }}\">\n                                <span class=\"m2-input__addon | m2c-magento-product-grid-teasers-configurator__widget-chooser-trigger\" @click=\"openCtaTargetModal( $index )\">\n                                    <svg class=\"m2-input__addon-icon\">\n                                        <use xlink:href=\"#icon_link\"></use>\n                                    </svg>\n                                </span>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n\n                <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n                    <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button | m2c-magento-product-grid-teasers-configurator__item-action-button\" @click=\"createNewTeaser( $index + 1 )\">\n                        <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                            <use xlink:href=\"#icon_plus\"></use>\n                        </svg>\n                    </button>\n                </cc-component-adder>\n            </div>\n        </template>\n\n        <div class=\"m2c-magento-product-grid-teasers-configurator__modal\" v-el:error-modal></div>\n    </div>",
+    props: {
+        /*
+         * Single's component configuration
+         */
+        configuration: {
+            type: Object,
+            default: function () {
+                return {
+                    teasers: [JSON.parse(JSON.stringify(teaserDataPattern))],
+                    json: [],
+                };
+            },
+        },
+        /* get assets for displaying component images */
+        assetsSrc: {
+            type: String,
+            default: '',
+        },
+        /* Obtain base-url for the image uploader */
+        uploaderBaseUrl: {
+            type: String,
+            default: '',
+        },
+        /* Obtain image endpoint to place permanent url for uploaded images */
+        imageEndpoint: {
+            type: String,
+            default: '',
+        },
+        /* Obtain image endpoint to place permanent url for uploaded images */
+        ccConfig: {
+            type: Object,
+            default: function () {
+                return {};
+            },
+        },
+        productsPerPage: {
+            type: String,
+            default: '30',
+        },
+    },
+    data: function () {
+        return {
+            imageUploadedText: $t('Change'),
+            noImageUploadedText: $t('Upload'),
+            configuration: this.getInitialConfiguration(),
+            rowsCount: this.getCurrentFErowsCount(),
+        };
+    },
+    events: {
+        /**
+         * Listen on save event from Content Configurator component.
+         */
+        'cc-component-configurator__save': function () {
+            this.cleanupConfiguration();
+            this.generateTeasersConfig();
+            this.onSave();
+        },
+    },
+    methods: {
+        getInitialConfiguration: function () {
+            if (!this.configuration) {
+                this.configuration = {
+                    teasers: [JSON.parse(JSON.stringify(teaserDataPattern))],
+                };
+            }
+            return this.configuration;
+        },
+        /**
+         * Calculates "virtual" length of products in the grid
+         * "virtual" means that teasers are included and their sizes are calculated too
+         * f.e if teaser covers 2 tiles it counts as 2 brics, accordingly if it's 2x2 then it takes 4 bricks
+         * @return {number} number of available bricks in grid
+         */
+        getVirtualBricksLength: function () {
+            var virtualLength = parseInt(this.productsPerPage, 10);
+            for (var i = 0; i < this.configuration.teasers.length; i++) {
+                virtualLength += this.configuration.teasers[i].size.x * this.configuration.teasers[i].size.y - 1;
+            }
+            return virtualLength;
+        },
+        /**
+         * Calculates how many rows there's displayed if the grid on front-end
+         * Currently divider is hardcoded for desktop breakpoint
+         * @return {number} number of rows in FE grid
+         */
+        getCurrentFErowsCount: function () {
+            if (this.ccConfig.columnsConfig.filterScenario === 'sidebar') {
+                return Math.ceil(this.getVirtualBricksLength() / this.ccConfig.columnsConfig.withSidebar.desktop);
+            }
+            return Math.ceil(this.getVirtualBricksLength() / this.ccConfig.columnsConfig.full.desktop);
+        },
+        /**
+         * When you open component after changes in M2 grid settings (when products per page chnaged)
+         * Or, after you delete some teasers - this method updates available rows count on FE side and checks if
+         * current row setting of the teaser is not higher than this.rowsCount.
+         * If yes, it changes row setting to be equal this.rowsCount
+         */
+        fixOverflowedRowsSetup: function () {
+            this.rowsCount = this.getCurrentFErowsCount();
+            for (var i = 0; i < this.configuration.teasers.length; i++) {
+                if (this.configuration.teasers[i].row > this.rowsCount) {
+                    this.configuration.teasers[i].row = this.rowsCount;
+                }
+            }
+        },
+        /* Opens M2's built-in image manager modal
+         * Manages all images: image upload from hdd, select image that was already uploaded to server
+         * @param index {number} - index of image of hero item
+         */
+        getImageUploader: function (index) {
+            MediabrowserUtility.openDialog(this.uploaderBaseUrl + "target_element_id/mpg-teaser-img-" + index + "/", 'auto', 'auto', $t('Insert File...'), {
+                closed: true,
+            });
+        },
+        /* Listener for image uploader
+         * Since Magento does not provide any callback after image has been chosen
+         * we have to watch for target where decoded url is placed
+         */
+        imageUploadListener: function () {
+            var component = this;
+            var isAlreadyCalled = false;
+            // jQuery has to be used, for some reason native addEventListener doesn't catch change of input's value
+            $(document).on('change', '.m2c-magento-product-grid-teasers-configurator__image-url', function (event) {
+                if (!isAlreadyCalled) {
+                    isAlreadyCalled = true;
+                    component.onImageUploaded(event.target);
+                    setTimeout(function () {
+                        isAlreadyCalled = false;
+                    }, 100);
+                }
+            });
+        },
+        /* Action after image was uploaded
+         * URL is encoded, so strip it and decode Base64 to get {{ media url="..."}} format
+         * which will go to the items.image and will be used to display image on front end
+         * @param input { object } - input with raw image path which is used in admin panel
+         */
+        onImageUploaded: function (input) {
+            var _this = this;
+            var itemIndex = input.id.substr(input.id.length - 1);
+            var encodedImage = input.value.match('___directive\/([a-zA-Z0-9]*)')[1];
+            var imgEndpoint = this.imageEndpoint.replace('{/encoded_image}', encodedImage);
+            this.configuration.teasers[itemIndex].decodedImage = Base64 ? Base64.decode(encodedImage) : window.atob(encodedImage);
+            var img = new Image();
+            img.onload = function () {
+                _this.configuration.teasers[itemIndex].image = img.getAttribute('src');
+                _this.onChange();
+            };
+            img.src = imgEndpoint;
+        },
+        /* Opens modal with M2 built-in widget chooser
+         * @param index {number} - index of teaser item to know where to place output of widget chooser
+         */
+        openCtaTargetModal: function (index) {
+            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/filter_widgets/Link/widget_target_id/teaser-ctatarget-output-" + index);
+            this.wWidgetListener(index);
+        },
+        /* Sets listener for widget chooser
+         * It triggers component.onChange to update component's configuration
+         * after value of item.href is changed
+         */
+        widgetSetListener: function () {
+            var component = this;
+            $('.m2c-magento-product-grid-teasers-configurator__cta-target-link').on('change', function () {
+                component.onChange();
+            });
+        },
+        /*
+         * Check if widget chooser is loaded. If not, wait for it, if yes:
+         * Override default onClick for "Insert Widget" button in widget's modal window
+         * to clear input's value before inserting new one
+         * @param {number} index Hero item's index in array.
+         */
+        wWidgetListener: function (itemIndex) {
+            var _this = this;
+            if (typeof wWidget !== 'undefined' && widgetTools.dialogWindow[0].innerHTML !== '') {
+                var _this_1 = this;
+                var button = widgetTools.dialogWindow[0].querySelector('#insert_button');
+                button.onclick = null;
+                button.addEventListener('click', function () {
+                    _this_1.configuration.teasers[itemIndex].href = '';
+                    wWidget.insertWidget();
+                });
+            }
+            else {
+                window.setTimeout(function () {
+                    _this.wWidgetListener(itemIndex);
+                }, 300);
+            }
+        },
+        setTeaserSize: function (index) {
+            this.fixOverflowedRowsSetup();
+            var size = this.configuration.teasers[index].sizeSelect.split('x');
+            this.configuration.teasers[index].size.x = size[0];
+            this.configuration.teasers[index].size.y = size[1];
+        },
+        /**
+         * Creates new hero item and adds it to a specified index.
+         * @param {number} index New component's index in components array.
+         */
+        createNewTeaser: function (index) {
+            this.configuration.teasers.splice(index, 0, JSON.parse(JSON.stringify(teaserDataPattern)));
+            this.rowsCount = this.getCurrentFErowsCount();
+            this.onChange();
+        },
+        /**
+         * Moves hero item under given index up by swaping it with previous element.
+         * @param {number} index Hero item's index in array.
+         */
+        moveTeaserUp: function (index) {
+            var _this = this;
+            if (index > 0) {
+                var $thisItem_1 = $("#m2c-magento-pg-teaser-" + index);
+                var $prevItem_1 = $("#m2c-magento-pg-teaser-" + (index - 1));
+                $thisItem_1.addClass('m2c-magento-product-grid-teasers-configurator__item--animating').css('transform', "translateY( " + -Math.abs($prevItem_1.outerHeight(true)) + "px )");
+                $prevItem_1.addClass('m2c-magento-product-grid-teasers-configurator__item--animating').css('transform', "translateY( " + $thisItem_1.outerHeight(true) + "px )");
+                setTimeout(function () {
+                    _this.configuration.teasers.splice(index - 1, 0, _this.configuration.teasers.splice(index, 1)[0]);
+                    _this.onChange();
+                    $thisItem_1.removeClass('m2c-magento-product-grid-teasers-configurator__item--animating').css('transform', '');
+                    $prevItem_1.removeClass('m2c-magento-product-grid-teasers-configurator__item--animating').css('transform', '');
+                }, 400);
+            }
+        },
+        /**
+         * Moves hero item under given index down by swaping it with next element.
+         * @param {number} index Hero item's index in array.
+         */
+        moveTeaserDown: function (index) {
+            var _this = this;
+            if (index < this.configuration.teasers.length - 1) {
+                var $thisItem_2 = $("#m2c-magento-pg-teaser-" + index);
+                var $nextItem_1 = $("#m2c-magento-pg-teaser-" + (index + 1));
+                $thisItem_2.addClass('m2c-magento-product-grid-teasers-configurator__item--animating').css('transform', "translateY( " + $nextItem_1.outerHeight(true) + "px )");
+                $nextItem_1.addClass('m2c-magento-product-grid-teasers-configurator__item--animating').css('transform', "translateY( " + -Math.abs($thisItem_2.outerHeight(true)) + "px )");
+                setTimeout(function () {
+                    _this.configuration.teasers.splice(index + 1, 0, _this.configuration.teasers.splice(index, 1)[0]);
+                    _this.onChange();
+                    $thisItem_2.removeClass('m2c-magento-product-grid-teasers-configurator__item--animating').css('transform', '');
+                    $nextItem_1.removeClass('m2c-magento-product-grid-teasers-configurator__item--animating').css('transform', '');
+                }, 400);
+            }
+        },
+        /**
+         * Tells if item with given index is the first hero item.
+         * @param  {number}  index Index of the hero item.
+         * @return {boolean}       If hero item is first in array.
+         */
+        isFirstTeaser: function (index) {
+            return index === 0;
+        },
+        /**
+         * Tells if hero item with given index is the last hero item.
+         * @param  {number}  index Index of the hero item.
+         * @return {boolean}       If hero item is last in array.
+         */
+        isLastTeaser: function (index) {
+            return index === this.configuration.teasers.length - 1;
+        },
+        /* Removes hero item after Delete button is clicked
+         * and triggers hero item's onChange to update it's configuration
+         * @param index {number} - index of hero item to remove
+         */
+        deleteTeaser: function (index) {
+            var component = this;
+            confirm({
+                content: $t('Are you sure you want to delete this item?'),
+                actions: {
+                    confirm: function () {
+                        component.configuration.teasers.splice(index, 1);
+                        component.fixOverflowedRowsSetup();
+                        component.onChange();
+                    },
+                },
+            });
+        },
+        /* Cleans configuration for M2C content constructor after Saving component
+         * All empty teasers have to be removed to not get into configuration object
+         */
+        cleanupConfiguration: function () {
+            var filteredArray = this.configuration.teasers.filter(function (teaser) { return teaser.image !== ''; });
+            this.configuration.teasers = filteredArray;
+            this.onChange();
+        },
+        /* Generates 1:1 JSON for grid-layout component so it can be simply passed without any modifications within templates
+         */
+        generateTeasersConfig: function () {
+            this.configuration.json = [];
+            for (var i = 0; i < this.configuration.teasers.length; i++) {
+                var teaser = {
+                    id: i + 1,
+                    mobile: Number(this.configuration.teasers[i].isAvailableForMobile),
+                    size: {
+                        x: Number(this.configuration.teasers[i].size.x),
+                        y: Number(this.configuration.teasers[i].size.y),
+                    },
+                    gridPosition: {
+                        x: this.configuration.teasers[i].position,
+                        y: Number(this.configuration.teasers[i].row),
+                    },
+                };
+                this.configuration.json.push(teaser);
+            }
+        },
+    },
+    ready: function () {
+        this.imageUploadListener();
+        this.widgetSetListener();
+        this.fixOverflowedRowsSetup();
+    },
+};
+
+/**
  * Componen picker.
  * Lists all types of components available in m2c in the grid/list mode
  * @type {vuejs.ComponentOption} Vue component object.
@@ -2873,6 +3256,32 @@ var ccComponentStaticCmsBlockPreview = {
     },
 };
 
+/**
+ * Magento products-grid teasers preview component.
+ * This component displays preview of magento-product-grid-teasers component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentMagentoProductGridTeasersPreview = {
+    template: "<div class=\"cc-component-magento-product-grid-teasers-preview\">\n        <ul class=\"cc-component-magento-product-grid-teasers-preview__list\">\n            <li class=\"cc-component-magento-product-grid-teasers-preview__list-item cc-component-magento-product-grid-teasers-preview__list-item--teaser\">\n                <svg class=\"cc-component-magento-product-grid-teasers-preview__image-placeholder\">\n                    <use xlink:href=\"#icon_image-placeholder\"></use>\n                </svg>\n            </li>\n\n            <template v-for=\"i in 7\">\n                <li class=\"cc-component-magento-product-grid-teasers-preview__list-item\">\n                    <div class=\"cc-component-magento-product-grid-teasers-preview__product-wrapper\">\n                        <svg class=\"cc-component-magento-product-grid-teasers-preview__product\">\n                            <use xlink:href=\"#icon_component-cc-product-teaser-item\"></use>\n                        </svg>\n                    </div>\n                </li>\n            </template>\n\n            <li class=\"cc-component-magento-product-grid-teasers-preview__list-item cc-component-magento-product-grid-teasers-preview__list-item--text\">\n                <div>\n                    <div class=\"cc-component-magento-product-grid-teasers-preview__teasers-count\">\n                        {{ teasersLength }}\n                    </div>\n                    " + $t('teasers') + "\n                </div>\n            </li>\n        </ul>\n    </div>",
+    props: {
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+    computed: {
+        teasersLength: function () {
+            return this.configuration && this.configuration.teasers ? this.configuration.teasers.length : 0;
+        },
+    },
+};
+
 var template$1 = "<div class=\"cc-layout-builder | {{ class }}\">\n    <cc-component-adder>\n        <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( 0 )\">\n            <svg class=\"action-button__icon action-button__icon--size_300\">\n                <use xlink:href=\"#icon_plus\"></use>\n            </svg>\n        </button>\n    </cc-component-adder>\n    <template v-for=\"component in components\">\n        <div class=\"cc-layout-builder__component\">\n            <div class=\"cc-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__buttons\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" :class=\"[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isPossibleToEdit( component.type )\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_settings\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"cc-layout-builder__component-wrapper\">\n                <cc-component-placeholder>\n                    <h3 class=\"cc-component-placeholder__headline\" v-text=\"transformComponentTypeToText( component.type )\"></h3>\n                    <div class=\"cc-component-placeholder__component\">\n                        <component :is=\"'cc-component-' + component.type + '-preview'\" :configuration=\"component.data\" :index=\"$index\"></component>\n\n                    </div>\n                </cc-component-placeholder>\n            </div>\n        </div>\n        <cc-component-adder v-if=\"components.length\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only\" @click=\"createNewComponent( $index + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_300\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </template>\n</div>\n";
 
 /**
@@ -2902,6 +3311,7 @@ var layoutBuilder = {
         'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-product-grid-preview': ccComponentProductGridPreview,
         'cc-component-separator-preview': ccComponentSeparatorPreview,
+        'cc-component-magento-product-grid-teasers-preview': ccComponentMagentoProductGridTeasersPreview,
     },
     props: {
         /**
@@ -2912,6 +3322,10 @@ var layoutBuilder = {
             default: '',
         },
         assetsSrc: {
+            type: String,
+            default: '',
+        },
+        ccConfiguration: {
             type: String,
             default: '',
         },
@@ -2940,6 +3354,10 @@ var layoutBuilder = {
             type: Function,
             default: function () { return undefined; },
         },
+        pageType: {
+            type: String,
+            default: 'cms_page_form.cms_page_form',
+        },
     },
     data: function () {
         return {
@@ -2947,8 +3365,9 @@ var layoutBuilder = {
         };
     },
     ready: function () {
-        // Set initial components configuration if provided.
+        this.ccConfig = this.ccConfiguration ? JSON.parse(this.ccConfiguration) : {};
         this.components = this.componentsConfiguration ? JSON.parse(this.componentsConfiguration) : [];
+        this.sortComponentsBySections();
         this.$dispatch('cc-layout-builder__update');
     },
     methods: {
@@ -2968,6 +3387,7 @@ var layoutBuilder = {
         addComponentInformation: function (index, componentInfo) {
             if (componentInfo) {
                 this.components.splice(index, 0, componentInfo);
+                this.setComponentsPlacementInfo();
                 this.$dispatch('cc-layout-builder__update');
             }
         },
@@ -2980,6 +3400,7 @@ var layoutBuilder = {
         setComponentInformation: function (index, componentInfo) {
             if (componentInfo) {
                 this.components.$set(index, componentInfo);
+                this.setComponentsPlacementInfo();
                 this.$dispatch('cc-layout-builder__update');
             }
         },
@@ -3040,6 +3461,7 @@ var layoutBuilder = {
                 setTimeout(function () {
                     _this.components.$set(index - 1, _this.components[index]);
                     _this.components.$set(index, previousComponent_1);
+                    _this.setComponentsPlacementInfo();
                     _this.$dispatch('cc-layout-builder__update');
                     $thisComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
                     $prevComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
@@ -3061,6 +3483,7 @@ var layoutBuilder = {
                 setTimeout(function () {
                     _this.components.$set(index + 1, _this.components[index]);
                     _this.components.$set(index, previousComponent_2);
+                    _this.setComponentsPlacementInfo();
                     _this.$dispatch('cc-layout-builder__update');
                     $thisComponent_2.removeClass('m2c-layout-builder__component--animating').css('transform', '');
                     $nextComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
@@ -3075,6 +3498,39 @@ var layoutBuilder = {
             if (window.confirm('Are you sure you want to delete this item?')) {
                 this.components.splice(index, 1);
                 this.$dispatch('cc-layout-builder__update');
+            }
+        },
+        /**
+         * Goes through all components and assigns section.
+         * F.e. CC on category has 3 sections (top, grid [magento, not editable], and bottom)
+         * In this example this methods sets TOP for all components that are above special component dedicated for category page, GRID for special component and BOTTOM for all components under.
+         */
+        setComponentsPlacementInfo: function () {
+            var sections = this.ccConfig.sections[this.pageType];
+            if (sections.length > 1) {
+                var sectionIndex = 0;
+                for (var i = 0; i < this.components.length; i++) {
+                    if (this.ccConfig.specialComponents.indexOf(this.components[i].type) !== -1) {
+                        sectionIndex++;
+                        this.components[i].section = sections[sectionIndex];
+                        sectionIndex++;
+                    }
+                    else {
+                        this.components[i].section = sections[sectionIndex];
+                    }
+                }
+            }
+        },
+        /**
+         * Sorts components by their sections.
+         * Order is defined by ccConfig.sections[ this.pageType ]
+         */
+        sortComponentsBySections: function () {
+            var _this = this;
+            if (this.components.length && this.ccConfig.sections[this.pageType].length > 1) {
+                this.components.sort(function (a, b) {
+                    return _this.ccConfig.sections[_this.pageType].indexOf(a.section) - _this.ccConfig.sections[_this.pageType].indexOf(b.section);
+                });
             }
         },
         /**
@@ -3099,10 +3555,13 @@ var layoutBuilder = {
         isPossibleToEdit: function (componentType) {
             return componentType === 'brand-carousel' || componentType === 'separator';
         },
+        isPossibleToDelete: function (componentType) {
+            return this.ccConfig.specialComponents.indexOf(componentType) !== -1;
+        },
     },
 };
 
-var template$2 = "<div class=\"m2c-layout-builder | {{ class }}\">\n    <div class=\"m2c-layout-builder__component m2c-layout-builder__component--static\">\n        <div class=\"m2c-layout-builder__component-wrapper\">\n            <div class=\"cc-component-placeholder__component cc-component-placeholder__component--decorated cc-component-placeholder__component--header\">\n                <svg class=\"cc-component-placeholder__component-icon\">\n                    <use xlink:href=\"#icon_component-cc-header\"></use>\n                </svg>\n            </div>\n        </div>\n\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( 0 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </div>\n\n    <template v-for=\"component in components\">\n        <div class=\"m2c-layout-builder__component\" id=\"{{ component.id }}\">\n            <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( $index )\">\n                    <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                        <use xlink:href=\"#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n\n            <div class=\"m2c-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__buttons\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" :class=\"[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isPossibleToEdit( component.type )\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_edit\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"m2c-layout-builder__component-wrapper\">\n                <cc-component-placeholder>\n                    <h3 class=\"cc-component-placeholder__headline\" v-text=\"transformComponentTypeToText( component.type )\"></h3>\n                    <div class=\"cc-component-placeholder__component\">\n\n                        <component :is=\"'cc-component-' + component.type + '-preview'\" :configuration=\"component.data\" :index=\"$index\" :assets-src=\"assetsSrc\"></component>\n\n                    </div>\n                </cc-component-placeholder>\n            </div>\n\n            <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( $index + 1 )\">\n                    <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                        <use xlink:href=\"#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n        </div>\n    </template>\n\n    <div class=\"m2c-layout-builder__component m2c-layout-builder__component--static\">\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( components.length + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n\n        <div class=\"m2c-layout-builder__component-wrapper\">\n            <div class=\"cc-component-placeholder__component cc-component-placeholder__component--decorated cc-component-placeholder__component--footer\">\n                <svg class=\"cc-component-placeholder__component-icon\">\n                    <use xlink:href=\"#icon_component-cc-footer\"></use>\n                </svg>\n            </div>\n        </div>\n    </div>\n</div>\n";
+var template$2 = "<div class=\"m2c-layout-builder | {{ class }}\">\n    <div class=\"m2c-layout-builder__component m2c-layout-builder__component--static\">\n        <div class=\"m2c-layout-builder__component-wrapper\">\n            <div class=\"cc-component-placeholder__component cc-component-placeholder__component--decorated cc-component-placeholder__component--header\">\n                <svg class=\"cc-component-placeholder__component-icon\">\n                    <use xlink:href=\"#icon_component-cc-header\"></use>\n                </svg>\n            </div>\n        </div>\n\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( 0 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </div>\n\n    <template v-for=\"component in components\">\n        <div v-bind:class=\"getComponentClass( component.type )\" id=\"{{ component.id }}\">\n            <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( $index )\">\n                    <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                        <use xlink:href=\"#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n\n            <div class=\"m2c-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__buttons\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" :class=\"[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isPossibleToEdit( component.type )\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_edit\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" :class=\"[ isPossibleToDelete( component.type ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isPossibleToDelete( component.type )\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"m2c-layout-builder__component-wrapper\">\n                <cc-component-placeholder>\n                    <h3 class=\"cc-component-placeholder__headline\" v-text=\"transformComponentTypeToText( component.type )\"></h3>\n                    <div class=\"cc-component-placeholder__component\">\n\n                        <component :is=\"'cc-component-' + component.type + '-preview'\" :configuration=\"component.data\" :index=\"$index\" :assets-src=\"assetsSrc\"></component>\n\n                    </div>\n                </cc-component-placeholder>\n            </div>\n\n            <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( $index + 1 )\">\n                    <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                        <use xlink:href=\"#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n        </div>\n    </template>\n\n    <div class=\"m2c-layout-builder__component m2c-layout-builder__component--static\">\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( components.length + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n\n        <div class=\"m2c-layout-builder__component-wrapper\">\n            <div class=\"cc-component-placeholder__component cc-component-placeholder__component--decorated cc-component-placeholder__component--footer\">\n                <svg class=\"cc-component-placeholder__component-icon\">\n                    <use xlink:href=\"#icon_component-cc-footer\"></use>\n                </svg>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /**
  * Layout builder component - M2 implementation.
@@ -3122,6 +3581,9 @@ var m2cLayoutBuilder = {
         'm2c-paragraph-configurator': m2cParagraphConfigurator,
     },
     methods: {
+        getComponentClass: function (componentType) {
+            return this.ccConfig.specialComponents.indexOf(componentType) !== -1 ? 'm2c-layout-builder__component m2c-layout-builder__component--special' : 'm2c-layout-builder__component';
+        },
         /* Removes component from M2C
          * If it's paragraph that is about to be removed, asks if corresponding CMS Block shall be removed as well
          * @param index {number} - index of the component in layoutBuilder
@@ -3206,7 +3668,7 @@ var $configuratorModal;
  * of the M2C admin panel logic.
  */
 var m2cContentConstructor = {
-    template: "<div class=\"m2c-content-constructor\">\n        <m2c-layout-builder\n            v-ref:m2c-layout-builder\n            :assets-src=\"assetsSrc\"\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </m2c-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal></div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal></div>\n    </div>",
+    template: "<div class=\"m2c-content-constructor\">\n        <m2c-layout-builder\n            v-ref:m2c-layout-builder\n            :assets-src=\"assetsSrc\"\n            :cc-configuration=\"ccConfiguration\"\n            :page-type=\"pageType\"\n            :add-component=\"getComponentPicker\"\n            :edit-component=\"editComponent\"\n            :components-configuration=\"configuration\">\n        </m2c-layout-builder>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--picker\" v-el:picker-modal></div>\n        <div class=\"m2c-content-constructor__modal m2c-content-constructor__modal--configurator\" v-el:configurator-modal></div>\n    </div>",
     components: {
         'm2c-layout-builder': m2cLayoutBuilder,
         'cc-component-picker': ccComponentPicker,
@@ -3219,6 +3681,7 @@ var m2cContentConstructor = {
         'm2c-category-links-configurator': m2cCategoryLinksConfigurator,
         'm2c-button-configurator': m2cButtonConfigurator,
         'm2c-products-grid-configurator': m2cProductsGridConfigurator,
+        'm2c-magento-product-grid-teasers-configurator': m2cMagentoProductGridTeasersConfigurator,
     },
     props: {
         configuration: {
@@ -3249,6 +3712,18 @@ var m2cContentConstructor = {
             type: String,
             default: '',
         },
+        pageType: {
+            type: String,
+            default: 'cms_page_form.cms_page_form',
+        },
+        productsPerPage: {
+            type: String,
+            default: '30',
+        },
+        ccConfiguration: {
+            type: String,
+            default: '',
+        },
     },
     data: function () {
         return {
@@ -3257,6 +3732,7 @@ var m2cContentConstructor = {
         };
     },
     ready: function () {
+        this.ccConfig = this.ccConfiguration ? JSON.parse(this.ccConfiguration) : {};
         this.dumpConfiguration();
         this._isPickerLoaded = false;
         this._cleanupConfiguratorModal = '';
@@ -3332,6 +3808,7 @@ var m2cContentConstructor = {
                 _this._addComponentInformation({
                     type: componentType,
                     id: newComponentId,
+                    section: "content",
                     data: componentData,
                 });
             };
@@ -3342,6 +3819,7 @@ var m2cContentConstructor = {
                 this.initConfiguratorModal({
                     type: componentType,
                     id: newComponentId,
+                    section: "content",
                     data: undefined,
                 });
             }
@@ -3356,6 +3834,7 @@ var m2cContentConstructor = {
                 setComponentInformation({
                     type: prevComponentData.type,
                     id: prevComponentData.id,
+                    section: prevComponentData.section,
                     data: componentData,
                 });
             };
@@ -3394,7 +3873,7 @@ var m2cContentConstructor = {
             $configuratorModal = modal(configuratorModalOptions, $(this.$els.configuratorModal));
         },
         dumpConfiguration: function () {
-            uiRegistry.get('cms_page_form.cms_page_form').source.set('data.components', JSON.stringify(this.$refs.m2cLayoutBuilder.getComponentInformation()));
+            uiRegistry.get(this.pageType).source.set('data.components', JSON.stringify(this.$refs.m2cLayoutBuilder.getComponentInformation()));
         },
         setRestToken: function () {
             var component = this;

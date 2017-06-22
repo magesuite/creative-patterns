@@ -395,6 +395,32 @@ var ccComponentStaticCmsBlockPreview = {
 };
 
 /**
+ * Magento products-grid teasers preview component.
+ * This component displays preview of magento-product-grid-teasers component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentMagentoProductGridTeasersPreview = {
+    template: "<div class=\"cc-component-magento-product-grid-teasers-preview\">\n        <ul class=\"cc-component-magento-product-grid-teasers-preview__list\">\n            <li class=\"cc-component-magento-product-grid-teasers-preview__list-item cc-component-magento-product-grid-teasers-preview__list-item--teaser\">\n                <svg class=\"cc-component-magento-product-grid-teasers-preview__image-placeholder\">\n                    <use xlink:href=\"#icon_image-placeholder\"></use>\n                </svg>\n            </li>\n\n            <template v-for=\"i in 7\">\n                <li class=\"cc-component-magento-product-grid-teasers-preview__list-item\">\n                    <div class=\"cc-component-magento-product-grid-teasers-preview__product-wrapper\">\n                        <svg class=\"cc-component-magento-product-grid-teasers-preview__product\">\n                            <use xlink:href=\"#icon_component-cc-product-teaser-item\"></use>\n                        </svg>\n                    </div>\n                </li>\n            </template>\n\n            <li class=\"cc-component-magento-product-grid-teasers-preview__list-item cc-component-magento-product-grid-teasers-preview__list-item--text\">\n                <div>\n                    <div class=\"cc-component-magento-product-grid-teasers-preview__teasers-count\">\n                        {{ teasersLength }}\n                    </div>\n                    " + $t('teasers') + "\n                </div>\n            </li>\n        </ul>\n    </div>",
+    props: {
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+    computed: {
+        teasersLength: function () {
+            return this.configuration && this.configuration.teasers ? this.configuration.teasers.length : 0;
+        },
+    },
+};
+
+/**
  * Component actions component.
  * This component is responsible for displaying and handling user interactions of
  * side utility navigation for each component that supports:
@@ -495,6 +521,7 @@ var layoutBuilder = {
         'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-product-grid-preview': ccComponentProductGridPreview,
         'cc-component-separator-preview': ccComponentSeparatorPreview,
+        'cc-component-magento-product-grid-teasers-preview': ccComponentMagentoProductGridTeasersPreview,
     },
     props: {
         /**
@@ -505,6 +532,10 @@ var layoutBuilder = {
             default: '',
         },
         assetsSrc: {
+            type: String,
+            default: '',
+        },
+        ccConfiguration: {
             type: String,
             default: '',
         },
@@ -533,6 +564,10 @@ var layoutBuilder = {
             type: Function,
             default: function () { return undefined; },
         },
+        pageType: {
+            type: String,
+            default: 'cms_page_form.cms_page_form',
+        },
     },
     data: function () {
         return {
@@ -540,8 +575,9 @@ var layoutBuilder = {
         };
     },
     ready: function () {
-        // Set initial components configuration if provided.
+        this.ccConfig = this.ccConfiguration ? JSON.parse(this.ccConfiguration) : {};
         this.components = this.componentsConfiguration ? JSON.parse(this.componentsConfiguration) : [];
+        this.sortComponentsBySections();
         this.$dispatch('cc-layout-builder__update');
     },
     methods: {
@@ -561,6 +597,7 @@ var layoutBuilder = {
         addComponentInformation: function (index, componentInfo) {
             if (componentInfo) {
                 this.components.splice(index, 0, componentInfo);
+                this.setComponentsPlacementInfo();
                 this.$dispatch('cc-layout-builder__update');
             }
         },
@@ -573,6 +610,7 @@ var layoutBuilder = {
         setComponentInformation: function (index, componentInfo) {
             if (componentInfo) {
                 this.components.$set(index, componentInfo);
+                this.setComponentsPlacementInfo();
                 this.$dispatch('cc-layout-builder__update');
             }
         },
@@ -633,6 +671,7 @@ var layoutBuilder = {
                 setTimeout(function () {
                     _this.components.$set(index - 1, _this.components[index]);
                     _this.components.$set(index, previousComponent_1);
+                    _this.setComponentsPlacementInfo();
                     _this.$dispatch('cc-layout-builder__update');
                     $thisComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
                     $prevComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
@@ -654,6 +693,7 @@ var layoutBuilder = {
                 setTimeout(function () {
                     _this.components.$set(index + 1, _this.components[index]);
                     _this.components.$set(index, previousComponent_2);
+                    _this.setComponentsPlacementInfo();
                     _this.$dispatch('cc-layout-builder__update');
                     $thisComponent_2.removeClass('m2c-layout-builder__component--animating').css('transform', '');
                     $nextComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
@@ -668,6 +708,39 @@ var layoutBuilder = {
             if (window.confirm('Are you sure you want to delete this item?')) {
                 this.components.splice(index, 1);
                 this.$dispatch('cc-layout-builder__update');
+            }
+        },
+        /**
+         * Goes through all components and assigns section.
+         * F.e. CC on category has 3 sections (top, grid [magento, not editable], and bottom)
+         * In this example this methods sets TOP for all components that are above special component dedicated for category page, GRID for special component and BOTTOM for all components under.
+         */
+        setComponentsPlacementInfo: function () {
+            var sections = this.ccConfig.sections[this.pageType];
+            if (sections.length > 1) {
+                var sectionIndex = 0;
+                for (var i = 0; i < this.components.length; i++) {
+                    if (this.ccConfig.specialComponents.indexOf(this.components[i].type) !== -1) {
+                        sectionIndex++;
+                        this.components[i].section = sections[sectionIndex];
+                        sectionIndex++;
+                    }
+                    else {
+                        this.components[i].section = sections[sectionIndex];
+                    }
+                }
+            }
+        },
+        /**
+         * Sorts components by their sections.
+         * Order is defined by ccConfig.sections[ this.pageType ]
+         */
+        sortComponentsBySections: function () {
+            var _this = this;
+            if (this.components.length && this.ccConfig.sections[this.pageType].length > 1) {
+                this.components.sort(function (a, b) {
+                    return _this.ccConfig.sections[_this.pageType].indexOf(a.section) - _this.ccConfig.sections[_this.pageType].indexOf(b.section);
+                });
             }
         },
         /**
@@ -691,6 +764,9 @@ var layoutBuilder = {
         },
         isPossibleToEdit: function (componentType) {
             return componentType === 'brand-carousel' || componentType === 'separator';
+        },
+        isPossibleToDelete: function (componentType) {
+            return this.ccConfig.specialComponents.indexOf(componentType) !== -1;
         },
     },
 };
@@ -993,7 +1069,7 @@ var m2cParagraphConfigurator = {
     },
 };
 
-var template$1 = "<div class=\"m2c-layout-builder | {{ class }}\">\n    <div class=\"m2c-layout-builder__component m2c-layout-builder__component--static\">\n        <div class=\"m2c-layout-builder__component-wrapper\">\n            <div class=\"cc-component-placeholder__component cc-component-placeholder__component--decorated cc-component-placeholder__component--header\">\n                <svg class=\"cc-component-placeholder__component-icon\">\n                    <use xlink:href=\"#icon_component-cc-header\"></use>\n                </svg>\n            </div>\n        </div>\n\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( 0 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </div>\n\n    <template v-for=\"component in components\">\n        <div class=\"m2c-layout-builder__component\" id=\"{{ component.id }}\">\n            <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( $index )\">\n                    <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                        <use xlink:href=\"#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n\n            <div class=\"m2c-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__buttons\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" :class=\"[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isPossibleToEdit( component.type )\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_edit\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"m2c-layout-builder__component-wrapper\">\n                <cc-component-placeholder>\n                    <h3 class=\"cc-component-placeholder__headline\" v-text=\"transformComponentTypeToText( component.type )\"></h3>\n                    <div class=\"cc-component-placeholder__component\">\n\n                        <component :is=\"'cc-component-' + component.type + '-preview'\" :configuration=\"component.data\" :index=\"$index\" :assets-src=\"assetsSrc\"></component>\n\n                    </div>\n                </cc-component-placeholder>\n            </div>\n\n            <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( $index + 1 )\">\n                    <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                        <use xlink:href=\"#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n        </div>\n    </template>\n\n    <div class=\"m2c-layout-builder__component m2c-layout-builder__component--static\">\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( components.length + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n\n        <div class=\"m2c-layout-builder__component-wrapper\">\n            <div class=\"cc-component-placeholder__component cc-component-placeholder__component--decorated cc-component-placeholder__component--footer\">\n                <svg class=\"cc-component-placeholder__component-icon\">\n                    <use xlink:href=\"#icon_component-cc-footer\"></use>\n                </svg>\n            </div>\n        </div>\n    </div>\n</div>\n";
+var template$1 = "<div class=\"m2c-layout-builder | {{ class }}\">\n    <div class=\"m2c-layout-builder__component m2c-layout-builder__component--static\">\n        <div class=\"m2c-layout-builder__component-wrapper\">\n            <div class=\"cc-component-placeholder__component cc-component-placeholder__component--decorated cc-component-placeholder__component--header\">\n                <svg class=\"cc-component-placeholder__component-icon\">\n                    <use xlink:href=\"#icon_component-cc-header\"></use>\n                </svg>\n            </div>\n        </div>\n\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( 0 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n    </div>\n\n    <template v-for=\"component in components\">\n        <div v-bind:class=\"getComponentClass( component.type )\" id=\"{{ component.id }}\">\n            <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( $index )\">\n                    <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                        <use xlink:href=\"#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n\n            <div class=\"m2c-layout-builder__component-actions\">\n                <cc-component-actions>\n                    <template slot=\"cc-component-actions__buttons\">\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up\" @click=\"moveComponentUp( $index )\" :class=\"[ isFirstComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isFirstComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-up\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down\" @click=\"moveComponentDown( $index )\" :class=\"[ isLastComponent( $index ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isLastComponent( $index )\">\n                            <svg class=\"action-button__icon action-button__icon--size_100\">\n                                <use xlink:href=\"#icon_arrow-down\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings\" :class=\"[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isPossibleToEdit( component.type )\" @click=\"editComponentSettings( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_edit\"></use>\n                            </svg>\n                        </button>\n                        <button is=\"action-button\" class=\"action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete\" :class=\"[ isPossibleToDelete( component.type ) ? 'action-button--look_disabled' : '' ]\" :disabled=\"isPossibleToDelete( component.type )\" @click=\"deleteComponent( $index )\">\n                            <svg class=\"action-button__icon\">\n                                <use xlink:href=\"#icon_trash-can\"></use>\n                            </svg>\n                        </button>\n                    </template>\n                </cc-component-actions>\n            </div>\n            <div class=\"m2c-layout-builder__component-wrapper\">\n                <cc-component-placeholder>\n                    <h3 class=\"cc-component-placeholder__headline\" v-text=\"transformComponentTypeToText( component.type )\"></h3>\n                    <div class=\"cc-component-placeholder__component\">\n\n                        <component :is=\"'cc-component-' + component.type + '-preview'\" :configuration=\"component.data\" :index=\"$index\" :assets-src=\"assetsSrc\"></component>\n\n                    </div>\n                </cc-component-placeholder>\n            </div>\n\n            <cc-component-adder class=\"cc-component-adder cc-component-adder--last\">\n                <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( $index + 1 )\">\n                    <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                        <use xlink:href=\"#icon_plus\"></use>\n                    </svg>\n                </button>\n            </cc-component-adder>\n        </div>\n    </template>\n\n    <div class=\"m2c-layout-builder__component m2c-layout-builder__component--static\">\n        <cc-component-adder class=\"cc-component-adder cc-component-adder--first\">\n            <button is=\"action-button\" class=\"action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button\" @click=\"createNewComponent( components.length + 1 )\">\n                <svg class=\"action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon\">\n                    <use xlink:href=\"#icon_plus\"></use>\n                </svg>\n            </button>\n        </cc-component-adder>\n\n        <div class=\"m2c-layout-builder__component-wrapper\">\n            <div class=\"cc-component-placeholder__component cc-component-placeholder__component--decorated cc-component-placeholder__component--footer\">\n                <svg class=\"cc-component-placeholder__component-icon\">\n                    <use xlink:href=\"#icon_component-cc-footer\"></use>\n                </svg>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 /**
  * Layout builder component - M2 implementation.
@@ -1013,6 +1089,9 @@ var m2cLayoutBuilder = {
         'm2c-paragraph-configurator': m2cParagraphConfigurator,
     },
     methods: {
+        getComponentClass: function (componentType) {
+            return this.ccConfig.specialComponents.indexOf(componentType) !== -1 ? 'm2c-layout-builder__component m2c-layout-builder__component--special' : 'm2c-layout-builder__component';
+        },
         /* Removes component from M2C
          * If it's paragraph that is about to be removed, asks if corresponding CMS Block shall be removed as well
          * @param index {number} - index of the component in layoutBuilder

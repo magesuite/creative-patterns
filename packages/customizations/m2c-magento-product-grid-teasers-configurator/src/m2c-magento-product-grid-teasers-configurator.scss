@@ -1,0 +1,159 @@
+// m2c-magento-product-grid-teasers-configurator
+// M2C implementation of cc-magento-product-grid-teasers-configurator
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+
+$namespace: 'm2c-';
+@import '../../../components/cc-magento-product-grid-teasers-configurator/src/cc-magento-product-grid-teasers-configurator';
+
+.#{$namespace}magento-product-grid-teasers-configurator {
+    $root: &;
+
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+
+    &__title {
+        margin-bottom: 3rem;
+    }
+
+    &__widget-chooser-trigger {
+        cursor: pointer;
+        transition: background .2s linear;
+
+        &:hover {
+            background: darken( #e3e3e3, 5% );
+        }
+    }
+
+    &__item {
+        position: relative;
+        margin: 3rem 0 0;
+        padding: 1.5rem;
+        background: #fff;
+        border-radius: 2px;
+        box-shadow: 0 0 5px 0 rgba( 0, 0, 0, .12 );
+        transition: box-shadow .15s ease-in-out;
+
+        &--animating {
+            pointer-events: none;
+            transition: box-shadow .15s ease-in-out, transform .4s cubic-bezier( 0, .7, .32, 1 );
+        }
+
+        &:hover {
+            box-shadow: 0 0 15px 3px rgba( 0, 0, 0, .22 );
+
+            .cc-component-adder {
+                opacity: 1;
+                transform: translate3d( 0, 0, 0 );
+            }
+        }
+
+        &-action-button {
+            font-size: 1.45rem;
+        }
+
+        &-content {
+            display: flex;
+            align-items: stretch;
+        }
+
+        &-form-element {
+            &:first-child {
+                margin-top: -.5rem;
+            }
+
+            + #{$root}__item-form-element:not( .m2-input--type-checkbox ):not( .m2-input--type-radio ) {
+                margin-top: 1rem;
+            }
+        }
+
+        &-col-left,
+        &-col-right {
+            width: calc( 50% - 1rem );
+        }
+
+        &-col-left {
+            border: 1px dashed #cac3b3;
+        }
+
+        &-col-right {
+            margin-left: 2rem;
+        }
+
+        &-actions {
+            position: absolute;
+            opacity: 0;
+            transform: translate3d( 0, -25%, 0 );
+            z-index: 5;
+            backface-visibility: hidden;
+            will-change: unset, transform;
+            transition: transform .25s ease-in-out, opacity .25s ease-in-out;
+        }
+
+        &-image {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            flex-shrink: 0;
+        }
+
+        &-image-placeholder {
+            width: 8rem;
+            height: 6.6rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate3d( -50%, -50%, 0 );
+            fill: #d4d4d4;
+        }
+    }
+
+    &__item-image-wrapper {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5f5;
+
+        &:before {
+            position: absolute;
+            top: -1rem;
+            left: -1rem;
+            width: calc( 100% + 2rem );
+            height: calc( 100% + 2rem );
+            content: '';
+            background: rgba( #0072ff, .9 );
+            z-index: 3;
+            opacity: 0;
+            transform: scale( .85 );
+            transition: transform .35s cubic-bezier( 0, .77, .23, 1 ), opacity .3s cubic-bezier( 0, .77, .23, 1 );
+        }
+
+        &:hover {
+            &:before {
+                transform: scale( 1 );
+                opacity: 1;
+            }
+
+            #{$root}__item-actions {
+                opacity: 1;
+                transform: translate3d( 0, 0, 0 );
+            }
+        }
+    }
+
+    &__select {
+        width: 100%;
+    }
+
+    .m2-input--group-quarter .m2-input:last-child {
+        text-align: right;
+    }
+    
+    .admin__actions-switch {
+        float: right;
+        margin-top: 5px;
+    }
+}
