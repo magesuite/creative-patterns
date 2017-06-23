@@ -4,7 +4,7 @@
             <ul class="{{ namespace }}hero__slides">
 
                 {% for item in items %}
-                    <li class="{{ namespace }}hero__slide">
+                    <li class="{{ namespace }}hero__slide {{ namespace }}hero__slide--scheme-{{ item.colorScheme }}">
                         {% if item.href %}
                             <a href="{{ item.href }}" class="{{ namespace }}hero__slide-link">
                         {% endif %}
@@ -26,7 +26,7 @@
                             {% endif %}
 
                             <div class="{{ namespace }}hero__content-wrapper {{ namespace }}hero__content-wrapper--{{ item.displayVariant }}">
-                                <div class="{{ namespace }}hero__content {{ namespace }}hero__content--scheme-{{ item.colorScheme }}">
+                                <div class="{{ namespace }}hero__content">
                                     {% if item.headline %}
                                         <h2 class="{{ namespace }}hero__headline">{{ item.headline|raw }}</h2>
                                     {% endif %}

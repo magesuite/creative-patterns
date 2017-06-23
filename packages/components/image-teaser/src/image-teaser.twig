@@ -14,31 +14,19 @@
             <ul class="{{ namespace }}image-teaser__slides">
 
                 {% for item in items %}
-                    <li class="{{ namespace }}image-teaser__slide">
+                    <li class="{{ namespace }}image-teaser__slide {{ namespace }}image-teaser__slide--scheme-{{ item.colorScheme }}">
 
                         {% if item.href %}
                             <a href="{{ item.href }}" class="{{ namespace }}image-teaser__slide-link">
                         {% endif %}
 
-                        <figure class="{{ namespace }}image-teaser__figure">
-                            <img
-                                class="{{ namespace }}image-teaser__image | {{ isSlider and isSliderMobile ? 'swiper-lazy' : 'lazyload' }}"
-                                src="{{ isSlider and isSliderMobile ? '' : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' }}"
-                                data-src="{{ item.image.src }}"
-                                {% if item.image.srcSet %}data-srcset="{{ item.image.srcSet }}"{% endif %}
-                                {% if sizes %}sizes="{{ sizes }}"{% endif %}
-                                alt="{% if item.image.alt %}{{ item.image.alt }}
-                                     {% elseif item.headline %}{{ item.headline|raw  }}
-                                     {% elseif item.subheadline %}{{ item.subheadline|raw  }}
-                                     {% else %}Teaser image{% endif %}"
-                                {% if item.width %}width="{{ item.width }}"{% endif %}
-                                {% if item.height %}height="{{ item.height }}"{% endif %}
-                            >
-                            <noscript>
+                        {% if item.image.src %}
+                            <figure class="{{ namespace }}image-teaser__figure">
                                 <img
-                                    class="{{ namespace }}image-teaser__image"
-                                    src="{{ item.image.src }}"
-                                    {% if item.image.srcSet %}srcset="{{ item.image.srcSet }}"{% endif %}
+                                    class="{{ namespace }}image-teaser__image | {{ isSlider and isSliderMobile ? 'swiper-lazy' : 'lazyload' }}"
+                                    src="{{ isSlider and isSliderMobile ? '' : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' }}"
+                                    data-src="{{ item.image.src }}"
+                                    {% if item.image.srcSet %}data-srcset="{{ item.image.srcSet }}"{% endif %}
                                     {% if sizes %}sizes="{{ sizes }}"{% endif %}
                                     alt="{% if item.image.alt %}{{ item.image.alt }}
                                          {% elseif item.headline %}{{ item.headline|raw  }}
@@ -47,11 +35,25 @@
                                     {% if item.width %}width="{{ item.width }}"{% endif %}
                                     {% if item.height %}height="{{ item.height }}"{% endif %}
                                 >
-                            </noscript>
-                        </figure>
+                                <noscript>
+                                    <img
+                                        class="{{ namespace }}image-teaser__image"
+                                        src="{{ item.image.src }}"
+                                        {% if item.image.srcSet %}srcset="{{ item.image.srcSet }}"{% endif %}
+                                        {% if sizes %}sizes="{{ sizes }}"{% endif %}
+                                        alt="{% if item.image.alt %}{{ item.image.alt }}
+                                             {% elseif item.headline %}{{ item.headline|raw  }}
+                                             {% elseif item.subheadline %}{{ item.subheadline|raw  }}
+                                             {% else %}Teaser image{% endif %}"
+                                        {% if item.width %}width="{{ item.width }}"{% endif %}
+                                        {% if item.height %}height="{{ item.height }}"{% endif %}
+                                    >
+                                </noscript>
+                            </figure>
+                        {% endif %}
 
                         <div class="{{ namespace }}image-teaser__content-wrapper {{ namespace }}image-teaser__content-wrapper--content-display-scenario-{{ item.displayVariant }}">
-                            <div class="{{ namespace }}image-teaser__content {{ namespace }}image-teaser__content--scheme-{{ item.colorScheme }}">
+                            <div class="{{ namespace }}image-teaser__content">
                                 {% if item.headline %}
                                     <h2 class="{{ namespace }}image-teaser__headline">{{ item.headline|raw }}</h2>
                                 {% endif %}

@@ -17,20 +17,33 @@
             <a href="{{ hero.href }}" class="{{ namespace }}products-grid__hero-link">
         {% endif %}
 
-        <figure class="{{ namespace }}products-grid__hero-figure">
-            {% if lazyload %}
-                <img
-                    class="{{ namespace }}products-grid__hero-image | lazyload"
-                    src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
-                    data-src="{{ hero.image.src }}"
-                    {% if hero.image.srcSet %}data-srcset="{{ hero.image.srcSet }}"{% endif %}
-                    {% if sizes %}data-sizes="{{ sizes }}"{% endif %}
-                    alt="{% if hero.image.alt %}{{ hero.image.alt|e }}
-                         {% elseif hero.headline %}{{ hero.headline|e  }}
-                         {% elseif hero.subheadline %}{{ hero.subheadline|e  }}
-                         {% else %}Teaser image{% endif %}"
-                >
-                <noscript>
+        {% if hero.image.src %}
+            <figure class="{{ namespace }}products-grid__hero-figure">
+                {% if lazyload %}
+                    <img
+                        class="{{ namespace }}products-grid__hero-image | lazyload"
+                        src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                        data-src="{{ hero.image.src }}"
+                        {% if hero.image.srcSet %}data-srcset="{{ hero.image.srcSet }}"{% endif %}
+                        {% if sizes %}data-sizes="{{ sizes }}"{% endif %}
+                        alt="{% if hero.image.alt %}{{ hero.image.alt|e }}
+                             {% elseif hero.headline %}{{ hero.headline|e  }}
+                             {% elseif hero.subheadline %}{{ hero.subheadline|e  }}
+                             {% else %}Teaser image{% endif %}"
+                    >
+                    <noscript>
+                        <img
+                            class="{{ namespace }}products-grid__hero-image"
+                            src="{{ hero.image.src }}"
+                            {% if hero.image.srcSet %}srcset="{{ hero.image.srcSet }}"{% endif %}
+                            {% if sizes %}sizes="{{ sizes }}"{% endif %}
+                            alt="{% if hero.image.alt %}{{ hero.image.alt|e }}
+                                {% elseif hero.headline %}{{ hero.headline|e  }}
+                                {% elseif hero.subheadline %}{{ hero.subheadline|e  }}
+                                {% else %}Teaser image{% endif %}"
+                        >
+                    </noscript>
+                {% else %}
                     <img
                         class="{{ namespace }}products-grid__hero-image"
                         src="{{ hero.image.src }}"
@@ -41,23 +54,12 @@
                             {% elseif hero.subheadline %}{{ hero.subheadline|e  }}
                             {% else %}Teaser image{% endif %}"
                     >
-                </noscript>
-            {% else %}
-                <img
-                    class="{{ namespace }}products-grid__hero-image"
-                    src="{{ hero.image.src }}"
-                    {% if hero.image.srcSet %}srcset="{{ hero.image.srcSet }}"{% endif %}
-                    {% if sizes %}sizes="{{ sizes }}"{% endif %}
-                    alt="{% if hero.image.alt %}{{ hero.image.alt|e }}
-                        {% elseif hero.headline %}{{ hero.headline|e  }}
-                        {% elseif hero.subheadline %}{{ hero.subheadline|e  }}
-                        {% else %}Teaser image{% endif %}"
-                >
-            {% endif %}
-        </figure>
+                {% endif %}
+            </figure>
+        {% endif %}
 
         <div class="{{ namespace }}products-grid__hero-content-wrapper {{ namespace }}products-grid__hero-content-wrapper--variant-{{ hero.displayVariant }}">
-            <div class="{{ namespace }}products-grid__hero-content {{ namespace }}products-grid__hero-content--scheme-{{ hero.colorScheme }}">
+            <div class="{{ namespace }}products-grid__hero-content">
                 {% if hero.headline %}
                     <h2 class="{{ namespace }}products-grid__hero-headline">{{ hero.headline|raw }}</h2>
                 {% endif %}
@@ -88,8 +90,10 @@
         {% endif %}
     {% endset %}
 
+    {% set colorSchemeMix = namespace ~ 'products-grid__hero--scheme-' ~ hero.colorScheme %}
+
     {% set collection = collection|merge( [ {
-        mix: hero.mix,
+        mix: hero.mix ~ ' ' ~ colorSchemeMix,
         content: content,
         teaserId: hero.teaserId
     } ] ) %}
