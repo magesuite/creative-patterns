@@ -139,22 +139,24 @@ export default class Hero {
             onInit( swiper: any ): void {
                 if ( pauseAutoplayOnHover ) {
                     swiper.container.parents( `.${teaserName}` ).on( {
-                        mouseover(): void {
-                            if ( _this.instance ) {
+                        mouseenter(): void {
+                            if ( _this._instance ) {
                                 swiper.pauseAutoplay();
+                                swiper.emit( 'onAutoplayPause', swiper );
                             }
                         },
                         mouseleave(): void {
-                            if ( swiper.autoplayPaused && swiper.autoplaying && _this.instance ) {
+                            if ( swiper.autoplayPaused && swiper.autoplaying && _this._instance ) {
                                 swiper.stopAutoplay();
                                 swiper.startAutoplay();
+                                swiper.emit( 'onAutoplayResume', swiper );
                             }
                         },
                     } );
                 }
 
                 if ( options && options.callbacks && options.callbacks.onInit && typeof options.callbacks.onInit === 'function' ) {
-                    options.callbacks.onInit();
+                    options.callbacks.onInit( swiper );
                 }
             },
         };
