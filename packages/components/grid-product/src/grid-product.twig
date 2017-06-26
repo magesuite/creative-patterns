@@ -64,17 +64,22 @@
             {{ hotspots.after.swatches|raw }}
         {% endif %}
 
-        <div class="{{ namespace }}grid-product__name">
-            <a href="{{ url }}" class="{{ namespace }}grid-product__name-link">{{ name|raw }}</a>
-        </div>
+        {% if nameMoved != true %}
+            <div class="{{ namespace }}grid-product__name">
+                <a href="{{ url }}" class="{{ namespace }}grid-product__name-link">{{ name|raw }}</a>
+            </div>
+        {% endif %}
 
         {% if hotspots.after.name %}
             {{ hotspots.after.name|raw }}
         {% endif %}
 
-        <div class="{{ namespace }}grid-product__price {{ price.mix }}">
-            {{ price.content|raw }}
-        </div>
+        {% if priceMoved != true %}
+            <div class="{{ namespace }}grid-product__price {{ price.mix }}">
+                {{ price.content|raw }}
+            </div>
+        {% endif %}
+
 
         {% if hotspots.after.price %}
             {{ hotspots.after.price|raw }}
