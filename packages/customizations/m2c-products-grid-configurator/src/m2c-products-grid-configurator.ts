@@ -218,9 +218,9 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     category_id: '',
                     order_by: 'creation_date',
                     order_type: 'ASC',
-                    rows_desktop: 2,
-                    rows_tablet: 2,
-                    rows_mobile: 2,
+                    rows_desktop: 1,
+                    rows_tablet: 1,
+                    rows_mobile: 1,
                     hero: {
                         position: '',
                         image: {
@@ -269,6 +269,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             categoryPicker: undefined,
             scenarioOptions: {
                 rows_mobile: {
+                    1: {
+                        name:  $t( '1 row of products' ),
+                        iconId: 'pr_1',
+                    },
                     2: {
                         name:  $t( '2 rows of products' ),
                         iconId: 'pr_2',
@@ -283,6 +287,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     },
                 },
                 rows_tablet: {
+                    1: {
+                        name:  $t( '1 row of products' ),
+                        iconId: 'pr_1',
+                    },
                     2: {
                         name:  $t( '2 rows of products' ),
                         iconId: 'pr_2',
@@ -297,6 +305,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     },
                 },
                 rows_desktop: {
+                    1: {
+                        name:  $t( '1 row of products' ),
+                        iconId: 'pr_1',
+                    },
                     2: {
                         name:  $t( '2 rows of products' ),
                         iconId: 'pr_2',
