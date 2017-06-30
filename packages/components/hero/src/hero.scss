@@ -142,4 +142,10 @@
             opacity: 1 !important;
         }
     }
+
+    &--hidden-mobile {
+        @include media( '<tablet' ) {
+            display: none;
+        }
+    }
 }
