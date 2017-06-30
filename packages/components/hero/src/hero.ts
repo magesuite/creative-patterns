@@ -162,7 +162,7 @@ export default class Hero {
         };
 
         this._options = $.extend ( true, this._swiperDefaults, options );
-        this._options.destroyForMobile = this._$element.hasClass( `${teaserName}--as-list-mobile` ) ? true : false;
+        this._options.destroyForMobile = ( this._$element.hasClass( `${teaserName}--as-list-mobile` ) || this._$element.hasClass( `${teaserName}--hidden-mobile` ) ) ? true : false;
 
         if ( this._$element.find( `.${this._options.teaserName}__slide` ).length > 1 ) {
             if ( this._options.destroyForMobile ) {

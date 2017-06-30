@@ -218,6 +218,10 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
                         name: 'Slider',
                         iconId: 'ml_slider',
                     },
+                    'hidden': {
+                        name: 'Hidden',
+                        iconId: 'ml_hidden',
+                    },
                 },
             },
         };

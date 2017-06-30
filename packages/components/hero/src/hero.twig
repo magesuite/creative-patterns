@@ -1,4 +1,11 @@
-<div class="{{ namespace }}hero{% if mobileDisplayVariant.id == 'list' %} {{ namespace }}hero--as-list-mobile{% endif %} {{ mix }}">
+{% set mobileDisplayVariantClass = '' %}
+{% if mobileDisplayVariant.id == 'list' %}
+    {% set mobileDisplayVariantClass = namespace ~ 'hero--as-list-mobile' %}
+{% elseif mobileDisplayVariant.id == 'hidden' %}
+    {% set mobileDisplayVariantClass = namespace ~ 'hero--hidden-mobile' %}
+{% endif %}
+
+<div class="{{ namespace }}hero {{ mobileDisplayVariantClass }} {{ mix }}">
     <div class="{{ namespace }}hero__carousel">
         <div class="{{ namespace }}hero__wrapper">
             <ul class="{{ namespace }}hero__slides">

@@ -287,6 +287,10 @@ var m2cHeroCarouselConfigurator = {
                         name: 'Slider',
                         iconId: 'ml_slider',
                     },
+                    'hidden': {
+                        name: 'Hidden',
+                        iconId: 'ml_hidden',
+                    },
                 },
             },
         };
