@@ -393,6 +393,32 @@ var ccComponentStaticCmsBlockPreview = {
 };
 
 /**
+ * Magento products-grid teasers preview component.
+ * This component displays preview of magento-product-grid-teasers component in Layout Builder (admin panel)
+ * @type {vuejs.ComponentOption} Vue component object.
+ */
+var ccComponentMagentoProductGridTeasersPreview = {
+    template: "<div class=\"cc-component-magento-product-grid-teasers-preview\">\n        <ul class=\"cc-component-magento-product-grid-teasers-preview__list\">\n            <li class=\"cc-component-magento-product-grid-teasers-preview__list-item cc-component-magento-product-grid-teasers-preview__list-item--teaser\">\n                <svg class=\"cc-component-magento-product-grid-teasers-preview__image-placeholder\">\n                    <use xlink:href=\"#icon_image-placeholder\"></use>\n                </svg>\n            </li>\n\n            <template v-for=\"i in 7\">\n                <li class=\"cc-component-magento-product-grid-teasers-preview__list-item\">\n                    <div class=\"cc-component-magento-product-grid-teasers-preview__product-wrapper\">\n                        <svg class=\"cc-component-magento-product-grid-teasers-preview__product\">\n                            <use xlink:href=\"#icon_component-cc-product-teaser-item\"></use>\n                        </svg>\n                    </div>\n                </li>\n            </template>\n\n            <li class=\"cc-component-magento-product-grid-teasers-preview__list-item cc-component-magento-product-grid-teasers-preview__list-item--text\">\n                <div>\n                    <div class=\"cc-component-magento-product-grid-teasers-preview__teasers-count\">\n                        {{ teasersLength }}\n                    </div>\n                    " + $t('teasers') + "\n                </div>\n            </li>\n        </ul>\n    </div>",
+    props: {
+        configuration: {
+            type: Object,
+        },
+        /**
+         * Class property support to enable BEM mixes.
+         */
+        class: {
+            type: [String, Object, Array],
+            default: '',
+        },
+    },
+    computed: {
+        teasersLength: function () {
+            return this.configuration && this.configuration.teasers ? this.configuration.teasers.length : 0;
+        },
+    },
+};
+
+/**
  * Component actions component.
  * This component is responsible for displaying and handling user interactions of
  * side utility navigation for each component that supports:
@@ -493,6 +519,7 @@ var layoutBuilder = {
         'cc-component-product-carousel-preview': ccComponentProductCarouselPreview,
         'cc-component-product-grid-preview': ccComponentProductGridPreview,
         'cc-component-separator-preview': ccComponentSeparatorPreview,
+        'cc-component-magento-product-grid-teasers-preview': ccComponentMagentoProductGridTeasersPreview,
     },
     props: {
         /**
@@ -503,6 +530,10 @@ var layoutBuilder = {
             default: '',
         },
         assetsSrc: {
+            type: String,
+            default: '',
+        },
+        ccConfiguration: {
             type: String,
             default: '',
         },
@@ -531,6 +562,10 @@ var layoutBuilder = {
             type: Function,
             default: function () { return undefined; },
         },
+        pageType: {
+            type: String,
+            default: 'cms_page_form.cms_page_form',
+        },
     },
     data: function () {
         return {
@@ -538,8 +573,9 @@ var layoutBuilder = {
         };
     },
     ready: function () {
-        // Set initial components configuration if provided.
+        this.ccConfig = this.ccConfiguration ? JSON.parse(this.ccConfiguration) : {};
         this.components = this.componentsConfiguration ? JSON.parse(this.componentsConfiguration) : [];
+        this.sortComponentsBySections();
         this.$dispatch('cc-layout-builder__update');
     },
     methods: {
@@ -559,6 +595,7 @@ var layoutBuilder = {
         addComponentInformation: function (index, componentInfo) {
             if (componentInfo) {
                 this.components.splice(index, 0, componentInfo);
+                this.setComponentsPlacementInfo();
                 this.$dispatch('cc-layout-builder__update');
             }
         },
@@ -571,6 +608,7 @@ var layoutBuilder = {
         setComponentInformation: function (index, componentInfo) {
             if (componentInfo) {
                 this.components.$set(index, componentInfo);
+                this.setComponentsPlacementInfo();
                 this.$dispatch('cc-layout-builder__update');
             }
         },
@@ -631,6 +669,7 @@ var layoutBuilder = {
                 setTimeout(function () {
                     _this.components.$set(index - 1, _this.components[index]);
                     _this.components.$set(index, previousComponent_1);
+                    _this.setComponentsPlacementInfo();
                     _this.$dispatch('cc-layout-builder__update');
                     $thisComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
                     $prevComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
@@ -652,6 +691,7 @@ var layoutBuilder = {
                 setTimeout(function () {
                     _this.components.$set(index + 1, _this.components[index]);
                     _this.components.$set(index, previousComponent_2);
+                    _this.setComponentsPlacementInfo();
                     _this.$dispatch('cc-layout-builder__update');
                     $thisComponent_2.removeClass('m2c-layout-builder__component--animating').css('transform', '');
                     $nextComponent_1.removeClass('m2c-layout-builder__component--animating').css('transform', '');
@@ -666,6 +706,39 @@ var layoutBuilder = {
             if (window.confirm('Are you sure you want to delete this item?')) {
                 this.components.splice(index, 1);
                 this.$dispatch('cc-layout-builder__update');
+            }
+        },
+        /**
+         * Goes through all components and assigns section.
+         * F.e. CC on category has 3 sections (top, grid [magento, not editable], and bottom)
+         * In this example this methods sets TOP for all components that are above special component dedicated for category page, GRID for special component and BOTTOM for all components under.
+         */
+        setComponentsPlacementInfo: function () {
+            var sections = this.ccConfig.sections[this.pageType];
+            if (sections.length > 1) {
+                var sectionIndex = 0;
+                for (var i = 0; i < this.components.length; i++) {
+                    if (this.ccConfig.specialComponents.indexOf(this.components[i].type) !== -1) {
+                        sectionIndex++;
+                        this.components[i].section = sections[sectionIndex];
+                        sectionIndex++;
+                    }
+                    else {
+                        this.components[i].section = sections[sectionIndex];
+                    }
+                }
+            }
+        },
+        /**
+         * Sorts components by their sections.
+         * Order is defined by ccConfig.sections[ this.pageType ]
+         */
+        sortComponentsBySections: function () {
+            var _this = this;
+            if (this.components.length && this.ccConfig.sections[this.pageType].length > 1) {
+                this.components.sort(function (a, b) {
+                    return _this.ccConfig.sections[_this.pageType].indexOf(a.section) - _this.ccConfig.sections[_this.pageType].indexOf(b.section);
+                });
             }
         },
         /**
@@ -689,6 +762,9 @@ var layoutBuilder = {
         },
         isPossibleToEdit: function (componentType) {
             return componentType === 'brand-carousel' || componentType === 'separator';
+        },
+        isPossibleToDelete: function (componentType) {
+            return this.ccConfig.specialComponents.indexOf(componentType) !== -1;
         },
     },
 };

@@ -941,6 +941,89 @@
     top: 0;
     left: 0; }
 
+.cc-component-magento-product-grid-teasers-preview {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch; }
+  .cc-component-magento-product-grid-teasers-preview__list {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    list-style: none;
+    margin: -1.15rem 0 0;
+    padding: 0; }
+    .cc-component-magento-product-grid-teasers-preview__list-item {
+      margin-top: 1.15rem;
+      width: calc( 20% - 1.15rem);
+      padding: 1.15rem 1.15rem 2.3rem;
+      box-sizing: border-box;
+      background: #f7f7f7;
+      border: 1px dashed #e4e1d9; }
+      .cc-component-magento-product-grid-teasers-preview__list-item--teaser {
+        position: relative;
+        width: calc( 40% - .86rem);
+        padding: 0 0 calc( ( 40% * 324 / 526 ) - .86rem);
+        overflow: hidden;
+        border: 1px dashed #e4e1d9; }
+      .cc-component-magento-product-grid-teasers-preview__list-item--text {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        margin: 0;
+        padding: 1.15rem;
+        border: none;
+        background: transparent;
+        color: #f99e6e;
+        font-size: 3.6rem;
+        word-break: break-word;
+        -webkit-hyphens: auto;
+            -ms-hyphens: auto;
+                hyphens: auto;
+        line-height: 1; }
+  .cc-component-magento-product-grid-teasers-preview__teasers-count {
+    font-size: 7rem; }
+  .cc-component-magento-product-grid-teasers-preview__image-placeholder {
+    width: 8rem;
+    height: 6.6rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
+    fill: #d4d4d4; }
+  .cc-component-magento-product-grid-teasers-preview__product-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding: 0 0 calc( 100% * 324 / 263); }
+    .cc-component-magento-product-grid-teasers-preview__list-item--teaser .cc-component-magento-product-grid-teasers-preview__product-wrapper {
+      padding: 0; }
+  .cc-component-magento-product-grid-teasers-preview__product {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0; }
+
 .cc-layout-builder__component {
   position: relative;
   width: 100%;
@@ -953,6 +1036,9 @@
   transition: box-shadow .15s ease-in-out;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden; }
+  .cc-layout-builder__component--special {
+    padding: .8rem;
+    border: .5rem solid #f99e6e; }
   .cc-layout-builder__component--animating {
     pointer-events: none;
     transition: box-shadow 0.15s ease-in-out, -webkit-transform 0.4s cubic-bezier(0, 0.7, 0.32, 1);

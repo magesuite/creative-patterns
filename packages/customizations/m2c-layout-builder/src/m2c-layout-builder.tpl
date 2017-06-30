@@ -18,7 +18,7 @@
     </div>
 
     <template v-for="component in components">
-        <div class="m2c-layout-builder__component" id="{{ component.id }}">
+        <div v-bind:class="getComponentClass( component.type )" id="{{ component.id }}">
             <cc-component-adder class="cc-component-adder cc-component-adder--first">
                 <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button" @click="createNewComponent( $index )">
                     <svg class="action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon">
@@ -45,7 +45,7 @@
                                 <use xlink:href="#icon_edit"></use>
                             </svg>
                         </button>
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete" @click="deleteComponent( $index )">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete" :class="[ isPossibleToDelete( component.type ) ? 'action-button--look_disabled' : '' ]" :disabled="isPossibleToDelete( component.type )" @click="deleteComponent( $index )">
                             <svg class="action-button__icon">
                                 <use xlink:href="#icon_trash-can"></use>
                             </svg>

@@ -20,6 +20,7 @@ $namespace: 'cc-' !default;
 @import '../../cc-component-separator-preview/src/cc-component-separator-preview';
 @import '../../cc-component-category-links-preview/src/cc-component-category-links-preview';
 @import '../../cc-component-product-grid-preview/src/cc-component-product-grid-preview';
+@import '../../cc-component-magento-product-grid-teasers-preview/src/cc-component-magento-product-grid-teasers-preview';
 
 .#{$namespace}layout-builder {
     $root: &;
@@ -35,6 +36,11 @@ $namespace: 'cc-' !default;
         text-align: center;
         transition: box-shadow .15s ease-in-out;
         backface-visibility: hidden;
+
+        &--special {
+            padding: .8rem;
+            border: .5rem solid #f99e6e;
+        }
 
         &--animating {
             pointer-events: none;

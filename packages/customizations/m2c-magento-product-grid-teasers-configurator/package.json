@@ -1,0 +1,8 @@
+{
+    "name": "m2c-hero-carousel-configurator",
+    "version": "0.0.1",
+    "description": "M2C implementation of cc-hero-carousel-configurator",
+    "main": "src/m2c-hero-carousel-configurator.ts",
+    "author": "Maciej Borkowski",
+    "license": "ISC"
+}

@@ -18,6 +18,7 @@ import m2cParagraphConfigurator from '../../../customizations/m2c-paragraph-conf
 import m2cProductCarouselConfigurator from '../../../customizations/m2c-product-carousel-configurator/src/m2c-product-carousel-configurator';
 import m2cProductsGridConfigurator from '../../../customizations/m2c-products-grid-configurator/src/m2c-products-grid-configurator';
 import m2cStaticBlockConfigurator from '../../../customizations/m2c-static-block-configurator/src/m2c-static-block-configurator';
+import m2cMagentoProductGridTeasersConfigurator from '../../../customizations/m2c-magento-product-grid-teasers-configurator/src/m2c-magento-product-grid-teasers-configurator';
 import ccComponentPicker from '../../cc-component-picker/src/cc-component-picker';
 
 import { IComponentInformation, m2cLayoutBuilder } from '../../../customizations/m2c-layout-builder/src/m2c-layout-builder';
@@ -79,6 +80,8 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         <m2c-layout-builder
             v-ref:m2c-layout-builder
             :assets-src="assetsSrc"
+            :cc-configuration="ccConfiguration"
+            :page-type="pageType"
             :add-component="getComponentPicker"
             :edit-component="editComponent"
             :components-configuration="configuration">
@@ -98,6 +101,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         'm2c-category-links-configurator': m2cCategoryLinksConfigurator,
         'm2c-button-configurator': m2cButtonConfigurator,
         'm2c-products-grid-configurator': m2cProductsGridConfigurator,
+        'm2c-magento-product-grid-teasers-configurator': m2cMagentoProductGridTeasersConfigurator,
     },
     props: {
         configuration: {
@@ -128,6 +132,18 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        pageType: {
+            type: String,
+            default: 'cms_page_form.cms_page_form',
+        },
+        productsPerPage: {
+            type: String,
+            default: '30',
+        },
+        ccConfiguration: {
+            type: String,
+            default: '',
+        },
     },
     data(): Object {
         return {
@@ -136,6 +152,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         };
     },
     ready(): void {
+        this.ccConfig = this.ccConfiguration ? JSON.parse( this.ccConfiguration ) : {};
         this.dumpConfiguration();
         this._isPickerLoaded = false;
         this._cleanupConfiguratorModal = '';
@@ -215,6 +232,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 this._addComponentInformation( {
                     type: componentType,
                     id: newComponentId,
+                    section: "content",
                     data: componentData,
                 } );
             };
@@ -225,6 +243,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 this.initConfiguratorModal( {
                     type: componentType,
                     id: newComponentId,
+                    section: "content",
                     data: undefined,
                 } );
             }
@@ -242,6 +261,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
                 setComponentInformation( {
                     type: prevComponentData.type,
                     id: prevComponentData.id,
+                    section: prevComponentData.section,
                     data: componentData,
                 } );
             };
@@ -253,7 +273,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             const component: any = this;
             let cleanupConfiguratorModal: Function = (): undefined => undefined;
 
-            configuratorModalOptions.buttons[1].click = function (): void {
+            configuratorModalOptions.buttons[ 1 ].click = function (): void {
                 component.$broadcast( 'cc-component-configurator__save' );
             };
             configuratorModalOptions.title = `${ $t( 'Configure your component' ) }<span class="m2c-content-constructor__modal-subheadline">${ this.transformComponentTypeToText( componentInformation.type ) }</span>`;
@@ -290,7 +310,7 @@ const m2cContentConstructor: vuejs.ComponentOption = {
         },
 
         dumpConfiguration(): void {
-            uiRegistry.get('cms_page_form.cms_page_form').source.set(
+            uiRegistry.get( this.pageType ).source.set(
                 'data.components',
                 JSON.stringify(
                     this.$refs.m2cLayoutBuilder.getComponentInformation(),
