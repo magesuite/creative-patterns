@@ -248,21 +248,23 @@ var Hero = (function () {
             onInit: function (swiper) {
                 if (pauseAutoplayOnHover) {
                     swiper.container.parents("." + teaserName).on({
-                        mouseover: function () {
-                            if (_this.instance) {
+                        mouseenter: function () {
+                            if (_this._instance) {
                                 swiper.pauseAutoplay();
+                                swiper.emit('onAutoplayPause', swiper);
                             }
                         },
                         mouseleave: function () {
-                            if (swiper.autoplayPaused && swiper.autoplaying && _this.instance) {
+                            if (swiper.autoplayPaused && swiper.autoplaying && _this._instance) {
                                 swiper.stopAutoplay();
                                 swiper.startAutoplay();
+                                swiper.emit('onAutoplayResume', swiper);
                             }
                         },
                     });
                 }
                 if (options && options.callbacks && options.callbacks.onInit && typeof options.callbacks.onInit === 'function') {
-                    options.callbacks.onInit();
+                    options.callbacks.onInit(swiper);
                 }
             },
         };

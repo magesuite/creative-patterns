@@ -179,7 +179,7 @@ var m2cParagraphConfigurator = {
                     Authorization: component_1.restToken,
                 },
                 method: 'get',
-                url: window.location.origin + "/rest/V1/cmsBlock/" + this.configuration.blockId,
+                url: window.location.origin + "/rest/all/V1/cmsBlock/" + this.configuration.blockId,
             }).then(function (response) {
                 // Hide loader
                 $('body').trigger('hideLoadingPopup');
@@ -227,7 +227,7 @@ var m2cParagraphConfigurator = {
                     Authorization: component.restToken,
                 },
                 method: this.configuration.blockId ? 'put' : 'post',
-                url: this.configuration.blockId ? window.location.origin + "/rest/V1/cmsBlock/" + this.configuration.blockId : window.location.origin + "/rest/V1/cmsBlock",
+                url: this.configuration.blockId ? window.location.origin + "/rest/all/V1/cmsBlock/" + this.configuration.blockId : window.location.origin + "/rest/all/V1/cmsBlock",
                 body: dataConstruct,
             }).then(function (response) {
                 // If status is OK update component's configuration and run Save to save component data

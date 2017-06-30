@@ -112,7 +112,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                     Authorization: component.restToken,
                 },
                 method: 'get',
-                url: `${ window.location.origin }/rest/V1/cmsBlock/${this.configuration.blockId}`,
+                url: `${ window.location.origin }/rest/all/V1/cmsBlock/${this.configuration.blockId}`,
             } ).then( ( response: any ): void => {
 
                 // Hide loader
@@ -166,7 +166,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                     Authorization: component.restToken,
                 },
                 method: this.configuration.blockId ? 'put' : 'post',
-                url: this.configuration.blockId ? `${ window.location.origin }/rest/V1/cmsBlock/${this.configuration.blockId}` : `${ window.location.origin }/rest/V1/cmsBlock`,
+                url: this.configuration.blockId ? `${ window.location.origin }/rest/all/V1/cmsBlock/${this.configuration.blockId}` : `${ window.location.origin }/rest/all/V1/cmsBlock`,
                 body: dataConstruct,
             } ).then( ( response: any ): void => {
 
