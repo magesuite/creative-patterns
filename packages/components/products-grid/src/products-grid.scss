@@ -15,7 +15,7 @@
     } @else if $adjustment == 0 {
         $adjustment: -1;
     } @else {
-        $adjustment: $adjustment - 1
+        $adjustment: $adjustment - 1;
     }
 
     $items: $cols * $rows - $adjustment;
@@ -47,6 +47,32 @@
         display: none;
     }
 
+    &--rows-mobile-1 & {
+        @include media( '<phone-lg' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, phone ), 1 );
+            }
+        }
+
+        @include media( '>=phone-lg', '<tablet' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, phone-lg ), 1 );
+            }
+        }
+    }
+    &--rows-mobile-1#{$root}--with-hero & {
+        @include media( '<phone-lg' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, phone ), 1, map-get( $heroSizeByBreakpoint, phone ) );
+            }
+        }
+
+        @include media( '>=phone-lg', '<tablet' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, phone-lg ), 1, map-get( $heroSizeByBreakpoint, phone ) );
+            }
+        }
+    }
     &--rows-mobile-2 & {
         @include media( '<phone-lg' ) {
             &__item {
@@ -69,7 +95,7 @@
 
         @include media( '>=phone-lg', '<tablet' ) {
             &__item {
-                @include showNItems( map-get( $colsByBreakpoint, phone-lg ), 2, map-get( $heroSizeByBreakpoint, phone ) );
+                @include showNItems( map-get( $colsByBreakpoint, phone-lg ), 2, map-get( $heroSizeByBreakpoint, phone-lg ) );
             }
         }
     }
@@ -126,6 +152,20 @@
         }
     }
 
+    &--rows-tablet-1 & {
+        @include media( '>=tablet', '<laptop' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, tablet ), 1 );
+            }
+        }
+    }
+    &--rows-tablet-1#{$root}--with-hero & {
+        @include media( '>=tablet', '<laptop' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, tablet ), 1, map-get( $heroSizeByBreakpoint, tablet ) );
+            }
+        }
+    }
     &--rows-tablet-2 & {
         @include media( '>=tablet', '<laptop' ) {
             &__item {
@@ -169,6 +209,56 @@
         }
     }
 
+    &--rows-desktop-1 & {
+        @include media( '>=laptop', '<laptop-lg' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, laptop ), 1 );
+            }
+        }
+
+        @include media( '>=laptop-lg', '<desktop' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, laptop-lg ), 1 );
+            }
+        }
+
+        @include media( '>=desktop', '<tv' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, desktop ), 1 );
+            }
+        }
+
+        @include media( '>=tv' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, tv ), 1 );
+            }
+        }
+    }
+    &--rows-desktop-1#{$root}--with-hero & {
+        @include media( '>=laptop', '<laptop-lg' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, laptop ), 1, map-get( $heroSizeByBreakpoint, laptop ) );
+            }
+        }
+
+        @include media( '>=laptop-lg', '<desktop' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, laptop-lg ), 1, map-get( $heroSizeByBreakpoint, laptop-lg ) );
+            }
+        }
+
+        @include media( '>=desktop', '<tv' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, desktop ), 1, map-get( $heroSizeByBreakpoint, desktop ) );
+            }
+        }
+
+        @include media( '>=tv' ) {
+            &__item {
+                @include showNItems( map-get( $colsByBreakpoint, tv ), 1, map-get( $heroSizeByBreakpoint, tv ) );
+            }
+        }
+    }
     &--rows-desktop-2 & {
         @include media( '>=laptop', '<laptop-lg' ) {
             &__item {
