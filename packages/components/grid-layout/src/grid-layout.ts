@@ -57,14 +57,21 @@ export default class GridLayout {
         this.teasers = [];
         this.isCssGrid = this._getIsCssGridSupported();
 
-        this.columnsCfg = JSON.parse( JSON.stringify( this.$wrapper.data( 'columns-configuration' ) ) );
-        this.teasersCfg = JSON.parse( JSON.stringify( this.$wrapper.data( 'teasers-configuration' ) ) );
+        this.$grid = this.$wrapper.find( `.${ this.settings.gridClass }` );
+        this.$bricks = this.$grid.children();
+        this.teasers = [];
+        this.isCssGrid = this._getIsCssGridSupported();
 
-        this.currentColsInRow = this.columnsCfg[ this._getCurrentBreakpointName() ];
-        this.virtualBricksLength = this._getVirtualBricksLength();
-        this.currentRowsCount = this.isCssGrid ? Math.ceil( this.virtualBricksLength / this.currentColsInRow ) : Math.ceil( this.virtualBricksLength / this.currentColsInRow );
-        
-        this._initialize();
+        this.columnsCfg = this.$wrapper.data( 'columns-configuration' ) ? JSON.parse( JSON.stringify( this.$wrapper.data( 'columns-configuration' ) ) ) : '';
+        this.teasersCfg = this.$wrapper.data( 'teasers-configuration' ) ? JSON.parse( JSON.stringify( this.$wrapper.data( 'teasers-configuration' ) ) ) : '';
+
+        if ( this.columnsCfg && this.teasersCfg ) {
+            this.currentColsInRow = this.columnsCfg[ this._getCurrentBreakpointName() ];
+            this.virtualBricksLength = this._getVirtualBricksLength();
+            this.currentRowsCount = this.isCssGrid ? Math.ceil( this.virtualBricksLength / this.currentColsInRow ) : Math.ceil( this.virtualBricksLength / this.currentColsInRow );
+
+            this._initialize();
+        }
     }
 
     /**
