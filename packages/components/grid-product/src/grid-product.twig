@@ -13,6 +13,10 @@
                 </ul>
             {% endif %}
 
+            {% if hotspots.before.photo %}
+                {{ hotspots.before.photo|raw }}
+            {% endif %}
+
             <figure class="{{ namespace }}grid-product__figure">
                 {% if lazyload %}
                     <img
