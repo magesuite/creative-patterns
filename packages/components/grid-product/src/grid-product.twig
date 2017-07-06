@@ -2,6 +2,11 @@
     <{{ tag }} class="{{ namespace }}grid-product{% if mode is defined and mode == 'static' %} {{ namespace }}grid-product--static{% endif %} {{ mix }}">
 {% endif %}
     <div class="{{ namespace }}grid-product__main">
+
+        {% if hotspots.before.photo %}
+            {{ hotspots.before.photo|raw }}
+        {% endif %}
+
         <a href="{{ url }}" class="{{ namespace }}grid-product__figure-wrapper">
             {% if badges is defined %}
                 <ul class="{{ namespace }}grid-product__badges">
@@ -11,10 +16,6 @@
                         </li>
                     {% endfor %}
                 </ul>
-            {% endif %}
-
-            {% if hotspots.before.photo %}
-                {{ hotspots.before.photo|raw }}
             {% endif %}
 
             <figure class="{{ namespace }}grid-product__figure">
