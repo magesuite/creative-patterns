@@ -2,11 +2,12 @@
     <ul class="{{ namespace }}navigation__list">
         {% for item in items %}
             <li class=" {{ namespace }}navigation__item">
-                <a href="{{ item.url }}" class="{{ namespace }}navigation__link">
+                <a href="{% if item.category_custom_url %}{{ item.category_custom_url }}{% else %}{{ item.url }}{% endif %}" class="{{ namespace }}navigation__link">
                     {{ item.label }}
                 </a>
-                {% if item.subcategories and item.subcategories|length > 0 %}
+                {% if item.subcategories and item.subcategories|length > 0 and item.do_not_expand_flyout != '1' %}
                     <div class="{{ namespace }}navigation__flyout">
+
                         <div class="{{ namespace }}navigation__categories">
                             {% for category in item.subcategories %}
                                 <div class="{{ namespace }}navigation__category">
