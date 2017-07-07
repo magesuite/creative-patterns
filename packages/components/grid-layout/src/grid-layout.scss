@@ -14,7 +14,7 @@
  *                  tv: 6
  *              );
  *
- * @param $bricksHeight {map} - this map variable informs about height of single grid item. 
+ * @param $bricksHeight {map} - this map variable informs about height of single grid item.
  *                              Unfortunately this has to be specified for browser that do not support CSS Grid Layout.
  *                              The thing is that as a fallback we use floats (flexbox won't work) and for tiles (teasers, hero product) that is displayed in 2 rows this mixin has to know the height of single tile (1x1 size).
  *                              Just like previously keys have to match breakpoint object key-names and each breakpoint has to be defined:
@@ -200,31 +200,29 @@
             }
         }
 
-        @include media( '>=phone-lg' ) {
-            &__brick {
+        &__brick {
+            width: auto;
+            display: grid;
+            align-items: stretch;
+
+            &--right {
+                float: none;
+            }
+
+            &--x2 {
                 width: auto;
-                display: grid;
-                align-items: stretch;
+                grid-column-end: span 2;
+            }
 
-                &--right {
-                    float: none;
-                }
+            &--y2 {
+                grid-row-end: span 2;
+            }
 
-                &--x2 {
-                    width: auto;
-                    grid-column-end: span 2;
-                }
+            &--teaser {
+                display: none;
 
-                &--y2 {
-                    grid-row-end: span 2;
-                }
-
-                &--teaser {
-                    display: none;
-
-                    &-ready {
-                        display: grid;
-                    }
+                &-ready {
+                    display: grid;
                 }
             }
         }
