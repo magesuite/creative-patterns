@@ -300,7 +300,7 @@ var m2cHeroCarouselConfigurator = {
          * Listen on save event from Content Configurator component.
          */
         'cc-component-configurator__save': function () {
-            this.cleanupConfiguration();
+            //this.cleanupConfiguration();
             this.onSave();
         },
     },

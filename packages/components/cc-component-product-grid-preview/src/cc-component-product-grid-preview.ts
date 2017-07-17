@@ -24,8 +24,13 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
         </div>
     </div>
     <div class="cc-component-product-grid-preview" v-show="!isLoading" v-el:scene>
-        <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero.position == 'left' && configuration.hero.image.src">
-            <img :src="configuration.hero.image.src" class="cc-component-product-grid-preview__hero-image">
+        <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero.position == 'left'">
+            <img v-if="configuration.hero.image.src" :src="configuration.hero.image.src" class="cc-component-product-grid-preview__hero-image">
+            <div class="cc-component-product-grid-preview__hero-placeholder-wrapper" v-show="!configuration.hero.image.src">
+                <svg class="cc-component-product-grid-preview__hero-placeholder">
+                    <use xlink:href="#icon_image-placeholder"></use>
+                </svg>
+            </div>
             <div class="cc-component-product-grid-preview__hero-content">
                 <h2 class="cc-component-product-grid-preview__headline" v-if="configuration.hero.headline">{{ configuration.hero.headline }}</h2>
                 <h3 class="cc-component-product-grid-preview__subheadline" v-if="configuration.hero.subheadline">{{ configuration.hero.subheadline }}</h3>
@@ -48,8 +53,13 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
             </template>
         </ul>
 
-        <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero.position == 'right' && configuration.hero.image.src">
-            <img :src="configuration.hero.image.src" class="cc-component-product-grid-preview__hero-image">
+        <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero.position == 'right'">
+            <img v-if="configuration.hero.image.src" :src="configuration.hero.image.src" class="cc-component-product-grid-preview__hero-image">
+            <div class="cc-component-product-grid-preview__hero-placeholder-wrapper" v-show="!configuration.hero.image.src">
+                <svg class="cc-component-product-grid-preview__hero-placeholder">
+                    <use xlink:href="#icon_image-placeholder"></use>
+                </svg>
+            </div>
             <div class="cc-component-product-grid-preview__hero-content">
                 <h2 class="cc-component-product-grid-preview__headline" v-if="configuration.hero.headline">{{ configuration.hero.headline }}</h2>
                 <h3 class="cc-component-product-grid-preview__subheadline" v-if="configuration.hero.subheadline">{{ configuration.hero.subheadline }}</h3>
@@ -87,6 +97,7 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
     },
     ready(): void {
         this.setImagesLoadListener();
+        this.hideEmptySlideContents();
     },
     methods: {
         /**
@@ -109,10 +120,16 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
                 _this.isLoading = false;
             }
         },
-
         getItemsCount(): number {
             return this.configuration.hero.position ? 6 : 10;
-        }
+        },
+        hideEmptySlideContents(): any {
+            $( this.$els.scene ).find( '.cc-component-product-grid-preview__hero-content' ).each( function(): void {
+                if ( !$( this ).children().length ) {
+                    $( this ).hide();
+                }
+            } );
+        },
     },
 };
 
