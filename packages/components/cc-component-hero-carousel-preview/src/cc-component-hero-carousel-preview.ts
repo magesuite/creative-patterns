@@ -29,19 +29,34 @@ const ccComponentHeroCarouselPreview: vuejs.ComponentOption = {
             <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
     </div>
-    <div class="cc-component-hero-carousel-preview">
+    <div class="cc-component-hero-carousel-preview" v-show="!isLoading">
         <div v-bind:class="sceneClass" v-el:scene>
             <div class="cc-component-hero-carousel-preview__slide" v-if="configuration.items.length > 1">
-                <img :src="configuration.items[configuration.items.length - 1].image" class="cc-component-hero-carousel-preview__image">
+                <img v-if="configuration.items[configuration.items.length - 1].image" :src="configuration.items[configuration.items.length - 1].image" class="cc-component-hero-carousel-preview__image">
+                <div class="cc-component-hero-carousel-preview__slide-placeholder-wrapper" v-show="!configuration.items[configuration.items.length - 1].image">
+                    <svg class="cc-component-hero-carousel-preview__slide-placeholder">
+                        <use xlink:href="#icon_image-placeholder"></use>
+                    </svg>
+                </div>
             </div>
 
             <template v-for="(index, item) in configuration.items">
                 <div class="cc-component-hero-carousel-preview__slide" v-if="index < 2">
-                    <img :src="configuration.items[$index].image" class="cc-component-hero-carousel-preview__image">
+                    <img v-if="configuration.items[$index].image" :src="configuration.items[$index].image" class="cc-component-hero-carousel-preview__image">
+                    <div class="cc-component-hero-carousel-preview__slide-placeholder-wrapper" v-show="!configuration.items[$index].image">
+                        <svg class="cc-component-hero-carousel-preview__slide-placeholder">
+                            <use xlink:href="#icon_image-placeholder"></use>
+                        </svg>
+                    </div>
                     <div class="cc-component-hero-carousel-preview__slide-content" v-if="index == 0 || configuration.items.length == 1">
                         <div class="cc-component-hero-carousel-preview__thumbs">
                             <template v-for="(idx, slide) in configuration.items">
-                                <img :src="configuration.items[idx].image" class="cc-component-hero-carousel-preview__thumb">
+                                <img v-if="configuration.items[idx].image" :src="configuration.items[idx].image" class="cc-component-hero-carousel-preview__thumb">
+                                <div class="cc-component-hero-carousel-preview__thumb-placeholder-wrapper" v-show="!configuration.items[idx].image">
+                                    <svg class="cc-component-hero-carousel-preview__thumb-placeholder">
+                                        <use xlink:href="#icon_image-placeholder"></use>
+                                    </svg>
+                                </div>
                             </template>
                         </div>
                         <div class="cc-component-hero-carousel-preview__slide-content-info">
@@ -75,6 +90,7 @@ const ccComponentHeroCarouselPreview: vuejs.ComponentOption = {
     },
     ready(): void {
         this.setImagesLoadListener();
+        this.hideEmptySlideContents();
     },
     computed: {
         sceneClass(): string {
@@ -95,15 +111,30 @@ const ccComponentHeroCarouselPreview: vuejs.ComponentOption = {
             const $images = $( this.$els.scene ).find( 'img' );
             let imagesCount: number = $images.length;
 
-            $images.load( function(): void {
-                imagesCount--;
-                if ( !imagesCount ) {
-                    _this.isLoading = false;
-                    $images.each( function(): void {
-                        $( this ).addClass( 'cc-component-hero-carousel-preview__image--border' );
-                    } );
+            if ( imagesCount ) {
+                $images.load( function(): void {
+                    imagesCount--;
+                    if ( !imagesCount ) {
+                        _this.isLoading = false;
+                        $images.each( function(): void {
+                            $( this ).addClass( 'cc-component-hero-carousel-preview__image--border' );
+                        } );
+                        window.setTimeout( (): void => {
+                            $( _this.$els.scene ).find( '.cc-component-hero-carousel-preview__slide, .cc-component-hero-carousel-preview__slide-placeholder-wrapper' ).css( 'min-height', $( _this.$els.scene ).outerHeight() );
+                        }, 150 );
+                        
+                    }
+                } ).filter( function(): boolean { return this.complete; } ).load();
+            } else {
+                _this.isLoading = false;
+            }
+        },
+        hideEmptySlideContents(): any {
+            $( this.$els.scene ).find( '.cc-component-hero-carousel-preview__slide-content-info' ).each( function(): void {
+                if ( !$( this ).children().length ) {
+                    $( this ).hide();
                 }
-            } ).filter( function(): boolean { return this.complete; } ).load();
+            } );
         },
     },
 };

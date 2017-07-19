@@ -231,7 +231,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          * Listen on save event from Content Configurator component.
          */
         'cc-component-configurator__save'(): void {
-            this.cleanupConfiguration();
+            //this.cleanupConfiguration();
             this.onSave();
         },
     },

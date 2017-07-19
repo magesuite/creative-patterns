@@ -8,6 +8,7 @@ interface IComponentInformation {
         {
             image: string,
             headline: string,
+            subheadline: string,
             paragraph: string,
             ctaLabel: string,
             href: string,
@@ -30,8 +31,13 @@ const ccComponentImageTeaserPreview: vuejs.ComponentOption = {
         <div class="cc-component-image-teaser-preview__wrapper">
             <ul class="cc-component-image-teaser-preview__scene cc-component-image-teaser-preview__scene--{{ configuration.currentScenario.desktopLayout.id }}-in-row" v-el:scene>
                 <template v-for="item in configuration.items">
-                    <li class="cc-component-image-teaser-preview__item" v-show="configuration.items[$index].image">
-                        <img :src="configuration.items[$index].image" class="cc-component-image-teaser-preview__item-image">
+                    <li class="cc-component-image-teaser-preview__item">
+                        <img v-if="configuration.items[$index].image" :src="configuration.items[$index].image" class="cc-component-image-teaser-preview__item-image">
+                        <div class="cc-component-image-teaser-preview__image-placeholder-wrapper" v-show="!configuration.items[$index].image">
+                            <svg class="cc-component-image-teaser-preview__image-placeholder">
+                                <use xlink:href="#icon_image-placeholder"></use>
+                            </svg>
+                        </div>
                         <div class="cc-component-image-teaser-preview__item-content">
                             <h2 class="cc-component-image-teaser-preview__headline" v-if="configuration.items[$index].headline">{{ configuration.items[$index].headline }}</h2>
                             <h3 class="cc-component-image-teaser-preview__subheadline" v-if="configuration.items[$index].subheadline">{{ configuration.items[$index].subheadline }}</h3>
@@ -63,6 +69,7 @@ const ccComponentImageTeaserPreview: vuejs.ComponentOption = {
     },
     ready(): void {
         this.setImagesLoadListener();
+        this.hideEmptySlideContents();
     },
     methods: {
         /**
@@ -74,15 +81,26 @@ const ccComponentImageTeaserPreview: vuejs.ComponentOption = {
             const $images = $( this.$els.scene ).find( 'img' );
             let imagesCount: number = $images.length;
 
-            $images.load( function(): void {
-                imagesCount--;
-                if ( !imagesCount ) {
-                    _this.isLoading = false;
-                    $images.each( function(): void {
-                        $( this ).addClass( 'cc-component-image-teaser-preview__item-image--border' );
-                    } );
+            if ( imagesCount ) {
+                $images.load( function(): void {
+                    imagesCount--;
+                    if ( !imagesCount ) {
+                        _this.isLoading = false;
+                        $images.each( function(): void {
+                            $( this ).addClass( 'cc-component-image-teaser-preview__item-image--border' );
+                        } );
+                    }
+                } ).filter( function(): boolean { return this.complete; } ).load();
+            } else {
+                _this.isLoading = false;
+            }
+        },
+        hideEmptySlideContents(): any {
+            $( this.$els.scene ).find( '.cc-component-image-teaser-preview__item-content' ).each( function(): void {
+                if ( !$( this ).children().length ) {
+                    $( this ).hide();
                 }
-            } ).filter( function(): boolean { return this.complete; } ).load();
+            } );
         },
     }
 };

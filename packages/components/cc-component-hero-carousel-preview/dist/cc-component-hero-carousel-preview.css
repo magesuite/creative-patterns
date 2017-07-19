@@ -13,7 +13,8 @@
     display: inline-block;
     position: relative;
     width: 74%;
-    padding: 0 .65rem; }
+    padding: 0 .65rem;
+    vertical-align: top; }
     .cc-component-hero-carousel-preview__scene--single .cc-component-hero-carousel-preview__slide {
       width: 100%;
       padding: 0; }
@@ -75,5 +76,38 @@
     width: 100px;
     margin: 0 .25rem;
     border: 2px solid #fff; }
+  .cc-component-hero-carousel-preview__slide-placeholder, .cc-component-hero-carousel-preview__thumb-placeholder {
+    width: 8rem;
+    height: 6.6rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
+    fill: #d4d4d4; }
+    .cc-component-hero-carousel-preview__slide-placeholder-wrapper, .cc-component-hero-carousel-preview__thumb-placeholder-wrapper {
+      position: relative;
+      height: 100%;
+      min-height: 20rem;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      background: #f5f5f5;
+      border: 1px dashed #e4e1d9; }
+  .cc-component-hero-carousel-preview__thumb-placeholder {
+    width: 3rem;
+    height: 2.5rem; }
+    .cc-component-hero-carousel-preview__thumb-placeholder-wrapper {
+      display: inline-block;
+      width: 100px;
+      margin: 0 .25rem;
+      border: 2px solid #fff;
+      min-height: 5rem; }
 
 /*# sourceMappingURL=cc-component-hero-carousel-preview.css.map */

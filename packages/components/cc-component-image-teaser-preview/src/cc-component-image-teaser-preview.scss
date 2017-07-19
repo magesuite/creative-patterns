@@ -64,6 +64,10 @@
                 padding: .25rem 1rem 0;
                 background: transparent;
             }
+
+            &:empty {
+                display: none;
+            }
         }
     }
 
@@ -119,5 +123,26 @@
         font-size: 1.25rem !important;
         border-radius: 2px !important;
         font-weight: 400 !important;
+    }
+
+    &__image-placeholder {
+        width: 8rem;
+        height: 6.6rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        fill: #d4d4d4;
+
+        &-wrapper {
+            position: relative;
+            height: 100%;
+            min-height: 20rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border: 1px dashed #e4e1d9;
+        }
     }
 }

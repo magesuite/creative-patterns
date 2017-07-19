@@ -557,7 +557,7 @@ var m2cImageTeaserConfigurator = {
          * Listen on save event from Content Configurator component.
          */
         'cc-component-configurator__save': function () {
-            this.cleanupConfiguration();
+            //this.cleanupConfiguration();
             this.onSave();
         },
     },
