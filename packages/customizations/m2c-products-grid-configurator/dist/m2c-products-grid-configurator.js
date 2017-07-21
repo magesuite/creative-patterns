@@ -685,6 +685,11 @@ var m2cProductsGridConfigurator = {
             type: String,
             default: '',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     data: function () {
         return {
@@ -824,7 +829,7 @@ var m2cProductsGridConfigurator = {
          * Opens modal with M2 built-in widget chooser
          */
         openCtaTargetModal: function () {
-            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/widget_target_id/cfg-pg-hero_url");
+            widgetTools.openDialog(window.location.origin + "/" + this.adminPrefix + "/admin/widget/index/widget_target_id/cfg-pg-hero_url");
             this.wWidgetListener();
         },
         /* Sets listener for widget chooser

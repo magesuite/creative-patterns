@@ -202,6 +202,11 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     data(): any {
         return {
@@ -305,7 +310,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
         openCtaTargetModal( index: number ): void {
-            widgetTools.openDialog( `${window.location.origin}/admin/admin/widget/index/filter_widgets/Link/widget_target_id/hero-ctatarget-output-${index}` );
+            widgetTools.openDialog( `${window.location.origin}/${this.adminPrefix}/admin/widget/index/filter_widgets/Link/widget_target_id/hero-ctatarget-output-${index}` );
             this.wWidgetListener( index );
         },
         /* Sets listener for widget chooser

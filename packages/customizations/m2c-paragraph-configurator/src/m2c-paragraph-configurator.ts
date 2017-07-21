@@ -220,7 +220,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         /* Opens modal with M2 built-in variables
          */
         openMagentoVariablesModal(): void {
-            MagentovariablePlugin.loadChooser( `${window.location.origin}/admin/admin/system_variable/wysiwygPlugin/`, 'textarea-cfg-paragraph' );
+            MagentovariablePlugin.loadChooser( `${window.location.origin}/${this.adminPrefix}/admin/system_variable/wysiwygPlugin/`, 'textarea-cfg-paragraph' );
         },
         initWysiwyg(): void {
             const _this: any = this;

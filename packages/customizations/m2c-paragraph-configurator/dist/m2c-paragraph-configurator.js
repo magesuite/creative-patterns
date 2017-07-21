@@ -273,7 +273,7 @@ var m2cParagraphConfigurator = {
         /* Opens modal with M2 built-in variables
          */
         openMagentoVariablesModal: function () {
-            MagentovariablePlugin.loadChooser(window.location.origin + "/admin/admin/system_variable/wysiwygPlugin/", 'textarea-cfg-paragraph');
+            MagentovariablePlugin.loadChooser(window.location.origin + "/" + this.adminPrefix + "/admin/system_variable/wysiwygPlugin/", 'textarea-cfg-paragraph');
         },
         initWysiwyg: function () {
             var _this = this;

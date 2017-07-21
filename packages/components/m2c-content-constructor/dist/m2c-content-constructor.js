@@ -123,6 +123,11 @@ var m2cButtonConfigurator = {
             type: String,
             default: '',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     events: {
         /**
@@ -136,7 +141,7 @@ var m2cButtonConfigurator = {
         /* Opens modal with M2 built-in widget chooser
          */
         openCtaTargetModal: function () {
-            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/filter_widgets/Link/widget_target_id/cfg-target");
+            widgetTools.openDialog(window.location.origin + "/" + this.adminPrefix + "/admin/widget/index/filter_widgets/Link/widget_target_id/cfg-target");
             this.wWidgetListener();
         },
         /* Sets listener for widget chooser
@@ -171,6 +176,7 @@ var m2cButtonConfigurator = {
     },
     ready: function () {
         this.widgetSetListener();
+        console.log(this.adminPrefix);
     },
 };
 
@@ -950,6 +956,11 @@ var m2cHeroCarouselConfigurator = {
             type: String,
             default: '',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     data: function () {
         return {
@@ -1043,7 +1054,7 @@ var m2cHeroCarouselConfigurator = {
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
         openCtaTargetModal: function (index) {
-            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/filter_widgets/Link/widget_target_id/hero-ctatarget-output-" + index);
+            widgetTools.openDialog(window.location.origin + "/" + this.adminPrefix + "/admin/widget/index/filter_widgets/Link/widget_target_id/hero-ctatarget-output-" + index);
             this.wWidgetListener(index);
         },
         /* Sets listener for widget chooser
@@ -1583,6 +1594,11 @@ var m2cImageTeaserConfigurator = {
             type: String,
             default: '',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     data: function () {
         return {
@@ -1714,7 +1730,7 @@ var m2cImageTeaserConfigurator = {
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
         openCtaTargetModal: function (index) {
-            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/filter_widgets/Link/widget_target_id/image-teaser-ctatarget-output-" + index);
+            widgetTools.openDialog(window.location.origin + "/" + this.adminPrefix + "/admin/widget/index/filter_widgets/Link/widget_target_id/image-teaser-ctatarget-output-" + index);
             this.wWidgetListener(index);
         },
         /* Sets listener for widget chooser
@@ -2031,7 +2047,7 @@ var m2cParagraphConfigurator = {
         /* Opens modal with M2 built-in variables
          */
         openMagentoVariablesModal: function () {
-            MagentovariablePlugin.loadChooser(window.location.origin + "/admin/admin/system_variable/wysiwygPlugin/", 'textarea-cfg-paragraph');
+            MagentovariablePlugin.loadChooser(window.location.origin + "/" + this.adminPrefix + "/admin/system_variable/wysiwygPlugin/", 'textarea-cfg-paragraph');
         },
         initWysiwyg: function () {
             var _this = this;
@@ -2225,6 +2241,11 @@ var m2cProductsGridConfigurator = {
             type: String,
             default: '',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     data: function () {
         return {
@@ -2364,7 +2385,7 @@ var m2cProductsGridConfigurator = {
          * Opens modal with M2 built-in widget chooser
          */
         openCtaTargetModal: function () {
-            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/widget_target_id/cfg-pg-hero_url");
+            widgetTools.openDialog(window.location.origin + "/" + this.adminPrefix + "/admin/widget/index/widget_target_id/cfg-pg-hero_url");
             this.wWidgetListener();
         },
         /* Sets listener for widget chooser
@@ -2567,6 +2588,11 @@ var m2cMagentoProductGridTeasersConfigurator = {
             type: String,
             default: '30',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     data: function () {
         return {
@@ -2682,7 +2708,7 @@ var m2cMagentoProductGridTeasersConfigurator = {
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
         openCtaTargetModal: function (index) {
-            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/filter_widgets/Link/widget_target_id/teaser-ctatarget-output-" + index);
+            widgetTools.openDialog(window.location.origin + "/" + this.adminPrefix + "/admin/widget/index/filter_widgets/Link/widget_target_id/teaser-ctatarget-output-" + index);
             this.wWidgetListener(index);
         },
         /* Sets listener for widget chooser
@@ -3740,6 +3766,10 @@ var m2cContentConstructor = {
         configuration: {
             type: String,
             default: '',
+        },
+        adminPrefix: {
+            type: String,
+            default: 'admin',
         },
         assetsSrc: {
             type: String,
