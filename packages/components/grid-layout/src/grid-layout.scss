@@ -61,7 +61,11 @@
         padding: $padding;
         box-sizing: border-box;
         float: left;
-        height: map-get( $bricksHeight, phone ) + 2 * $padding;
+        @if map-get( $bricksHeight, phone ) != 'auto' {
+            height: map-get( $bricksHeight, phone ) + 2 * $padding;
+        } @else {
+            height: auto;
+        }
 
         &--right {
             float: right;
@@ -73,27 +77,44 @@
 
         @include media( '>=phone-lg' ) {
             width: calc( 100% / #{ map-get( $bricksPerRow, phone-lg ) } );
-            height: map-get( $bricksHeight, phone-lg ) + 2 * $padding;
+            @if map-get( $bricksHeight, phone-lg ) != 'auto' {
+                height: map-get( $bricksHeight, phone-lg ) + 2 * $padding;
+            } @else {
+                height: auto;
+            }
 
             &--x2 {
                 width: calc( 100% / #{ map-get( $bricksPerRow, phone-lg ) } * 2 );
             }
 
             &--y2 {
-                height: 2 * map-get( $bricksHeight, phone-lg ) + 4 * $padding;
+                @if map-get( $bricksHeight, phone-lg ) != 'auto' {
+                    height: 2 * map-get( $bricksHeight, phone-lg ) + 4 * $padding;
+                } @else {
+                    height: auto;
+                }
             }
         }
 
         @include media( '>=tablet' ) {
             width: calc( 100% / #{ map-get( $bricksPerRow, tablet ) } );
-            height: map-get( $bricksHeight, tablet ) + 2 * $padding;
+            @if map-get( $bricksHeight, tablet ) != 'auto' {
+                height: map-get( $bricksHeight, tablet ) + 2 * $padding;
+            } @else {
+                height: auto;
+            }
+
 
             &--x2 {
                 width: calc( 100% / #{ map-get( $bricksPerRow, tablet ) } * 2 );
             }
 
             &--y2 {
-                height: 2 * map-get( $bricksHeight, tablet ) + 4 * $padding;
+                @if map-get( $bricksHeight, tablet ) != 'auto' {
+                    height: 2 * map-get( $bricksHeight, tablet ) + 4 * $padding;
+                } @else {
+                    height: auto;
+                }
 
                 &#{$root}__brick--left,
                 &#{$root}__brick--hero {
@@ -104,67 +125,107 @@
 
         @include media( '>=laptop' ) {
             width: calc( 100% / #{ map-get( $bricksPerRow, laptop ) } );
-            height: map-get( $bricksHeight, laptop ) + 2 * $padding;
+            @if map-get( $bricksHeight, laptop ) != 'auto' {
+                height: map-get( $bricksHeight, laptop ) + 2 * $padding;
+            } @else {
+                height: auto;
+            }
 
             &--x2 {
                 width: calc( 100% / #{ map-get( $bricksPerRow, laptop ) } * 2 );
             }
 
             &--y2 {
-                height: 2 * map-get( $bricksHeight, laptop ) + 4 * $padding;
+                @if map-get( $bricksHeight, laptop ) != 'auto' {
+                    height: 2 * map-get( $bricksHeight, laptop ) + 4 * $padding;
+                } @else {
+                    height: auto;
+                }
             }
         }
 
         @include media( '>=laptop-lg' ) {
             width: calc( 100% / #{ map-get( $bricksPerRow, laptop-lg ) } );
-            height: map-get( $bricksHeight, laptop-lg ) + 2 * $padding;
+            @if map-get( $bricksHeight, laptop-lg ) != 'auto' {
+                height: map-get( $bricksHeight, laptop-lg ) + 2 * $padding;
+            } @else {
+                height: auto;
+            }
 
             &--x2 {
                 width: calc( 100% / #{ map-get( $bricksPerRow, laptop-lg ) } * 2 );
             }
 
             &--y2 {
-                height: 2 * map-get( $bricksHeight, laptop-lg ) + 4 * $padding;
+                @if map-get( $bricksHeight, laptop-lg ) != 'auto' {
+                    height: 2 * map-get( $bricksHeight, laptop-lg ) + 4 * $padding;
+                } @else {
+                    height: auto;
+                }
             }
         }
 
         @include media( '>=desktop' ) {
             width: calc( 100% / #{ map-get( $bricksPerRow, desktop ) } );
-            height: map-get( $bricksHeight, desktop ) + 2 * $padding;
+            @if map-get( $bricksHeight, desktop ) != 'auto' {
+                height: map-get( $bricksHeight, desktop ) + 2 * $padding;
+            } @else {
+                height: auto;
+            }
 
             &--x2 {
                 width: calc( 100% / #{ map-get( $bricksPerRow, desktop ) } * 2 );
             }
 
             &--y2 {
-                height: 2 * map-get( $bricksHeight, desktop ) + 4 * $padding;
+                @if map-get( $bricksHeight, desktop ) != 'auto' {
+                    height: 2 * map-get( $bricksHeight, desktop ) + 4 * $padding;
+                } @else {
+                    height: auto;
+                }
             }
         }
 
         @include media( '>=tv' ) {
             width: calc( 100% / #{ map-get( $bricksPerRow, tv ) } );
-            height: map-get( $bricksHeight, tv ) + 2 * $padding;
+            @if map-get( $bricksHeight, tv ) != 'auto' {
+                height: map-get( $bricksHeight, tv ) + 2 * $padding;
+            } @else {
+                height: auto;
+            }
 
             &--x2 {
                 width: calc( 100% / #{ map-get( $bricksPerRow, tv ) } * 2 );
             }
 
             &--y2 {
-                height: 2 * map-get( $bricksHeight, tv ) + 4 * $padding;
+                @if map-get( $bricksHeight, tv ) != 'auto' {
+                    height: 2 * map-get( $bricksHeight, tv ) + 4 * $padding;
+                } @else {
+                    height: auto;
+                }
             }
         }
 
         @include media( '<tablet' ) {
             &--hero {
                 width: calc( 100% / #{ map-get( $bricksPerRow, phone-lg ) } );
-                height: map-get( $bricksHeight, phone-lg ) + 2 * $padding;
+                @if map-get( $bricksHeight, phone-lg ) != 'auto' {
+                    height: map-get( $bricksHeight, phone-lg ) + 2 * $padding;
+                } @else {
+                    height: auto;
+                }
             }
         }
 
         @include media( '<phone-lg' ) {
             &--hero {
                 width: calc( 100% / #{ map-get( $bricksPerRow, phone ) } );
-                height: map-get( $bricksHeight, phone ) + 2 * $padding;
+                @if map-get( $bricksHeight, phone ) != 'auto' {
+                    height: map-get( $bricksHeight, phone ) + 2 * $padding;
+                } @else {
+                    height: auto;
+                }
             }
         }
     }
