@@ -1,0 +1,148 @@
+// energy-efficiency
+// This component is responsible for display of energy efficien
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@mixin energyEfficiency() {
+    $root: &;
+
+    display: inline-block;
+    padding-right: .5rem;
+
+    &--arrow-left {
+        padding-right: 0;
+        padding-left: .5rem;
+    }
+
+    &__label {
+        display: block;
+        position: relative;
+        min-width: 1.5rem;
+        height: 2rem;
+        line-height: 2rem;
+        padding: 0 .6rem 0 .8rem;
+        color: #fff;
+        text-align: center;
+
+        #{$root}--arrow-left & {
+            padding-left: .6rem;
+            padding-right: .8rem;
+        }
+
+        &:before,
+        &:after {
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 0;
+            height: 0;
+            content: '';
+            border-style: solid;
+            z-index: 2;
+            border-width: 1rem 0 1rem .5rem;
+            border-color: transparent transparent transparent #ddd;
+        }
+
+        &:before {
+            display: none;
+            left: auto;
+            right: 100%;
+            border-width: 1rem .5rem 1rem 0;
+            border-color: transparent #ddd transparent transparent;
+        }
+
+        #{$root}--arrow-left & {
+            &:before {
+                display: block;
+            }
+
+            &:after {
+                display: none;
+            }
+        }
+
+        #{$root}--class-a & {
+            background-color: #2ca650;
+
+            &:before {
+                border-color: transparent #2ca650 transparent transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent transparent #2ca650;
+            }
+        }
+
+        #{$root}--class-b & {
+            background-color: #72bf44;
+
+            &:before {
+                border-color: transparent #72bf44 transparent transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent transparent #72bf44;
+            }
+        }
+
+        #{$root}--class-c & {
+            background-color: #c2d82d;
+
+            &:before {
+                border-color: transparent #c2d82d transparent transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent transparent #c2d82d;
+            }
+        }
+
+        #{$root}--class-d & {
+            background-color: #fef200;
+
+            &:before {
+                border-color: transparent #fef200 transparent transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent transparent #fef200;
+            }
+        }
+
+        #{$root}--class-e & {
+            background-color: #fcbe10;
+
+            &:before {
+                border-color: transparent #fcbe10 transparent transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent transparent #fcbe10;
+            }
+        }
+
+        #{$root}--class-f & {
+            background-color: #f47c20;
+
+            &:before {
+                border-color: transparent #f47c20 transparent transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent transparent #f47c20;
+            }
+        }
+
+        #{$root}--class-g & {
+            background-color: #ee1d24;
+
+            &:before {
+                border-color: transparent #ee1d24 transparent transparent;
+            }
+
+            &:after {
+                border-color: transparent transparent transparent #ee1d24;
+            }
+        }
+    }
+}
