@@ -240,7 +240,12 @@ export default class GridLayout {
      * @param {number} gridIndex - indicates index of brick after which $teaser should be appended
      */
     protected _insertTeaser( $teaser: any, gridIndex: number ) {
-        $teaser.insertAfter( this.$grid.children().eq( gridIndex ) );
+        if ( gridIndex < 1 ) {
+            this.$grid.prepend( $teaser );
+        } else {
+            $teaser.insertAfter( this.$grid.children().eq( gridIndex ) );
+        }
+        
         $teaser.removeClass( `${ this.settings.brickClass }--hidden` ).addClass( `${ this.settings.brickClass }--teaser-ready` );
     }
 
