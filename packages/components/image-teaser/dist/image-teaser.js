@@ -30,7 +30,7 @@ var getAvaliableBreakpoints = function () { return JSON.parse(window.getComputed
  * @return {number} Current breakpoint in number of pixels.
  */
 var getCurrentBreakpoint = function () { return +window.getComputedStyle(body, ':after')
-    .getPropertyValue('content').replace(/"/g, ''); };
+    .getPropertyValue('content').replace(/['"]/g, ''); };
 var body = document.querySelector('body');
 /**
  * Module cache to export.

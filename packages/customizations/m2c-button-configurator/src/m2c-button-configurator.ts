@@ -97,7 +97,6 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
     },
     ready(): void {
         this.widgetSetListener();
-        console.log(this.adminPrefix);
     },
 };
 

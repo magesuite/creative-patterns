@@ -29,7 +29,7 @@ var getAvaliableBreakpoints = function () { return JSON.parse(window.getComputed
  * @return {number} Current breakpoint in number of pixels.
  */
 var getCurrentBreakpoint = function () { return +window.getComputedStyle(body, ':after')
-    .getPropertyValue('content').replace(/"/g, ''); };
+    .getPropertyValue('content').replace(/['"]/g, ''); };
 var body = document.querySelector('body');
 /**
  * Module cache to export.
@@ -240,7 +240,12 @@ var GridLayout = (function () {
      * @param {number} gridIndex - indicates index of brick after which $teaser should be appended
      */
     GridLayout.prototype._insertTeaser = function ($teaser, gridIndex) {
-        $teaser.insertAfter(this.$grid.children().eq(gridIndex));
+        if (gridIndex < 1) {
+            this.$grid.prepend($teaser);
+        }
+        else {
+            $teaser.insertAfter(this.$grid.children().eq(gridIndex));
+        }
         $teaser.removeClass(this.settings.brickClass + "--hidden").addClass(this.settings.brickClass + "--teaser-ready");
     };
     /**

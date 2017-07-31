@@ -176,7 +176,6 @@ var m2cButtonConfigurator = {
     },
     ready: function () {
         this.widgetSetListener();
-        console.log(this.adminPrefix);
     },
 };
 
