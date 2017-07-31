@@ -285,6 +285,11 @@ var m2cMagentoProductGridTeasersConfigurator = {
             type: String,
             default: '30',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     data: function () {
         return {
@@ -400,7 +405,7 @@ var m2cMagentoProductGridTeasersConfigurator = {
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
         openCtaTargetModal: function (index) {
-            widgetTools.openDialog(window.location.origin + "/admin/admin/widget/index/filter_widgets/Link/widget_target_id/teaser-ctatarget-output-" + index);
+            widgetTools.openDialog(window.location.origin + "/" + this.adminPrefix + "/admin/widget/index/filter_widgets/Link/widget_target_id/teaser-ctatarget-output-" + index);
             this.wWidgetListener(index);
         },
         /* Sets listener for widget chooser

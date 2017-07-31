@@ -55,6 +55,7 @@
     max-height: 220px; }
   .cs-footer__section {
     -webkit-column-break-inside: avoid;
+       page-break-inside: avoid;
             break-inside: avoid-column; }
   .cs-footer__headline {
     text-transform: uppercase;

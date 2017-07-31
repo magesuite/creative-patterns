@@ -108,6 +108,10 @@ const m2cContentConstructor: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
         assetsSrc: {
             type: String,
             default: '',

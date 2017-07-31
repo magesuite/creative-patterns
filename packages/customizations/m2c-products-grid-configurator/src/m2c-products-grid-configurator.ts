@@ -261,6 +261,11 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        /* Obtain admin url */
+        adminPrefix: {
+            type: String,
+            default: 'admin',
+        },
     },
     data(): Object {
         return {
@@ -410,7 +415,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
          * Opens modal with M2 built-in widget chooser
          */
         openCtaTargetModal(): void {
-            widgetTools.openDialog( `${window.location.origin}/admin/admin/widget/index/widget_target_id/cfg-pg-hero_url` );
+            widgetTools.openDialog( `${window.location.origin}/${this.adminPrefix}/admin/widget/index/widget_target_id/cfg-pg-hero_url` );
 
             this.wWidgetListener();
         },
