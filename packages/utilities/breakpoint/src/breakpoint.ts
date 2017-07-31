@@ -24,7 +24,7 @@ const getAvaliableBreakpoints: Function = (): Object => JSON.parse( window.getCo
  * @return {number} Current breakpoint in number of pixels.
  */
 const getCurrentBreakpoint: Function = (): number => +window.getComputedStyle( body, ':after' )
-    .getPropertyValue( 'content' ).replace( /"/g, '' );
+    .getPropertyValue( 'content' ).replace( /['"]/g, '' );
 
 const body: HTMLElement = document.querySelector( 'body' );
 /**
