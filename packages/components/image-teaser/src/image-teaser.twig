@@ -14,7 +14,7 @@
             <ul class="{{ namespace }}image-teaser__slides">
 
                 {% for item in items %}
-                    <li class="{{ namespace }}image-teaser__slide {{ namespace }}image-teaser__slide--scheme-{{ item.colorScheme }}">
+                    <li class="{{ namespace }}image-teaser__slide {{ namespace }}image-teaser__slide--scheme-{{ item.colorScheme }}{% if item.image.src %} {{ namespace }}image-teaser__slide--image-uploaded{% endif %}">
 
                         {% if item.href %}
                             <a href="{{ item.href }}" class="{{ namespace }}image-teaser__slide-link">
