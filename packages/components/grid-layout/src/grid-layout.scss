@@ -42,6 +42,14 @@
         margin: 0;
         padding: 0;
         list-style: none;
+
+        //On IE there are floating brick, so clearfix is needed
+        &:after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+
     }
 
     &__teaser {
