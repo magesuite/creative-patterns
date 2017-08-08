@@ -21,6 +21,7 @@ $namespace: 'cs-' !default;
 
         @include media( '>=tablet' ) {
             display: flex;
+            flex-wrap: wrap;
         }
     }
 
