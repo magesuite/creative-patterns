@@ -232,8 +232,10 @@ var m2cParagraphConfigurator = {
             }).then(function (response) {
                 // If status is OK update component's configuration and run Save to save component data
                 if (response.ok) {
-                    component.configuration.blockId = response.data.id;
-                    component.configuration.title = response.data.title;
+                    console.log(response.data);
+                    var responseData = JSON.parse(JSON.stringify(response.data));
+                    component.configuration.blockId = responseData.id;
+                    component.configuration.title = responseData.title;
                     // Hide loader
                     $('body').trigger('hideLoadingPopup');
                     component.onSave();
