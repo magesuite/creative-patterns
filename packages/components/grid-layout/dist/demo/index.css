@@ -161,6 +161,10 @@ html, body {
     margin: 0;
     padding: 0;
     list-style: none; }
+    .cs-grid-layout__grid:after {
+      content: '';
+      display: table;
+      clear: both; }
   .cs-grid-layout__teaser {
     max-height: 100%;
     max-width: 100%;

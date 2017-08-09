@@ -172,8 +172,9 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
 
                 // If status is OK update component's configuration and run Save to save component data
                 if ( response.ok ) {
-                    component.configuration.blockId = response.data.id;
-                    component.configuration.title = response.data.title;
+                    const responseData: any = JSON.parse( JSON.stringify( response.data ) );
+                    component.configuration.blockId = responseData.id;
+                    component.configuration.title = responseData.title;
 
                     // Hide loader
                     $( 'body' ).trigger( 'hideLoadingPopup' );

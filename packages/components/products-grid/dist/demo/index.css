@@ -619,7 +619,9 @@ html {
     .cs-swatches__attribute {
       display: -webkit-box;
       display: -ms-flexbox;
-      display: flex; } }
+      display: flex;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap; } }
 
 .cs-swatches__attribute-label {
   position: relative;
