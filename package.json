@@ -1,14 +1,12 @@
 {
     "name": "creative-patterns",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "Pattern library developed and maintained by cool people at creativestyle.",
-    "main": "index.js",
     "scripts": {
         "postinstall": "cd packages && npm-recursive-install --skip-root",
         "build": "gulp build",
         "serve": "gulp serve",
         "test": "gulp test",
-        "selenium": "selenium-standalone install && selenium-standalone start",
         "generator": "plop --harmony"
     },
     "keywords": [
