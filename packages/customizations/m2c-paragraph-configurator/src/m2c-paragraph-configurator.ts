@@ -114,7 +114,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 method: 'get',
                 url: `${ window.location.origin }/rest/all/V1/cmsBlock/${this.configuration.blockId}`,
             } ).then( ( response: any ): void => {
-                const responseData: any = JSON.parse( response.data );
+                const responseData: any = ( typeof response.data === 'string' ) ? JSON.parse( response.data ) : response.data;
                 // Hide loader
                 $( 'body' ).trigger( 'hideLoadingPopup' );
 
@@ -172,7 +172,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
 
                 // If status is OK update component's configuration and run Save to save component data
                 if ( response.ok ) {
-                    const responseData: any = JSON.parse( response.data );
+                    const responseData: any = ( typeof response.data === 'string' ) ? JSON.parse( response.data ) : response.data;
                     component.configuration.blockId = responseData.id;
                     component.configuration.title = responseData.title;
 
