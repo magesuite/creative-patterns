@@ -35,6 +35,15 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                         <option value="DESC">${$t( 'Descending' )}</option>
                     </select>
                 </div>
+                <div class="m2-input | m2c-products-grid-configurator__section-option">
+                    <label for="cfg-pg-skus" class="m2-input__label">${$t( 'SKUs' )}:</label>
+                    <input type="text" name="cfg-pg-skus" class="m2-input__input" id="cfg-pg-skus" v-model="configuration.skus" @change="onChange">
+                    <div class="m2-input__hint">${$t( 'Multiple, comma-separated' )}</div>
+                </div>
+                <div class="m2-input | m2c-products-grid-configurator__section-option">
+                    <label for="cfg-pg-dataprovider" class="m2-input__label">${$t( 'Custom Data Provider' )}:</label>
+                    <input type="text" name="cfg-pg-dataprovider" class="m2-input__input" id="cfg-pg-dataprovider" v-model="configuration.class_overrides.dataProvider" @change="onChange">
+                </div>
             </div>
         </section>
 
@@ -221,6 +230,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     rows_desktop: 1,
                     rows_tablet: 1,
                     rows_mobile: 1,
+                    skus: '',
+                    class_overrides: {
+                        dataProvider: '',
+                    },
                     hero: {
                         position: '',
                         image: {
@@ -345,6 +358,18 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                 },
             },
         };
+    },
+    events: {
+        /**
+         * Listen on save event from Content Configurator component.
+         */
+        'cc-component-configurator__save'(): void {
+            if ( this.configuration.class_overrides.dataProvider === '' ) {
+                delete this.configuration.class_overrides;
+            }
+
+            this.onSave();
+        },
     },
     methods: {
         setOption( optionCategory: string, optionId: string, key?: string ): void {

@@ -15,8 +15,22 @@
     <form class="m2c-product-carousel-configurator  | " >
 
         <div class="m2-input m2-input--type-inline">
-            <label class="m2-input__label">Categories</label>
+            <label class="m2-input__label">Categories:</label>
             <input type="hidden" v-model="configuration.category_id" @change="onChange" id="cp-products-carousel">
+        </div>
+
+        <div class="m2-input m2-input--type-inline">
+            <label class="m2-input__label" for="cfg-pc-skus">SKUs:</label>
+            <input type="text" name="cfg-pc-skus" class="m2-input__input" id="cfg-pc-skus" v-model="configuration.skus" @change="onChange">
+        </div>
+        <div class="m2-input m2-input--type-inline m2-input--type-hint">
+            <label class="m2-input__label"> </label>
+            <span class="m2-input__hint m2-input__hint--under-field">Multiple, comma-separated</span>
+        </div>
+
+        <div class="m2-input m2-input--type-inline">
+            <label class="m2-input__label" for="cfg-pc-dataprovider">Custom Data Provider:</label>
+            <input type="text" name="cfg-pc-dataprovider" class="m2-input__input" id="cfg-pc-dataprovider" v-model="configuration.class_overrides.dataProvider" @change="onChange">
         </div>
 
         <div class="m2-input m2-input--type-inline">
@@ -26,8 +40,8 @@
                 <option value="price">Price</option>
             </select>
             <select name="cfg-pc-order-type" class="m2-input__select" v-model="configuration.order_type" @change="onChange">
-                <option value="ASC">ASC</option>
-                <option value="DESC">DESC</option>
+                <option value="ASC">Ascending</option>
+                <option value="DESC">Descending</option>
             </select>
         </div>
         <div class="m2-input m2-input--type-inline">

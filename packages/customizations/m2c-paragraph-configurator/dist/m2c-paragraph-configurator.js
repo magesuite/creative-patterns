@@ -181,13 +181,14 @@ var m2cParagraphConfigurator = {
                 method: 'get',
                 url: window.location.origin + "/rest/all/V1/cmsBlock/" + this.configuration.blockId,
             }).then(function (response) {
+                var responseData = JSON.parse(response.data);
                 // Hide loader
                 $('body').trigger('hideLoadingPopup');
                 // Update components tempConfiguration
-                component_1.tempConfiguration.identifier = response.data.identifier;
-                component_1.tempConfiguration.title = response.data.title;
-                component_1.tempConfiguration.content = response.data.content;
-                component_1.configuration.title = response.data.title;
+                component_1.tempConfiguration.identifier = responseData.identifier;
+                component_1.tempConfiguration.title = responseData.title;
+                component_1.tempConfiguration.content = responseData.content;
+                component_1.configuration.title = responseData.title;
                 // initialize customized WYSIWYG
                 if (component_1.wysiwygCfg) {
                     component_1.initWysiwyg();
@@ -232,8 +233,7 @@ var m2cParagraphConfigurator = {
             }).then(function (response) {
                 // If status is OK update component's configuration and run Save to save component data
                 if (response.ok) {
-                    console.log(response.data);
-                    var responseData = JSON.parse(JSON.stringify(response.data));
+                    var responseData = JSON.parse(response.data);
                     component.configuration.blockId = responseData.id;
                     component.configuration.title = responseData.title;
                     // Hide loader

@@ -1779,6 +1779,16 @@
       .m2-input__fake-select--active:after {
         -webkit-transform: rotate(-180deg);
                 transform: rotate(-180deg); }
+  .m2-input__hint {
+    color: #adadad;
+    font-size: 1.2rem;
+    margin: 4px 0 0;
+    padding: 0; }
+    .m2-input__hint--under-field {
+      min-width: 4rem;
+      width: 50%;
+      max-width: 800px;
+      white-space: nowrap; }
   .m2-input--group {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1802,6 +1812,8 @@
   .m2-input--type-inline .m2-input__select {
     width: auto;
     min-width: 8.5rem; }
+  .m2-input--type-hint {
+    margin-top: 0 !important; }
   .m2-input--type-checkbox .m2-input__label, .m2-input--type-radio .m2-input__label {
     position: relative;
     padding: 0 0 0 2.6rem;
@@ -3522,13 +3534,23 @@
   .m2c-products-grid-configurator__section-option {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    margin: 0 0 .5rem !important; }
+    margin: 0 0 1rem !important;
+    width: 40%;
+    -ms-flex-preferred-size: 40%;
+        flex-basis: 40%;
+    box-sizing: border-box; }
+    .m2c-products-grid-configurator__section-option:nth-child(odd) {
+      padding-right: 1rem; }
+    .m2c-products-grid-configurator__section-option:nth-child(even) {
+      padding-left: 1rem; }
     .m2c-products-grid-configurator__section-option-label {
       width: 100% !important;
       padding: 0 !important;
       margin: 0 0 .5rem !important;
       text-align: left !important;
       line-height: 1.35 !important; }
+    .m2c-products-grid-configurator__section-option .m2-input__input, .m2c-products-grid-configurator__section-option .m2-input__textarea, .m2c-products-grid-configurator__section-option .m2-input__select, .m2c-products-grid-configurator__section-option .m2-input__fake-select {
+      max-width: 25em; }
 
 .m2c-products-grid-configurator__scenario-options {
   padding: 1.5rem 1.5rem 1.25rem;
@@ -3546,7 +3568,9 @@
   .m2c-products-grid-configurator__scenario-options--inputs {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex; }
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
 
 .m2c-products-grid-configurator__option {
   cursor: pointer;

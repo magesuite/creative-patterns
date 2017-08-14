@@ -15,7 +15,18 @@ $namespace: 'm2c-';
 
         &-option {
             flex-wrap: wrap;
-            margin: 0 0 .5rem !important;
+            margin: 0 0 1rem !important;
+            width: 40%;
+            flex-basis: 40%;
+            box-sizing: border-box;
+
+            &:nth-child( odd ) {
+                padding-right: 1rem;
+            }
+
+            &:nth-child( even ) {
+                padding-left: 1rem;
+            }
 
             &-label {
                 width: 100% !important;
@@ -23,6 +34,10 @@ $namespace: 'm2c-';
                 margin: 0 0 .5rem !important;
                 text-align: left !important;
                 line-height: 1.35 !important;
+            }
+
+            .m2-input__input {
+                max-width: 25em;
             }
         }
     }
@@ -42,6 +57,7 @@ $namespace: 'm2c-';
 
         &--inputs {
             display: flex;
+            flex-wrap: wrap;
         }
     }
 
@@ -54,7 +70,7 @@ $namespace: 'm2c-';
         color: #adadad;
         transition: border-color .3s, opacity .3s, color .3s;
         margin: 0 .75rem;
-
+        
         &:hover {
             border-color: #0072ff;
         }

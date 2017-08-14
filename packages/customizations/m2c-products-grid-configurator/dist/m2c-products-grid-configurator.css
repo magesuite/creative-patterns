@@ -220,13 +220,23 @@
   .m2c-products-grid-configurator__section-option {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
-    margin: 0 0 .5rem !important; }
+    margin: 0 0 1rem !important;
+    width: 40%;
+    -ms-flex-preferred-size: 40%;
+        flex-basis: 40%;
+    box-sizing: border-box; }
+    .m2c-products-grid-configurator__section-option:nth-child(odd) {
+      padding-right: 1rem; }
+    .m2c-products-grid-configurator__section-option:nth-child(even) {
+      padding-left: 1rem; }
     .m2c-products-grid-configurator__section-option-label {
       width: 100% !important;
       padding: 0 !important;
       margin: 0 0 .5rem !important;
       text-align: left !important;
       line-height: 1.35 !important; }
+    .m2c-products-grid-configurator__section-option .m2-input__input {
+      max-width: 25em; }
 
 .m2c-products-grid-configurator__scenario-options {
   padding: 1.5rem 1.5rem 1.25rem;
@@ -244,7 +254,9 @@
   .m2c-products-grid-configurator__scenario-options--inputs {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex; }
+    display: flex;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; }
 
 .m2c-products-grid-configurator__option {
   cursor: pointer;

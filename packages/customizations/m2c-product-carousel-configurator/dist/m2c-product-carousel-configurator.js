@@ -566,6 +566,21 @@ var m2cProductCarouselConfigurator = {
     ],
     template: '#m2c-product-carousel-form',
     props: {
+        configuration: {
+            type: Object,
+            default: function () {
+                return {
+                    category_id: '',
+                    order_by: 'creation_date',
+                    order_type: 'DESC',
+                    limit: 20,
+                    skus: '',
+                    class_overrides: {
+                        dataProvider: '',
+                    },
+                };
+            },
+        },
         /* Obtain endpoint for getting categories data for category picker */
         categoriesDataUrl: {
             type: String,
@@ -576,6 +591,17 @@ var m2cProductCarouselConfigurator = {
         return {
             categoryPicker: undefined,
         };
+    },
+    events: {
+        /**
+         * Listen on save event from Content Configurator component.
+         */
+        'cc-component-configurator__save': function () {
+            if (this.configuration.class_overrides.dataProvider === '') {
+                delete this.configuration.class_overrides;
+            }
+            this.onSave();
+        },
     },
     ready: function () {
         var _this = this;
