@@ -4,6 +4,7 @@
 // See http://warpspire.com/kss/ for documentation guidelines.
 // Version 0.0.1
 @mixin offcanvas() {
+    $root: &;
 
     &__overlay {
         position: fixed;
@@ -31,15 +32,19 @@
         bottom: 0;
         left: 0;
         background: #fff;
-        transform: translateX( -105% );
         transform: translate3d( -105%, 0, 0 );
         transition: transform .3s;
         width: 90%;
         max-width: 400px;
 
+        #{$root}--slide-from-right & {
+            left: auto;
+            right: 0;
+            transform: translate3d( 105%, 0, 0 );
+        }
+
         &--visible {
-            transform: translateX( 0 );
-            transform: translate3d( 0, 0, 0 );
+            transform: translate3d( 0, 0, 0 ) !important;
         }
     }
 }
