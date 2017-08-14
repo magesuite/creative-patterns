@@ -23,8 +23,6 @@
   bottom: 0;
   left: 0;
   background: #fff;
-  -webkit-transform: translateX(-105%);
-          transform: translateX(-105%);
   -webkit-transform: translate3d(-105%, 0, 0);
           transform: translate3d(-105%, 0, 0);
   transition: -webkit-transform .3s;
@@ -32,11 +30,14 @@
   transition: transform .3s, -webkit-transform .3s;
   width: 90%;
   max-width: 400px; }
+  .offcanvas--slide-from-right .offcanvas__drawer {
+    left: auto;
+    right: 0;
+    -webkit-transform: translate3d(105%, 0, 0);
+            transform: translate3d(105%, 0, 0); }
   .offcanvas__drawer--visible {
-    -webkit-transform: translateX(0);
-            transform: translateX(0);
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0); }
+    -webkit-transform: translate3d(0, 0, 0) !important;
+            transform: translate3d(0, 0, 0) !important; }
 
 .offcanvas-navigation {
   position: relative;
