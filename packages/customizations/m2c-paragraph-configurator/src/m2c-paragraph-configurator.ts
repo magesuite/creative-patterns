@@ -114,15 +114,15 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 method: 'get',
                 url: `${ window.location.origin }/rest/all/V1/cmsBlock/${this.configuration.blockId}`,
             } ).then( ( response: any ): void => {
-
+                const responseData: any = JSON.parse( response.data );
                 // Hide loader
                 $( 'body' ).trigger( 'hideLoadingPopup' );
 
                 // Update components tempConfiguration
-                component.tempConfiguration.identifier = response.data.identifier;
-                component.tempConfiguration.title = response.data.title;
-                component.tempConfiguration.content = response.data.content;
-                component.configuration.title = response.data.title;
+                component.tempConfiguration.identifier = responseData.identifier;
+                component.tempConfiguration.title = responseData.title;
+                component.tempConfiguration.content = responseData.content;
+                component.configuration.title = responseData.title;
 
                 // initialize customized WYSIWYG
                 if ( component.wysiwygCfg ) {
@@ -172,7 +172,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
 
                 // If status is OK update component's configuration and run Save to save component data
                 if ( response.ok ) {
-                    const responseData: any = JSON.parse( JSON.stringify( response.data ) );
+                    const responseData: any = JSON.parse( response.data );
                     component.configuration.blockId = responseData.id;
                     component.configuration.title = responseData.title;
 

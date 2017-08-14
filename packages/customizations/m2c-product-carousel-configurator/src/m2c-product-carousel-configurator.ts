@@ -13,6 +13,21 @@ const m2cProductCarouselConfigurator: vuejs.ComponentOption = {
     ],
     template: '#m2c-product-carousel-form',
     props: {
+        configuration: {
+            type: Object,
+            default(): Object {
+                return {
+                    category_id: '',
+                    order_by: 'creation_date',
+                    order_type: 'DESC',
+                    limit: 20,
+                    skus: '',
+                    class_overrides: {
+                        dataProvider: '',
+                    },
+                };
+            },
+        },
         /* Obtain endpoint for getting categories data for category picker */
         categoriesDataUrl: {
             type: String,
@@ -23,6 +38,18 @@ const m2cProductCarouselConfigurator: vuejs.ComponentOption = {
         return {
             categoryPicker: undefined,
         };
+    },
+    events: {
+        /**
+         * Listen on save event from Content Configurator component.
+         */
+        'cc-component-configurator__save'(): void {
+            if ( this.configuration.class_overrides.dataProvider === '' ) {
+                delete this.configuration.class_overrides;
+            }
+
+            this.onSave();
+        },
     },
     ready(): void {
         const _this: any = this;
