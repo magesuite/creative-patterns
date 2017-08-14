@@ -181,7 +181,7 @@ var m2cParagraphConfigurator = {
                 method: 'get',
                 url: window.location.origin + "/rest/all/V1/cmsBlock/" + this.configuration.blockId,
             }).then(function (response) {
-                var responseData = JSON.parse(response.data);
+                var responseData = (typeof response.data === 'string') ? JSON.parse(response.data) : response.data;
                 // Hide loader
                 $('body').trigger('hideLoadingPopup');
                 // Update components tempConfiguration
@@ -233,7 +233,7 @@ var m2cParagraphConfigurator = {
             }).then(function (response) {
                 // If status is OK update component's configuration and run Save to save component data
                 if (response.ok) {
-                    var responseData = JSON.parse(response.data);
+                    var responseData = (typeof response.data === 'string') ? JSON.parse(response.data) : response.data;
                     component.configuration.blockId = responseData.id;
                     component.configuration.title = responseData.title;
                     // Hide loader
