@@ -480,6 +480,12 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
     ready(): void {
         const _this: any = this;
 
+        if ( !this.configuration.class_overrides ) {
+            this.configuration.class_overrides = {
+                dataProvider: '',
+            };
+        }
+
         // Show loader
         $( 'body' ).trigger( 'showLoadingPopup' );
 
