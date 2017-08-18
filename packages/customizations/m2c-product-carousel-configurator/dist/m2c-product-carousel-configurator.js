@@ -605,6 +605,11 @@ var m2cProductCarouselConfigurator = {
     },
     ready: function () {
         var _this = this;
+        if (!this.configuration.class_overrides) {
+            this.configuration.class_overrides = {
+                dataProvider: '',
+            };
+        }
         // Show loader
         $('body').trigger('showLoadingPopup');
         // Get categories JSON with AJAX
