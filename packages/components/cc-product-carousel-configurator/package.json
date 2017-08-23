@@ -1,8 +1,0 @@
-{
-    "name": "cc-product-carousel-configurator",
-    "version": "0.0.1",
-    "description": "Product carousel configurator for M2C admin panel",
-    "main": "src/cc-product-carousel-configurator.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

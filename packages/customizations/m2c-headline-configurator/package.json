@@ -1,8 +1,0 @@
-{
-    "name": "m-2-c-headline-configurator",
-    "version": "0.0.1",
-    "description": "Magento version of cc-headline-configurator",
-    "main": "src/m-2-c-headline-configurator.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

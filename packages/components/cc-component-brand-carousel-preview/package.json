@@ -1,8 +1,0 @@
-{
-    "name": "cc-component-brand-carousel-preview",
-    "version": "0.0.1",
-    "description": "This component is responsible for displaying preview of brand carousel in dashboard",
-    "main": "src/cc-component-brand-carousel-preview.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

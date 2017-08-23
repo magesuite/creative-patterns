@@ -1,1 +1,0 @@
-{"version":3,"file":null,"sources":["../../../src/tests/unit/cc-headline-configurator.ts"],"sourcesContent":["describe( 'CC Headline Configurator', function(): void {\n    xit( 'should have tests either implemented or removed if it has no scripts.');\n} );\n"],"names":[],"mappings":";;;AAAA,QAAQ,CAAE,0BAA0B,EAAE;IAClC,GAAG,CAAE,uEAAuE,CAAC,CAAC;CACjF,CAAE,CAAC;;"}

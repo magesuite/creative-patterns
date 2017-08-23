@@ -1,8 +1,0 @@
-{
-    "name": "cc-image-teaser-configurator",
-    "version": "0.0.1",
-    "description": "Configurator for image teaser component",
-    "main": "src/cc-image-teaser-configurator.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

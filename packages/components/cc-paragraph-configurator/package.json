@@ -1,8 +1,0 @@
-{
-    "name": "cc-paragraph-configurator",
-    "version": "0.0.1",
-    "description": "Paragraph component configurator for m2c constructor",
-    "main": "src/cc-paragraph-configurator.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

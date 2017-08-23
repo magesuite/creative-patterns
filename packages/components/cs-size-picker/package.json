@@ -1,8 +1,0 @@
-{
-    "name": "cs-size-picker",
-    "version": "0.0.1",
-    "description": "Size picker with hidden inputs for forms",
-    "main": "src/cs-size-picker.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

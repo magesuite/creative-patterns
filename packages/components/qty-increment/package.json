@@ -1,8 +1,0 @@
-{
-    "name": "qty-increment",
-    "version": "0.0.1",
-    "description": "This component allows to use +/- buttons to increment/decrement input boolean",
-    "main": "src/qty-increment.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

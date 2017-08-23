@@ -1,8 +1,0 @@
-{
-    "name": "brand-carousel",
-    "version": "0.0.1",
-    "description": "This component displays logos of the brands in carousel",
-    "main": "src/brand-carousel.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

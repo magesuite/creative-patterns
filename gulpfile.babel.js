@@ -42,26 +42,6 @@ gulp.task( 'lint', ( done ) => {
 } );
 
 /**
- *  Task for testing entire pattern library.
- */
-gulp.task( 'test', ( done ) => {
-    sequence(
-        'packages:build:unit',
-        'packages:test:unit',
-        done
-    );
-} );
-
-gulp.task( 'test:e2e', ( done ) => {
-    sequence(
-        'build',
-        'packages:build:e2e',
-        'packages:test:e2e',
-        done
-    );
-} );
-
-/**
  *  Task for serving files of the pattern library.
  */
 gulp.task( 'serve', ( done ) => {
@@ -80,7 +60,6 @@ gulp.task( 'pre-push', ( done ) => {
     sequence(
         'build',
         'lint',
-        'test',
         done
     );
 } );

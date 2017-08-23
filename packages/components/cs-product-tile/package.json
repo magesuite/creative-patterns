@@ -1,8 +1,0 @@
-{
-    "name": "cs-product-tile",
-    "version": "0.0.1",
-    "description": "Single product tile for home/category/sliders ",
-    "main": "src/cs-product-tile.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

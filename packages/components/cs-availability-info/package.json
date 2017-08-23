@@ -1,8 +1,0 @@
-{
-    "name": "cs-availability-info",
-    "version": "0.0.1",
-    "description": "Message with availability of product",
-    "main": "src/cs-availability-info.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

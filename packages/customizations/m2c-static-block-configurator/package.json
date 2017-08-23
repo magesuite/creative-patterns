@@ -1,8 +1,0 @@
-{
-    "name": "m-2-c-static-block-configurator",
-    "version": "0.0.1",
-    "description": "M2C implementation of cc-static-block-configurator",
-    "main": "src/m-2-c-static-block-configurator.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

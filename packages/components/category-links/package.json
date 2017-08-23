@@ -1,8 +1,0 @@
-{
-    "name": "category-links",
-    "version": "0.0.1",
-    "description": "Display main category and few subcategories",
-    "main": "src/category-links.ts",
-    "author": "Piotr Lohunko",
-    "license": "ISC"
-}

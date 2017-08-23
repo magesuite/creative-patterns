@@ -1,8 +1,0 @@
-{
-    "name": "cc-component-category-links-preview",
-    "version": "0.0.1",
-    "description": "This component is responsible for displaying category links in CC dashboard",
-    "main": "src/cc-component-category-links-preview.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

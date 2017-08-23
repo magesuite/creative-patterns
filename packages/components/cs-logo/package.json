@@ -1,8 +1,0 @@
-{
-    "name": "cs-logo",
-    "version": "0.0.1",
-    "description": "Main brand logo of the shop",
-    "main": "src/cs-logo.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

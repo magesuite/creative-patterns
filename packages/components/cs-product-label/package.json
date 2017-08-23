@@ -1,8 +1,0 @@
-{
-    "name": "cs-product-label",
-    "version": "0.0.1",
-    "description": "Label on the product tile, like BESTSELLER, PROMO",
-    "main": "src/cs-product-label.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

@@ -1,8 +1,0 @@
-{
-    "name": "cs-progress-bar",
-    "version": "0.0.1",
-    "description": "Progress bar ",
-    "main": "src/cs-progress-bar.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

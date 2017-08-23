@@ -1,8 +1,0 @@
-{
-    "name": "cc-product-carousel",
-    "version": "0.0.1",
-    "description": "Product carousel based on Hero script",
-    "main": "src/cc-product-carousel.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

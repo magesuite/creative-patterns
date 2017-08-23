@@ -1,8 +1,0 @@
-{
-    "name": "offcanvas-navigation",
-    "version": "0.0.1",
-    "description": "Navigation component that is meant to be used inside offcanvas component.",
-    "main": "src/offcanvas-navigation.ts",
-    "author": "Mateusz Krzeszowiak",
-    "license": "ISC"
-}

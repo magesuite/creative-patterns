@@ -1,8 +1,0 @@
-{
-    "name": "cc-component-paragraph-preview",
-    "version": "0.0.1",
-    "description": "This component is repsonsible for displaying preview of Paragraph component in M2C dashboard",
-    "main": "src/cc-component-paragraph-preview.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

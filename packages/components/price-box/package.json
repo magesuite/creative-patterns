@@ -1,8 +1,0 @@
-{
-    "name": "price-box",
-    "version": "0.0.1",
-    "description": "This component is responsible for styling prices by markup provided by Magento2",
-    "main": "src/price-box.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

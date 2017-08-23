@@ -1,8 +1,0 @@
-{
-    "name": "pp-headline",
-    "version": "0.0.1",
-    "description": "Sections headline for poppen",
-    "main": "src/pp-headline.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

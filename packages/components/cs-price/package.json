@@ -1,8 +1,0 @@
-{
-    "name": "cs-price",
-    "version": "0.0.1",
-    "description": "Price component with few versions",
-    "main": "src/cs-price.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

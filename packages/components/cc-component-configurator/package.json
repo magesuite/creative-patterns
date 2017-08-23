@@ -1,8 +1,0 @@
-{
-    "name": "cc-component-configurator",
-    "version": "0.0.1",
-    "description": "Base component configurator for other packages to extend.",
-    "main": "src/cc-component-configurator.ts",
-    "author": "Mateusz Krzeszowiak",
-    "license": "ISC"
-}

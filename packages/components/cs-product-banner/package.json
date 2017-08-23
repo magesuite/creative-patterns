@@ -1,8 +1,0 @@
-{
-    "name": "cs-product-banner",
-    "version": "0.0.1",
-    "description": "Product tile to inline use with other products, but with static image and CTA button",
-    "main": "src/cs-product-banner.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

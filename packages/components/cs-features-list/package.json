@@ -1,8 +1,0 @@
-{
-    "name": "cs-features-list",
-    "version": "0.0.1",
-    "description": "list with features with icons and description",
-    "main": "src/cs-features-list.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}
