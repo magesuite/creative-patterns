@@ -1,8 +1,0 @@
-{
-    "name": "{{ cDashCase name }}",
-    "version": "0.0.1",
-    "description": "{{ description }}",
-    "main": "src/{{ cDashCase name}}.ts",
-    "author": "{{ author }}",
-    "license": "ISC"
-}

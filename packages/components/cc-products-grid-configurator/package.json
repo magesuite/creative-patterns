@@ -1,8 +1,0 @@
-{
-    "name": "cc-products-grid-configurator",
-    "version": "0.0.1",
-    "description": "Configurator for products grid component.",
-    "main": "src/cc-products-grid-configurator.ts",
-    "author": "Piotr Lohunko",
-    "license": "ISC"
-}

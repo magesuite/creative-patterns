@@ -1,8 +1,0 @@
-{
-    "name": "cc-component-static-cms-block-preview",
-    "version": "0.0.1",
-    "description": "Preview of CMS block component for layout builder",
-    "main": "src/cc-component-static-cms-block-preview.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

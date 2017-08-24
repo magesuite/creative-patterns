@@ -35,11 +35,6 @@ module.exports = ( plop ) => {
                 name: 'description',
                 message: 'Could you give me a simple description of your new component?',
             },
-            {
-                type: 'input',
-                name: 'author',
-                message: 'And what is the author\'s full name?',
-            },
         ],
         actions: [
             ( answers ) => {
@@ -47,20 +42,12 @@ module.exports = ( plop ) => {
                 const newDashName = plop.renderString( '{{ cDashCase name }}', answers );
                 const componentPath = path.join( 'packages/components', newDashName );
                 fse.copySync( seedPath, componentPath );
-                fse.removeSync( path.join( componentPath, 'package.json' ) );
-                fse.removeSync( path.join( componentPath, 'config/main.js' ) );
                 fse.removeSync( path.join( componentPath, 'src/seed.ts' ) );
                 fse.removeSync( path.join( componentPath, 'src/seed.scss' ) );
                 fse.removeSync( path.join( componentPath, 'src/seed.twig' ) );
                 fse.removeSync( path.join( componentPath, 'src/demo/index.twig' ) );
-                fse.emptyDirSync( path.join( componentPath, 'src/tests' ) );
 
                 return 'Generating base package structure.';
-            },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'components/{{ cDashCase name }}/package.json' ),
-                templateFile: path.join( templatesDir, 'package/package.json' ),
             },
             ( answers ) => plop.renderString( 'Generator will add environment for scripts.\r\nIf you don\'t need them, just delete src/{{ cDashCase name }}.ts file and src/tests directory.', answers ),
             {
@@ -77,16 +64,6 @@ module.exports = ( plop ) => {
                 type: 'add',
                 path: path.join( packagesDir, 'components/{{ cDashCase name }}/src/{{ cDashCase name }}.twig' ),
                 templateFile: path.join( templatesDir, 'package/src/seed.twig' ),
-            },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'components/{{ cDashCase name }}/src/tests/unit/{{ cDashCase name }}.ts' ),
-                templateFile: path.join( templatesDir, 'package/src/tests/unit/seed.ts' ),
-            },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'components/{{ cDashCase name }}/src/tests/e2e/{{ cDashCase name }}.ts' ),
-                templateFile: path.join( templatesDir, 'package/src/tests/e2e/seed.ts' ),
             },
             {
                 type: 'add',
@@ -117,11 +94,6 @@ module.exports = ( plop ) => {
                 name: 'description',
                 message: 'Could you give me a simple description of your new utility?',
             },
-            {
-                type: 'input',
-                name: 'author',
-                message: 'And what is the author\'s full name?',
-            },
         ],
         // List of actions to take.
         // Here we "add" new files from our templates.
@@ -131,22 +103,14 @@ module.exports = ( plop ) => {
                 const newDashName = plop.renderString( '{{ cDashCase name }}', answers );
                 const packagesPath = path.join( 'packages/utilities', newDashName );
                 fse.copySync( seedPath, packagesPath );
-                fse.removeSync( path.join( packagesPath, 'package.json' ) );
-                fse.removeSync( path.join( packagesPath, 'config/main.js' ) );
                 fse.removeSync( path.join( packagesPath, 'src/seed.ts' ) );
                 fse.removeSync( path.join( packagesPath, 'src/seed.scss' ) );
                 fse.removeSync( path.join( packagesPath, 'src/seed.twig' ) );
                 fse.removeSync( path.join( packagesPath, 'src/demo/index.twig' ) );
-                fse.emptyDirSync( path.join( packagesPath, 'src/tests' ) );
 
                 return 'Generating base package structure.';
             },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'utilities/{{ cDashCase name }}/package.json' ),
-                templateFile: path.join( templatesDir, 'package/package.json' ),
-            },
-            ( answers ) => plop.renderString( 'Generator will add environment for scripts.\r\nIf you don\'t need them, just delete src/{{ cDashCase name }}.ts file and src/tests directory.', answers ),
+            ( answers ) => plop.renderString( 'Generator will add environment for scripts.\r\nIf you don\'t need them, just delete src/{{ cDashCase name }}.ts file.', answers ),
             {
                 type: 'add',
                 path: path.join( packagesDir, 'utilities/{{ cDashCase name }}/src/{{ cDashCase name }}.ts' ),
@@ -161,16 +125,6 @@ module.exports = ( plop ) => {
                 type: 'add',
                 path: path.join( packagesDir, 'utilities/{{ cDashCase name }}/src/{{ cDashCase name }}.twig' ),
                 templateFile: path.join( templatesDir, 'package/src/seed.twig' ),
-            },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'utilities/{{ cDashCase name }}/src/tests/unit/{{ cDashCase name }}.ts' ),
-                templateFile: path.join( templatesDir, 'package/src/tests/unit/seed.ts' ),
-            },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'utilities/{{ cDashCase name }}/src/tests/e2e/{{ cDashCase name }}.ts' ),
-                templateFile: path.join( templatesDir, 'package/src/tests/e2e/seed.ts' ),
             },
             {
                 type: 'add',
@@ -201,11 +155,6 @@ module.exports = ( plop ) => {
                 name: 'description',
                 message: 'Could you give me a simple description of your new customization?',
             },
-            {
-                type: 'input',
-                name: 'author',
-                message: 'And what is the author\'s full name?',
-            },
         ],
         // List of actions to take.
         // Here we "add" new files from our templates.
@@ -215,22 +164,15 @@ module.exports = ( plop ) => {
                 const newDashName = plop.renderString( '{{ cDashCase name }}', answers );
                 const packagesPath = path.join( 'packages/customizations', newDashName );
                 fse.copySync( seedPath, packagesPath );
-                fse.removeSync( path.join( packagesPath, 'package.json' ) );
                 fse.removeSync( path.join( packagesPath, 'config/main.js' ) );
                 fse.removeSync( path.join( packagesPath, 'src/seed.ts' ) );
                 fse.removeSync( path.join( packagesPath, 'src/seed.scss' ) );
                 fse.removeSync( path.join( packagesPath, 'src/seed.twig' ) );
                 fse.removeSync( path.join( packagesPath, 'src/demo/index.twig' ) );
-                fse.emptyDirSync( path.join( packagesPath, 'src/tests' ) );
 
                 return 'Generating base package structure.';
             },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'customizations/{{ cDashCase name }}/package.json' ),
-                templateFile: path.join( templatesDir, 'package/package.json' ),
-            },
-            ( answers ) => plop.renderString( 'Generator will add environment for scripts.\r\nIf you don\'t need them, just delete src/{{ cDashCase name }}.ts file and src/tests directory.', answers ),
+            ( answers ) => plop.renderString( 'Generator will add environment for scripts.\r\nIf you don\'t need them, just delete src/{{ cDashCase name }}.ts file.', answers ),
             {
                 type: 'add',
                 path: path.join( packagesDir, 'customizations/{{ cDashCase name }}/src/{{ cDashCase name }}.ts' ),
@@ -245,16 +187,6 @@ module.exports = ( plop ) => {
                 type: 'add',
                 path: path.join( packagesDir, 'customizations/{{ cDashCase name }}/src/{{ cDashCase name }}.twig' ),
                 templateFile: path.join( templatesDir, 'package/src/seed.twig' ),
-            },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'customizations/{{ cDashCase name }}/src/tests/unit/{{ cDashCase name }}.ts' ),
-                templateFile: path.join( templatesDir, 'package/src/tests/unit/seed.ts' ),
-            },
-            {
-                type: 'add',
-                path: path.join( packagesDir, 'customizations/{{ cDashCase name }}/src/tests/e2e/{{ cDashCase name }}.ts' ),
-                templateFile: path.join( templatesDir, 'package/src/tests/e2e/seed.ts' ),
             },
             {
                 type: 'add',

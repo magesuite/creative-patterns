@@ -1,8 +1,0 @@
-{
-    "name": "cs-toggler",
-    "version": "0.0.1",
-    "description": "Toggler class for generic hiding and showing elements",
-    "main": "src/cs-toggler.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

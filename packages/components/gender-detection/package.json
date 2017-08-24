@@ -1,8 +1,0 @@
-{
-    "name": "gender-detection",
-    "version": "0.0.1",
-    "description": "This component is responsible for gender detection with help of gender-api.com",
-    "main": "src/gender-detection.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

@@ -1,8 +1,0 @@
-{
-    "name": "pagination",
-    "version": "0.0.1",
-    "description": "Pagination component for moving between pages",
-    "main": "src/pagination.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

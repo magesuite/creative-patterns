@@ -1,8 +1,0 @@
-{
-    "name": "energy-efficiency",
-    "version": "0.0.1",
-    "description": "This component is responsible for display of energy efficien",
-    "main": "src/energy-efficiency.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

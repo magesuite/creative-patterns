@@ -1,1 +1,0 @@
-{"version":3,"file":null,"sources":["../../../src/tests/unit/sticky-block.ts"],"sourcesContent":["describe( 'sticky-block', function(): void {\n    xit( 'should have tests either implemented or removed if it has no scripts.');\n} );\n"],"names":[],"mappings":";;;AAAA,QAAQ,CAAE,cAAc,EAAE;IACtB,GAAG,CAAE,uEAAuE,CAAC,CAAC;CACjF,CAAE,CAAC;;"}

@@ -1,8 +1,0 @@
-{
-    "name": "grid-layout",
-    "version": "0.0.1",
-    "description": "This component is responsible for grid layout (metro-style) - dedicated for all kind of product grids with ads and teasers",
-    "main": "src/grid-layout.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

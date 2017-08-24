@@ -1,8 +1,0 @@
-{
-    "name": "items-grid-layout",
-    "version": "0.0.1",
-    "description": "Extended version of items-grid based on css grid layout + polyfill",
-    "main": "src/items-grid-layout.ts",
-    "author": "Piotr Lohunko",
-    "license": "ISC"
-}

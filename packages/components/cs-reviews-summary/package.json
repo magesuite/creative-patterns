@@ -1,8 +1,0 @@
-{
-    "name": "cs-reviews-summary",
-    "version": "0.0.1",
-    "description": "Contains summary of how many reviews are in each rating ",
-    "main": "src/cs-reviews-summary.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

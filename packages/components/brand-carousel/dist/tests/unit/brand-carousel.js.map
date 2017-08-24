@@ -1,1 +1,0 @@
-{"version":3,"file":null,"sources":["../../../src/tests/unit/brand-carousel.ts"],"sourcesContent":["describe( 'brand-carousel', function(): void {\n    xit( 'should have tests either implemented or removed if it has no scripts.');\n} );\n"],"names":[],"mappings":";;;AAAA,QAAQ,CAAE,gBAAgB,EAAE;IACxB,GAAG,CAAE,uEAAuE,CAAC,CAAC;CACjF,CAAE,CAAC;;"}

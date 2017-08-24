@@ -1,8 +1,0 @@
-{
-    "name": "config-poppen",
-    "version": "0.0.1",
-    "description": "temporary config variables for poppen",
-    "main": "src/config-poppen.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

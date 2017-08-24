@@ -1,1 +1,0 @@
-{"version":3,"file":null,"sources":["../../../src/tests/unit/m2c-hero-carousel-configurator.ts"],"sourcesContent":["describe( 'm2c-hero-carousel-configurator', function(): void {\n    xit( 'should have tests either implemented or removed if it has no scripts.');\n} );\n"],"names":[],"mappings":";;;AAAA,QAAQ,CAAE,gCAAgC,EAAE;IACxC,GAAG,CAAE,uEAAuE,CAAC,CAAC;CACjF,CAAE,CAAC;;"}

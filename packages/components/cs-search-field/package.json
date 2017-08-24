@@ -1,8 +1,0 @@
-{
-    "name": "cs-search-field",
-    "version": "0.0.1",
-    "description": "Component with search field with icon etc",
-    "main": "src/cs-search-field.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

@@ -1,8 +1,0 @@
-{
-    "name": "sticky-block",
-    "version": "0.0.1",
-    "description": "This component cann be sticky in the area of its parents size",
-    "main": "src/sticky-block.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

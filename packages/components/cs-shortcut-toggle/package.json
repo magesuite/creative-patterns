@@ -1,8 +1,0 @@
-{
-    "name": "cs-shortcut-toggle",
-    "version": "0.0.1",
-    "description": "Button with icon, label and possible badge, placed mostly in header. Like My account, basket, favorites",
-    "main": "src/cs-shortcut-toggle.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

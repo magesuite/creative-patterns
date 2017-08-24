@@ -1,8 +1,0 @@
-{
-    "name": "cs-input",
-    "version": "0.0.1",
-    "description": "All types of inputs used",
-    "main": "src/cs-input.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

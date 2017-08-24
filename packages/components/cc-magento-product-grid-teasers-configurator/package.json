@@ -1,8 +1,0 @@
-{
-    "name": "cc-magento-product-grid-teasers-configurator",
-    "version": "0.0.1",
-    "description": "This component will be responsible for configuration of image teasers inside native products grid on M2 category pages",
-    "main": "src/cc-magento-product-grid-teasers-configurator.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

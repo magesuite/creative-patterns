@@ -1,8 +1,0 @@
-{
-    "name": "image-teaser",
-    "version": "0.0.1",
-    "description": "This component is responsible for displaying all kind of image teasers (excluding hero) based on given configuration",
-    "main": "src/image-teaser.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

@@ -1,8 +1,0 @@
-{
-    "name": "cs-color-picker",
-    "version": "0.0.1",
-    "description": "Color picker similar to size picker, but with inline background and styles",
-    "main": "src/cs-color-picker.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

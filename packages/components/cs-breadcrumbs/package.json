@@ -1,8 +1,0 @@
-{
-    "name": "cs-breadcrumbs",
-    "version": "0.0.1",
-    "description": "breadcrumbs component incl links",
-    "main": "src/cs-breadcrumbs.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

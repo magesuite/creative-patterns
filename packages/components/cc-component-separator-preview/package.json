@@ -1,8 +1,0 @@
-{
-    "name": "cc-component-separator-preview",
-    "version": "0.0.1",
-    "description": "This component is responsible for displaying preview of separator in M2C dashboard in admin panel",
-    "main": "src/cc-component-separator-preview.ts",
-    "author": "Maciej Borkowski",
-    "license": "ISC"
-}

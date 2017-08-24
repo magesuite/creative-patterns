@@ -1,8 +1,0 @@
-{
-    "name": "cs-footer",
-    "version": "0.0.1",
-    "description": "Basic footer ",
-    "main": "src/cs-footer.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

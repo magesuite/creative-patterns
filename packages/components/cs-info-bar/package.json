@@ -1,8 +1,0 @@
-{
-    "name": "info-bar",
-    "version": "0.0.1",
-    "description": "Wide bar with few information blocks on the top of the page",
-    "main": "src/info-bar.ts",
-    "author": "Lukasz Ostrowski",
-    "license": "ISC"
-}

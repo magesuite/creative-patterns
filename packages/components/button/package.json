@@ -1,8 +1,0 @@
-{
-    "name": "button",
-    "version": "0.0.1",
-    "description": "This component is responsible for displaying button from cc-button-configurator",
-    "main": "src/button.ts",
-    "author": "Piotr Lohunko",
-    "license": "ISC"
-}

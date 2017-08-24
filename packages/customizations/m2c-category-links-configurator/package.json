@@ -1,8 +1,0 @@
-{
-    "name": "m2c-category-links-configurator",
-    "version": "0.0.1",
-    "description": "Magento version of cc-category-links-configurator",
-    "main": "src/m2c-category-links-configurator.ts",
-    "author": "Piotr Lohunko",
-    "license": "ISC"
-}
