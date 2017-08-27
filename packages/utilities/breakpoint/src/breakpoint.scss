@@ -18,7 +18,7 @@ $breakpoints: (
     tv: 120em         // 1920px
 ) !default;
 
-@import '../../../../node_modules/include-media/dist/include-media';
+@import 'include-media/dist/include-media';
 
 /**
  * These atom is responsible for setting aprropriate :before and :after content to body
