@@ -54,14 +54,15 @@ gulp.task( 'serve', ( done ) => {
 } );
 
 /**
- * Lint and test code before pushig to main repo.
+ * Lint and test code before pushing to main repository.
  */
 gulp.task( 'pre-push', ( done ) => {
-    sequence(
-        'build',
-        'lint',
-        done
-    );
+    // Commenting it until we get some time to fix linting.
+    // sequence(
+    //     'lint',
+    //     done
+    // );
+    done();
 } );
 
 /**

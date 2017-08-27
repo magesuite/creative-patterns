@@ -35,6 +35,10 @@ export default {
             sass: {
                 precision: 10,
                 errLogToConsole: true,
+                includePaths: [
+                    path.resolve( 'src' ),
+                    path.resolve( 'node_modules' ),
+                ],
             },
         };
     },

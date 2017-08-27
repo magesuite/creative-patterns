@@ -74,7 +74,9 @@ export default {
                 dest: path.join( packageDir, 'dist', packageName + '.js' ),
                 format: 'umd',
                 moduleName: packageNameCamelCase,
-                moduleId: packageNameCamelCase,
+                amd: {
+                    id: packageNameCamelCase,
+                },
                 globals: {
                     'jQuery': 'jQuery',
                     'jquery': 'jQuery',
