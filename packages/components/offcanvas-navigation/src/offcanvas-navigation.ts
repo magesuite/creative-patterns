@@ -7,6 +7,8 @@ import Offcanvas from '../../offcanvas/src/offcanvas';
 export interface OffcanvasNavigationOptions {
     className?: string;
     contentSetter?: ( offcanvasNavigation: OffcanvasNavigation ) => void;
+    showCategoryIcon?: boolean;
+    showProductsCount?: boolean;
 };
 /**
  * Offcanvas navigation component responsible for multilevel offcanvas navigation menu.
@@ -16,12 +18,13 @@ export default class OffcanvasNavigation {
     protected _$parentLink: JQuery;
     protected _$returnLink: JQuery;
 
-    protected _options: OffcanvasNavigationOptions;
     protected _eventListeners: {
         offcanvasHide?: ( event: Event, offcanvas: Offcanvas ) => void;
         parentLinkClick?: ( event: Event ) => void;
         returnLinkClick?: ( event: Event ) => void;
     } = {};
+
+    public _options: OffcanvasNavigationOptions;
 
     /**
      * Creates offcanvas navigation with optional given element and options.
@@ -32,6 +35,8 @@ export default class OffcanvasNavigation {
         this._options = $.extend( {
             className: 'offcanvas-navigation',
             contentSetter: null,
+            showCategoryIcon: false,
+            showProductsCount: false,
         }, options );
 
         this._$element = $element || $( `.${this._options.className}` );
