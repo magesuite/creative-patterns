@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+import breakpoint from '../../../utilities/breakpoint/src/breakpoint';
+
 /**
  * Navigation component options interface.
  */
@@ -73,6 +75,16 @@ interface NavigationOptions {
      * @type {boolean}
      */
     roundTransformLeft?: boolean;
+    /**
+     * Tells if overlay (menu type - only on page content) should be shown along with flyout
+     * @type {boolean}
+     */
+    showNavigationOverlay?: boolean;
+    /**
+     * if showNavigationOverlay is set to TRUE, overlay will be shown on the content and all elements under it
+     * @type {string}
+     */
+    contentSelector?: string;
 };
 
 /**
@@ -91,6 +103,7 @@ export default class Navigation {
         focusOutListener?: ( event: Event ) => void;
         itemMouseenterListener?: ( event: Event ) => void;
         itemMouseleaveListener?: ( event: Event ) => void;
+        navigationMouseleaveListener?: ( event: Event ) => void;
     } = {};
     protected _resizeTimeout: number;
     protected _showTimeout: number;
@@ -108,6 +121,8 @@ export default class Navigation {
         flyoutAlignTo: 'center',
         flyoutAlignSwitch: 0,
         roundTransformLeft: true,
+        showNavigationOverlay: false,
+        contentSelector: '#maincontent',
     };
 
     /**
@@ -148,6 +163,7 @@ export default class Navigation {
 
         $flyouts.each(( index: number, flyout: HTMLElement ) => this._adjustFlyoutColumns( $( flyout ) ));
         this._hideFlyout( $flyouts );
+        this._hideOverlay();
 
         this._triggerReflow( $flyouts );
         /**
@@ -168,6 +184,7 @@ export default class Navigation {
                 this._adjustFlyoutPosition( $( flyout ), alignTo );
             } );
             this._hideFlyout( $flyouts );
+            this._hideOverlay();
         });
     }
 
@@ -289,12 +306,50 @@ export default class Navigation {
     }
 
     /**
+     * Calculates overlay position and shows it.
+     */
+    protected _showOverlay(): void {
+        if ( $( this._options.contentSelector ).length ) {
+            const overlayPosition: number = $( this._options.contentSelector ).offset().top;
+            const overlayHeight: number = $( document ).height() - overlayPosition;
+            let $overlay: any = $( '.cs-navigation__overlay' );
+
+            if ( !$overlay.length ) {
+                $( 'body' ).append( '<div class="cs-navigation__overlay"></div>' );
+                $overlay = $( '.cs-navigation__overlay' );
+            }
+
+            $overlay.css( {
+                height: overlayHeight,
+                top: overlayPosition,
+            } ).addClass( 'cs-navigation__overlay--visible' );
+        }
+    }
+
+    /**
+     * Hides overlay
+     */
+    protected _hideOverlay(): void {
+        const $overlay: any = $( '.cs-navigation__overlay' );
+
+        if ( $overlay.length ) {
+            $overlay.css( {
+                height: '',
+                top: '',
+            } ).removeClass( 'cs-navigation__overlay--visible' );
+        }
+    }
+
+    /**
      * Makes given flyout visible by applying appropriate class.
      * @param {JQuery} $flyout Target flyout to set class to.
      */
     protected _showFlyout( $flyout: JQuery ): void {
         $flyout.parent( `.${this._options.itemClassName}` ).addClass( `${this._options.itemClassName}--active` );
         $flyout.addClass( this._options.flyoutVisibleClassName );
+        if ( $flyout.length && this._options.showNavigationOverlay && breakpoint.current >= breakpoint.tablet ) {
+            this._showOverlay();
+        }
     }
 
     /**
@@ -364,11 +419,13 @@ export default class Navigation {
         };
 
         this._eventListeners.itemMouseenterListener = ( event: Event ): void => {
-            this._showFlyoutDelay(
-                $( event.target )
-                    .closest( `.${this._options.itemClassName}` )
-                    .find( `.${ this._options.flyoutClassName }` ),
-            );
+            const $target: any = $( event.target ).closest( `.${this._options.itemClassName}` ).find( `.${ this._options.flyoutClassName }` );
+
+            this._showFlyoutDelay( $target );
+
+            if ( !$target.length ) {
+                this._hideOverlay();
+            }
         };
 
         this._eventListeners.itemMouseleaveListener = ( event: Event ): void => {
@@ -380,10 +437,15 @@ export default class Navigation {
             );
         };
 
+        this._eventListeners.navigationMouseleaveListener = ( event: Event ): void => {
+            this._hideOverlay();
+        };
+
         const $items: JQuery = $( `.${this._options.itemClassName}` );
         $items.on( 'focusin', this._eventListeners.itemFocusInListener );
         $items.on( 'mouseenter', this._eventListeners.itemMouseenterListener );
         $items.on( 'mouseleave', this._eventListeners.itemMouseleaveListener );
+        this._$element.on( 'mouseleave', this._eventListeners.navigationMouseleaveListener );
         this._$flyouts.on( 'focusin', this._eventListeners.flyoutFocusInListener );
         // When the last link from flyout loses focus.
         $items.find( 'a:last' ).on( 'focusout', this._eventListeners.focusOutListener );
@@ -399,6 +461,7 @@ export default class Navigation {
         $items.off( 'mouseenter', this._eventListeners.itemMouseenterListener );
         $items.off( 'mouseleave', this._eventListeners.itemMouseleaveListener );
         $items.off( 'focusin', this._eventListeners.itemFocusInListener );
+        this._$element.off( 'mouseleave', this._eventListeners.navigationMouseleaveListener );
         this._$flyouts.off( 'focusin', this._eventListeners.flyoutFocusInListener );
         // When the last link from flyout loses focus.
         $items.find( 'a:last' ).off( 'focusout', this._eventListeners.focusOutListener );
