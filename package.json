@@ -1,6 +1,6 @@
 {
   "name": "creative-patterns",
-  "version": "1.2.1",
+  "version": "1.3.1",
   "description": "Pattern library developed and maintained by cool people at creativestyle.",
   "scripts": {
     "build": "gulp build",

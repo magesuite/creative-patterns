@@ -1,15 +1,15 @@
 <nav class="{{ namespace }}navigation">
     <ul class="{{ namespace }}navigation__list">
         {% for item in items %}
-            <li class=" {{ namespace }}navigation__item">
-                <a href="{% if item.category_custom_url %}{{ item.category_custom_url }}{% else %}{{ item.url }}{% endif %}" class="{{ namespace }}navigation__link{% if showCategoryIconRoot and item.category_icon is defined and item.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
+            <li class=" {{ namespace }}navigation__item{% if item.category_custom_url is not null %} {{ namespace }}navigation__item--custom{% endif %}">
+                <a href="{% if item.category_custom_url is not null %}{{ item.category_custom_url }}{% else %}{{ item.url }}{% endif %}" class="{{ namespace }}navigation__link{% if showCategoryIconRoot and item.category_icon is defined and item.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
                     {% if showCategoryIconRoot and item.category_icon is defined and item.category_icon|length %}
                         <span class="{{ namespace }}navigation__link-icon-wrapper {{ namespace }}navigation__link-icon-wrapper--root">
                             <img src="{{ item.category_icon }}" alt="{{ item.label }}" class="{{ namespace }}navigation__link-icon">
                         </span>
                     {% endif %}
                     {{ item.label }}
-                    {% if showProductsAmountRoot %}
+                    {% if showProductsAmountRoot and item.category_custom_url is null %}
                         <span class="{{ namespace }}navigation__products-qty">{{ item.number_of_products }}</span>
                     {% endif %}
                 </a>
@@ -18,29 +18,29 @@
 
                         <div class="{{ namespace }}navigation__categories">
                             {% for category in item.subcategories %}
-                                <div class="{{ namespace }}navigation__category">
-                                    <a href="{{ category.url }}" class="{{ namespace }}navigation__link {{ namespace }}navigation__link--category{% if showCategoryIconSubcats and category.category_icon is defined and category.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
+                                <div class="{{ namespace }}navigation__category{% if category.category_custom_url is not null %} {{ namespace }}navigation__category--custom{% endif %}">
+                                    <a href="{% if category.category_custom_url is not null %}{{ category.category_custom_url }}{% else %}{{ category.url }}{% endif %}" class="{{ namespace }}navigation__link {{ namespace }}navigation__link--category{% if showCategoryIconSubcats and category.category_icon is defined and category.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
                                         {% if showCategoryIconSubcats and category.category_icon is defined and category.category_icon|length %}
                                             <span class="{{ namespace }}navigation__link-icon-wrapper">
                                                 <img src="{{ category.category_icon }}" alt="{{ category.label }}" class="{{ namespace }}navigation__link-icon">
                                             </span>
                                         {% endif %}
                                         {{ category.label }} 
-                                        {% if showProductsAmountSubcats %}
+                                        {% if showProductsAmountSubcats and category.category_custom_url is null %}
                                             <span class="{{ namespace }}navigation__link-products-qty">{{ category.number_of_products }}</span>
                                         {% endif %}
                                     </a>
                                     <ul class="{{ namespace }}navigation__subcategories">
                                         {% for subcategory in category.subcategories %}
-                                            <li class="{{ namespace }}navigation__subcategory">
-                                                <a href="{{ subcategory.url }}" class="{{ namespace }}navigation__link {{ namespace }}navigation__link--subcategory{% if showCategoryIconSubcats and subcategory.category_icon is defined and subcategory.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
+                                            <li class="{{ namespace }}navigation__subcategory{% if subcategory.category_custom_url is not null %} {{ namespace }}navigation__subcategory--custom{% endif %}">
+                                                <a href="{% if subcategory.category_custom_url is not null %}{{ subcategory.category_custom_url }}{% else %}{{ subcategory.url }}{% endif %}" class="{{ namespace }}navigation__link {{ namespace }}navigation__link--subcategory{% if showCategoryIconSubcats and subcategory.category_icon is defined and subcategory.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
                                                     {% if showCategoryIconSubcats and subcategory.category_icon is defined and subcategory.category_icon|length %}
                                                         <span class="{{ namespace }}navigation__link-icon-wrapper">
                                                             <img src="{{ subcategory.category_icon }}" alt="{{ subcategory.label }}" class="{{ namespace }}navigation__link-icon">
                                                         </span>
                                                     {% endif %}
                                                     {{ subcategory.label }} 
-                                                    {% if showProductsAmountSubcats %}
+                                                    {% if showProductsAmountSubcats and subcategory.category_custom_url is null %}
                                                         <span class="{{ namespace }}navigation__link-products-qty">{{ subcategory.number_of_products }}</span>
                                                     {% endif %}
                                                 </a>
