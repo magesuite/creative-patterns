@@ -95,7 +95,9 @@ export default class BrandCarousel {
             return this._options.slidesPerView;
         } else {
             for ( let i: number = 0; i < this._breakpointsArray.length; i++ ) {
-                if ( this._breakpointsArray[ i ] >= wWidth && this._breakpointsArray[ i ] < next ) {
+                const currentBreakpoint: number = parseInt( this._breakpointsArray[ i ], 10 );
+
+                if ( currentBreakpoint >= wWidth && currentBreakpoint < next ) {
                     next = this._breakpointsArray[ i ];
                 }
             }
