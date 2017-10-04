@@ -21,13 +21,18 @@
                         {% endif %}
 
                         {% if item.image.src %}
+                            {% set imgSrc = item.image.src %}
+                            {% set isSvg = imgSrc|split('.')|last == 'svg' %}
+                            {% if isSvg == false %}
+                                {% set imgSrc = isSlider and isSliderMobile ? '' : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' %}
+                            {% endif %}
                             <figure class="{{ namespace }}image-teaser__figure">
                                 <img
                                     class="{{ namespace }}image-teaser__image | {{ isSlider and isSliderMobile ? 'swiper-lazy' : 'lazyload' }}"
-                                    src="{{ isSlider and isSliderMobile ? '' : 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=' }}"
-                                    data-src="{{ item.image.src }}"
-                                    {% if item.image.srcSet %}data-srcset="{{ item.image.srcSet }}"{% endif %}
-                                    {% if sizes %}sizes="{{ sizes }}"{% endif %}
+                                    src="{{ imgSrc }}"
+                                    {% if isSvg == false %} data-src="{{ item.image.src }}" {% endif %}
+                                    {% if item.image.srcSet and isSvg == false %}data-srcset="{{ item.image.srcSet }}"{% endif %}
+                                    {% if sizes and isSvg == false %}sizes="{{ sizes }}"{% endif %}
                                     alt="{% if item.image.alt %}{{ item.image.alt }}
                                          {% elseif item.headline %}{{ item.headline|raw  }}
                                          {% elseif item.subheadline %}{{ item.subheadline|raw  }}
