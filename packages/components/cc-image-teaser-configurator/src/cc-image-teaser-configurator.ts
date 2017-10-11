@@ -256,8 +256,6 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
                 ['w', '4', 'over', ['2-2', 'slider', '1-2-1']],
                 ['w', '4', 'under', ['col']],
 
-                ['w-s', '1', 'over', ['slider']],
-
                 ['w-s', '2', 'over', ['slider']],
                 ['w-s', '2', 'under', ['slider']],
 
@@ -277,6 +275,8 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
 
                 ['c-s', '4', 'over', ['slider']],
                 ['c-s', '4', 'under', ['slider']],
+
+                ['c-s', '6', 'under', ['slider']],
             ],
         };
     },
