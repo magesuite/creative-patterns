@@ -138,7 +138,9 @@ export default class Navigation {
         this._$element = $element;
         this._options = $.extend( this._options, options );
         this._$flyouts = $element.find( `.${this._options.flyoutClassName}` );
-        this._$container = $element.find( `.${this._options.containerClassName}` );
+        this._$container = $element
+            .find( `.${this._options.containerClassName}` )
+            .addBack(`.${this._options.containerClassName}`); // Allow navigation partent to be container itself.
         this._containerClientRect = this._$container.get( 0 ).getBoundingClientRect();
 
         this._adjustFlyouts( this._$flyouts );
