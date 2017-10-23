@@ -169,6 +169,12 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
                         disabled: false,
                         teasersNum: 6,
                     },
+                    '8': {
+                        name: '8 in row',
+                        iconId: 'dl_8',
+                        disabled: false,
+                        teasersNum: 8,
+                    },
                 },
                 // Text positioning scenario elements.
                 textPositioning: {
@@ -244,6 +250,7 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
 
                 ['c', '6', 'over', ['2-2-2', 'slider']],
                 ['c', '6', 'under', ['2-2-2', 'slider']],
+                ['c', '8', 'under', ['slider']],
 
                 ['w', '1', 'over', ['large']],
 
@@ -277,6 +284,8 @@ const ccImageTeaserConfigurator: vuejs.ComponentOption = {
                 ['c-s', '4', 'under', ['slider']],
 
                 ['c-s', '6', 'under', ['slider']],
+
+                ['c-s', '8', 'under', ['slider']],
             ],
         };
     },
