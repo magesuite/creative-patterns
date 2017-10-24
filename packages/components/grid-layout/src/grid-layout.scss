@@ -267,6 +267,10 @@
             @include media( '>=tv' ) {
                 grid-template-columns: repeat( #{ map-get( $bricksPerRow, tv ) }, 1fr );
             }
+
+            &:after {
+                display: none !important;
+            }
         }
 
         &__brick {
