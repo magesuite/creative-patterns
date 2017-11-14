@@ -3,14 +3,10 @@
 @mixin imageTeaser() {
     $root: &;
 
-    &:not( #{$root}--slider ) {
+    &:not(#{$root}--slider) {
         #{$root}__nav,
         #{$root}__pagination {
             display: none;
-        }
-
-        #{$root}__carousel {
-            margin: 0 -.25em;
         }
 
         #{$root}__slides {
@@ -19,11 +15,11 @@
             list-style: none;
             display: flex;
             flex-wrap: wrap;
+            justify-content: space-between;
         }
 
         #{$root}__slide {
-            width: calc( 100% - .5em );
-            margin: .25em;
+            width: 100%;
         }
 
         #{$root}__figure {
@@ -63,7 +59,7 @@
 
         #{$root}__wrapper--content-display-outside & {
             width: 100%;
-            padding: 1em .65em;
+            padding: 1em 0.65em;
             background-color: #f1f1f1;
             text-align: center;
         }
@@ -83,7 +79,7 @@
                 #{$root}--items-in-row-3.#{$root}--slider,
                 #{$root}--items-in-row-4.#{$root}--slider,
                 #{$root}--items-in-row-5.#{$root}--slider,
-                #{$root}--items-in-row-6.#{$root}--slider, {
+                #{$root}--items-in-row-6.#{$root}--slider {
                     width: 80%;
                 }
             }
@@ -93,12 +89,10 @@
                 #{$root}--items-in-row-3.#{$root}--slider,
                 #{$root}--items-in-row-4.#{$root}--slider,
                 #{$root}--items-in-row-5.#{$root}--slider,
-                #{$root}--items-in-row-6.#{$root}--slider, {
+                #{$root}--items-in-row-6.#{$root}--slider {
                     width: 70%;
                 }
             }
-
-
         }
 
         &--content-display-scenario-1 {
@@ -112,7 +106,8 @@
             #{$root}__wrapper--content-display-inside & {
                 align-items: flex-end;
                 text-align: left;
-                @include media( '>=tablet' ) { //There is so small image in this scenario on medium screen
+                @include media( '>=tablet' ) {
+                    //There is so small image in this scenario on medium screen
                     align-items: center;
                 }
                 @include media( '>=laptop-lg' ) {
@@ -124,7 +119,7 @@
         &--content-display-scenario-3 {
             #{$root}__wrapper--content-display-inside & {
                 left: 50%;
-                transform: translateX( -50% );
+                transform: translateX(-50%);
                 justify-content: center;
                 align-items: center;
             }
@@ -133,11 +128,12 @@
         &--content-display-scenario-4 {
             #{$root}__wrapper--content-display-inside & {
                 left: 50%;
-                transform: translateX( -50% );
+                transform: translateX(-50%);
                 justify-content: center;
                 align-items: flex-end;
 
-                @include media( '>=tablet' ) {//There is so small image in this scenario on medium screen
+                @include media( '>=tablet' ) {
+                    //There is so small image in this scenario on medium screen
                     align-items: center;
                 }
                 @include media( '>=laptop-lg' ) {
@@ -168,7 +164,6 @@
         }
 
         @include media( '>=tablet' ) {
-
             #{$root}--items-in-row-1 & {
                 font-size: 4vw;
             }
@@ -203,12 +198,11 @@
         }
 
         @include media( '>=laptop' ) {
-
             #{$root}--items-in-row-1 & {
                 font-size: 3.5vw;
             }
 
-            #{$root}--items-in-row-2  & {
+            #{$root}--items-in-row-2 & {
                 font-size: 2.35vw;
             }
 
@@ -229,7 +223,6 @@
         }
 
         @include media( '>=laptop-lg' ) {
-
             #{$root}--items-in-row-1 & {
                 font-size: 4.65rem;
             }
@@ -270,9 +263,8 @@
             }
         }
 
-
         + #{$root}__subheadline {
-            margin: .25em 0 0;
+            margin: 0.25em 0 0;
         }
     }
 
@@ -291,7 +283,6 @@
         }
 
         @include media( '>=tablet' ) {
-
             #{$root}--items-in-row-1 & {
                 font-size: 2.55vw;
             }
@@ -326,7 +317,6 @@
         }
 
         @include media( '>=laptop' ) {
-
             #{$root}--items-in-row-1 & {
                 font-size: 2.25vw;
             }
@@ -353,7 +343,6 @@
         }
 
         @include media( '>=laptop-lg' ) {
-
             #{$root}--items-in-row-1 & {
                 font-size: 2.85rem;
             }
@@ -379,14 +368,17 @@
                 font-size: 1.2rem;
             }
 
-            #{$root}--items-in-row-6 #{$root}__wrapper--content-display-outside & {
+            #{$root}--items-in-row-6
+                #{$root}__wrapper--content-display-outside
+                & {
                 font-size: 1.6rem;
             }
 
-            #{$root}--items-in-row-8 #{$root}__wrapper--content-display-outside & {
+            #{$root}--items-in-row-8
+                #{$root}__wrapper--content-display-outside
+                & {
                 font-size: 1.5rem;
             }
-
         }
 
         //In scenario with 2 images in row on mobile below styles overwrite all above font-sizes
@@ -418,80 +410,96 @@
                 display: block;
             }
         }
-
-
     }
 
     &__cta {
         display: none;
         @include media( '>=tablet' ) {
             display: block;
-            margin-top: .7rem;
+            margin-top: 0.7rem;
 
-            #{$root}--items-in-row-2:not( #{$root}--slider ) & {
+            #{$root}--items-in-row-2:not(#{$root}--slider) & {
                 padding: 1em 2.5em;
             }
 
-            #{$root}--items-in-row-3 #{$root}__wrapper--content-display-inside &,
-            #{$root}--items-in-row-4 #{$root}__wrapper--content-display-inside &,
-            #{$root}--items-in-row-6 #{$root}__wrapper--content-display-inside & {
+            #{$root}--items-in-row-3
+                #{$root}__wrapper--content-display-inside
+                &,
+            #{$root}--items-in-row-4
+                #{$root}__wrapper--content-display-inside
+                &,
+            #{$root}--items-in-row-6
+                #{$root}__wrapper--content-display-inside
+                & {
                 display: none;
             }
-
         }
 
         @include media( '>=laptop' ) {
-            #{$root}--items-in-row-3:not( #{$root}--slider ) #{$root}__wrapper--content-display-inside & {
+            #{$root}--items-in-row-3:not(#{$root}--slider)
+                #{$root}__wrapper--content-display-inside
+                & {
                 display: block;
             }
 
-            #{$root}--items-in-row-6:not( #{$root}--slider ) & {
-                padding: .65em 1.25em;
+            #{$root}--items-in-row-6:not(#{$root}--slider) & {
+                padding: 0.65em 1.25em;
             }
         }
     }
 
     &--items-in-row-mobile-2 {
-        &:not( #{$root}--slider ) {
+        &:not(#{$root}--slider) {
             #{$root}__slide {
-                width: calc( 50% - .5em );
-                margin: .25em;
+                width: calc(50% - 0.25em);
                 text-align: center;
             }
         }
     }
 
     &--mobile-cfg-big-small-small {
-        &:not( #{$root}--slider ) {
-            #{$root}__slide:first-child {
-                width: calc( 100% - .5em );
-                line-height: 1;
+        &:not(#{$root}--slider) {
+            #{$root}__slide {
+                width: calc(
+                    50% - 0.25em
+                ); // Small slides should be half width minus gap.
 
-                #{$root}__image {
-                    width: 100%;
-                    vertical-align: bottom;
+                &:first-child {
+                    line-height: 1;
+                    width: 100%; // Big slide should be full width.
+
+                    #{$root}__image {
+                        width: 100%;
+                        vertical-align: bottom;
+                    }
                 }
             }
         }
     }
 
     &--mobile-cfg-big-small-small-big {
-        &:not( #{$root}--slider ) {
-            #{$root}__slide:first-child,
-            #{$root}__slide:last-child {
-                width: calc( 100% - .5em );
-                line-height: 1;
+        &:not(#{$root}--slider) {
+            #{$root}__slide {
+                width: calc(
+                    50% - 0.25em
+                ); // Small slides should be half width minus gap.
 
-                #{$root}__image {
-                    width: 100%;
-                    vertical-align: bottom;
+                &:first-child,
+                &:last-child {
+                    line-height: 1;
+                    width: 100%; // Big slides should be full width.
+
+                    #{$root}__image {
+                        width: 100%;
+                        vertical-align: bottom;
+                    }
                 }
             }
         }
     }
 
     &--full-width {
-        margin: 0 calc( ( ( 100vw - 100% ) / 2 ) * -1 );
+        margin: 0 calc( ( (100vw - 100%) / 2) * -1);
     }
 
     @include media( '>=tablet' ) {
@@ -499,69 +507,68 @@
         &--items-in-row-3,
         &--items-in-row-4,
         &--items-in-row-5,
-        &--items-in-row-6 {
-            &:not( #{$root}--slider ) {
+        &--items-in-row-6,
+        &--items-in-row-8 {
+            &:not(#{$root}--slider) {
                 #{$root}__slide {
-                    width: calc( 50% - .5em );
-                    margin: .25em;
                     text-align: center;
                 }
             }
         }
 
         &--items-in-row-2 {
-            &:not( #{$root}--slider ) {
+            &:not(#{$root}--slider) {
                 #{$root}__slide {
-                    width: calc( 50% - .5em );
+                    width: calc(50% - 0.25em);
                 }
             }
         }
 
         &--items-in-row-3 {
-            &:not( #{$root}--slider ) {
+            &:not(#{$root}--slider) {
                 #{$root}__slide {
-                    width: calc( 100% / 3 - .5em );
+                    width: calc(100% / 3 - 0.3333em);
                 }
             }
         }
 
         &--items-in-row-4 {
-            &:not( #{$root}--slider ) {
+            &:not(#{$root}--slider) {
                 #{$root}__slide {
-                    width: calc( 100% / 4 - .5em );
+                    width: calc(100% / 4 - 0.375em);
                 }
             }
         }
 
         &--items-in-row-6 {
-            &:not( #{$root}--slider ) {
+            &:not(#{$root}--slider) {
                 #{$root}__slide {
-                    width: calc( 100% / 6 - .5em );
+                    width: calc(100% / 6 - 0.8333em);
                 }
             }
         }
 
         &--items-in-row-8 {
-            &:not( #{$root}--slider ) {
+            &:not(#{$root}--slider) {
                 #{$root}__slide {
-                    width: calc( 100% / 8 - .5em );
+                    width: calc(100% / 8 - 0.875em);
                 }
             }
         }
 
         &--mobile-cfg-big-small-small {
-            &:not( #{$root}--slider ) {
+            &:not(#{$root}--slider) {
                 #{$root}__slide:first-child {
-                    width: calc( 100% / 3 - .5em );
+                    width: calc(100% / 3 - 0.3333em);
                 }
             }
         }
 
         &--mobile-cfg-big-small-small-big {
-            &:not( #{$root}--slider ) {
+            &:not(#{$root}--slider) {
                 #{$root}__slide:first-child,
                 #{$root}__slide:last-child {
-                    width: calc( 100% / 4 - .5em );
+                    width: calc(100% / 4 - 0.5em);
                 }
             }
         }
