@@ -27,7 +27,6 @@ $breakpoints: (
  */
 body {
     /* stylelint-disable string-no-newline */
-    &.checkout-onepage-success:before,
     &:before {
         // Keys will be converted from dash-case to camelCase in JS object.
         content: '{
@@ -43,7 +42,6 @@ body {
     }
     /* stylelint-enable */
 
-    &.checkout-onepage-success:after,
     &:after {
         content: '370';
         display: none;
