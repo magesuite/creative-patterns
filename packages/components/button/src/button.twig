@@ -1,13 +1,23 @@
-<a href="{{ target }}" class="{{ namespace }}button {{ mix }}">
-    {{ label }}
+{% set visibilityClass = '' %}
+{% if componentVisibility and componentVisibility.mobile == false %}
+    {% set visibilityClass = namespace ~ 'display-controller--hidden-mobile ' %}
+{% endif %}
+{% if componentVisibility and componentVisibility.desktop == false %}
+    {% set visibilityClass = visibilityClass ~ namespace ~ 'display-controller--hidden-desktop ' %}
+{% endif %}
 
-    {% if number_of_products is not empty %}
-    <span class="{{ namespace }}button__span">{{ number_of_products }}</span>
-    {% endif %}
+<div class="{{ visibilityClass }}">
+    <a href="{{ target }}" class="{{ namespace }}button {{ mix }}">
+        {{ label }}
 
-    {% if icon %}
-    <svg class="{{ namespace }}button__icon">
-        <use xlink:href="#{{ icon }}"></use>
-    </svg>
-    {% endif %}
-</a>
+        {% if number_of_products is not empty %}
+        <span class="{{ namespace }}button__span">{{ number_of_products }}</span>
+        {% endif %}
+
+        {% if icon %}
+        <svg class="{{ namespace }}button__icon">
+            <use xlink:href="#{{ icon }}"></use>
+        </svg>
+        {% endif %}
+    </a>
+</div>

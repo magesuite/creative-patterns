@@ -1,0 +1,18 @@
+// display-controller
+// This component controls CSS display property among mobil
+//
+// See http://warpspire.com/kss/ for documentation guidelines.
+// Version 0.0.1
+@mixin displayController() {
+    &--hidden-mobile {
+        @include media( '<tablet' ) {
+            display: none;
+        }
+    }
+
+    &--hidden-desktop {
+        @include media( '>=tablet' ) {
+            display: none;
+        }
+    }
+}

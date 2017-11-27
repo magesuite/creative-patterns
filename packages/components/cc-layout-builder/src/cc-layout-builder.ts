@@ -2,6 +2,8 @@ import $ from 'jquery';
 
 import actionButton from '../../action-button/src/action-button';
 
+import uiRegistry from 'uiRegistry';
+
 import ccComponentBrandCarouselPreview from '../../cc-component-brand-carousel-preview/src/cc-component-brand-carousel-preview';
 import ccComponentButtonPreview from '../../cc-component-button-preview/src/cc-component-button-preview';
 import ccComponentCategoryLinksPreview from '../../cc-component-category-links-preview/src/cc-component-category-links-preview';
@@ -17,6 +19,7 @@ import ccComponentMagentoProductGridTeasersPreview from '../../cc-component-mage
 
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
 import componentAdder from '../../cc-component-adder/src/cc-component-adder';
+import componentDisplayController from '../../cc-component-display-controller/src/cc-component-display-controller';
 import componentPlaceholder from '../../cc-component-placeholder/src/cc-component-placeholder';
 
 import template from './cc-layout-builder.tpl';
@@ -47,6 +50,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'action-button': actionButton,
         'cc-component-adder': componentAdder,
         'cc-component-actions': componentActions,
+        'cc-component-display-controller': componentDisplayController,
         'cc-component-placeholder': componentPlaceholder,
         'cc-component-brand-carousel-preview': ccComponentBrandCarouselPreview,
         'cc-component-button-preview': ccComponentButtonPreview,
@@ -110,12 +114,15 @@ const layoutBuilder: vuejs.ComponentOption = {
     data(): any {
         return {
             components: [],
+            filters: {},
         };
     },
     ready(): void {
         this.ccConfig = this.ccConfiguration ? JSON.parse( this.ccConfiguration ) : {};
         this.components = this.componentsConfiguration ? JSON.parse( this.componentsConfiguration ) : [];
+        this.filters = (typeof(Storage) !== void(0) && window.localStorage.getItem('ccFilters')) ? JSON.parse(window.localStorage.getItem('ccFilters')) : this.ccConfig.filters;
         this.sortComponentsBySections();
+        this.setupInitialDisplayProps();
         this.$dispatch( 'cc-layout-builder__update' );
     },
     methods: {
@@ -129,13 +136,38 @@ const layoutBuilder: vuejs.ComponentOption = {
             );
         },
         /**
+         * Uses localStorage to save current filters state within layout builder.
+         */
+        saveFiltersState(): any {
+            if(typeof(Storage) !== void(0)) {
+                window.localStorage.setItem(
+                    'ccFilters',
+                    JSON.stringify(
+                        this.filters,
+                    ),
+                );
+            }
+        },
+        /**
+         * Updates builders' layout
+         */
+        updateLayout(): void {
+            this.$dispatch( 'cc-layout-builder__update' );
+        },
+        /**
          * Sets provided component information on current index in components array.
          * If component exists on given index then this compoennt will be inserted before it.
          * @param {number}                index         Component index in components array.
          * @param {IComponentInformation} componentInfo Component information.
          */
         addComponentInformation( index: number, componentInfo: IComponentInformation ): void {
-            if ( componentInfo ) {
+            if (componentInfo) {
+                if (!componentInfo.data.hasOwnProperty('componentVisibility')) {
+                    componentInfo.data.componentVisibility = {
+                        mobile: true,
+                        desktop: true,
+                    };
+                }
                 this.components.splice( index, 0, componentInfo );
                 this.setComponentsPlacementInfo();
                 this.$dispatch( 'cc-layout-builder__update' );
@@ -291,6 +323,20 @@ const layoutBuilder: vuejs.ComponentOption = {
             }
         },
         /**
+         * Backwards compatibility enhancement 
+         * When components doesn't have {componentVisibility} object set - add defaults once
+         */
+        setupInitialDisplayProps(): void {
+            for(let i: number = 0; i < this.components.length; i++) {
+                if (!this.components[i].data.hasOwnProperty('componentVisibility')) {
+                    this.components[i].data.componentVisibility = {
+                        mobile: true,
+                        desktop: true,
+                    };
+                }
+            }
+        },
+        /**
          * Tells if component with given index is the first component.
          * @param  {number}  index Index of the component.
          * @return {boolean}       If component is first in array.
@@ -317,6 +363,58 @@ const layoutBuilder: vuejs.ComponentOption = {
 
         isPossibleToDelete( componentType: string ): boolean {
             return this.ccConfig.specialComponents.indexOf( componentType ) !== -1;
+        },
+
+        /**
+         * FE mobile/desktop visibility cannot be controlled for Built-in components into magento core functionality
+         * @param {String} Type of component.
+         * @return {boolean}
+         */
+        isPossibleToControlDisplay( componentType: string ): boolean {
+            return componentType !== 'magento-product-grid-teasers';
+        },
+
+        getIsSpecialComponent( componentType: string ): boolean {
+            return this.ccConfig.specialComponents.indexOf( componentType ) !== -1;
+        },
+
+        /**
+         * Tells to builder if component is set to be hidden on both: mobile & desktop
+         * It's needed to grey-out this component on the dashboard
+         * @param {Object} Component's data information.
+         * @return {boolean}
+         */
+        getIsComponentHiddenFE(componentData: any): boolean {
+            if (componentData.hasOwnProperty('componentVisibility')) {
+                return (!componentData.componentVisibility.mobile || componentData.componentVisibility.mobile === '') && (!componentData.componentVisibility.desktop || componentData.componentVisibility.desktop === '');
+            }
+
+            return true;
+        },
+
+        /**
+         * Tells if component is filtered-out or not in dashboard.
+         * It's needed to show it or hide it based on current filter setup
+         * @param {Object} Component's data information.
+         * @return {boolean}
+         */
+        getIsComponentVisibleDashboard(componentData: any): boolean {
+            let visibleMobile: boolean = (componentData.componentVisibility.mobile !== '' && componentData.componentVisibility.mobile !== false);
+            let visibleDesktop: boolean = (componentData.componentVisibility.desktop !== '' && componentData.componentVisibility.desktop !== false);
+
+            if (this.filters.componentVisibility.options.mobile.value && visibleMobile) {
+                return true;
+            }
+
+            if (this.filters.componentVisibility.options.desktop.value && visibleDesktop) {
+                return true;
+            }
+
+            if (this.filters.componentVisibility.options.none.value && !visibleMobile && !visibleDesktop) {
+                return true;
+            }
+
+            return false;
         },
     },
 };

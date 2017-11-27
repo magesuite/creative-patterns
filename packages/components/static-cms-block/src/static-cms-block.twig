@@ -1,3 +1,13 @@
-<div class="{% if resetstyles == false %}{{ namespace }}static-cms-block{% endif %} {{ mix }} {% if resetstyles %}{{ namespace }}static-cms-block-resetstyles{% endif %}">
-    {{ content|raw }}
+{% set visibilityClass = '' %}
+{% if componentVisibility and componentVisibility.mobile == false %}
+    {% set visibilityClass = namespace ~ 'display-controller--hidden-mobile ' %}
+{% endif %}
+{% if componentVisibility and componentVisibility.desktop == false %}
+    {% set visibilityClass = visibilityClass ~ namespace ~ 'display-controller--hidden-desktop ' %}
+{% endif %}
+
+<div class="{{ visibilityClass }}">
+    <div class="{% if resetstyles == false %}{{ namespace }}static-cms-block{% endif %} {{ mix }} {% if resetstyles %}{{ namespace }}static-cms-block-resetstyles{% endif %}">
+        {{ content|raw }}
+    </div>
 </div>

@@ -1,4 +1,14 @@
-<div class="{{ namespace }}headline {{ mix }}">
-    <{{ tag }} class="{{ namespace }}headline__title">{{ title }}</{{ tag }}>
-    <p class="{{ namespace }}headline__subtitle">{{ subtitle }}</p>
+{% set visibilityClass = '' %}
+{% if componentVisibility and componentVisibility.mobile == false %}
+    {% set visibilityClass = namespace ~ 'display-controller--hidden-mobile ' %}
+{% endif %}
+{% if componentVisibility and componentVisibility.desktop == false %}
+    {% set visibilityClass = visibilityClass ~ namespace ~ 'display-controller--hidden-desktop ' %}
+{% endif %}
+
+<div class="{{ visibilityClass }}">
+    <div class="{{ namespace }}headline {{ mix }}">
+        <{{ tag }} class="{{ namespace }}headline__title">{{ title }}</{{ tag }}>
+        <p class="{{ namespace }}headline__subtitle">{{ subtitle }}</p>
+    </div>
 </div>

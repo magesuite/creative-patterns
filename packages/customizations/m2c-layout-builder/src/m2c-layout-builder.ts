@@ -36,9 +36,6 @@ const m2cLayoutBuilder: vuejs.ComponentOption = {
         'm2c-paragraph-configurator': m2cParagraphConfigurator,
     },
     methods: {
-        getComponentClass( componentType: any ) {
-            return this.ccConfig.specialComponents.indexOf( componentType ) !== -1 ? 'm2c-layout-builder__component m2c-layout-builder__component--special' : 'm2c-layout-builder__component';
-        },
         /* Removes component from M2C
          * If it's paragraph that is about to be removed, asks if corresponding CMS Block shall be removed as well
          * @param index {number} - index of the component in layoutBuilder
@@ -75,6 +72,10 @@ const m2cLayoutBuilder: vuejs.ComponentOption = {
                     },
                 },
             } );
+        },
+
+        getTranslatedText( originalText: string ): string {
+            return $t( originalText );
         },
     },
 };

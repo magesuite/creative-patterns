@@ -1,3 +1,13 @@
-<div class="{{ namespace }}paragraph | {{ mix }}">
-    {{ content|raw }}
+{% set visibilityClass = '' %}
+{% if componentVisibility and componentVisibility.mobile == false %}
+    {% set visibilityClass = namespace ~ 'display-controller--hidden-mobile ' %}
+{% endif %}
+{% if componentVisibility and componentVisibility.desktop == false %}
+    {% set visibilityClass = visibilityClass ~ namespace ~ 'display-controller--hidden-desktop ' %}
+{% endif %}
+
+<div class="{{ visibilityClass }}">
+    <div class="{{ namespace }}paragraph | {{ mix }}">
+        {{ content|raw }}
+    </div>
 </div>
