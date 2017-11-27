@@ -1,0 +1,33 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ title }}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../cc-component-display-controller.css">
+    </head>
+    <body>
+        <main>
+
+            Default:
+            <div>
+                {% include '../cc-component-display-controller.twig' %}
+            </div>
+
+        </main>
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+        <script src="../cc-component-display-controller.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'cc-component-display-controller': ccComponentDisplayController
+                }
+            } );
+        </script>
+
+    </body>
+</html>

@@ -7,6 +7,7 @@ $namespace: 'cc-' !default;
 
 @import '../../action-button/src/action-button';
 @import '../../cc-component-actions/src/cc-component-actions';
+@import '../../cc-component-display-controller/src/cc-component-display-controller';
 @import '../../cc-component-placeholder/src/cc-component-placeholder';
 @import '../../cc-component-adder/src/cc-component-adder';
 @import '../../cc-component-brand-carousel-preview/src/cc-component-brand-carousel-preview';
@@ -25,6 +26,45 @@ $namespace: 'cc-' !default;
 .#{$namespace}layout-builder {
     $root: &;
 
+    &__filters {
+        margin-bottom: 70px;
+    }
+
+    &__filter {
+        border-bottom: 1px solid #efefef;
+
+        &:first-child {
+            margin-top: -20px;
+            border-top: 1px solid #ccc;
+        }
+
+        &-content {
+            padding: 15px 0;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+        }
+
+        &-icon {
+            width: 24px;
+            height: 16px;
+        }
+
+        &-title {
+            padding-left: 8px;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: .9em;
+            line-height: 1.5rem;
+            color: #999;
+        }
+
+        &-control {
+            margin-left: 27px;
+        }
+    }
+
     &__component {
         position: relative;
         width: 100%;
@@ -34,7 +74,7 @@ $namespace: 'cc-' !default;
         box-shadow: 0 0 10px 2px rgba( 0, 0, 0, .12 );
         box-sizing: border-box;
         text-align: center;
-        transition: box-shadow .15s ease-in-out;
+        transition: all .15s ease-in-out;
         backface-visibility: hidden;
 
         &--special {
@@ -45,6 +85,25 @@ $namespace: 'cc-' !default;
         &--animating {
             pointer-events: none;
             transition: box-shadow .15s ease-in-out, transform .4s cubic-bezier( 0, .7, .32, 1 );
+        }
+
+        &--invisible {
+            box-shadow: 0 0 30px 2px rgba( 150, 150, 150, .12 );
+            background-color: #fdfdfd;
+
+            .cc-component-placeholder__component, 
+            .m2c-component-placeholder__component {
+                opacity: .25;
+            }
+        }
+
+        &--filtered-out {
+            min-height: 0 !important;
+            height: 0;
+            opacity: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
         }
 
         &:last-child {
@@ -88,6 +147,10 @@ $namespace: 'cc-' !default;
                 transform: translate3d( 0, 0, 0 );
             }
         }
+
+        &--filter:hover {
+            box-shadow: 0 0 10px 2px rgba( 0, 0, 0, .12 );
+        }
     }
 
     &__component-actions {
@@ -103,5 +166,6 @@ $namespace: 'cc-' !default;
 
     &__component-wrapper {
         margin: 0;
+        transition: opacity .2s linear;
     }
 }

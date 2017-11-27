@@ -1,5 +1,15 @@
-<section class="cs-container {{ containerMix }}">
-    <div class="cs-container__inner">
-        <hr class="{{ namespace }}separator {{ mix }}">
-    </div>
-</section>
+{% set visibilityClass = '' %}
+{% if componentVisibility and componentVisibility.mobile == false %}
+    {% set visibilityClass = namespace ~ 'display-controller--hidden-mobile ' %}
+{% endif %}
+{% if componentVisibility and componentVisibility.desktop == false %}
+    {% set visibilityClass = visibilityClass ~ namespace ~ 'display-controller--hidden-desktop ' %}
+{% endif %}
+
+<div class="{{ visibilityClass }}">
+    <section class="cs-container {{ containerMix }}">
+        <div class="cs-container__inner">
+            <hr class="{{ namespace }}separator {{ mix }}">
+        </div>
+    </section>
+</div>

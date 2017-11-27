@@ -132,6 +132,55 @@ $namespace: 'm2-';
         }
     }
 
+    &__checkbox-label {
+        position: relative;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: .9em;
+        line-height: 1.7rem;
+        padding: 0 0 0 .8rem;
+
+        &:before,
+        &:after {
+            position: absolute;
+            width: 1.7rem;
+            height: 1.7rem;
+            top: 0;
+            left: 0;
+            content: '';
+            z-index: 2;
+            border-radius: 3px;
+        }
+
+        &:before {
+            border: 1px solid #e4e1d9;
+            background-color: #fff;
+            transition: border-color .15s linear;
+        }
+
+        &:after {
+            opacity: 0;
+            background: #007bdb url('./images/check.svg') no-repeat 50% 50%;
+            background-size: 60%;
+            transition: opacity .1s linear;
+        }
+
+        &:hover:before,
+        &--checked:before {
+            border-color: #007bdb;
+        }
+
+        &--checked {
+            &:after {
+                opacity: 1;
+            }
+        }
+    }
+
+    &__checkbox {
+        opacity: 0;
+    }
+
     &__hint {
         color: #adadad;
         font-size: 1.2rem;
