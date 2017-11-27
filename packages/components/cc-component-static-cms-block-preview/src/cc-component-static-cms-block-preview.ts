@@ -4,6 +4,7 @@
 interface IComponentInformation {
     identifier: string;
     title: string;
+    resetstyles: boolean;
 }
 
 /**

@@ -17,6 +17,10 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
                 <option value="2">Bar</option>
             </select>
         </div>
+        <div class="cs-input cs-input--type-inline">
+            <label for="cfg-resetstyles" class="cs-input__label">Reset default styles of CMS Static Block:</label>
+            <input type="checkbox" v-model="configuration.resetstyles" id="cfg-resetstyles" class="cs-input__input" @change="onChange">
+        </div>
         <button type="submit">Save</button>
     </form>`,
     props: {
@@ -26,6 +30,7 @@ const ccStaticBlockConfigurator: vuejs.ComponentOption = {
                 return {
                     identifier: '',
                     title: '',
+                    resetstyles: false,
                 };
             },
         },
