@@ -25,12 +25,15 @@
             <select name="cfg-pc-order-by" class="m2-input__select" id="cfg-pc-order-by" v-model="configuration.order_by" @change="onChange">
                 <option value="creation_date">Creation date</option>
                 <option value="price">Price</option>
+                <option value="newest_products">Newest products</option>
+                <option value="bestsellers_amount">Bestsellers</option>
             </select>
             <select name="cfg-pc-order-type" class="m2-input__select" v-model="configuration.order_type" @change="onChange">
                 <option value="ASC">Ascending</option>
                 <option value="DESC">Descending</option>
             </select>
         </div>
+
         <div class="m2-input m2-input--type-inline">
             <label for="cfg-pc-order-by" class="m2-input__label">Show:</label>
             <select name="cfg-pc-limit" class="m2-input__select" id="cfg-pc-limit" v-model="configuration.limit" @change="onChange">
