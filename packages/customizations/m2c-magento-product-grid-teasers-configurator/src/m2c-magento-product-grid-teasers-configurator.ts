@@ -292,7 +292,7 @@ const m2cMagentoProductGridTeasersConfigurator: vuejs.ComponentOption = {
 
         /**
          * When you open component after changes in M2 grid settings (when products per page chnaged)
-         * Or, after you delete some teasers - this method updates available rows count on FE side and checks if 
+         * Or, after you delete some teasers - this method updates available rows count on FE side and checks if
          * current row setting of the teaser is not higher than this.rowsCount.
          * If yes, it changes row setting to be equal this.rowsCount
          */
@@ -346,7 +346,7 @@ const m2cMagentoProductGridTeasersConfigurator: vuejs.ComponentOption = {
          */
         onImageUploaded( input: any ): void {
             const _this: any = this;
-            const itemIndex: any = input.id.substr( input.id.length - 1 );
+            const itemIndex: any = input.id.substr( input.id.lastIndexOf('-') + 1 );
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
             const imgEndpoint: string = this.imageEndpoint.replace( '{/encoded_image}', encodedImage );
 

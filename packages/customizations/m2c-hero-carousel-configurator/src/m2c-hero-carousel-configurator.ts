@@ -287,7 +287,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
          */
         onImageUploaded( input: any ): void {
             const _this: any = this;
-            const itemIndex: any = input.id.substr( input.id.length - 1 );
+            const itemIndex: any = input.id.substr( input.id.lastIndexOf('-') + 1 );
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
             const imgEndpoint: string = this.imageEndpoint.replace( '{/encoded_image}', encodedImage );
 
@@ -447,7 +447,7 @@ const m2cHeroCarouselConfigurator: vuejs.ComponentOption = {
             const itemsToCheck = JSON.parse( JSON.stringify( this.configuration.items ) ).filter( ( item: any ): boolean => {
                 return Boolean( item.aspectRatio ); // Filter out items without aspect ratio set yet.
             } );
-            
+
             for ( let i: number = 0; i < itemsToCheck.length; i++ ) {
                 if ( itemsToCheck[ i ].aspectRatio !== itemsToCheck[ 0 ].aspectRatio ) {
                     alert( {
