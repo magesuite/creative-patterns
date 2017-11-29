@@ -336,7 +336,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
          */
         onImageUploaded( input: any ): void {
             const _this: any = this;
-            const itemIndex: any = input.id.substr( input.id.length - 1 );
+            const itemIndex: any = input.id.substr( input.id.lastIndexOf('-') + 1 );
             const encodedImage: any = input.value.match( '___directive\/([a-zA-Z0-9]*)' )[ 1 ];
             const imgEndpoint: string = this.imageEndpoint.replace( '{/encoded_image}', encodedImage );
 
@@ -348,6 +348,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
                 _this.configuration.items[ itemIndex ].image = img.getAttribute( 'src' );
                 _this.configuration.items[ itemIndex ].sizeInfo = `${img.naturalWidth}x${img.naturalHeight}px (${ar})`;
                 _this.configuration.items[ itemIndex ].aspectRatio = ar;
+
                 setTimeout( (): void => {
                     _this.checkImageSizes();
                     _this.onChange();
