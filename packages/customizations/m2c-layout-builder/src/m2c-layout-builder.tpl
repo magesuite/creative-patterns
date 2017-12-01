@@ -1,5 +1,5 @@
 <div class="m2c-layout-builder | {{ class }}">
-    <div class="m2c-layout-builder__filters">
+    <div class="m2c-layout-builder__filters" v-if="filters">
         <template v-for="(filterKey, filter) in filters">
             <div class="m2c-layout-builder__filter">
                 <div class="m2c-layout-builder__filter-content">
