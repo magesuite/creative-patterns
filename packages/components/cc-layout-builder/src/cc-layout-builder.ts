@@ -139,7 +139,7 @@ const layoutBuilder: vuejs.ComponentOption = {
          * Uses localStorage to save current filters state within layout builder.
          */
         saveFiltersState(): any {
-            if(typeof(Storage) !== void(0)) {
+            if(typeof(Storage) !== void(0) && this.filters) {
                 window.localStorage.setItem(
                     'ccFilters',
                     JSON.stringify(
@@ -329,10 +329,16 @@ const layoutBuilder: vuejs.ComponentOption = {
         setupInitialDisplayProps(): void {
             for(let i: number = 0; i < this.components.length; i++) {
                 if (!this.components[i].data.hasOwnProperty('componentVisibility')) {
-                    this.components[i].data.componentVisibility = {
-                        mobile: true,
-                        desktop: true,
-                    };
+                    let componentInfo: any = $.extend(true, {}, this.components[i], {
+                        data: {
+                            componentVisibility: {
+                                mobile: true,
+                                desktop: true,
+                            }
+                        }
+                    });
+
+                    this.setComponentInformation(i, componentInfo);
                 }
             }
         },
@@ -389,7 +395,7 @@ const layoutBuilder: vuejs.ComponentOption = {
                 return (!componentData.componentVisibility.mobile || componentData.componentVisibility.mobile === '') && (!componentData.componentVisibility.desktop || componentData.componentVisibility.desktop === '');
             }
 
-            return true;
+            return false;
         },
 
         /**
@@ -399,22 +405,26 @@ const layoutBuilder: vuejs.ComponentOption = {
          * @return {boolean}
          */
         getIsComponentVisibleDashboard(componentData: any): boolean {
-            let visibleMobile: boolean = (componentData.componentVisibility.mobile !== '' && componentData.componentVisibility.mobile !== false);
-            let visibleDesktop: boolean = (componentData.componentVisibility.desktop !== '' && componentData.componentVisibility.desktop !== false);
+            if (componentData.hasOwnProperty('componentVisibility') && this.filters) {
+                let visibleMobile: boolean = (componentData.componentVisibility.mobile !== '' && componentData.componentVisibility.mobile !== false);
+                let visibleDesktop: boolean = (componentData.componentVisibility.desktop !== '' && componentData.componentVisibility.desktop !== false);
 
-            if (this.filters.componentVisibility.options.mobile.value && visibleMobile) {
-                return true;
+                if (this.filters.componentVisibility.options.mobile.value && visibleMobile) {
+                    return true;
+                }
+
+                if (this.filters.componentVisibility.options.desktop.value && visibleDesktop) {
+                    return true;
+                }
+
+                if (this.filters.componentVisibility.options.none.value && !visibleMobile && !visibleDesktop) {
+                    return true;
+                }
+
+                return false;
             }
 
-            if (this.filters.componentVisibility.options.desktop.value && visibleDesktop) {
-                return true;
-            }
-
-            if (this.filters.componentVisibility.options.none.value && !visibleMobile && !visibleDesktop) {
-                return true;
-            }
-
-            return false;
+            return true;
         },
     },
 };
