@@ -162,7 +162,7 @@ const layoutBuilder: vuejs.ComponentOption = {
          */
         addComponentInformation( index: number, componentInfo: IComponentInformation ): void {
             if (componentInfo) {
-                if (!componentInfo.data.hasOwnProperty('componentVisibility')) {
+                if (!componentInfo.data.hasOwnProperty('componentVisibility') && !this.getIsSpecialComponent(componentInfo.type)) {
                     componentInfo.data.componentVisibility = {
                         mobile: true,
                         desktop: true,
@@ -325,11 +325,14 @@ const layoutBuilder: vuejs.ComponentOption = {
         /**
          * Backwards compatibility enhancement 
          * When components doesn't have {componentVisibility} object set - add defaults once
+         * Special Components will not be modified
          */
         setupInitialDisplayProps(): void {
             for(let i: number = 0; i < this.components.length; i++) {
-                if (!this.components[i].data.hasOwnProperty('componentVisibility')) {
-                    let componentInfo: any = $.extend(true, {}, this.components[i], {
+                const c: any = this.components[i];
+
+                if (!c.data.hasOwnProperty('componentVisibility') && !this.getIsSpecialComponent(c.type)) {
+                    let componentInfo: any = $.extend(true, {}, c, {
                         data: {
                             componentVisibility: {
                                 mobile: true,
