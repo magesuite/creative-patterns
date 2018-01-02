@@ -22,6 +22,7 @@ $namespace: 'cc-' !default;
 @import '../../cc-component-category-links-preview/src/cc-component-category-links-preview';
 @import '../../cc-component-product-grid-preview/src/cc-component-product-grid-preview';
 @import '../../cc-component-magento-product-grid-teasers-preview/src/cc-component-magento-product-grid-teasers-preview';
+@import '../../cc-component-custom-html-preview/src/cc-component-custom-html-preview';
 
 .#{$namespace}layout-builder {
     $root: &;

@@ -16,6 +16,7 @@ import ccComponentProductGridPreview from '../../cc-component-product-grid-previ
 import ccComponentSeparatorPreview from '../../cc-component-separator-preview/src/cc-component-separator-preview';
 import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 import ccComponentMagentoProductGridTeasersPreview from '../../cc-component-magento-product-grid-teasers-preview/src/cc-component-magento-product-grid-teasers-preview';
+import ccComponentCustomHtmlPreview from '../../cc-component-custom-html-preview/src/cc-component-custom-html-preview';
 
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
 import componentAdder from '../../cc-component-adder/src/cc-component-adder';
@@ -64,6 +65,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-product-grid-preview': ccComponentProductGridPreview,
         'cc-component-separator-preview': ccComponentSeparatorPreview,
         'cc-component-magento-product-grid-teasers-preview': ccComponentMagentoProductGridTeasersPreview,
+        'cc-component-custom-html-preview': ccComponentCustomHtmlPreview,
     },
     props: {
         /**
