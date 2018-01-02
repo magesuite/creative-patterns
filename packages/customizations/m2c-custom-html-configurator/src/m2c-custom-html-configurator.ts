@@ -6,7 +6,7 @@ const m2cCustomHtmlConfigurator: vuejs.ComponentOption = {
     ],
     template: `<form class="cc-custom-html-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
         <div class="m2-input m2-input--type-inline">
-            <p>Custom html component should be used only by developers because custom markup can break page layout and logic.</p>
+            <p class="m2-warning">Custom html component should be used only by developers because custom markup can break page layout and logic.</p>
         </div>
         <div class="m2-input m2-input--type-inline">
             <label for="cfg-title" class="m2-input__label">Title:</label>
