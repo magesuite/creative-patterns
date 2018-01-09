@@ -238,8 +238,8 @@ export default class ItemCloner {
         const realWidth: number = $origin[ 0 ].getBoundingClientRect().width;
 
         this.$wrapper.css( {
-            top: cords.top,
-            left: cords.left,
+            top: cords.top - 1,
+            left: cords.left - 1,
             zIndex: this.settings.cloneZindex,
             width: realWidth,
         } ).addClass( this.settings.clonerHoverClass );
@@ -278,9 +278,10 @@ export default class ItemCloner {
         const offEvents: string = this._isTouch ? 'touchend touchcancel' : 'mouseleave';
 
         this.$origins.stop().on( onEvents, function( event: Event ): void {
+            event.stopPropagation();
             // Clone only if needed
             if ( ( event.type === 'touchstart' && _this.settings.touch.enabled ) || event.type === 'mouseenter' ) {
-                if ( !$( this ).hasClass( `${ _this.settings.clonerClass }__clone` ) && $( window ).width() >= _this.settings.breakpoint ) {
+                if ( !$( this ).hasClass( `${ _this.settings.clonerClass }__clone` ) && $( window ).width() >= _this.settings.breakpoint && !document.hidden ) {
                     // Emergency destroy
                     if ( _this.isActive ) {
                         _this.destroy();
@@ -291,12 +292,18 @@ export default class ItemCloner {
         } );
 
         // Run destroy menthod when mouse leaves the clone
-        this.$wrapper.stop().on( offEvents, function(): void {
+        this.$wrapper.stop().on( offEvents, function( event: Event ): void {
+            event.stopPropagation();
             _this.destroy();
         } );
 
         // Run destroy menthod when called from outside
         $( document ).on( 'destroyItemClones', function(): void {
+            _this.destroy();
+        } );
+
+        // Run destroy menthod when browser changes focus mode
+        document.addEventListener( 'visibilitychange', function() {
             _this.destroy();
         } );
 
