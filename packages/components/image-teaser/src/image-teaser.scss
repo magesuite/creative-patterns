@@ -422,6 +422,7 @@
 
     &__cta {
         display: none;
+
         @include media( '>=tablet' ) {
             display: block;
             margin-top: 0.7rem;
@@ -436,11 +437,19 @@
             #{$root}--items-in-row-4
                 #{$root}__wrapper--content-display-inside
                 &,
-            #{$root}--items-in-row-6
+            #{$root}--items-in-row-6 
                 #{$root}__wrapper--content-display-inside
+                &,
+            #{$root}--items-in-row-6 
+                #{$root}__wrapper--content-display-outside
                 & {
                 display: none;
             }
+
+            #{$root}--items-in-row-8 & {
+                display: none;
+            }
+
         }
 
         @include media( '>=laptop' ) {
