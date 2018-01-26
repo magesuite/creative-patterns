@@ -382,7 +382,7 @@ const layoutBuilder: vuejs.ComponentOption = {
          * @return {boolean}
          */
         isPossibleToControlDisplay( componentType: string ): boolean {
-            return componentType !== 'magento-product-grid-teasers';
+            return componentType !== 'magento-product-grid-teasers' && componentType !== 'custom-html';
         },
 
         getIsSpecialComponent( componentType: string ): boolean {
