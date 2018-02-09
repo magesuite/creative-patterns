@@ -27,6 +27,18 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
             <input type="text" name="cfg-title" v-model="tempConfiguration.title" id="input-cfg-title" class="m2-input__input m2-input__input--limited-width" maxlength="100">
         </div>
         <div class="m2-input">
+            <label for="input-cfg-columns" class="m2-input__label">${$t( 'Number of columns' )}:</label>
+            <select name="input-cfg-columns" class="m2-input__select | m2c-paragraph-configurator__select" id="input-cfg-columns" v-model="configuration.columns" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                <option value="none">${$t( 'Don\'t split content - display full width' )}</option>
+                <option value="2">${$t( 'Split content into 2 columns' )}</option>
+                <option value="3">${$t( 'Split content into 3 columns' )}</option>
+                <option value="4">${$t( 'Split content into 4 columns' )}</option>
+            </select>
+            <div class="admin__field-note m2-input__note">
+                <span>${$t( 'Defines the way of content display. Content can be splitted into definem number columns. This setting has no effect on small screen resolutions (such as smartphones).' )}</span>
+            </div>
+        </div>
+        <div class="m2-input">
             <label for="textarea-cfg-paragraph" class="m2-input__label m2-input__label--look-top-align">${$t( 'HTML' )}:</label>
 
             <div class="buttons-set | m2c-paragraph-configurator__wysiwyg-buttons">
@@ -49,6 +61,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 return {
                     blockId: '',
                     title: '',
+                    columns: 'none',
                 };
             },
         },
@@ -62,6 +75,11 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         },
         /* Obtain base-url for the image uploader */
         uploaderBaseUrl: {
+            type: String,
+            default: '',
+        },
+        /* get assets for displaying component images */
+        assetsUrl: {
             type: String,
             default: '',
         },
