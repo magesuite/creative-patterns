@@ -7,7 +7,7 @@
 {% endif %}
 
 <div class="{{ visibilityClass }}">
-    <div class="{{ namespace }}paragraph | {{ mix }}">
+    <div class="{{ namespace }}paragraph {{ namespace }}paragraph--cols-{{ columns }} | {{ mix }}">
         {{ content|raw }}
     </div>
 </div>
