@@ -29,6 +29,10 @@
             padding-right: .8rem;
         }
 
+        &:after {
+            margin-left: -0.02rem;
+        }
+
         &:before,
         &:after {
             position: absolute;
