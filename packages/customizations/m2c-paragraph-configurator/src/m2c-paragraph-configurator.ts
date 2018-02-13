@@ -35,7 +35,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 <option value="4">${$t( 'Split content into 4 columns' )}</option>
             </select>
             <div class="admin__field-note m2-input__note">
-                <span>${$t( 'Defines the way of content display. Content can be splitted into definem number columns. This setting has no effect on small screen resolutions (such as smartphones).' )}</span>
+                <span>${$t( 'Defines the way of content display. Content can be splitted into defined number of columns. This setting has no effect on small screen resolutions (such as smartphones) where content is always displayed in one column.' )}</span>
             </div>
         </div>
         <div class="m2-input">
