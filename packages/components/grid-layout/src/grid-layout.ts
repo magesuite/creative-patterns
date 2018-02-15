@@ -57,18 +57,13 @@ export default class GridLayout {
         this.teasers = [];
         this.isCssGrid = this._getIsCssGridSupported();
 
-        this.$grid = this.$wrapper.find( `.${ this.settings.gridClass }` );
-        this.$bricks = this.$grid.children();
-        this.teasers = [];
-        this.isCssGrid = this._getIsCssGridSupported();
-
         this.columnsCfg = this.$wrapper.data( 'columns-configuration' ) ? JSON.parse( JSON.stringify( this.$wrapper.data( 'columns-configuration' ) ) ) : '';
         this.teasersCfg = this.$wrapper.data( 'teasers-configuration' ) ? JSON.parse( JSON.stringify( this.$wrapper.data( 'teasers-configuration' ) ) ) : '';
 
         if ( this.columnsCfg && this.teasersCfg ) {
             this.currentColsInRow = this.columnsCfg[ this._getCurrentBreakpointName() ];
             this.virtualBricksLength = this._getVirtualBricksLength();
-            this.currentRowsCount = this.isCssGrid ? Math.ceil( this.virtualBricksLength / this.currentColsInRow ) : Math.ceil( this.virtualBricksLength / this.currentColsInRow );
+            this.currentRowsCount = Math.ceil( this.virtualBricksLength / this.currentColsInRow );
 
             this._initialize();
         }
@@ -78,10 +73,10 @@ export default class GridLayout {
      * Resets outdated information and recalculates positions of all teasers again
      * Runs after breakpoint change and is available from outside to recalculate manually if needed
      */
-    public _recalculate(): void {
+    public recalculate(): void {
         this.currentColsInRow = this.columnsCfg[ this._getCurrentBreakpointName() ];
         this.virtualBricksLength = this._getVirtualBricksLength();
-        this.currentRowsCount = this.isCssGrid ? Math.ceil( this.virtualBricksLength / this.currentColsInRow ) : Math.ceil( this.virtualBricksLength / this.currentColsInRow );
+        this.currentRowsCount = Math.ceil( this.virtualBricksLength / this.currentColsInRow );
 
         if ( this.isCssGrid ) {
             this._setTeasersCSS();
@@ -205,6 +200,25 @@ export default class GridLayout {
     }
 
     /**
+     * Makes sure that teaser will fit into grid. 
+     * Sometimes grid is affected (f.e. collection is filtered by aftersearch nav). This method checks if given teaser can be placed in the position it means to be in. 
+     * @param {object} teaserData - object containing required information about teaser: size and position where it should be added
+     * @param {number} idx - index of teaser inside the grid along with all product tiles.
+     * @return {boolean} true if there is a space for teaser in the grid
+     */
+    protected _getDoesTeaserFitIntoGrid( teaserData: any, idx: number ): boolean {
+        const sizeX: number = teaserData.size.x;
+        const sizeY: number = teaserData.size.y;
+        idx--;
+
+        if ( this.currentRowsCount < sizeY || this.$bricks.length < ( idx + ( sizeX * sizeY ) ) ) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Loops through JSON of teasers and adjusts position returned by _getTeaserIndex method
      * This method runs only if CSS Grid Layout is NOT(!) supported in user's browser
      */
@@ -213,10 +227,10 @@ export default class GridLayout {
 
         for ( let i: number = 0; i < this.teasersCfg.length; i++ ) {
             const $teaser: any = this.$grid.find( `.${ this.settings.brickClass }[data-teaser-id="${ this.teasersCfg[ i ].id }"]` );
-            let idx: any = this._getTeaserIndex( this.teasersCfg[ i ] );
+            let idx: number = this._getTeaserIndex( this.teasersCfg[ i ] );
 
             if ( $teaser.length ) {
-                if ( windowWidth < breakpoint.tablet && !this.teasersCfg[ i ].mobile ) {
+                if ( ( windowWidth < breakpoint.tablet && !this.teasersCfg[ i ].mobile ) || !this._getDoesTeaserFitIntoGrid(this.teasersCfg[ i ], idx) ) {
                     $teaser.addClass( `${ this.settings.brickClass }--hidden` );
                     idx = idx - ( this.teasersCfg[ i ].size.x * this.teasersCfg[ i ].size.y );
                 } else {
@@ -286,12 +300,13 @@ export default class GridLayout {
         for ( let i: number = 0; i < this.teasersCfg.length; i++ ) {
             const $teaser: any = this.$grid.find( `.${ this.settings.brickClass }[data-teaser-id="${ this.teasersCfg[ i ].id }"]` );
             const teaser: any = $teaser[ 0 ];
+            const idx: number = this._getTeaserIndex( this.teasersCfg[ i ] );
 
             if ( $teaser.length ) {
-                if ( windowWidth < breakpoint.tablet && !this.teasersCfg[ i ].mobile ) {
+                if ( ( windowWidth < breakpoint.tablet && !this.teasersCfg[ i ].mobile ) || !this._getDoesTeaserFitIntoGrid(this.teasersCfg[ i ], idx ) ) {
                     $teaser.addClass( `${ this.settings.brickClass }--hidden` );
                 } else {
-                    const pos: any = this._getTeaserPositionInGrid( this.teasersCfg[ i ], );
+                    let pos: any = this._getTeaserPositionInGrid( this.teasersCfg[ i ] );
 
                     if ( pos.x >= 1 && pos.y <= this.currentRowsCount ) {
                         teaser.style.gridRowStart = pos.y;
@@ -337,7 +352,7 @@ export default class GridLayout {
 
         $( window ).on( 'resize', function(): void {
             if ( _this.teasers.length && _this.currentColsInRow !== _this.columnsCfg[ _this._getCurrentBreakpointName() ] ) {
-                _this._recalculate();
+                _this.recalculate();
             }
         } );
     }
