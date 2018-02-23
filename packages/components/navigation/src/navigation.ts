@@ -85,6 +85,21 @@ interface NavigationOptions {
      * @type {string}
      */
     contentSelector?: string;
+    /**
+     * Tells if active category should be highlighted
+     * @type {boolean}
+     */
+    highlightActiveCategory?: boolean;
+    /**
+     * If highlightActiveCategory is set to true, it let you decide if whole category tree should be highlighted
+     * @type {boolean}
+     */
+    highlightWholeTree?: boolean;
+    /**
+     * Classname of active category (as addition to original)
+     * @type {string}
+     */
+    activeCategoryClassName?: string;
 };
 
 /**
@@ -123,6 +138,9 @@ export default class Navigation {
         roundTransformLeft: true,
         showNavigationOverlay: false,
         contentSelector: '#maincontent',
+        highlightActiveCategory: true,
+        highlightWholeTree: true,
+        activeCategoryClassName: 'active',
     };
 
     /**
@@ -143,6 +161,9 @@ export default class Navigation {
             .addBack(`.${this._options.containerClassName}`); // Allow navigation partent to be container itself.
         this._containerClientRect = this._$container.get( 0 ).getBoundingClientRect();
 
+        if(this._options.highlightActiveCategory) {
+            this._highlightActiveCategory();
+        }
         this._adjustFlyouts( this._$flyouts );
         this._attachEvents();
     }
@@ -152,6 +173,33 @@ export default class Navigation {
      */
     public destroy(): void {
         this._detachEvents();
+    }
+
+    /**
+     * Highlights active category by adding ${this._options.activeCategoryClassName} class eiter to only last level category or whole category tree depending on component's settings
+     */
+    protected _highlightActiveCategory(): void {
+        const $activeCategoryIndicator: JQuery = $('#active-category-id');
+        if(
+            $activeCategoryIndicator.length && 
+            $activeCategoryIndicator.attr('data-active-category-id') && 
+            $activeCategoryIndicator.data('active-category-id') !== ''
+        ) {
+            const activeCategoryId: number = $activeCategoryIndicator.data('active-category-id');
+            const $activeCategoryEl: JQuery = this._$container.find(`[data-category-id="${activeCategoryId}"]`);
+
+            if($activeCategoryEl.length) {
+                $activeCategoryEl
+                    .addClass(this._options.activeCategoryClassName)
+                    .data('active-class', this._options.activeCategoryClassName);
+
+                if(this._options.highlightWholeTree) {
+                    $activeCategoryEl.parentsUntil(this._$container, '[data-category-id]')
+                        .addClass(this._options.activeCategoryClassName)
+                        .data('active-class', this._options.activeCategoryClassName);
+                }
+            }
+        }
     }
 
     /**
