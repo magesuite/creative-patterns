@@ -1,7 +1,7 @@
 <nav class="{{ namespace }}navigation">
     <ul class="{{ namespace }}navigation__list">
         {% for item in items %}
-            <li class=" {{ namespace }}navigation__item{% if item.category_custom_url is not null %} {{ namespace }}navigation__item--custom{% endif %}">
+            <li class=" {{ namespace }}navigation__item{% if item.category_custom_url is not null %} {{ namespace }}navigation__item--custom{% endif %}" data-category-id="{{ item.id }}">
                 <a href="{% if item.category_custom_url is not null %}{{ item.category_custom_url }}{% else %}{{ item.url }}{% endif %}" class="{{ namespace }}navigation__link{% if showCategoryIconRoot and item.category_icon is defined and item.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
                     {% if showCategoryIconRoot and item.category_icon is defined and item.category_icon|length %}
                         <span class="{{ namespace }}navigation__link-icon-wrapper {{ namespace }}navigation__link-icon-wrapper--root">
@@ -18,7 +18,7 @@
 
                         <div class="{{ namespace }}navigation__categories">
                             {% for category in item.subcategories %}
-                                <div class="{{ namespace }}navigation__category{% if category.category_custom_url is not null %} {{ namespace }}navigation__category--custom{% endif %}">
+                                <div class="{{ namespace }}navigation__category{% if category.category_custom_url is not null %} {{ namespace }}navigation__category--custom{% endif %}" data-category-id="{{ category.id }}">
                                     <a href="{% if category.category_custom_url is not null %}{{ category.category_custom_url }}{% else %}{{ category.url }}{% endif %}" class="{{ namespace }}navigation__link {{ namespace }}navigation__link--category{% if showCategoryIconSubcats and category.category_icon is defined and category.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
                                         {% if showCategoryIconSubcats and category.category_icon is defined and category.category_icon|length %}
                                             <span class="{{ namespace }}navigation__link-icon-wrapper">
@@ -32,7 +32,7 @@
                                     </a>
                                     <ul class="{{ namespace }}navigation__subcategories">
                                         {% for subcategory in category.subcategories %}
-                                            <li class="{{ namespace }}navigation__subcategory{% if subcategory.category_custom_url is not null %} {{ namespace }}navigation__subcategory--custom{% endif %}">
+                                            <li class="{{ namespace }}navigation__subcategory{% if subcategory.category_custom_url is not null %} {{ namespace }}navigation__subcategory--custom{% endif %}" data-category-id="{{ subcategory.id }}">
                                                 <a href="{% if subcategory.category_custom_url is not null %}{{ subcategory.category_custom_url }}{% else %}{{ subcategory.url }}{% endif %}" class="{{ namespace }}navigation__link {{ namespace }}navigation__link--subcategory{% if showCategoryIconSubcats and subcategory.category_icon is defined and subcategory.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
                                                     {% if showCategoryIconSubcats and subcategory.category_icon is defined and subcategory.category_icon|length %}
                                                         <span class="{{ namespace }}navigation__link-icon-wrapper">
