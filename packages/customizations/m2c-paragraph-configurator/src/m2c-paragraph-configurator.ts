@@ -28,7 +28,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         </div>
         <div class="m2-input">
             <label for="input-cfg-columns" class="m2-input__label">${$t( 'Number of columns' )}:</label>
-            <select name="input-cfg-columns" class="m2-input__select | m2c-paragraph-configurator__select" id="input-cfg-columns" v-model="configuration.columns" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+            <select name="input-cfg-columns" class="m2-input__select | m2c-paragraph-configurator__select" id="input-cfg-columns" v-model="configuration.columns" v-bind="{ 'style': 'background-image: url( ' + assetsUrl + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
                 <option value="none">${$t( 'Don\'t split content - display full width' )}</option>
                 <option value="2">${$t( 'Split content into 2 columns' )}</option>
                 <option value="3">${$t( 'Split content into 3 columns' )}</option>
