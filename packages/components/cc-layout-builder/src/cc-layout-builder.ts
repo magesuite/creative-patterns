@@ -79,9 +79,11 @@ const layoutBuilder: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
-        ccConfiguration: {
-            type: String,
-            default: '',
+        ccConfig: {
+            type: Object,
+            default(): any {
+                return {};
+            },
         },
         /**
          * Initial component configuration encoded as JSON string.
@@ -120,7 +122,6 @@ const layoutBuilder: vuejs.ComponentOption = {
         };
     },
     ready(): void {
-        this.ccConfig = this.ccConfiguration ? JSON.parse( this.ccConfiguration ) : {};
         this.components = this.componentsConfiguration ? JSON.parse( this.componentsConfiguration ) : [];
         this.filters = (typeof(Storage) !== void(0) && window.localStorage.getItem('ccFilters')) ? JSON.parse(window.localStorage.getItem('ccFilters')) : this.ccConfig.filters;
         this.sortComponentsBySections();

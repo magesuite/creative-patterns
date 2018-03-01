@@ -183,10 +183,9 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
                                 <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
                                     <label for="cfg-it-item{{ $index }}-variant" class="m2-input__label">${$t( 'Display variant' )}:</label>
                                     <select name="cfg-it-item{{ $index }}-variant" class="m2-input__select" id="cfg-it-item{{ $index }}-variant" v-model="configuration.items[$index].displayVariant" v-bind="{ 'style': 'background-image: url( ' + assetsSrc + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
-                                        <option value="1">${$t( 'Text vertically centered on the left' )}</option>
-                                        <option value="3">${$t( 'Text vertically centered in the middle' )}</option>
-                                        <option value="2">${$t( 'Text on the bottom, left corner' )}</option>
-                                        <option value="4">${$t( 'Text on the bottom - centered' )}</option>
+                                        <template v-for="(idx, scenario) in ccConfig.imageTeasersContentPositions">
+                                            <option value="{{ idx + 1 }}">${$t( '{{ scenario }}' )}</option>
+                                        </template>
                                     </select>
                                 </div>
                                 <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
@@ -276,6 +275,13 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
         adminPrefix: {
             type: String,
             default: 'admin',
+        },
+        /* Obtain content-constructor's config file */
+        ccConfig: {
+            type: Object,
+            default(): any {
+                return {};
+            },
         },
     },
     data(): any {
