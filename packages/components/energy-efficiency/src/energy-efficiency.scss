@@ -30,7 +30,9 @@
         }
 
         &:after {
-            margin-left: -0.02rem;
+            .ie11 & {
+                margin-left: -0.02rem;
+            }
         }
 
         &:before,
