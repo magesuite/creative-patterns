@@ -1,3 +1,5 @@
 <div class="{{ namespace }}energy-efficiency {{ namespace }}energy-efficiency--class-{{ label|lower|first }}{% if arrowPosition == 'left' %} {{ namespace }}energy-efficiency--arrow-left{% endif %} {{ mix }}">
-    <span class="{{ namespace }}energy-efficiency__label">{{ label|raw }}</span>
+    {{ hotspot.beforeLabel|raw }}
+    <span class="{{ namespace }}energy-efficiency__label"{% if dataLabel %} data-label="{{ dataLabel }}"{% endif %}>{{ label|raw }}</span>
+    {{ hotspot.afterLabel|raw }}
 </div>
