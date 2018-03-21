@@ -1,0 +1,13 @@
+@mixin indicators {
+    $root: &;
+
+    &__fast-shipping {
+        &-element {
+            display: none;
+
+            &--visible {
+                display: block;
+            }
+        }
+    }
+}
