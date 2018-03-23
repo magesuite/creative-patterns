@@ -22,6 +22,10 @@
                 </ul>
             {% endif %}
 
+            {% if hotspots.after.badges %}
+                {{ hotspots.after.badges|raw }}
+            {% endif %}
+
             <figure class="{{ namespace }}grid-product__figure">
                 {% if lazyload %}
                     <img
