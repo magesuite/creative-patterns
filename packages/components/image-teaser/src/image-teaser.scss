@@ -36,7 +36,7 @@
 
     &#{$root}--slider {
         #{$root}__image {
-            &[src^="data:image/"] {
+            &[src^='data:image/'] {
                 height: 0;
             }
         }
@@ -82,23 +82,26 @@
             box-sizing: border-box;
             padding: 3% 5%;
 
-            @include media( '>=phone-lg' ) {
-                #{$root}--items-in-row-2.#{$root}--slider,
-                #{$root}--items-in-row-3.#{$root}--slider,
-                #{$root}--items-in-row-4.#{$root}--slider,
-                #{$root}--items-in-row-5.#{$root}--slider,
-                #{$root}--items-in-row-6.#{$root}--slider {
-                    width: 80%;
+            @include media('>=phone-lg') {
+                #{$root}--items-in-row-2,
+                #{$root}--items-in-row-3,
+                #{$root}--items-in-row-4,
+                #{$root}--items-in-row-5,
+                #{$root}--items-in-row-6 {
+                    &#{$root}--slider {
+                        width: 80%;
+                    }
                 }
             }
 
-            @include media( '>=tablet' ) {
-                #{$root}--items-in-row-2.#{$root}--slider,
-                #{$root}--items-in-row-3.#{$root}--slider,
-                #{$root}--items-in-row-4.#{$root}--slider,
-                #{$root}--items-in-row-5.#{$root}--slider,
-                #{$root}--items-in-row-6.#{$root}--slider {
-                    width: 70%;
+            @include media('>=tablet') {
+                #{$root}--items-in-row-2 #{$root}--items-in-row-3,
+                #{$root}--items-in-row-4,
+                #{$root}--items-in-row-5,
+                #{$root}--items-in-row-6 {
+                    &#{$root}--slider {
+                        width: 70%;
+                    }
                 }
             }
         }
@@ -114,11 +117,11 @@
             #{$root}__wrapper--content-display-inside & {
                 align-items: flex-end;
                 text-align: left;
-                @include media( '>=tablet' ) {
+                @include media('>=tablet') {
                     //There is so small image in this scenario on medium screen
                     align-items: center;
                 }
-                @include media( '>=laptop-lg' ) {
+                @include media('>=laptop-lg') {
                     align-items: flex-end;
                 }
             }
@@ -140,11 +143,11 @@
                 justify-content: center;
                 align-items: flex-end;
 
-                @include media( '>=tablet' ) {
+                @include media('>=tablet') {
                     //There is so small image in this scenario on medium screen
                     align-items: center;
                 }
-                @include media( '>=laptop-lg' ) {
+                @include media('>=laptop-lg') {
                     align-items: flex-end;
                 }
             }
@@ -157,21 +160,21 @@
         line-height: 1;
         text-transform: uppercase;
 
-        @include media( '>=phone' ) {
+        @include media('>=phone') {
             font-size: 2rem;
             #{$root}--items-in-row-1 & {
                 font-size: 2rem;
             }
         }
 
-        @include media( '>=phone-lg' ) {
+        @include media('>=phone-lg') {
             font-size: 2.39rem;
             #{$root}--items-in-row-1 & {
                 font-size: 3.75vw;
             }
         }
 
-        @include media( '>=tablet' ) {
+        @include media('>=tablet') {
             #{$root}--items-in-row-1 & {
                 font-size: 4vw;
             }
@@ -205,7 +208,7 @@
             }
         }
 
-        @include media( '>=laptop' ) {
+        @include media('>=laptop') {
             #{$root}--items-in-row-1 & {
                 font-size: 3.5vw;
             }
@@ -230,7 +233,7 @@
             }
         }
 
-        @include media( '>=laptop-lg' ) {
+        @include media('>=laptop-lg') {
             #{$root}--items-in-row-1 & {
                 font-size: 4.65rem;
             }
@@ -263,10 +266,10 @@
 
         //In scenario with 2 images in row on mobile below styles overwrite all above font-sizes
         #{$root}--items-in-row-mobile-2 & {
-            @include media( '<tablet' ) {
+            @include media('<tablet') {
                 font-size: 3.5vw;
             }
-            @include media( '<phone' ) {
+            @include media('<phone') {
                 font-size: 3.8vw;
             }
         }
@@ -282,15 +285,15 @@
         line-height: 1;
         font-weight: 300;
 
-        @include media( '>=phone' ) {
+        @include media('>=phone') {
             font-size: 1.4rem;
         }
 
-        @include media( '>=phone-lg' ) {
+        @include media('>=phone-lg') {
             font-size: 1.69rem;
         }
 
-        @include media( '>=tablet' ) {
+        @include media('>=tablet') {
             #{$root}--items-in-row-1 & {
                 font-size: 2.55vw;
             }
@@ -324,7 +327,7 @@
             }
         }
 
-        @include media( '>=laptop' ) {
+        @include media('>=laptop') {
             #{$root}--items-in-row-1 & {
                 font-size: 2.25vw;
             }
@@ -350,7 +353,7 @@
             }
         }
 
-        @include media( '>=laptop-lg' ) {
+        @include media('>=laptop-lg') {
             #{$root}--items-in-row-1 & {
                 font-size: 2.85rem;
             }
@@ -391,10 +394,10 @@
 
         //In scenario with 2 images in row on mobile below styles overwrite all above font-sizes
         #{$root}--items-in-row-mobile-2 & {
-            @include media( '<tablet' ) {
+            @include media('<tablet') {
                 font-size: 2.5vw;
             }
-            @include media( '<phone' ) {
+            @include media('<phone') {
                 font-size: 3vw;
             }
         }
@@ -404,7 +407,7 @@
         line-height: 1.18;
         display: none;
 
-        @include media( '>=tablet' ) {
+        @include media('>=tablet') {
             font-size: 1.4rem;
 
             #{$root}__wrapper--content-display-outside &,
@@ -413,7 +416,7 @@
             }
         }
 
-        @include media( '>=laptop-lg' ) {
+        @include media('>=laptop-lg') {
             #{$root}--items-in-row-2 & {
                 display: block;
             }
@@ -423,7 +426,7 @@
     &__cta {
         display: none;
 
-        @include media( '>=tablet' ) {
+        @include media('>=tablet') {
             display: block;
             margin-top: 0.7rem;
 
@@ -437,10 +440,10 @@
             #{$root}--items-in-row-4
                 #{$root}__wrapper--content-display-inside
                 &,
-            #{$root}--items-in-row-6 
+            #{$root}--items-in-row-6
                 #{$root}__wrapper--content-display-inside
                 &,
-            #{$root}--items-in-row-6 
+            #{$root}--items-in-row-6
                 #{$root}__wrapper--content-display-outside
                 & {
                 display: none;
@@ -449,10 +452,9 @@
             #{$root}--items-in-row-8 & {
                 display: none;
             }
-
         }
 
-        @include media( '>=laptop' ) {
+        @include media('>=laptop') {
             #{$root}--items-in-row-3:not(#{$root}--slider)
                 #{$root}__wrapper--content-display-inside
                 & {
@@ -516,10 +518,10 @@
     }
 
     &--full-width {
-        margin: 0 calc( ( (100vw - 100%) / 2) * -1);
+        margin: 0 calc(((100vw - 100%) / 2) * -1);
     }
 
-    @include media( '>=tablet' ) {
+    @include media('>=tablet') {
         &--items-in-row-2,
         &--items-in-row-3,
         &--items-in-row-4,
