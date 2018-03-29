@@ -18,38 +18,62 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         <div class="m2c-paragraph-configurator__error" v-text="tempConfiguration.errorMessage" v-show="tempConfiguration.errorMessage">
         </div>
 
-        <div class="m2-input">
-            <label for="input-cfg-id" class="m2-input__label">${$t( 'Identifier' )}:</label>
-            <input type="text" name="cfg-id" v-model="tempConfiguration.identifier" id="input-cfg-id" class="m2-input__input m2-input__input--limited-width" @blur="stripSpaces( tempConfiguration.identifier )" maxlength="30">
-        </div>
-        <div class="m2-input">
-            <label for="input-cfg-title" class="m2-input__label">${$t( 'Title' )}:</label>
-            <input type="text" name="cfg-title" v-model="tempConfiguration.title" id="input-cfg-title" class="m2-input__input m2-input__input--limited-width" maxlength="100">
-        </div>
-        <div class="m2-input">
-            <label for="input-cfg-columns" class="m2-input__label">${$t( 'Number of columns' )}:</label>
-            <select name="input-cfg-columns" class="m2-input__select | m2c-paragraph-configurator__select" id="input-cfg-columns" v-model="configuration.columns" v-bind="{ 'style': 'background-image: url( ' + assetsUrl + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
-                <option value="none">${$t( 'Don\'t split content - display full width' )}</option>
-                <option value="2">${$t( 'Split content into 2 columns' )}</option>
-                <option value="3">${$t( 'Split content into 3 columns' )}</option>
-                <option value="4">${$t( 'Split content into 4 columns' )}</option>
-            </select>
-            <div class="admin__field-note m2-input__note">
-                <span>${$t( 'Defines the way of content display. Content can be splitted into defined number of columns. This setting has no effect on small screen resolutions (such as smartphones) where content is always displayed in one column.' )}</span>
+        <section class="m2c-paragraph-configurator__section">
+            <h3 class="m2c-paragraph-configurator__subtitle">${$t( 'Paragraph width' )}</h3>
+            <div class="m2c-paragraph-configurator__scenario-options">
+                <div
+                    :class="{
+                        'm2c-paragraph-configurator__option--selected': configuration.scenarios.reading.id == optionId,
+                    }"
+                    class="m2c-paragraph-configurator__option"
+                    v-for="(optionId, option) in scenarioOptions.reading"
+                    @click="toggleOption('reading', optionId)">
+                    <div class="m2c-paragraph-configurator__option-wrapper">
+                        <svg class="m2c-paragraph-configurator__option-icon">
+                            <use v-bind="{ 'xlink:href': '#' + option.iconId }"></use>
+                        </svg>
+                    </div>
+                    <p class="m2c-paragraph-configurator__option-name">
+                        ${$t( '{{ option.name }}' )}
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="m2-input">
-            <label for="textarea-cfg-paragraph" class="m2-input__label m2-input__label--look-top-align">${$t( 'HTML' )}:</label>
+        </section>
 
-            <div class="buttons-set | m2c-paragraph-configurator__wysiwyg-buttons">
-                <button type="button" class="scalable action-show-hide" id="toggle-wysiwyg">${$t( 'Show / Hide Editor' )}</button>
-                <button type="button" class="scalable action-add-widget plugin" @click="openWidgetModal()" v-show="!isEditorVisible">${$t( 'Insert Widget' )}...</button>
-                <button type="button" class="scalable action-add-image plugin" @click="openMediaModal()" v-show="!isEditorVisible">${$t( 'Insert Image' )}...</button>
-                <button type="button" class="scalable add-variable plugin" @click="openMagentoVariablesModal()" v-show="!isEditorVisible">${$t( 'Insert Variable' )}...</button>
+        <section class="m2c-paragraph-configurator__section">
+            <div class="m2-input">
+                <label for="input-cfg-id" class="m2-input__label">${$t( 'Identifier' )}:</label>
+                <input type="text" name="cfg-id" v-model="tempConfiguration.identifier" id="input-cfg-id" class="m2-input__input m2-input__input--limited-width" @blur="stripSpaces( tempConfiguration.identifier )" maxlength="30">
             </div>
+            <div class="m2-input">
+                <label for="input-cfg-title" class="m2-input__label">${$t( 'Title' )}:</label>
+                <input type="text" name="cfg-title" v-model="tempConfiguration.title" id="input-cfg-title" class="m2-input__input m2-input__input--limited-width" maxlength="100">
+            </div>
+            <div class="m2-input" v-if="isColumnsConfigAvailable()">
+                <label for="input-cfg-columns" class="m2-input__label">${$t( 'Number of columns' )}:</label>
+                <select name="input-cfg-columns" class="m2-input__select | m2c-paragraph-configurator__select" id="input-cfg-columns" v-model="configuration.columns" v-bind="{ 'style': 'background-image: url( ' + assetsUrl + 'images/dropdown-arrows-bg.svg ), linear-gradient( #e3e3e3, #e3e3e3 ), linear-gradient( #adadad, #adadad )' }">
+                    <option value="none">${$t( 'Don\'t split content - display full width' )}</option>
+                    <option value="2">${$t( 'Split content into 2 columns' )}</option>
+                    <option value="3">${$t( 'Split content into 3 columns' )}</option>
+                    <option value="4">${$t( 'Split content into 4 columns' )}</option>
+                </select>
+                <div class="admin__field-note m2-input__note">
+                    <span>${$t( 'Defines the way of content display. Content can be splitted into defined number of columns. This setting has no effect on small screen resolutions (such as smartphones) where content is always displayed in one column.' )}</span>
+                </div>
+            </div>
+            <div class="m2-input">
+                <label for="textarea-cfg-paragraph" class="m2-input__label m2-input__label--look-top-align">${$t( 'HTML' )}:</label>
 
-            <textarea name="cfg-paragraph" v-model="tempConfiguration.content" id="textarea-cfg-paragraph" class="m2-input__textarea | m2c-paragraph-configurator__textarea"></textarea>
-        </div>
+                <div class="buttons-set | m2c-paragraph-configurator__wysiwyg-buttons">
+                    <button type="button" class="scalable action-show-hide" id="toggle-wysiwyg">${$t( 'Show / Hide Editor' )}</button>
+                    <button type="button" class="scalable action-add-widget plugin" @click="openWidgetModal()" v-show="!isEditorVisible">${$t( 'Insert Widget' )}...</button>
+                    <button type="button" class="scalable action-add-image plugin" @click="openMediaModal()" v-show="!isEditorVisible">${$t( 'Insert Image' )}...</button>
+                    <button type="button" class="scalable add-variable plugin" @click="openMagentoVariablesModal()" v-show="!isEditorVisible">${$t( 'Insert Variable' )}...</button>
+                </div>
+
+                <textarea name="cfg-paragraph" v-model="tempConfiguration.content" id="textarea-cfg-paragraph" class="m2-input__textarea | m2c-paragraph-configurator__textarea"></textarea>
+            </div>
+        </section>
     </form>`,
     props: {
         /*
@@ -62,6 +86,9 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                     blockId: '',
                     title: '',
                     columns: 'none',
+                    scenarios: {
+                        reading: {}
+                    }
                 };
             },
         },
@@ -84,7 +111,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
             default: '',
         },
     },
-    data(): void {
+    data(): any {
         return {
             /*
              * This object if used to operate inside component. We want to bind data to inputs,
@@ -102,6 +129,20 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
 
             // wysiwyg editor object
             editor: undefined,
+
+            scenarioOptions: {
+                // Reading scenario options.
+                reading: {
+                    'full': {
+                        name: 'Container width',
+                        iconId: 'tw_content-width-text',
+                    },
+                    'optimal': {
+                        name: 'Optimal reading width',
+                        iconId: 'tw_optimal-reading',
+                    },
+                },
+            },
         };
     },
     ready(): void {
@@ -156,6 +197,8 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 this.initWysiwyg();
             }
         }
+
+        this.updateConfigurationProp();
     },
     events: {
         /**
@@ -275,6 +318,26 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 varienGlobalEvents.attachEventHandler( 'open_browser_callback', csWysiwygEditor.openFileBrowser );
             } );
         },
+        /*
+         * Set the proper option after variant click
+         */
+        toggleOption( optionCategory: string, optionId: string ): void {
+            this.configuration.scenarios[ optionCategory ] = this.scenarioOptions[ optionCategory ][ optionId ];
+            this.configuration.scenarios[ optionCategory ].id = optionId;
+        },
+        isColumnsConfigAvailable(): boolean {
+            return this.configuration.scenarios.reading.id !== 'optimal';
+        },
+        /*
+         * Backward compatibility enhancement.
+         * When new props are added to the 'configuration' prop, none of already saved component has it.
+         * This leads to backward compatibility issues and JS errors for existing components
+         * This method takes defaults of 'configuration' and merges is with exising configuration object
+         */
+        updateConfigurationProp(): void {
+            const propDefaults: Object = this.$options.props.configuration.default();
+            this.configuration = $.extend({}, propDefaults, this.configuration, true);
+        }
     },
 };
 

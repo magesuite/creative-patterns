@@ -7,7 +7,7 @@
 {% endif %}
 
 <div class="{{ visibilityClass }}">
-    <div class="{{ namespace }}paragraph {{ namespace }}paragraph--cols-{{ columns }} | {{ mix }}">
+    <div class="{{ namespace }}paragraph {{ namespace }}paragraph--cols-{{ columns }} {{ namespace }}paragraph--mode-{{ scenarios.reading.id }} | {{ mix }}">
         {{ content|raw }}
     </div>
 </div>
