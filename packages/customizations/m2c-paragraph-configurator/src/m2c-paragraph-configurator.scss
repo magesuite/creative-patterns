@@ -8,6 +8,85 @@ $namespace: 'm2c-';
 @import '../../../components/cc-paragraph-configurator/src/cc-paragraph-configurator';
 
 .#{$namespace}paragraph-configurator {
+    &__section {
+        margin: 20px 0 0;
+        padding: 20px 0 0;
+        border-top: 1px solid #e5e5e5;
+
+        &:first-child {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+    }
+
+    &__scenario-options {
+        display: flex;
+        margin: 0 -15px;
+        flex-wrap: wrap;
+    }
+
+    &__option {
+        cursor: pointer;
+        position: relative;
+        border-color: #d4d4d4;
+        fill: #d4d4d4;
+        color: #adadad;
+        transition: border-color .3s, opacity .3s, color .3s;
+        margin: 0 15px;
+
+        &:hover {
+            border-color: #0072ff;
+        }
+
+        &--selected {
+            border-color: #0072ff;
+            color: #0072ff;
+        }
+    }
+
+    &__option-wrapper {
+        position: relative;
+        padding: 22px 28px;
+        border-color: inherit;
+        border-style: dashed;
+        border-width: 1px;
+
+        &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background: #f9f9f9;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+    }
+
+    &__option-icon {
+        width: 10vw;
+        height: 5.8vw;
+
+        @media ( max-width: 62.5em ) { // 1000px
+            width: 100px;
+            height: 58px;
+        }
+
+        @media( min-width: 105.625em ) { // 1690px
+            width: 169px;
+            height: 98px;
+        }
+    }
+
+    &__option-name {
+        padding: 20px 0;
+        margin: 0;
+        text-align: center;
+        font-weight: 600;
+    }
+
     &__textarea {
         min-height: 200px;
     }
