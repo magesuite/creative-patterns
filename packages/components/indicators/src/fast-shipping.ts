@@ -228,6 +228,19 @@ export default class FastShipping {
     }
 
     /**
+     * Calculates deadline date taking in count local timezones
+     * @param {number} unixTime - unix time w/o miliseconds (when possibility of shipping today expires)
+     * @return {string} Date - Expire in local timezone
+     */
+    protected _getAdjustedDeadlineTime(unixTime: number): any {
+        const localTimeOffsetInSecs: number = new Date().getTimezoneOffset() * 60;
+        const serverTimeOffsetInSecs: number = new Date(unixTime * 1000).getTimezoneOffset() * 60;
+        const adjustedUnixTime: number = unixTime + (serverTimeOffsetInSecs - localTimeOffsetInSecs);
+
+        return new Date(adjustedUnixTime * 1000);
+    }
+
+    /**
      * Setups AJAX request based on default options and the ones passed in options
      * @return {any} AJAX request
      */
@@ -337,9 +350,10 @@ export default class FastShipping {
      * @return {string} - formatted time left
      */
     protected _getFormattedTimeTo(unixTime: number): string {
-        const deadlineTime = new Date(unixTime * 1000);
-        const h: number = deadlineTime.getHours();
-        const m: number = deadlineTime.getMinutes();
+        const adjustedTime: any = this._getAdjustedDeadlineTime(unixTime);
+
+        const h: number = adjustedTime.getHours();
+        const m: number = adjustedTime.getMinutes();
 
         if(this._options.timeNotation === '12h') {
             const wording12hClock: string = (h >= 12) ? 'PM' : 'AM';
