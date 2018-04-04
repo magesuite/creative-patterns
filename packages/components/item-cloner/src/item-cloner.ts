@@ -278,7 +278,6 @@ export default class ItemCloner {
         const offEvents: string = this._isTouch ? 'touchend touchcancel' : 'mouseleave';
 
         this.$origins.stop().on( onEvents, function( event: Event ): void {
-            event.stopPropagation();
             // Clone only if needed
             if ( ( event.type === 'touchstart' && _this.settings.touch.enabled ) || event.type === 'mouseenter' ) {
                 if ( !$( this ).hasClass( `${ _this.settings.clonerClass }__clone` ) && $( window ).width() >= _this.settings.breakpoint && !document.hidden ) {
