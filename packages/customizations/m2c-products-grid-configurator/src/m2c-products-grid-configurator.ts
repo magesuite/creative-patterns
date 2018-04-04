@@ -25,20 +25,31 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     <input type="hidden" name="cfg-pg-category-select" class="m2-input__input | m2c-products-grid-configurator__form-input" id="cfg-pg-category" v-model="configuration.category_id" @change="onChange">
                 </div>
                 <div class="m2-input m2-input--type-inline | m2c-products-grid-configurator__section-option">
-                    <label for="cfg-pg-order-by" class="m2-input__label | m2c-products-grid-configurator__section-option-label">${$t( 'Order by' )}:</label>
-                    <select name="cfg-pg-order-by" class="m2-input__select" id="cfg-pg-order-by" v-model="configuration.order_by" @change="onChange">
-                        <option value="creation_date">${$t( 'Creation date' )}</option>
-                        <option value="price">${$t( 'Price' )}</option>
-                    </select>
-                    <select name="cfg-pg-order-type" class="m2-input__select" v-model="configuration.order_type" @change="onChange">
-                        <option value="ASC">${$t( 'Ascending' )}</option>
-                        <option value="DESC">${$t( 'Descending' )}</option>
+                    <label for="cfg-pg-filter" class="m2-input__label | m2c-products-grid-configurator__section-option-label">${$t( 'Filter' )}:</label>
+                    <select name="cfg-pg-filter" class="m2-input__select" id="cfg-pg-filter" v-model="configuration.filter" @change="onChange">
+                        <option value="">${$t( 'No filter' )}</option>
+                        <template v-for="filter in productCollectionsFilters">
+                            <option value="{{ filter.value }}" :selected="filter.value === configuration.filter">{{ filter.label }}</option>
+                        </template>
                     </select>
                 </div>
                 <div class="m2-input | m2c-products-grid-configurator__section-option">
                     <label for="cfg-pg-skus" class="m2-input__label">${$t( 'SKUs' )}:</label>
                     <input type="text" name="cfg-pg-skus" class="m2-input__input" id="cfg-pg-skus" v-model="configuration.skus" @change="onChange">
                     <div class="m2-input__hint">${$t( 'Multiple, comma-separated' )}</div>
+                </div>
+                <div class="m2-input m2-input--type-inline | m2c-products-grid-configurator__section-option">
+                    <label for="cfg-pg-order-by" class="m2-input__label | m2c-products-grid-configurator__section-option-label">${$t( 'Order by' )}:</label>
+                    <select name="cfg-pg-order-by" class="m2-input__select" id="cfg-pg-order-by" v-model="configuration.order_by" @change="onChange">
+                        <option value="">${$t( 'Not specified' )}</option>
+                        <template v-for="sorter in productCollectionsSorters">
+                            <option value="{{ sorter.value }}" :selected="sorter.value === configuration.order_by">{{ sorter.label }}</option>
+                        </template>
+                    </select>
+                    <select name="cfg-pg-order-type" class="m2-input__select" v-model="configuration.order_type" @change="onChange">
+                        <option value="ASC">${$t( 'Ascending' )}</option>
+                        <option value="DESC">${$t( 'Descending' )}</option>
+                    </select>
                 </div>
                 <div class="m2-input | m2c-products-grid-configurator__section-option">
                     <label for="cfg-pg-dataprovider" class="m2-input__label">${$t( 'Custom Data Provider' )}:</label>
@@ -224,6 +235,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             default(): Object {
                 return {
                     category_id: '',
+                    filter: '',
                     order_by: 'creation_date',
                     order_type: 'ASC',
                     rows_desktop: 1,
@@ -284,6 +296,14 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             default(): any {
                 return {};
             },
+        },
+        productCollectionsSorters: {
+            type: [String, Array],
+            default: '',
+        },
+        productCollectionsFilters: {
+            type: [String, Array],
+            default: '',
         },
     },
     data(): Object {
@@ -485,6 +505,9 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
     },
     ready(): void {
         const _this: any = this;
+
+        this.productCollectionsSorters = this.productCollectionsSorters !== '' ? JSON.parse(this.productCollectionsSorters) : [];
+        this.productCollectionsFilters = this.productCollectionsFilters !== '' ? JSON.parse(this.productCollectionsFilters) : [];
 
         if ( !this.configuration.class_overrides ) {
             this.configuration.class_overrides = {
