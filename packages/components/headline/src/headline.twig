@@ -8,7 +8,7 @@
 
 <div class="{{ visibilityClass }}">
     <div class="{{ namespace }}headline {{ mix }}">
-        <{{ tag }} class="{{ namespace }}headline__title">{{ title }}</{{ tag }}>
-        <p class="{{ namespace }}headline__subtitle">{{ subtitle }}</p>
+        <{{ tag }} class="{{ namespace }}headline__title">{{ title | raw }}</{{ tag }}>
+        <p class="{{ namespace }}headline__subtitle">{{ subtitle | raw }}</p>
     </div>
 </div>
