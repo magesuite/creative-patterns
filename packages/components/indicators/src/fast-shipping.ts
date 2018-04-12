@@ -70,6 +70,18 @@ interface FastShippingOptions {
      * @default '%d%%dl% %h%%hl% %m%%ml%'
      */
     countdownTemplate?: string;
+    /**
+     * Tells if countdown should be updated dynamically every XX seconds
+     * @type {boolean}
+     * @default false
+     */
+    updateCountdown?: boolean;
+    /**
+     * If `updateCountdown` option is turned on, it defines refresh rate of countdown itself (in seconds)
+     * @type {number}
+     * @default 30
+     */
+    countdownUpdateInterval?: number;
 };
 
 /**
@@ -113,6 +125,8 @@ export default class FastShipping {
         timerVariant: 'time',
         timeNotation: '24h',
         countdownTemplate: '%d% %dl% %h% %hl% %m% %ml%',
+        updateCountdown: false,
+        countdownUpdateInterval: 30,
     };
 
     /**
@@ -148,9 +162,9 @@ export default class FastShipping {
 
         if(timeRemaining.total > 0 && $deadlinePlaceholder.length) {
             if(this._options.timerVariant === 'countdown') {
-                $deadlinePlaceholder.append(this._getFormattedTimeLeft(timeRemaining));
+                $deadlinePlaceholder.html(this._getFormattedTimeLeft(timeRemaining));
             } else {
-                $deadlinePlaceholder.append(this._getFormattedTimeTo(deadline));
+                $deadlinePlaceholder.html(this._getFormattedTimeTo(deadline));
             }
         }
     }
@@ -190,11 +204,26 @@ export default class FastShipping {
     public updateTemplate(data: IAjaxData): void {
         if(data.day === 'today') {
             this.updateTimer(data.time);
+            this.setCountdownUpdateInterval(data.time);
         } else if(data.day === 'other' && data.deliveryDay !== '') {
             this.updateShippingDate(data.deliveryDay);
         }
 
         this.showVariant(data.day);
+    }
+
+    /** Updates countdown every XX (specified in this._options.countdownUpdateInterval) seconds. 
+     * If this._options.updateCountdown option is enabled.
+     * @param {number} deadline - unix time (when possibility of shipping today expires)
+     */
+    public setCountdownUpdateInterval(deadline: number): void {
+        if(this._options.timerVariant === 'countdown' && this._options.updateCountdown) {
+            const component: any = this;
+
+            setInterval((): void => {
+                component.updateTimer(deadline);
+            }, this._options.countdownUpdateInterval * 1000);
+        }
     }
 
     /**
