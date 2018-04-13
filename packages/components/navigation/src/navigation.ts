@@ -166,6 +166,7 @@ export default class Navigation {
         }
         this._adjustFlyouts( this._$flyouts );
         this._attachEvents();
+        this._openIfHovered();
     }
 
     /**
@@ -176,13 +177,32 @@ export default class Navigation {
     }
 
     /**
+     * Handles the case when user hovered over certain navigation item
+     * before scripts were initialized and event listeners hooked.
+     */
+    protected _openIfHovered(): void {
+        if ( !Element.prototype.matches ) {
+            return;
+        }
+
+        const $items: JQuery = $( `.${this._options.itemClassName}` );
+        $items.each( ( index: number, element: HTMLElement ) => {
+            if ( element.matches( ':hover' ) ) {
+                $( element ).trigger( 'mouseenter' );
+                // Break after first found element.
+                return false;
+            }
+        });
+    }
+
+    /**
      * Highlights active category by adding ${this._options.activeCategoryClassName} class eiter to only last level category or whole category tree depending on component's settings
      */
     protected _highlightActiveCategory(): void {
         const $activeCategoryIndicator: JQuery = $('#active-category-id');
         if(
-            $activeCategoryIndicator.length && 
-            $activeCategoryIndicator.attr('data-active-category-id') && 
+            $activeCategoryIndicator.length &&
+            $activeCategoryIndicator.attr('data-active-category-id') &&
             $activeCategoryIndicator.data('active-category-id') !== ''
         ) {
             const activeCategoryId: number = $activeCategoryIndicator.data('active-category-id');
