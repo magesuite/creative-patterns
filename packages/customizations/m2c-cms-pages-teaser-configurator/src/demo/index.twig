@@ -1,0 +1,27 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>m2c-image-teaser-configurator component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../m2c-image-teaser-configurator.css">
+    </head>
+    <body>
+        <h1>m2c-image-teaser-configurator Component Demo</h1>
+
+        {% include '../m2c-image-teaser-configurator.twig' %}
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.28/vue.js"></script>
+        <script src="../m2c-image-teaser-configurator.js"></script>
+        <script>
+            new Vue( {
+                el: 'body',
+                components: {
+                    'm2c-image-teaser-configurator': m2cImageTeaserConfigurator
+                }
+            } );
+        </script>
+    </body>
+</html>
