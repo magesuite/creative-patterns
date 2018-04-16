@@ -25,7 +25,7 @@
                                                 <img src="{{ category.category_icon }}" alt="{{ category.label }}" class="{{ namespace }}navigation__link-icon">
                                             </span>
                                         {% endif %}
-                                        {{ category.label }} 
+                                        {{ category.label }}
                                         {% if showProductsAmountSubcats and category.category_custom_url is null %}
                                             <span class="{{ namespace }}navigation__link-products-qty">{{ category.number_of_products }}</span>
                                         {% endif %}
@@ -39,7 +39,7 @@
                                                             <img src="{{ subcategory.category_icon }}" alt="{{ subcategory.label }}" class="{{ namespace }}navigation__link-icon">
                                                         </span>
                                                     {% endif %}
-                                                    {{ subcategory.label }} 
+                                                    {{ subcategory.label }}
                                                     {% if showProductsAmountSubcats and subcategory.category_custom_url is null %}
                                                         <span class="{{ namespace }}navigation__link-products-qty">{{ subcategory.number_of_products }}</span>
                                                     {% endif %}
@@ -68,6 +68,59 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
+                            </div>
+                        {% endif %}
+
+                        {% if item.image_teaser.image or item.image_teaser.headline or item.image_teaser.subheadline or item.image_teaser.paragraph %}
+                            <div class="{{ namespace }}navigation__teaser">
+                                {% if item.image_teaser.button_link %}
+                                    <a href="{{ item.image_teaser.button_link }}" class="{{ namespace }}navigation__teaser-link">
+                                {% else %}
+                                    <span class="{{ namespace }}navigation__teaser-link">
+                                {% endif %}
+                                    {% if item.image_teaser.image %}
+                                    <figure class="{{ namespace }}navigation__teaser-figure">
+                                        <img
+                                            class="{{ namespace }}navigation__teaser-image | lazyload"
+                                            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                                            data-src="{{ item.image_teaser.image }}"
+                                            {% if item.image_teaser.src_set %}data-srcset="{{ item.image_teaser.src_set }}"{% endif %}
+                                            alt="{% if item.image_teaser.headline %}{{ item.image_teaser.headline }}{% else %}{{ item.label }}{% endif %}"
+                                        >
+                                    </figure>
+                                    {% endif %}
+                                    {% if item.image_teaser.headline or item.image_teaser.subheadline or item.image_teaser.paragraph or item.image_teaser.button_label %}
+                                        <div class="{{ namespace }}navigation__teaser-content-wrapper">
+                                            <div class="{{ namespace }}navigation__teaser-content">
+                                                {% if item.image_teaser.headline %}
+                                                    <h2 class="{{ namespace }}navigation__teaser-headline">{{ item.image_teaser.headline }}</h2>
+                                                {% endif %}
+                                                {% if item.image_teaser.subheadline %}
+                                                    <p class="{{ namespace }}navigation__teaser-subheadline">{{ item.image_teaser.subheadline }}</p>
+                                                {% endif %}
+                                                {% if item.image_teaser.paragraph %}
+                                                    <p class="{{ namespace }}navigation__teaser-text">{{ item.image_teaser.paragraph }}</p>
+                                                {% endif %}
+                                                {% if item.image_teaser.button_label %}
+                                                    <div class="{{ namespace }}navigation__teaser-cta">
+                                                        <span role="button" class="cs-button cs-button--type_long cs-button--look_default">
+                                                            <span class="cs-button__span">{{ item.image_teaser.button_label }}</span>
+                                                            {% if imageTeaser.buttonIcon %}
+                                                                <svg class="cs-button__icon">
+                                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{ imageTeaser.buttonIcon }}"></use>
+                                                                </svg>
+                                                            {% endif %}
+                                                        </span>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% if item.image_teaser.button_link %}
+                                    </a>
+                                {% else %}
+                                    </span>
+                                {% endif %}
                             </div>
                         {% endif %}
                     </div>
