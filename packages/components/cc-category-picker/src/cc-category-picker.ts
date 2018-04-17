@@ -42,6 +42,13 @@ interface CcCategoryPickerOptions {
      */
     disabled?: boolean;
 
+    /**
+     * Defines minimum search query length to initialize filtring of options 
+     * @type {boolean}
+     * @default 3
+     */
+    minSearchQueryLength?: number;
+
     placeholders?: {
         /**
          * Placeholder for select field.
@@ -73,6 +80,7 @@ interface CcCategoryPickerOptions {
 
 export default class CcCategoryPicker {
     protected _$output: any;
+    protected _defaults: any;
     protected _categoriesData: any;
     protected _isOpen: boolean;
     protected _options: any;
@@ -94,14 +102,17 @@ export default class CcCategoryPicker {
             showSearch: true,
             disabled: false,
             disableLastLevelItems: false,
+            minSearchQueryLength: 3,
             placeholders: {
                 select: $t( 'Select...' ),
                 doneButton: $t( 'Done' ),
                 search: $t( 'Type category name to search...' ),
                 empty: $t( 'There are no categories matching your selection' ),
+                removeCrumb: $t( 'Remove this category' ),
             },
             classes: {
                 base: 'cc-category-picker',
+                baseMix: '',
                 input: {
                     base: 'cc-category-picker__input',
                 },
@@ -137,7 +148,7 @@ export default class CcCategoryPicker {
 
         this._categoriesData = data;
         this._categoriesLabels = [];
-        this._options = $.extend( this._defaults, options );
+        this._options = $.extend( true, {}, this._defaults, options );
         this._$output = $output;
         this._$wrapper = undefined;
         this._isOpen = false;
@@ -145,7 +156,7 @@ export default class CcCategoryPicker {
         this._orderedCheckboxes = [];
 
         this._renderPicker();
-        this._afterBuild();
+        this._afterBuild( false );
         this._rebuildValues();
         this._setEvents();
     }
@@ -157,6 +168,7 @@ export default class CcCategoryPicker {
      */
     public updatePicker( inputs?: any ): void {
         const c: any = this._options.classes;
+        const t: any = this._options.placeholders;
         const _this: any = this;
 
         const ids: string = $( inputs ).map( function(): string {
@@ -169,7 +181,7 @@ export default class CcCategoryPicker {
 
         const crumbs: string = $( inputs ).map( function(): string {
             const label: string = $( this ).next( 'label' ).clone().children().remove().end().text();
-            return templates.getCrumbTemplate( c.base, label, $t( 'Remove this category' ), this.value );
+            return templates.getCrumbTemplate( c.base, label, t.removeCrumb, this.value );
         } ).get().join( '' );
 
         this._$output[ 0 ].value = ids;
@@ -205,7 +217,7 @@ export default class CcCategoryPicker {
 
         $wrapper.find( '.m2-input__fake-select' ).addClass( 'm2-input__fake-select--active' );
         $wrapper.find( `.${ this._options.classes.menu.base }` ).addClass( `${ this._options.classes.menu.base }--open` );
-        this.isOpen = true;
+        this._isOpen = true;
     }
 
     /**
@@ -215,7 +227,7 @@ export default class CcCategoryPicker {
     public closePicker( $wrapper: any ): void {
         $wrapper.find( '.m2-input__fake-select' ).removeClass( 'm2-input__fake-select--active' );
         $wrapper.find( `.${ this._options.classes.menu.base }` ).removeClass( `${ this._options.classes.menu.base }--open` );
-        this.isOpen = false;
+        this._isOpen = false;
     }
 
     /**
@@ -279,7 +291,7 @@ export default class CcCategoryPicker {
             tpl = templates.getMinimalComponentTemplate( c, t, disabledClass );
         }
 
-        this._$output.wrap( `<div class="${ c.base }"></div>` );
+        this._$output.wrap( `<div class="${ c.base } ${ c.baseMix }"></div>` );
         this._$wrapper = this._$output.parent( `.${ c.base }` );
         this._$wrapper.append( tpl );
 
@@ -457,7 +469,7 @@ export default class CcCategoryPicker {
     /**
      * Adjusts markup after it is build
      */
-    protected _afterBuild( openSubTree?: boolean = true ): void {
+    protected _afterBuild( openSubTree: boolean = true ): void {
         const c: any = this._options.classes;
         const _this: any = this;
 
@@ -504,10 +516,10 @@ export default class CcCategoryPicker {
         const c: any = this._options.classes;
         const _this: any = this;
         const fKeys: any = [ 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123 ]; // F1-F12
-        const listen: any = /^[a-z0-9]+$/i;
+        const listen: any = /^[a-zA-Z0-9._\b\-\s]+$/i;
 
         this._$wrapper.find( `.${ c.input.base }-opener` ).off( 'click' ).on( 'click', function(): void {
-            if ( _this.isOpen ) {
+            if ( _this._isOpen ) {
                 _this.closePicker( $( this ).parents( `.${ c.base }` ) );
             } else {
                 _this.openPicker( $( this ).parents( `.${ c.base }` ) );
@@ -551,18 +563,15 @@ export default class CcCategoryPicker {
             _this.updatePicker( this );
         } );
 
-        this._$wrapper.find( `.${ c.search.input }` ).off( 'keydown keyup' ).on( {
-            keydown: function( e: Event ): void {
-                if ( this.value.length > 1 ) {
+        this._$wrapper.find( `.${ c.search.input }` ).off( 'keyup' ).on( {
+            keyup: function( e: Event ): void {
+                if ( this.value.length >= _this._options.minSearchQueryLength ) {
                     const key: any = String.fromCharCode( e.keyCode ).toLowerCase();
 
                     if ( key.match( listen ) && fKeys.indexOf( e.which ) === -1 && !e.ctrlKey && !e.metaKey && !e.altKey ) {
                         _this._renderSearchResults( _this._getByQuery( _this._categoriesData, this.value ) );
                     }
-                }
-            },
-            keyup: function(): void {
-                if ( this.value.length > 2 ) {
+
                     _this._$wrapper.find( `.${ c.search.resultsWrapper }` ).show();
                     _this._$wrapper.find( `.${ c.search.resultsQty }` ).show();
                     _this._$wrapper.find( `.${ c.menu.content }` ).hide();

@@ -1,4 +1,6 @@
 .cc-component-placeholder {
+    $root: &;
+
     &__component {
         &--decorated {
             border: 1px dashed #e4e1d9;
@@ -67,5 +69,57 @@
 
     &__content {
         width: 100%;
+    }
+
+    &__pills {
+        width: calc( 100% - 20rem );
+        margin: -1rem 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+
+    &__pill {
+        margin: 1rem 1.13rem 0 0;
+
+        &-label {
+            display: inline-block;
+            padding: .45rem 2rem;
+            border: 1px dashed #e4e1d9;
+            border-radius: 2px;
+            background-color: #f7f7f7;
+            color: #adadad;
+            font-size: 1.45rem;
+            font-weight: 300;
+        }
+
+        &--clean {
+            #{$root}__pill-label {
+                padding-left: 0;
+                padding-right: 0;
+                border: none;
+                background: transparent;
+                color: #333;
+            }
+        }
+    }
+
+    &__right-button {
+        position: absolute;
+        top: 1rem;
+        right: 0;
+
+        &-text {
+            display: block;
+            padding: .45rem 3rem;
+            border-radius: 2px;
+            border: 1px solid #ababab;
+            background-color: #ababab;
+            color: #fff;
+            font-size: 1.45rem;
+            font-weight: 300;
+        }
     }
 }

@@ -67,7 +67,7 @@
         }
 
         &-content {
-            max-height: 46rem;
+            max-height: 30rem;
             overflow-y: auto;
             text-align: left;
 
@@ -284,6 +284,9 @@
 
     &__results {
         display: none;
+        max-height: 30rem;
+        overflow-y: auto;
+        text-align: left;
 
         &-qty {
             display: none;
@@ -331,5 +334,23 @@
 
     &__actions {
         border-top: 1px solid #e3e3e3;
+    }
+
+    &--min {
+        #{$root}__box-content {
+            padding: 0;
+
+            > #{$root}__dropdown {
+                margin-left: 0;
+            }
+
+            #{$root}__dropdown-item-content {
+                margin-left: 0;
+            }
+        }
+
+        #{$root}__results-path {
+            display: none;
+        }
     }
 }
