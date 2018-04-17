@@ -156,12 +156,12 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
 
         <div class="m2c-products-grid-configurator__item" v-show="configuration.hero.position">
             <div class="m2c-hero-carousel-configurator__item-content">
-                <div v-bind:class="[ 'm2c-products-grid-configurator__item-col-left', configuration.hero.image.src ? 'm2c-products-grid-configurator__item-col-left--look-image-uploaded' : '' ]">
+                <div v-bind:class="[ 'm2c-products-grid-configurator__item-col-left', configuration.hero.image ? 'm2c-products-grid-configurator__item-col-left--look-image-uploaded' : '' ]">
                     <div class="m2c-products-grid-configurator__item-image-wrapper">
-                        <img :src="configuration.hero.image.src" class="m2c-image-teaser-configurator__item-image" v-show="configuration.hero.image.src">
-                        <input type="hidden" v-model="configuration.hero.image.src">
+                        <img :src="configuration.hero.image" class="m2c-image-teaser-configurator__item-image" v-show="configuration.hero.image">
+                        <input type="hidden" v-model="configuration.hero.image">
                         <input type="hidden" class="m2c-products-grid-configurator__image-url" id="products-grid-img">
-                        <svg class="m2c-products-grid-configurator__item-image-placeholder" v-show="!configuration.hero.image.src">
+                        <svg class="m2c-products-grid-configurator__item-image-placeholder" v-show="!configuration.hero.image">
                             <use xlink:href="#icon_image-placeholder"></use>
                         </svg>
 
@@ -172,7 +172,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                                             <svg class="action-button__icon action-button__icon--size_100">
                                                 <use xlink:href="#icon_upload-image"></use>
                                             </svg>
-                                            {{ configuration.hero.image.src ? imageUploadedText : noImageUploadedText }}
+                                            {{ configuration.hero.image ? imageUploadedText : noImageUploadedText }}
                                     </button>
                                 </template>
                             </cc-component-actions>
@@ -247,10 +247,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     },
                     hero: {
                         position: '',
-                        image: {
-                            src: '',
-                            alt: '',
-                        },
+                        image: '',
                         displayVariant: '1',
                         colorScheme: 'light',
                         headline: '',
@@ -456,7 +453,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
 
             const img: any = new Image();
             img.onload = function(): void {
-                _this.configuration.hero.image.src = img.getAttribute( 'src' );
+                _this.configuration.hero.image = img.getAttribute( 'src' );
                 _this.onChange();
             };
             img.src = imgEndpoint;

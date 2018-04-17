@@ -25,8 +25,8 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
     </div>
     <div class="cc-component-product-grid-preview" v-show="!isLoading" v-el:scene>
         <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero.position == 'left'">
-            <img v-if="configuration.hero.image.src" :src="configuration.hero.image.src" class="cc-component-product-grid-preview__hero-image">
-            <div class="cc-component-product-grid-preview__hero-placeholder-wrapper" v-show="!configuration.hero.image.src">
+            <img v-if="configuration.hero.image" :src="configuration.hero.image" class="cc-component-product-grid-preview__hero-image">
+            <div class="cc-component-product-grid-preview__hero-placeholder-wrapper" v-show="!configuration.hero.image">
                 <svg class="cc-component-product-grid-preview__hero-placeholder">
                     <use xlink:href="#icon_image-placeholder"></use>
                 </svg>
@@ -54,8 +54,8 @@ const ccComponentProductGridPreview: vuejs.ComponentOption = {
         </ul>
 
         <div class="cc-component-product-grid-preview__hero" v-if="configuration.hero.position == 'right'">
-            <img v-if="configuration.hero.image.src" :src="configuration.hero.image.src" class="cc-component-product-grid-preview__hero-image">
-            <div class="cc-component-product-grid-preview__hero-placeholder-wrapper" v-show="!configuration.hero.image.src">
+            <img v-if="configuration.hero.image" :src="configuration.hero.image" class="cc-component-product-grid-preview__hero-image">
+            <div class="cc-component-product-grid-preview__hero-placeholder-wrapper" v-show="!configuration.hero.image">
                 <svg class="cc-component-product-grid-preview__hero-placeholder">
                     <use xlink:href="#icon_image-placeholder"></use>
                 </svg>
