@@ -111,7 +111,7 @@
 {% set collection = collection|merge( items ) %}
 
 <div class="{{ visibilityClass }}">
-    <div class="{{ namespace }}products-grid {{ namespace }}products-grid--rows-mobile-{{ rows_mobile }} {{ namespace }}products-grid--rows-tablet-{{ rows_tablet }} {{ namespace }}products-grid--rows-desktop-{{ rows_desktop }} {% if isHeroIncluded %}{{ namespace }}products-grid--with-hero{% endif %}">
+    <div class="{{ namespace }}products-grid {% if isHeroIncluded %}{{ namespace }}products-grid--with-hero{% endif %}" data-rows-mobile="{{ rows_mobile }}" data-rows-tablet="{{ rows_tablet }}" data-rows-desktop="{{ rows_desktop }}">
         {% include locate('grid-layout/grid-layout.twig') with {
             namespace: namespace,
             items: collection,

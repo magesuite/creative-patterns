@@ -26,11 +26,14 @@ interface IGridLayoutSettings {
 export default class GridLayout {
     private $wrapper: JQuery;
     private $grid: JQuery;
+    private $productsGrid: JQuery;
     private $bricks: JQuery;
     private settings?: IGridLayoutSettings;
     private columnsCfg: any;
     private teasersCfg: any;
     public isCssGrid: boolean;
+    public isProductsGrid: boolean;
+    public productsGridRowsLimits: any;
     public virtualBricksLength: number;
     public teasers: any;
     public currentColsInRow: number;
@@ -56,6 +59,14 @@ export default class GridLayout {
         this.$bricks = this.$grid.children();
         this.teasers = [];
         this.isCssGrid = this._getIsCssGridSupported();
+        this.isProductsGrid = this.$wrapper.parent('.cs-products-grid').length > 0;
+        this.$productsGrid = this.$wrapper.parent('.cs-products-grid');
+        this.productsGridRowsLimits = this.isProductsGrid ? {
+            mobile: this.$productsGrid.data('rows-mobile'),
+            tablet: this.$productsGrid.data('rows-tablet'),
+            desktop: this.$productsGrid.data('rows-desktop'),
+        } : {};
+
 
         this.columnsCfg = this.$wrapper.data( 'columns-configuration' ) ? JSON.parse( JSON.stringify( this.$wrapper.data( 'columns-configuration' ) ) ) : '';
         this.teasersCfg = this.$wrapper.data( 'teasers-configuration' ) ? JSON.parse( JSON.stringify( this.$wrapper.data( 'teasers-configuration' ) ) ) : '';
@@ -349,11 +360,75 @@ export default class GridLayout {
      */
     protected _resizeHandler(): void {
         let _this: any = this;
+        let throttler: any;
+
+        if ( this.isProductsGrid ) {
+            this._setupProductsGrid();
+        }
 
         $( window ).on( 'resize', function(): void {
-            if ( _this.teasers.length && _this.currentColsInRow !== _this.columnsCfg[ _this._getCurrentBreakpointName() ] ) {
-                _this.recalculate();
-            }
+            clearTimeout( throttler );
+            throttler = setTimeout( (): void => {
+                if ( _this.currentColsInRow !== _this.columnsCfg[ _this._getCurrentBreakpointName() ] ) {
+                    _this.currentColsInRow = _this.columnsCfg[ _this._getCurrentBreakpointName() ]
+                    if( _this.teasers.length ) {
+                        _this.recalculate();
+                    }
+                    
+                    if ( _this.isProductsGrid ) {
+                        _this._setupProductsGrid();
+                    }
+                }
+            }, 250 );
         } );
+    }
+
+    /**
+     * If browser supports CSS Grid Layout, this method will add some CSS
+     * to hide all rows below ${breakpoint}
+     * @param  breakpoint {string} - 'mobile' / 'tablet' / 'desktop' to get info about rows limit set
+     * @return JQuery's CSS prop object
+     */
+    protected _getProductsGridCSS( breakpoint: string ): any {
+        return {
+            'grid-template-rows': `repeat(${this.productsGridRowsLimits[ breakpoint ]}, 1fr)`,
+            'grid-auto-rows': '0',
+            'overflow-y': 'hidden',
+        };
+    }
+
+    /**
+     * Rows limitation for Products Grid components starts here.
+     * This method controls way of hidding rows based on matchMedia and CSS Grid support
+     */
+    protected _setupProductsGrid(): void {
+        if (window.matchMedia(`(max-width: ${breakpoint.tablet - 1}px)`).matches) {
+            this.isCssGrid ? this.$grid.css(this._getProductsGridCSS('mobile')) : this._showProductsGrid('mobile');
+        } else if (window.matchMedia(`(min-width: ${breakpoint.laptop}px)`).matches) {
+            this.isCssGrid ? this.$grid.css(this._getProductsGridCSS('desktop')) : this._showProductsGrid('desktop');
+        } else {
+            this.isCssGrid ? this.$grid.css(this._getProductsGridCSS('tablet')) : this._showProductsGrid('tablet');
+        }
+    }
+
+    /**
+     * If browser DOES NOT support CSS Grid Layout, this method will calculate how many rows
+     * should be SHOWN (for non-css-grid browsers PG items are initially hidden via CSS).
+     * @param  breakpoint {string} - 'mobile' / 'tablet' / 'desktop' to get info about rows limit set
+     */
+    protected _showProductsGrid( breakpoint: string ): void {
+        let itemsToShow: number = this.currentColsInRow * this.productsGridRowsLimits[ breakpoint ];
+        const teasers: any = this._getTeaserItems();
+
+        if (breakpoint !== 'mobile' || (breakpoint === 'mobile' && this.teasersCfg[0].mobile)) {
+            itemsToShow -= ( teasers.x2.length + ( teasers.x4.length * 3 ) );
+        }
+
+        if( itemsToShow < 1 ) {
+            itemsToShow = 1;
+        }
+
+        this.$grid.children().hide();
+        this.$grid.children().eq( itemsToShow - 1 ).prevAll().addBack().show();
     }
 }
