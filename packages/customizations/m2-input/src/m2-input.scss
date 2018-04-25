@@ -61,6 +61,14 @@ $namespace: 'm2-';
         &--limited-width {
             max-width: 450px;
         }
+
+        &--type-tiny {
+            display: inline-block;
+            max-width: 5.3rem;
+            margin-right: 0.3rem;
+            color: inherit;
+            text-align: right;
+        }
     }
 
     &__textarea {

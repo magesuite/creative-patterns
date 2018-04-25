@@ -64,7 +64,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                 <ul class="m2c-products-grid-configurator__scenario-options-list">
                     <li
                         :class="{
-                            'm2c-products-grid-configurator__option--selected': configuration.rows_mobile == optionId,
+                            'm2c-products-grid-configurator__option--selected': isOptionSelected('rows_mobile', optionId),
                         }"
                         class="m2c-products-grid-configurator__option"
                         v-for="(optionId, option) in scenarioOptions.rows_mobile"
@@ -75,6 +75,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                             </svg>
                         </div>
                         <p class="m2c-products-grid-configurator__option-name">
+                            <input v-if="optionId === '1000'" type="text" name="cfg-ml-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-ml-custom" v-model="tmpConfiguration.rows_mobile" @change="setOption('rows_mobile', tmpConfiguration.rows_mobile)">
                             {{ option.name }}
                         </p>
                     </li>
@@ -88,7 +89,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                 <ul class="m2c-products-grid-configurator__scenario-options-list">
                     <li
                         :class="{
-                            'm2c-products-grid-configurator__option--selected': configuration.rows_tablet == optionId,
+                            'm2c-products-grid-configurator__option--selected': isOptionSelected('rows_tablet', optionId),
                         }"
                         class="m2c-products-grid-configurator__option"
                         v-for="(optionId, option) in scenarioOptions.rows_tablet"
@@ -99,6 +100,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                             </svg>
                         </div>
                         <p class="m2c-products-grid-configurator__option-name">
+                            <input v-if="optionId === '1000'" type="text" name="cfg-tl-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-tl-custom" v-model="tmpConfiguration.rows_tablet" @change="setOption('rows_tablet', tmpConfiguration.rows_tablet)">
                             {{ option.name }}
                         </p>
                     </li>
@@ -112,7 +114,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                 <ul class="m2c-products-grid-configurator__scenario-options-list">
                     <li
                         :class="{
-                            'm2c-products-grid-configurator__option--selected': configuration.rows_desktop == optionId,
+                            'm2c-products-grid-configurator__option--selected': isOptionSelected('rows_desktop', optionId),
                         }"
                         class="m2c-products-grid-configurator__option"
                         v-for="(optionId, option) in scenarioOptions.rows_desktop"
@@ -123,6 +125,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                             </svg>
                         </div>
                         <p class="m2c-products-grid-configurator__option-name">
+                            <input v-if="optionId === '1000'" type="text" name="cfg-dl-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-dl-custom" v-model="tmpConfiguration.rows_desktop" @change="setOption('rows_desktop', tmpConfiguration.rows_desktop)">
                             {{ option.name }}
                         </p>
                     </li>
@@ -242,6 +245,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     rows_tablet: 1,
                     rows_mobile: 1,
                     skus: '',
+                    limit: '',
                     class_overrides: {
                         dataProvider: '',
                     },
@@ -308,6 +312,11 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             imageUploadedText: $t( 'Change' ),
             noImageUploadedText: $t( 'Upload' ),
             categoryPicker: undefined,
+            tmpConfiguration: {
+                rows_mobile: this.getRowsSetup('rows_mobile'),
+                rows_tablet: this.getRowsSetup('rows_tablet'),
+                rows_desktop: this.getRowsSetup('rows_desktop'),
+            },
             scenarioOptions: {
                 rows_mobile: {
                     1: {
@@ -325,6 +334,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     4: {
                         name:  $t( '4 rows of products' ),
                         iconId: 'pr_4',
+                    },
+                    1000: {
+                        name: $t( ' rows of products' ),
+                        iconId: 'pr_custom',
                     },
                 },
                 rows_tablet: {
@@ -344,6 +357,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                         name:  $t( '4 rows of products' ),
                         iconId: 'pr_4',
                     },
+                    1000: {
+                        name: $t( ' rows of products' ),
+                        iconId: 'pr_custom',
+                    },
                 },
                 rows_desktop: {
                     1: {
@@ -361,6 +378,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     4: {
                         name:  $t( '4 rows of products' ),
                         iconId: 'pr_4',
+                    },
+                    1000: {
+                        name: $t( ' rows of products' ),
+                        iconId: 'pr_custom',
                     },
                 },
                 hero: {
@@ -397,11 +418,16 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
     methods: {
         setOption( optionCategory: string, optionId: string, key?: string ): void {
             //this.configuration[ optionCategory ] = this.scenarioOptions[ optionCategory ][ optionId ];
+
             if ( key ) {
                 this.configuration[ optionCategory ][ key ] = optionId;
             } else {
-                this.configuration[ optionCategory ] = optionId;
+                this.configuration[ optionCategory ] = optionId === '1000' ? this.tmpConfiguration[optionCategory] : optionId;
             }
+
+            this.setProductsLimit();
+
+            console.log(this.configuration);
         },
         /* Opens M2's built-in image manager modal.
          * Manages all images: image upload from hdd, select image that was already uploaded to server.
@@ -499,6 +525,49 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                 setTimeout( this.wWidgetListener, 300 );
             }
         },
+        /**
+         * Checks if given option is currently selected
+         * @param  optionCategory {string} - section of the option
+         * @param  optionId {string} - value of the option
+         * @return {boolean}
+         */
+        isOptionSelected( optionCategory: string, optionId: string ): boolean {
+            return this.configuration[optionCategory] == optionId || ( optionId === '1000' && this.configuration[optionCategory] > 4 );
+        },
+
+        /**
+         * This method is searching through cc-config.json configuration
+         * to find the highest value for columns across whole project
+         * @return {number} the highest possible columns per row value
+         */
+        getMaxPossibleColumns(): number {
+            const columnsObj: any = this.ccConfig.columnsConfig.full;
+            const columns: Array<any> = Object.keys(columnsObj).map(k => columnsObj[k]);
+
+            return columns.reduce((max: number, current: number) => current > max ? current : max, 0);
+        },
+
+        /**
+         * Calculate how many products should be returned by BE, 
+         * then saves result to component's configuration
+         */
+        setProductsLimit(): void {
+            const maxRowsSet: number = Math.max(this.configuration.rows_mobile, this.configuration.rows_tablet, this.configuration.rows_desktop);
+            const isHeroEnabled: boolean = this.configuration.hero.position !== '';
+            const heroSize: number = isHeroEnabled ? parseInt(this.ccConfig.productsGrid.heroSize.x) * parseInt(this.ccConfig.productsGrid.heroSize.y) : 0;
+
+            this.configuration.limit = (maxRowsSet * this.getMaxPossibleColumns()) - heroSize;
+        },
+
+        /**
+         * This returns number that is visible in the input of custom rows limit.
+         * If value is less than 5 it wil return one of hardcoded scenarios (1-4 rows)
+         * @param  layoutOption {string} - rows_mobile / rows_tablet / rows_desktop
+         * @return {number} rows limit for custom input
+         */
+        getRowsSetup( layoutOption: string ): number {
+            return this.configuration[layoutOption] > 5 ? this.configuration[layoutOption] : 5;
+        },
     },
     ready(): void {
         const _this: any = this;
@@ -510,6 +579,10 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             this.configuration.class_overrides = {
                 dataProvider: '',
             };
+        }
+
+        if( this.configuration.limit && this.configuration.limit === '' ) {
+            this.setProductsLimit();
         }
 
         // Show loader
