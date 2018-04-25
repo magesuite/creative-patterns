@@ -125,14 +125,13 @@
         overflow: hidden;
 
         &-figure {
-            display: flex;
+            display: block;
             max-height: 100%;
             overflow: hidden;
         }
 
         &-image {
             display: block;
-            align-self: center;
         }
 
         &-content-wrapper {
