@@ -81,8 +81,8 @@
                                     {% if item.image_teaser.image %}
                                     <figure class="{{ namespace }}navigation__teaser-figure">
                                         <img
-                                            class="{{ namespace }}navigation__teaser-image | lazyload"
-                                            src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs="
+                                            class="{{ namespace }}navigation__teaser-image"
+                                            src="{{ item.image_teaser.image }}"
                                             data-src="{{ item.image_teaser.image }}"
                                             {% if item.image_teaser.src_set %}data-srcset="{{ item.image_teaser.src_set }}"{% endif %}
                                             alt="{% if item.image_teaser.headline %}{{ item.image_teaser.headline }}{% else %}{{ item.label }}{% endif %}"
