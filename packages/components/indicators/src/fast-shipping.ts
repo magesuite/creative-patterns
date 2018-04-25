@@ -82,6 +82,12 @@ interface FastShippingOptions {
      * @default 30
      */
     countdownUpdateInterval?: number;
+    /**
+     * Tells if countdown should be displayed also for tomorrow's delivery 
+     * @type {number}
+     * @default false
+     */
+    showCountdownForTomorrow?: boolean;
 };
 
 /**
@@ -115,6 +121,7 @@ interface IAjaxData {
 export default class FastShipping {
     protected _$element: JQuery;
     protected _translations: any;
+    protected _countdownInterval: any;
 
     protected _options: FastShippingOptions = {
         namespace: 'cs-',
@@ -127,6 +134,7 @@ export default class FastShipping {
         countdownTemplate: '%d% %dl% %h% %hl% %m% %ml%',
         updateCountdown: false,
         countdownUpdateInterval: 30,
+        showCountdownForTomorrow: false,
     };
 
     /**
@@ -143,6 +151,7 @@ export default class FastShipping {
         this._$element = $element;
         this._options = $.extend( this._options, options );
         this._translations = this._getTranslationsJSON();
+        this._countdownInterval = '';
 
         if(this._isUpdateRequired()) {
             this._updateFromServer();
@@ -160,12 +169,14 @@ export default class FastShipping {
         const timeRemaining: any = this._getTimeRemaining(deadline);
         const $deadlinePlaceholder: JQuery = this._$element.find(this._options.timerSelector);
 
-        if(timeRemaining.total > 0 && $deadlinePlaceholder.length) {
+        if(timeRemaining.total > 0) {
             if(this._options.timerVariant === 'countdown') {
                 $deadlinePlaceholder.html(this._getFormattedTimeLeft(timeRemaining));
             } else {
                 $deadlinePlaceholder.html(this._getFormattedTimeTo(deadline));
             }
+        } else {
+            this._updateFromServer(true);
         }
     }
 
@@ -188,9 +199,11 @@ export default class FastShipping {
      * @param {string} variant - variant that should be shown. 'today' / 'tomorrow' / 'other'
      */
     public showVariant(variant: string): void {
+        const $allVariants = this._$element.find(`.${this._options.variantClassName}`);
         const $variant = this._$element.find(`.${this._options.variantClassName}[data-fs-scenario="${variant}"]`);
 
         if($variant.length) {
+            $allVariants.removeClass(`${this._options.variantClassName}--visible`);
             $variant.addClass(`${this._options.variantClassName}--visible`);
         } else {
             console.warn(`Fast Shipping: Could not find target element: ${variant}`);
@@ -202,8 +215,9 @@ export default class FastShipping {
      * @param {IAjaxData} data - data returned from server
      */
     public updateTemplate(data: IAjaxData): void {
-        if(data.day === 'today') {
+        if(data.day === 'today' || (this._options.showCountdownForTomorrow && data.day === 'tomorrow')) {
             this.updateTimer(data.time);
+            clearInterval(this._countdownInterval);
             this.setCountdownUpdateInterval(data.time);
         } else if(data.day === 'other' && data.deliveryDay !== '') {
             this.updateShippingDate(data.deliveryDay);
@@ -218,10 +232,8 @@ export default class FastShipping {
      */
     public setCountdownUpdateInterval(deadline: number): void {
         if(this._options.timerVariant === 'countdown' && this._options.updateCountdown) {
-            const component: any = this;
-
-            setInterval((): void => {
-                component.updateTimer(deadline);
+            this._countdownInterval = setInterval((): void => {
+                this.updateTimer(deadline);
             }, this._options.countdownUpdateInterval * 1000);
         }
     }
@@ -271,12 +283,13 @@ export default class FastShipping {
 
     /**
      * Setups AJAX request based on default options and the ones passed in options
+     * @param clearCache {boolean} informs server that cache shall be cleared before returning data
      * @return {any} AJAX request
      */
-    protected _AjaxRequest(): any {
+    protected _AjaxRequest(clearCache: boolean): any {
         const defaultParams: object = {
             method: 'POST',
-            url: this._options.requestUrl,
+            url: clearCache ? `${this._options.requestUrl}/clear/cache` : this._options.requestUrl,
             dataType: 'json',
         };
         const params: object = $.extend({}, defaultParams, this._options.ajaxParameters);
@@ -288,16 +301,14 @@ export default class FastShipping {
      * Runs AJAX request. As result initializes template update and saving data to cache
      * Additionally checks if Response is not empty which means something crashed
      * or FastShipping is turned off
+     * @param clearCache {boolean} informs server that cache shall be cleared before returning data
      * @return {any} AJAX request
      */
-    protected _updateFromServer(): any {
-        let _c: any = this;
-        let request: any = this._AjaxRequest();
-
-        return request.then((response: any) => {
+    protected _updateFromServer(clearCache = false): any {
+        return this._AjaxRequest(clearCache).then((response: any) => {
             if(!$.isEmptyObject(response)) {
-                _c.updateTemplate(response);
-                _c._saveToCache(response);
+                this.updateTemplate(response);
+                this._saveToCache(response);
             }
         });
     }
@@ -322,7 +333,7 @@ export default class FastShipping {
             total: timeRemaining,
             days: Math.floor(timeRemaining / (60 * 60 * 24)),
             hours: Math.floor((timeRemaining / (60 * 60)) % 24),
-            minutes: Math.floor((timeRemaining / 60) % 60),
+            minutes: (timeRemaining < 59 && timeRemaining > 0) ? 1 : Math.floor((timeRemaining / 60) % 60),
         };
     }
 
