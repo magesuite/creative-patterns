@@ -390,8 +390,11 @@ export default class GridLayout {
      * @return JQuery's CSS prop object
      */
     protected _getProductsGridCSS( breakpoint: string ): any {
+        const maxRowsOccupied: number = Math.ceil(this.virtualBricksLength / this.columnsCfg[this._getCurrentBreakpointName()]);
+        const rowsToSet: number = this.productsGridRowsLimits[ breakpoint ] >= maxRowsOccupied ? maxRowsOccupied : this.productsGridRowsLimits[ breakpoint ];
+
         return {
-            'grid-template-rows': `repeat(${this.productsGridRowsLimits[ breakpoint ]}, 1fr)`,
+            'grid-template-rows': `repeat(${rowsToSet}, 1fr)`,
             'grid-auto-rows': '0',
             'overflow-y': 'hidden',
         };
@@ -424,8 +427,10 @@ export default class GridLayout {
             itemsToShow -= ( teasers.x2.length + ( teasers.x4.length * 3 ) );
         }
 
-        if( itemsToShow < 1 ) {
+        if (itemsToShow < 1) {
             itemsToShow = 1;
+        } else if (itemsToShow > this.$bricks.length) {
+            itemsToShow = this.$bricks.length;
         }
 
         this.$grid.children().hide();
