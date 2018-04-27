@@ -581,9 +581,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
             };
         }
 
-        if( this.configuration.limit && this.configuration.limit === '' ) {
-            this.setProductsLimit();
-        }
+        this.setProductsLimit();
 
         // Show loader
         $( 'body' ).trigger( 'showLoadingPopup' );
