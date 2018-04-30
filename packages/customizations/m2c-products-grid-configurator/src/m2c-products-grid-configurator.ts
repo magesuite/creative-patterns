@@ -75,7 +75,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                             </svg>
                         </div>
                         <p class="m2c-products-grid-configurator__option-name">
-                            <input v-if="optionId === '1000'" type="text" name="cfg-ml-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-ml-custom" v-model="tmpConfiguration.rows_mobile" @change="setOption('rows_mobile', tmpConfiguration.rows_mobile)">
+                            <input v-if="optionId === '1000'" type="text" name="cfg-ml-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-ml-custom" maxlength="3" v-model="tmpConfiguration.rows_mobile" @change="setOption('rows_mobile', tmpConfiguration.rows_mobile)">
                             {{ option.name }}
                         </p>
                     </li>
@@ -100,7 +100,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                             </svg>
                         </div>
                         <p class="m2c-products-grid-configurator__option-name">
-                            <input v-if="optionId === '1000'" type="text" name="cfg-tl-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-tl-custom" v-model="tmpConfiguration.rows_tablet" @change="setOption('rows_tablet', tmpConfiguration.rows_tablet)">
+                            <input v-if="optionId === '1000'" type="text" name="cfg-tl-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-tl-custom" maxlength="3" v-model="tmpConfiguration.rows_tablet" @change="setOption('rows_tablet', tmpConfiguration.rows_tablet)">
                             {{ option.name }}
                         </p>
                     </li>
@@ -125,7 +125,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                             </svg>
                         </div>
                         <p class="m2c-products-grid-configurator__option-name">
-                            <input v-if="optionId === '1000'" type="text" name="cfg-dl-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-dl-custom" v-model="tmpConfiguration.rows_desktop" @change="setOption('rows_desktop', tmpConfiguration.rows_desktop)">
+                            <input v-if="optionId === '1000'" type="text" name="cfg-dl-custom" class="m2-input__input m2-input__input--type-tiny" id="cfg-dl-custom" maxlength="3" v-model="tmpConfiguration.rows_desktop" @change="setOption('rows_desktop', tmpConfiguration.rows_desktop)">
                             {{ option.name }}
                         </p>
                     </li>
