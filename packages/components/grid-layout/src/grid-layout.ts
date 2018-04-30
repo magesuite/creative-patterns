@@ -67,7 +67,6 @@ export default class GridLayout {
             desktop: this.$productsGrid.data('rows-desktop'),
         } : {};
 
-
         this.columnsCfg = this.$wrapper.data( 'columns-configuration' ) ? JSON.parse( JSON.stringify( this.$wrapper.data( 'columns-configuration' ) ) ) : '';
         this.teasersCfg = this.$wrapper.data( 'teasers-configuration' ) ? JSON.parse( JSON.stringify( this.$wrapper.data( 'teasers-configuration' ) ) ) : '';
 
@@ -135,11 +134,11 @@ export default class GridLayout {
         const teasers: any = this._getTeaserItems();
 
         if ( this.currentColsInRow > 1 ) {
-            virtualLength += teasers.x2.length + ( teasers.x4.length * 3 );
+            virtualLength += teasers.x2.length + ( teasers.x4.length * 4 - teasers.x4.length );
         }
 
         if ( $( window ).width() >= breakpoint.tablet ) {
-            virtualLength += ( teasers.heros.length * 3 );
+            virtualLength += ( teasers.heros.length * 4 - teasers.heros.length);
         }
 
         return virtualLength;
@@ -222,7 +221,7 @@ export default class GridLayout {
         const sizeY: number = teaserData.size.y;
         idx--;
 
-        if ( this.currentRowsCount < sizeY || this.$bricks.length < ( idx + ( sizeX * sizeY ) ) ) {
+        if ( this.currentRowsCount > 1 && this.currentRowsCount < sizeY || this.$bricks.length < ( idx + ( sizeX * sizeY ) ) ) {
             return false;
         }
 
@@ -422,9 +421,19 @@ export default class GridLayout {
     protected _showProductsGrid( breakpoint: string ): void {
         let itemsToShow: number = this.currentColsInRow * this.productsGridRowsLimits[ breakpoint ];
         const teasers: any = this._getTeaserItems();
+        const teaserSize: any = {
+            x: parseInt(this.teasersCfg[0].size.x, 10),
+            y: parseInt(this.teasersCfg[0].size.y, 10),
+        };
 
+        // if teasers are hidden for mobile - adjust items to show by decreasing with teaser size
         if (breakpoint !== 'mobile' || (breakpoint === 'mobile' && this.teasersCfg[0].mobile)) {
-            itemsToShow -= ( teasers.x2.length + ( teasers.x4.length * 3 ) );
+            itemsToShow -= ( teasers.x2.length + ( teasers.x4.length * 3 - teasers.x4.length ) );
+        }
+
+        // if teaser height is higher than rows to show - decrease by teaser size minus X-bricks-taking size 
+        if (this.teasers.length && this.productsGridRowsLimits[ breakpoint ] < teaserSize.y) {
+            itemsToShow += teaserSize.x * teaserSize.y - teaserSize.x;
         }
 
         if (itemsToShow < 1) {

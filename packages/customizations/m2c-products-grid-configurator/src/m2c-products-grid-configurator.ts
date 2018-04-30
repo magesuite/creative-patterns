@@ -552,9 +552,15 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
          * then saves result to component's configuration
          */
         setProductsLimit(): void {
+            const heroWidth: number = parseInt(this.ccConfig.productsGrid.heroSize.x, 10);
+            const heroHeight: number = parseInt(this.ccConfig.productsGrid.heroSize.y, 10);
             const maxRowsSet: number = Math.max(this.configuration.rows_mobile, this.configuration.rows_tablet, this.configuration.rows_desktop);
             const isHeroEnabled: boolean = this.configuration.hero.position !== '';
-            const heroSize: number = isHeroEnabled ? parseInt(this.ccConfig.productsGrid.heroSize.x) * parseInt(this.ccConfig.productsGrid.heroSize.y) : 0;
+            let heroSize: number = isHeroEnabled ? heroWidth * heroHeight : 0;
+
+            if (heroSize >= 1 && maxRowsSet < heroHeight) {
+                heroSize = heroWidth;
+            }
 
             this.configuration.limit = (maxRowsSet * this.getMaxPossibleColumns()) - heroSize;
         },
