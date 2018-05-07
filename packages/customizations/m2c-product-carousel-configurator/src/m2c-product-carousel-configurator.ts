@@ -27,6 +27,10 @@ const m2cProductCarouselConfigurator: vuejs.ComponentOption = {
             <label class="m2-input__label"> </label>
             <span class="m2-input__hint m2-input__hint--under-field">${$t( 'Multiple, comma-separated' )}</span>
         </div>
+        <div class="m2-input m2-input--type-inline m2-input--type-hint" v-if="configuration.skus.length">
+            <label class="m2-input__label"> </label>
+            <span class="m2-input__hint m2-input__hint--under-field m2-input__hint--info-mark">${$t( 'Providing list of comma separated SKUs will disable any filtering and sorting configured for that component.  Category (if specified) will also not be taken into account. Only products with specified SKUs will be displayed in exactly the same order as they are provided in SKUs field.' )}</span>
+        </div>
 
         <div class="m2-input m2-input--type-inline">
             <label class="m2-input__label" for="cfg-pc-dataprovider">${$t( 'Custom Data Provider' )}:</label>
