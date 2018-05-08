@@ -55,6 +55,9 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     <label for="cfg-pg-dataprovider" class="m2-input__label">${$t( 'Custom Data Provider' )}:</label>
                     <input type="text" name="cfg-pg-dataprovider" class="m2-input__input" id="cfg-pg-dataprovider" v-model="configuration.class_overrides.dataProvider" @change="onChange">
                 </div>
+                <div class="m2-input__hint m2-input__hint--info-mark" v-if="configuration.skus.length">
+                    ${$t( 'Providing list of comma separated SKUs will disable any filtering and sorting configured for that component.  Category (if specified) will also not be taken into account. Only products with specified SKUs will be displayed in exactly the same order as they are provided in SKUs field.' )}
+                </div>
             </div>
         </section>
 
