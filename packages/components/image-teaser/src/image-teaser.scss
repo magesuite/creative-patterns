@@ -117,13 +117,6 @@
             #{$root}__wrapper--content-display-inside & {
                 align-items: flex-end;
                 text-align: left;
-                @include media('>=tablet') {
-                    //There is so small image in this scenario on medium screen
-                    align-items: center;
-                }
-                @include media('>=laptop-lg') {
-                    align-items: flex-end;
-                }
             }
         }
 
@@ -142,14 +135,6 @@
                 transform: translateX(-50%);
                 justify-content: center;
                 align-items: flex-end;
-
-                @include media('>=tablet') {
-                    //There is so small image in this scenario on medium screen
-                    align-items: center;
-                }
-                @include media('>=laptop-lg') {
-                    align-items: flex-end;
-                }
             }
         }
     }
