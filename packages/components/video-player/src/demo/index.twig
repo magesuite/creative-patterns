@@ -1,0 +1,41 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>video-player component demo</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="./index.css">
+    </head>
+
+    <body>
+        <h1>Video Player Component Demo</h1>
+
+        <section>
+            <a href="https://www.youtube.com/watch?v=0Bmhjf0rKe8">Play Video</a> <br>
+            <a href="https://www.youtube.com/watch?v=dX3k_QDnzHE">Play Another Video</a>
+            
+            <br><br>
+
+            {% include '../video-player.twig' with {
+                namespace: 'cs-',
+                useModal: false
+            } %}
+        </section>
+
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script src="../video-player.js"></script>
+
+        <script>
+            $(document).ready(function() {
+                new videoPlayer({
+                    scope: 'section',
+                    videoPlayerWidth: '640',
+                    videoPlayerHeight: '380'
+                });
+            });
+        </script>
+    </body>
+</html>
