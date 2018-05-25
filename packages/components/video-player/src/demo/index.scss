@@ -1,0 +1,6 @@
+$namespace: 'cs-';
+@import '../video-player.scss';
+
+.#{$namespace}video-player {
+    @include videoPlayer();
+}
