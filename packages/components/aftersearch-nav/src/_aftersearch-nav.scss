@@ -1,0 +1,229 @@
+@mixin aftersearch-nav($conf: ()) {
+    $root: &;
+    //number of filters in one row
+    $filters-tablet: 4 !default;
+    $filters-laptop: 6 !default;
+    $filters-desktop: 6 !default;
+
+    //number of rows
+    $rows-tablet: 1 !default;
+    $rows-laptop: 1 !default;
+    $rows-desktop: 1 !default;
+
+    // buttons more/less at the bottom
+    $button-more-bottom: false !default;
+    $button-less-bottom: false !default;
+
+    $conf: map-merge(
+        (
+            tabletFilters: $filters-tablet,
+            laptopFilters: $filters-laptop,
+            desktopFilters: $filters-desktop,
+            tabletRows: $rows-tablet,
+            laptopRows: $rows-laptop,
+            desktopRows: $rows-desktop
+        ),
+        $conf
+    );
+
+    @include media('>=tablet', '<laptop') {
+        $row-numbers: map-get($conf, tabletFilters);
+
+        @if $button-more-bottom == true {
+            $row-numbers: map-get($conf, tabletFilters) + 1;
+
+            .#{$namespace}filter-horizontal {
+                padding-bottom: 4.9rem !important;
+            }
+
+            .#{$namespace}aftersearch-nav__show-more-button {
+                position: absolute !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: -0.2rem !important;
+                margin: 0 auto !important;
+                min-width: 12rem !important;
+                max-width: 40rem !important;
+
+                #{$root}__show-more-trigger {
+                    text-align: center !important;
+                }
+            }
+        }
+
+        @if $button-less-bottom == true {
+            .#{$namespace}filter-horizontal {
+                padding-bottom: 4.9rem !important;
+            }
+
+            .#{$namespace}aftersearch-nav__show-more-button {
+                position: absolute !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: -0.2rem !important;
+                margin: 0 auto !important;
+                min-width: 12rem !important;
+                max-width: 40rem !important;
+
+                #{$root}__show-more-trigger {
+                    text-align: center !important;
+                }
+            }
+        }
+
+        $filters-rows-tablet: map-get($conf, tabletFilters) *
+            map-get($conf, tabletRows);
+
+        &__filter,
+        &__filter-row {
+            flex-basis: calc(100% / #{$filters-tablet});
+        }
+
+        &__filter:nth-child(n + #{$row-numbers}) {
+            display: none;
+        }
+
+        &__filter-row {
+            display: block;
+        }
+
+        &__filter-row:last-child:not(&__filter):nth-child(-n
+                + #{$filters-rows-tablet}) {
+            display: none;
+        }
+    }
+
+    @include media('>=laptop', '<desktop') {
+        $row-numbers: map-get($conf, laptopFilters);
+
+        @if $button-more-bottom == true {
+            $row-numbers: map-get($conf, laptopFilters) + 1;
+
+            .#{$namespace}filter-horizontal {
+                padding-bottom: 4.9rem !important;
+            }
+
+            .#{$namespace}aftersearch-nav__show-more-button {
+                position: absolute !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: -0.2rem !important;
+                margin: 0 auto !important;
+                min-width: 12rem !important;
+                max-width: 40rem !important;
+
+                #{$root}__show-more-trigger {
+                    text-align: center !important;
+                }
+            }
+        }
+
+        @if $button-less-bottom == true {
+            .#{$namespace}filter-horizontal {
+                padding-bottom: 4.9rem !important;
+            }
+
+            .#{$namespace}aftersearch-nav__show-more-button {
+                position: absolute !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: -0.2rem !important;
+                margin: 0 auto !important;
+                min-width: 12rem !important;
+                max-width: 40rem !important;
+
+                #{$root}__show-more-trigger {
+                    text-align: center !important;
+                }
+            }
+        }
+
+        $filters-rows-laptop: map-get($conf, laptopFilters) *
+            map-get($conf, laptopRows);
+
+        &__filter,
+        &__filter-row {
+            flex-basis: calc(100% / #{$filters-laptop});
+        }
+
+        &__filter:nth-child(n + #{$row-numbers}) {
+            display: none;
+        }
+
+        &__filter-row {
+            display: block;
+        }
+
+        &__filter-row:last-child:not(&__filter):nth-child(-n
+                + #{$filters-rows-laptop}) {
+            display: none;
+        }
+    }
+
+    @include media('>=desktop') {
+        $row-numbers: map-get($conf, desktopFilters);
+
+        @if $button-more-bottom == true {
+            $row-numbers: map-get($conf, desktopFilters) + 1;
+
+            .#{$namespace}filter-horizontal {
+                padding-bottom: 4.9rem !important;
+            }
+
+            .#{$namespace}aftersearch-nav__show-more-button {
+                position: absolute !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: -0.2rem !important;
+                margin: 0 auto !important;
+                min-width: 12rem !important;
+                max-width: 40rem !important;
+
+                #{$root}__show-more-trigger {
+                    text-align: center !important;
+                }
+            }
+        }
+
+        @if $button-less-bottom == true {
+            .#{$namespace}filter-horizontal {
+                padding-bottom: 4.9rem !important;
+            }
+
+            .#{$namespace}aftersearch-nav__show-more-button {
+                position: absolute !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: -0.2rem !important;
+                margin: 0 auto !important;
+                min-width: 12rem !important;
+                max-width: 40rem !important;
+
+                #{$root}__show-more-trigger {
+                    text-align: center !important;
+                }
+            }
+        }
+
+        $filters-rows-desktop: map-get($conf, desktopFilters) *
+            map-get($conf, desktopRows);
+
+        &__filter,
+        &__filter-row {
+            flex-basis: calc(100% / #{$filters-desktop});
+        }
+
+        &__filter:nth-child(n + #{$row-numbers}) {
+            display: none;
+        }
+
+        &__filter-row {
+            display: block;
+        }
+
+        &__filter-row:last-child:not(&__filter):nth-child(-n
+                + #{$filters-rows-desktop}) {
+            display: none;
+        }
+    }
+}
