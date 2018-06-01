@@ -44,8 +44,12 @@ export default class Aftersearch {
                     $(this).height();
 
                 const itemOffset: number = $(window).height() - itemPosition;
-                if (item.data('height') > itemOffset) {
-                    item.height(itemOffset - 30);
+
+                // Set minimum height of filter contents to 170 (200 - 30)
+                const heightInclMinimal: number = itemOffset > 200 ? itemOffset - 30 : 200;
+
+                if (item.data('height') > itemOffset && heightInclMinimal < item.children().first().height()) {
+                    item.height(heightInclMinimal);
                 } else {
                     item.height(item.data('height'));
                 }
@@ -94,9 +98,14 @@ export default class Aftersearch {
             );
             const listOfElements: JQuery = $('.cs-aftersearch-nav__filter-row');
             const listOfFilters: JQuery = $('.cs-aftersearch-nav__filter');
+            const openFilter: JQuery = $('.cs-aftersearch-nav__filter-title[aria-expanded="true"]');
             const _$filtersOptions: JQuery = $('.cs-filter-horizontal');
             const _$showMoreButton = $('.cs-aftersearch-nav__show-more-button');
             this._allFiltersVisible = !this._allFiltersVisible;
+
+            if(openFilter.length) {
+                openFilter.trigger('click');
+            }
 
             if (this._allFiltersVisible) {
                 $.each(noVisibleElements, function(i: number, e: any): any {
