@@ -172,7 +172,8 @@ export default class VideoPlayer {
                 height: _obj._options.videoPlayerHeight,
                 playerVars: {
                     'autoplay': _obj._options.videoAutoplay,
-                    'controls': 1
+                    'controls': 1,
+                    'rel': 0,
                 },
                 events: {
                     'onReady': onYTplayerReady,
