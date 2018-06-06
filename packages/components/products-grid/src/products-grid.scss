@@ -11,9 +11,7 @@
 @mixin productsGrid( $colsByBreakpoint, $heroSizeByBreakpoint, $fontSizeBaseHeadline: 10vw, $fontSizeBaseSubheadline: 8vw ) {
     $root: &;
 
-    &__item {
-        display: none;
-    }
+    display: none;
 
     &__hero-link,
     &__hero-figure {
