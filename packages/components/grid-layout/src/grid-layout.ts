@@ -411,6 +411,8 @@ export default class GridLayout {
         } else {
             this.isCssGrid ? this.$grid.css(this._getProductsGridCSS('tablet')) : this._showProductsGrid('tablet');
         }
+
+        this.$productsGrid.show();
     }
 
     /**
@@ -428,7 +430,7 @@ export default class GridLayout {
 
         // if teasers are hidden for mobile - adjust items to show by decreasing with teaser size
         if (breakpoint !== 'mobile' || (breakpoint === 'mobile' && this.teasersCfg[0].mobile)) {
-            itemsToShow -= ( teasers.x2.length + ( teasers.x4.length * 3 - teasers.x4.length ) );
+            itemsToShow -= ( teasers.x2.length + ( teasers.x4.length * 4 - teasers.x4.length ) );
         }
 
         // if teaser height is higher than rows to show - decrease by teaser size minus X-bricks-taking size 
