@@ -23,7 +23,7 @@
         "node": ">=4.0.0"
     },
     "author": "creativestyle",
-    "license": "ISC",
+    "license": "OSL-3.0",
     "repository": {
         "type": "git",
         "url": "https://gitlab.creativestyle.pl/frontend/creative-patterns"
