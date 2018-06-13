@@ -1,33 +1,41 @@
 @mixin aftersearch-nav($conf: ()) {
     $root: &;
-    //number of filters in one row
-    $filters-tablet: 4 !default;
-    $filters-laptop: 6 !default;
-    $filters-desktop: 6 !default;
-
-    //number of rows
-    $rows-tablet: 1 !default;
-    $rows-laptop: 1 !default;
-    $rows-desktop: 1 !default;
-
-    // buttons more/less at the bottom
-    $button-more-bottom: false !default;
-    $button-less-bottom: false !default;
 
     $conf: map-merge(
         (
-            tabletFilters: $filters-tablet,
-            laptopFilters: $filters-laptop,
-            desktopFilters: $filters-desktop,
-            tabletRows: $rows-tablet,
-            laptopRows: $rows-laptop,
-            desktopRows: $rows-desktop
+            tabletFilters: 4,
+            laptopFilters: 6,
+            desktopFilters: 6,
+            tabletRows: 1,
+            laptopRows: 1,
+            desktopRows: 1,
+            buttonMoreBottom: false,
+            buttonLessBottom: false,
         ),
         $conf
     );
 
     @include media('>=tablet', '<laptop') {
         $row-numbers: map-get($conf, tabletFilters);
+        $button-more-bottom: map-get($conf, buttonMoreBottom);
+        $button-less-bottom: map-get($conf, buttonLessBottom);
+
+        $filters-rows-tablet: map-get($conf, tabletFilters) *
+            map-get($conf, tabletRows);
+
+        &__filter,
+        &__filter-row {
+            flex-basis: calc(100% / #{$row-numbers});
+        }
+
+        &__filter-row {
+            display: block;
+        }
+
+        &__filter-row:last-child:not(&__filter):nth-child(-n
+                + #{$filters-rows-tablet}) {
+            display: none;
+        }
 
         @if $button-more-bottom == true {
             $row-numbers: map-get($conf, tabletFilters) + 1;
@@ -71,16 +79,22 @@
             }
         }
 
-        $filters-rows-tablet: map-get($conf, tabletFilters) *
-            map-get($conf, tabletRows);
+        &__filter:nth-child(n + #{$row-numbers}) {
+            display: none;
+        }
+    }
+
+    @include media('>=laptop', '<desktop') {
+        $row-numbers: map-get($conf, laptopFilters);
+        $button-more-bottom: map-get($conf, buttonMoreBottom);
+        $button-less-bottom: map-get($conf, buttonLessBottom);
+
+        $filters-rows-laptop: map-get($conf, laptopFilters) *
+            map-get($conf, laptopRows);
 
         &__filter,
         &__filter-row {
-            flex-basis: calc(100% / #{$filters-tablet});
-        }
-
-        &__filter:nth-child(n + #{$row-numbers}) {
-            display: none;
+            flex-basis: calc(100% / #{$row-numbers});
         }
 
         &__filter-row {
@@ -88,13 +102,9 @@
         }
 
         &__filter-row:last-child:not(&__filter):nth-child(-n
-                + #{$filters-rows-tablet}) {
+                + #{$filters-rows-laptop}) {
             display: none;
         }
-    }
-
-    @include media('>=laptop', '<desktop') {
-        $row-numbers: map-get($conf, laptopFilters);
 
         @if $button-more-bottom == true {
             $row-numbers: map-get($conf, laptopFilters) + 1;
@@ -138,16 +148,22 @@
             }
         }
 
-        $filters-rows-laptop: map-get($conf, laptopFilters) *
-            map-get($conf, laptopRows);
+        &__filter:nth-child(n + #{$row-numbers}) {
+            display: none;
+        }
+    }
+
+    @include media('>=desktop') {
+        $row-numbers: map-get($conf, desktopFilters);
+        $button-more-bottom: map-get($conf, buttonMoreBottom);
+        $button-less-bottom: map-get($conf, buttonLessBottom);
+
+        $filters-rows-desktop: map-get($conf, desktopFilters) *
+            map-get($conf, desktopRows);
 
         &__filter,
         &__filter-row {
-            flex-basis: calc(100% / #{$filters-laptop});
-        }
-
-        &__filter:nth-child(n + #{$row-numbers}) {
-            display: none;
+            flex-basis: calc(100% / #{$row-numbers});
         }
 
         &__filter-row {
@@ -155,13 +171,9 @@
         }
 
         &__filter-row:last-child:not(&__filter):nth-child(-n
-                + #{$filters-rows-laptop}) {
+                + #{$filters-rows-desktop}) {
             display: none;
         }
-    }
-
-    @include media('>=desktop') {
-        $row-numbers: map-get($conf, desktopFilters);
 
         @if $button-more-bottom == true {
             $row-numbers: map-get($conf, desktopFilters) + 1;
@@ -205,24 +217,7 @@
             }
         }
 
-        $filters-rows-desktop: map-get($conf, desktopFilters) *
-            map-get($conf, desktopRows);
-
-        &__filter,
-        &__filter-row {
-            flex-basis: calc(100% / #{$filters-desktop});
-        }
-
         &__filter:nth-child(n + #{$row-numbers}) {
-            display: none;
-        }
-
-        &__filter-row {
-            display: block;
-        }
-
-        &__filter-row:last-child:not(&__filter):nth-child(-n
-                + #{$filters-rows-desktop}) {
             display: none;
         }
     }
