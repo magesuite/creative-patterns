@@ -229,6 +229,20 @@ export default class GridLayout {
     }
 
     /**
+     * Converts given value from string or number to boolean
+     * If argument passed is already a boolean, just returns it back 
+     */
+    protected _getIsVisibleOnMobiles(value: any): boolean {
+        if (typeof value === 'string') {
+            return Boolean(parseInt(value));
+        } else if (typeof value === 'number') {
+            return Boolean(value);
+        }
+
+        return value;
+    }
+
+    /**
      * Loops through JSON of teasers and adjusts position returned by _getTeaserIndex method
      * This method runs only if CSS Grid Layout is NOT(!) supported in user's browser
      */
@@ -240,7 +254,7 @@ export default class GridLayout {
             let idx: number = this._getTeaserIndex( this.teasersCfg[ i ] );
 
             if ( $teaser.length ) {
-                if ( ( windowWidth < breakpoint.tablet && !this.teasersCfg[ i ].mobile ) || !this._getDoesTeaserFitIntoGrid(this.teasersCfg[ i ], idx) ) {
+                if ( ( windowWidth < breakpoint.tablet && !this._getIsVisibleOnMobiles(this.teasersCfg[ i ].mobile) ) || !this._getDoesTeaserFitIntoGrid(this.teasersCfg[ i ], idx) ) {
                     $teaser.addClass( `${ this.settings.brickClass }--hidden` );
                     idx = idx - ( this.teasersCfg[ i ].size.x * this.teasersCfg[ i ].size.y );
                 } else {
@@ -313,7 +327,7 @@ export default class GridLayout {
             const idx: number = this._getTeaserIndex( this.teasersCfg[ i ] );
 
             if ( $teaser.length ) {
-                if ( ( windowWidth < breakpoint.tablet && !this.teasersCfg[ i ].mobile ) || !this._getDoesTeaserFitIntoGrid(this.teasersCfg[ i ], idx ) ) {
+                if ( ( windowWidth < breakpoint.tablet && !this._getIsVisibleOnMobiles(this.teasersCfg[ i ].mobile) ) || !this._getDoesTeaserFitIntoGrid(this.teasersCfg[ i ], idx ) ) {
                     $teaser.addClass( `${ this.settings.brickClass }--hidden` );
                 } else {
                     let pos: any = this._getTeaserPositionInGrid( this.teasersCfg[ i ] );
@@ -429,7 +443,7 @@ export default class GridLayout {
         };
 
         // if teasers are hidden for mobile - adjust items to show by decreasing with teaser size
-        if (breakpoint !== 'mobile' || (breakpoint === 'mobile' && this.teasersCfg[0].mobile)) {
+        if (breakpoint !== 'mobile' || (breakpoint === 'mobile' && this._getIsVisibleOnMobiles(this.teasersCfg[0].mobile))) {
             itemsToShow -= ( teasers.x2.length + ( teasers.x4.length * 4 - teasers.x4.length ) );
         }
 
