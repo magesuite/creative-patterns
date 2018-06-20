@@ -2,17 +2,17 @@
     $root: &;
 
     $conf: map-merge(
-        (
-            tabletFilters: 4,
-            laptopFilters: 6,
-            desktopFilters: 6,
-            tabletRows: 1,
-            laptopRows: 1,
-            desktopRows: 1,
-            buttonMoreBottom: false,
-            buttonLessBottom: false,
-        ),
-        $conf
+                    (
+                            tabletFilters: 4,
+                            laptopFilters: 6,
+                            desktopFilters: 6,
+                            tabletRows: 1,
+                            laptopRows: 1,
+                            desktopRows: 1,
+                            buttonMoreBottom: false,
+                            buttonLessBottom: false,
+                    ),
+                    $conf
     );
 
     @include media('>=tablet', '<laptop') {
@@ -81,6 +81,10 @@
 
         &__filter:nth-child(n + #{$row-numbers}) {
             display: none;
+
+            #{$root}--expanded & {
+                display: block;
+            }
         }
     }
 
@@ -150,6 +154,10 @@
 
         &__filter:nth-child(n + #{$row-numbers}) {
             display: none;
+
+            #{$root}--expanded & {
+                display: block;
+            }
         }
     }
 
@@ -219,6 +227,19 @@
 
         &__filter:nth-child(n + #{$row-numbers}) {
             display: none;
+
+            #{$root}--expanded & {
+                display: block;
+            }
+        }
+    }
+
+    @include media('>=desktop') {
+        &__filter-content {
+            &--extremely-right {
+                left: auto !important;
+                right: 0.5rem;
+            }
         }
     }
 }
