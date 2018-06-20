@@ -35,6 +35,24 @@ export default class Aftersearch {
         this._attachEvents();
     }
 
+    /**
+     *  Calculate height of collapsible elements to best fit available screen
+     */
+    protected _calculateOptimalHeight($filterContent: JQuery): number {
+        const itemPosition: number =
+            $filterContent.offset().top -
+            $(window).scrollTop() +
+            $filterContent.height();
+
+        const itemOffset: number = $(window).height() - itemPosition;
+
+        const heightInclMinimal: number = itemOffset > 170 ? itemOffset : 170;
+        if ($filterContent.data('height') > itemOffset && heightInclMinimal < $filterContent.children().first().height()) {
+            return heightInclMinimal;
+        } else {
+            return $filterContent.data('height');
+        }
+    }
 
     /**
      *  Set height of collapsible elements to best fit available screen
@@ -48,19 +66,9 @@ export default class Aftersearch {
             if (!$filterContent.data('height')) {
                 $filterContent.attr('data-height', $filterContent.height());
             }
-            const itemPosition: number =
-                $filterContent.offset().top -
-                $(window).scrollTop() +
-                $filterContent.height();
 
-            const itemOffset: number = $(window).height() - itemPosition;
+            $filterContent.height(this._calculateOptimalHeight($filterContent));
 
-            const heightInclMinimal: number = itemOffset > 170 ? itemOffset - 30 : 170;
-            if ($filterContent.data('height') > itemOffset && heightInclMinimal < $filterContent.children().first().height()) {
-                $filterContent.height(heightInclMinimal);
-            } else {
-                $filterContent.height($filterContent.data('height'));
-            }
         }
     }
 
