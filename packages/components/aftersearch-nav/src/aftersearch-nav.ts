@@ -38,19 +38,20 @@ export default class Aftersearch {
     /**
      *  Calculate height of collapsible elements to best fit available screen
      */
-    protected _calculateOptimalHeight($filterContent: JQuery): number {
+    protected _calculateOptimalHeight(initialHeight, $filterContent: JQuery, $filterTitle: JQuery): number {
         const itemPosition: number =
             $filterContent.offset().top -
             $(window).scrollTop() +
-            $filterContent.height();
+            $filterTitle.outerHeight();
 
         const itemOffset: number = $(window).height() - itemPosition;
+        const minimalFilterHeight: number = 200;
+        const spaceBetweenFilterAndWindowBottom: number = 30;
 
-        const heightInclMinimal: number = itemOffset > 170 ? itemOffset : 170;
-        if ($filterContent.data('height') > itemOffset && heightInclMinimal < $filterContent.children().first().height()) {
-            return heightInclMinimal;
+        if (initialHeight > itemOffset - spaceBetweenFilterAndWindowBottom) {
+            return itemOffset - spaceBetweenFilterAndWindowBottom < minimalFilterHeight ? minimalFilterHeight : itemOffset - spaceBetweenFilterAndWindowBottom;
         } else {
-            return $filterContent.data('height');
+            return initialHeight;
         }
     }
 
@@ -59,15 +60,20 @@ export default class Aftersearch {
      */
     protected _setProperHeightOfFlyout($filter: JQuery): void {
         if ($(window).width() >= breakpoint.tablet) {
+
             const $filterContent: JQuery = $filter.find(
                 'div.cs-aftersearch-nav__filter-content'
             );
+            const $filterTitle: JQuery = $filter.find(
+                '.cs-aftersearch-nav__filter-title'
+            );
 
-            if (!$filterContent.data('height')) {
-                $filterContent.attr('data-height', $filterContent.height());
-            }
+            // Remove height that was previously set to start with clean value
+            $filterContent.css('height', '');
 
-            $filterContent.height(this._calculateOptimalHeight($filterContent));
+            const initialHeight: number = $filterContent.height();
+
+            $filterContent.height(this._calculateOptimalHeight(initialHeight, $filterContent, $filterTitle));
 
         }
     }
