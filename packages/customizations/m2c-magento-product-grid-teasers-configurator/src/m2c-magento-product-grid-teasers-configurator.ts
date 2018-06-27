@@ -67,12 +67,12 @@ const m2cMagentoProductGridTeasersConfigurator: vuejs.ComponentOption = {
                             <div class="m2c-magento-product-grid-teasers-configurator__item-actions">
                                 <cc-component-actions>
                                     <template slot="cc-component-actions__buttons">
-                                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up | m2c-magento-product-grid-teasers-configurator__item-action-button" @click="moveHeroItemUp( $index )" :class="[ isFirstTeaser( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isFirstTeaser( $index )">
+                                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--up | m2c-magento-product-grid-teasers-configurator__item-action-button" @click="moveTeaserUp( $index )" :class="[ isFirstTeaser( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isFirstTeaser( $index )">
                                             <svg class="action-button__icon action-button__icon--size_100">
                                                 <use xlink:href="#icon_arrow-up"></use>
                                             </svg>
                                         </button>
-                                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down | m2c-magento-product-grid-teasers-configurator__item-action-button" @click="moveHeroItemDown( $index )" :class="[ isLastTeaser( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isLastTeaser( $index )">
+                                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--down | m2c-magento-product-grid-teasers-configurator__item-action-button" @click="moveTeaserDown( $index )" :class="[ isLastTeaser( $index ) ? 'action-button--look_disabled' : '' ]" :disabled="isLastTeaser( $index )">
                                             <svg class="action-button__icon action-button__icon--size_100">
                                                 <use xlink:href="#icon_arrow-down"></use>
                                             </svg>
