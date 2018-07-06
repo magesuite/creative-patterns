@@ -15,8 +15,13 @@
                 </a>
                 {% if item.subcategories and item.subcategories|length > 0 and item.do_not_expand_flyout != '1' %}
                     <div class="{{ namespace }}navigation__flyout"{% if item.category_identifier %} data-category-identifier="{{ item.category_identifier }}"{% endif %}>
-
                         <div class="{{ namespace }}navigation__categories">
+                            <div class="{{ namespace }}navigation__category{% if item.category_custom_url is not null %} {{ namespace }}navigation__category--custom{% endif %} {{ namespace }}navigation__category--hidden" data-category-id="{{ item.id }}"  {% if item.category_identifier %}data-category-identifier="{{ item.category_identifier }}"{% endif %}>
+                                <a href="{{ item.url }}" class="{{ namespace }}navigation__link {{ namespace }}navigation__link--category">
+                                    {{ translate("Go to %1", item.label) }}
+                                </a>
+                            </div>
+
                             {% for category in item.subcategories %}
                                 <div class="{{ namespace }}navigation__category{% if category.category_custom_url is not null %} {{ namespace }}navigation__category--custom{% endif %}" data-category-id="{{ category.id }}"  {% if category.category_identifier %}data-category-identifier="{{ category.category_identifier }}"{% endif %}>
                                     <a href="{% if category.category_custom_url is not null %}{{ category.category_custom_url }}{% else %}{{ category.url }}{% endif %}" class="{{ namespace }}navigation__link {{ namespace }}navigation__link--category{% if showCategoryIconSubcats and category.category_icon is defined and category.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">

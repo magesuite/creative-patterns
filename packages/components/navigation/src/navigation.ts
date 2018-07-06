@@ -28,6 +28,11 @@ interface NavigationOptions {
      */
     flyoutColumnsClassName?: string;
     /**
+     * Navigation flyout category class name.
+     * @type {string}
+     */
+    flyoutCategoryClassName?: string;
+    /**
      * Desired max height of the flyout. Number of columns will be decreased until
      * flyout's height will be smaller then given max height.
      * @type {number}
@@ -100,7 +105,7 @@ interface NavigationOptions {
      * @type {string}
      */
     activeCategoryClassName?: string;
-};
+}
 
 /**
  * Dropdown navigation that supports 3 category level links.
@@ -116,6 +121,8 @@ export default class Navigation {
         itemFocusInListener?: ( event: Event ) => void;
         flyoutFocusInListener?: ( event: Event ) => void;
         focusOutListener?: ( event: Event ) => void;
+        itemTouchStartListener?: ( event: Event ) => void;
+        windowTouchStartListener?: ( event: Event ) => void;
         itemMouseenterListener?: ( event: Event ) => void;
         itemMouseleaveListener?: ( event: Event ) => void;
         navigationMouseleaveListener?: ( event: Event ) => void;
@@ -124,11 +131,12 @@ export default class Navigation {
     protected _showTimeout: number;
 
     protected _options: NavigationOptions = {
-        containerClassName: 'navigation__list',
-        itemClassName: 'navigation__item',
-        flyoutClassName: 'navigation__flyout',
-        flyoutVisibleClassName: 'navigation__flyout--visible',
-        flyoutColumnsClassName: 'navigation__categories',
+        containerClassName: 'cs-navigation__list',
+        itemClassName: 'cs-navigation__item',
+        flyoutClassName: 'cs-navigation__flyout',
+        flyoutVisibleClassName: 'cs-navigation__flyout--visible',
+        flyoutCategoryClassName: 'cs-navigation__category',
+        flyoutColumnsClassName: 'cs-navigation__categories',
         flyoutMaxHeight: 400,
         flyoutDefaultColumnCount: 4,
         resizeDebounce: 100,
@@ -468,7 +476,6 @@ export default class Navigation {
                 this._adjustFlyouts( this._$flyouts );
             }, this._options.resizeDebounce );
         };
-        this._$window.on( 'resize orientationchange', this._eventListeners.resizeListener );
 
         this._eventListeners.itemFocusInListener = ( event: Event ): void => {
             const $targetFlyout: JQuery = $( event.target ).parent().find( `.${ this._options.flyoutClassName }` );
@@ -489,12 +496,42 @@ export default class Navigation {
         };
 
         this._eventListeners.itemMouseenterListener = ( event: Event ): void => {
-            const $target: any = $( event.target ).closest( `.${this._options.itemClassName}` ).find( `.${ this._options.flyoutClassName }` );
+            const $target: JQuery = $( event.target ).closest( `.${this._options.itemClassName}` ).find( `.${ this._options.flyoutClassName }` );
 
             this._showFlyoutDelay( $target );
 
             if ( !$target.length ) {
                 this._hideOverlay();
+            }
+        };
+
+        this._eventListeners.itemTouchStartListener = ( event: Event ): void => {
+            const $target: JQuery = $( event.target ).closest( `.${this._options.itemClassName}` );
+            const $targetFlyout: JQuery = $target.find( `.${ this._options.flyoutClassName }` );
+
+            if (!$targetFlyout.length) {
+                return;
+            }
+
+            event.preventDefault();
+
+            if ($targetFlyout.hasClass(this._options.flyoutVisibleClassName)) {
+                this._hideFlyout( $targetFlyout );
+            } else {
+                $target.focus();
+                this._hideFlyout( this._$flyouts.not( $targetFlyout ) );
+                this._showFlyout( $targetFlyout );
+            }
+
+            const $flyoutCategories: JQuery = $targetFlyout.find(`.${ this._options.flyoutCategoryClassName }`);
+            $flyoutCategories.removeClass(`${ this._options.flyoutCategoryClassName }--hidden`);
+        };
+
+        this._eventListeners.windowTouchStartListener = ( event: Event ): void => {
+            const $target: JQuery = $( event.target ).closest( `.${this._options.itemClassName}` );
+
+            if (!$target.length) {
+                this._hideFlyout( this._$flyouts );
             }
         };
 
@@ -511,8 +548,12 @@ export default class Navigation {
             this._hideOverlay();
         };
 
+        this._$window.on( 'resize orientationchange', this._eventListeners.resizeListener );
+        this._$window.on( 'touchstart', this._eventListeners.windowTouchStartListener );
+
         const $items: JQuery = $( `.${this._options.itemClassName}` );
         $items.on( 'focusin', this._eventListeners.itemFocusInListener );
+        $items.on( 'touchstart', this._eventListeners.itemTouchStartListener );
         $items.on( 'mouseenter', this._eventListeners.itemMouseenterListener );
         $items.on( 'mouseleave', this._eventListeners.itemMouseleaveListener );
         this._$element.on( 'mouseleave', this._eventListeners.navigationMouseleaveListener );
@@ -526,10 +567,12 @@ export default class Navigation {
      */
     protected _detachEvents(): void {
         this._$window.off( 'resize orientationchange', this._eventListeners.resizeListener );
+        this._$window.off( 'touchstart', this._eventListeners.windowTouchStartListener );
 
         const $items: JQuery = $( `.${this._options.itemClassName}` );
         $items.off( 'mouseenter', this._eventListeners.itemMouseenterListener );
         $items.off( 'mouseleave', this._eventListeners.itemMouseleaveListener );
+        $items.off( 'touchstart', this._eventListeners.itemTouchStartListener );
         $items.off( 'focusin', this._eventListeners.itemFocusInListener );
         this._$element.off( 'mouseleave', this._eventListeners.navigationMouseleaveListener );
         this._$flyouts.off( 'focusin', this._eventListeners.flyoutFocusInListener );
