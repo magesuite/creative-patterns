@@ -18,6 +18,7 @@ import ccComponentSeparatorPreview from '../../cc-component-separator-preview/sr
 import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-block-preview/src/cc-component-static-cms-block-preview';
 import ccComponentMagentoProductGridTeasersPreview from '../../cc-component-magento-product-grid-teasers-preview/src/cc-component-magento-product-grid-teasers-preview';
 import ccComponentCustomHtmlPreview from '../../cc-component-custom-html-preview/src/cc-component-custom-html-preview';
+import ccComponentProductFinderPreview from '../../cc-component-product-finder-preview/src/cc-component-product-finder-preview';
 
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
 import componentAdder from '../../cc-component-adder/src/cc-component-adder';
@@ -68,6 +69,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-separator-preview': ccComponentSeparatorPreview,
         'cc-component-magento-product-grid-teasers-preview': ccComponentMagentoProductGridTeasersPreview,
         'cc-component-custom-html-preview': ccComponentCustomHtmlPreview,
+        'cc-component-product-finder-preview': ccComponentProductFinderPreview,
     },
     props: {
         /**
@@ -86,6 +88,11 @@ const layoutBuilder: vuejs.ComponentOption = {
             default(): any {
                 return {};
             },
+        },
+        /* Obtain image endpoint to place permanent url for uploaded images */
+        imageEndpoint: {
+            type: String,
+            default: '',
         },
         /**
          * Initial component configuration encoded as JSON string.
