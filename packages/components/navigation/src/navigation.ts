@@ -506,10 +506,11 @@ export default class Navigation {
         };
 
         this._eventListeners.itemTouchStartListener = ( event: Event ): void => {
-            const $target: JQuery = $( event.target ).closest( `.${this._options.itemClassName}` );
-            const $targetFlyout: JQuery = $target.find( `.${ this._options.flyoutClassName }` );
-
-            if (!$targetFlyout.length) {
+            const $target: JQuery = $( event.target );
+            const $targetItem: JQuery = $target.closest( `.${this._options.itemClassName}` );
+            const $targetFlyout: JQuery = $targetItem.find( `.${ this._options.flyoutClassName }` );
+            // Checks if item has no flyout or that touch was triggered inside it.
+            if (!$targetFlyout.length || $target.closest(`.${ this._options.flyoutClassName }`).length) {
                 return;
             }
 
@@ -518,7 +519,7 @@ export default class Navigation {
             if ($targetFlyout.hasClass(this._options.flyoutVisibleClassName)) {
                 this._hideFlyout( $targetFlyout );
             } else {
-                $target.focus();
+                $targetItem.focus();
                 this._hideFlyout( this._$flyouts.not( $targetFlyout ) );
                 this._showFlyout( $targetFlyout );
             }
