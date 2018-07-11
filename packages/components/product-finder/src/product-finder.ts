@@ -176,7 +176,7 @@ export default class ProductFinder {
                     return accumulator;
                 }, {});
 
-            $.extend(true, configuredData, { attributes });
+            $.extend(true, configuredData, { attributes: attributes });
 
             if (categoryId) {
                 configuredData.category_id = categoryId;
