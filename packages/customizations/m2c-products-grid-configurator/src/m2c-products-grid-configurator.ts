@@ -214,7 +214,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
                     </div>
                     <div class="m2-input | m2c-products-grid-configurator__item-form-element">
                         <label for="cfg-pg-hero_paragraph" class="m2-input__label | m2c-products-grid-configurator__form-label--textarea">${$t( 'Paragraph' )}:</label>
-                        <textarea type="text" name="cfg-pg-hero_paragraph" class="m2-input__textarea" id="cfg-pg-hero_paragraph" placeholder="${$t( '(max 200 characters)' )}" maxlength="200" v-model="configuration.hero.paragraph"></textarea>
+                        <textarea type="text" name="cfg-pg-hero_paragraph" class="m2-input__textarea" id="cfg-pg-hero_paragraph" v-model="configuration.hero.paragraph"></textarea>
                     </div>
                     <div class="m2-input m2-input--group">
                         <div class="m2-input | m2c-products-grid-configurator__item-form-element">

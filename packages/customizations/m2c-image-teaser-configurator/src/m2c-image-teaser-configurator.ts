@@ -206,7 +206,7 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
                             </div>
                             <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
                                 <label for="cfg-hc-item{{ $index }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
-                                <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-hc-item{{ $index }}-paragraph" class="m2-input__textarea" placeholder="(${$t( 'max 400 characters' )})" maxlength="400"></textarea>
+                                <textarea type="text" v-model="configuration.items[$index].paragraph" id="cfg-hc-item{{ $index }}-paragraph" class="m2-input__textarea"></textarea>
                             </div>
                             <div class="m2-input m2-input--group">
                                 <div class="m2-input | m2c-image-teaser-configurator__item-form-element">
