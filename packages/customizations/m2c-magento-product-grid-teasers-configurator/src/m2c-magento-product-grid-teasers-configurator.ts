@@ -156,7 +156,7 @@ const m2cMagentoProductGridTeasersConfigurator: vuejs.ComponentOption = {
                         </div>
                         <div class="m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element">
                             <label for="cfg-mpg-teaser{{ $index }}-paragraph" class="m2-input__label">${$t( 'Paragraph' )}:</label>
-                            <textarea type="text" v-model="configuration.teasers[$index].paragraph" id="cfg-mpg-teaser{{ $index }}-paragraph" class="m2-input__textarea" placeholder="(${$t( 'max 200 characters' )})" maxlength="200"></textarea>
+                            <textarea type="text" v-model="configuration.teasers[$index].paragraph" id="cfg-mpg-teaser{{ $index }}-paragraph" class="m2-input__textarea"></textarea>
                         </div>
                         <div class="m2-input m2-input--group">
                             <div class="m2-input | m2c-magento-product-grid-teasers-configurator__item-form-element">
