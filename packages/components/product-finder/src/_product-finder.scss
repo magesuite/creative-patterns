@@ -3,6 +3,8 @@
 $product-finder-back-button-per-step: false !default;
 // Tells how many options should per each row should be supported at maximum.
 $product-finder-step-option-max-per-row: 6 !default;
+// Vertical gap size between step options.
+$product-finder-step-option-gap: 1rem !default;
 
 @mixin product-finder() {
     $root: &;
@@ -81,19 +83,30 @@ $product-finder-step-option-max-per-row: 6 !default;
         position: relative;
 
         @for $i from 1 to $product-finder-step-option-max-per-row {
+            $step-option-num-of-gaps: $i - 1;
+
             #{$root}__step--options-mobile_#{$i} & {
-                flex-basis: (100% / $i);
+                flex-basis: calc(
+                    #{100% /
+                        $i} -
+                        #{$step-option-num-of-gaps *
+                        $product-finder-step-option-gap}
+                );
             }
 
             #{$root}__step--options-tablet_#{$i} & {
                 @include media('>=tablet') {
-                    flex-basis: (100% / $i);
+                    flex-basis: calc(
+                        #{100% / $i} - #{$step-option-num-of-gaps * $product-finder-step-option-gap}
+                    );
                 }
             }
 
             #{$root}__step--options-desktop_#{$i} & {
                 @include media('>=laptop') {
-                    flex-basis: (100% / $i);
+                    flex-basis: calc(
+                        #{100% / $i} - #{$step-option-num-of-gaps * $product-finder-step-option-gap}
+                    );
                 }
             }
         }
