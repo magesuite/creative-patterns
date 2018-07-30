@@ -49,6 +49,15 @@
             padding: 2px 0;
         }
     }
+    // Introducing custom class separate from the &__link to not interfere with
+    // offcanvas navigation builder which depends on it.
+    &__touch-link {
+        @extend #{$root}__link;
+
+        &--category {
+            @extend #{$root}__link--category;
+        }
+    }
 
     &__flyout {
         position: absolute;
