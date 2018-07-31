@@ -1,7 +1,11 @@
 <nav class="{{ namespace }}navigation">
     <ul class="{{ namespace }}navigation__list">
         {% for item in items %}
-            <li class=" {{ namespace }}navigation__item{% if item.category_custom_url is not null %} {{ namespace }}navigation__item--custom{% endif %}" data-category-id="{{ item.id }}" {% if item.category_identifier %}data-category-identifier="{{ item.category_identifier }}"{% endif %}>
+            <li
+                class=" {{ namespace }}navigation__item{% if item.category_custom_url is not null %} {{ namespace }}navigation__item--custom{% endif %}{% if item.subcategories and item.subcategories|length > 0 and item.do_not_expand_flyout != '1' %} {{ namespace }}navigation__item--with-flyout{% endif %}"
+                data-category-id="{{ item.id }}"
+                {% if item.category_identifier %}data-category-identifier="{{ item.category_identifier }}"{% endif %}
+            >
                 <a href="{% if item.category_custom_url is not null %}{{ item.category_custom_url }}{% else %}{{ item.url }}{% endif %}" class="{{ namespace }}navigation__link{% if showCategoryIconRoot and item.category_icon is defined and item.category_icon|length %} {{ namespace }}navigation__link--with-icon{% endif %}">
                     {% if showCategoryIconRoot and item.category_icon is defined and item.category_icon|length %}
                         <span class="{{ namespace }}navigation__link-icon-wrapper {{ namespace }}navigation__link-icon-wrapper--root">
