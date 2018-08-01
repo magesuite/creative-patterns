@@ -20,7 +20,19 @@ const m2cCmsPagesTeaserConfigurator: vuejs.ComponentOption = {
                     <label class="m2-input__label | m2c-cms-pages-teaser-configurator__section-option-label">${$t( 'CMS Tags' )}:</label>
                     <input type="hidden" v-model="configuration.tags" @change="onChange" id="cp-cms-pages-teaser">
                 </div>
-                
+                <div class="m2c-cms-pages-teaser-configurator__section-option">
+                    <div class="m2-input">
+                        <label class="m2-input__label" for="cfg-cmspt-page-ids">${$t( 'CMS Pages IDs' )}:</label>
+                        <input type="text" name="cfg-cmspt-page-ids" class="m2-input__input" id="cfg-cmspt-page-ids" v-model="configuration.ids" @change="onChange">
+                    </div>
+                    <div class="m2-input m2-input--type-inline m2-input--type-hint">
+                        <span class="m2-input__hint m2-input__hint--under-field">${$t( 'Multiple, comma-separated.' )}</span>
+                    </div>
+                    <div class="m2-input m2-input--type-inline m2-input--type-hint" v-if="configuration.ids.length">
+                        <span class="m2-input__hint m2-input__hint--info-mark">${$t( 'Providing list of comma separated IDs will result in ignoring any CMS tags (if specified). Only pages with specified IDs will be displayed in exactly the same order as they are provided in the field.' )}</span>
+                    </div>
+                </div>
+
                 <div class="m2-input m2-input--type-inline | m2c-cms-pages-teaser-configurator__section-option">
                     <label for="cfg-cmspt-limit" class="m2-input__label | m2c-cms-pages-teaser-configurator__section-option-label">${$t( 'Teasers limit' )}:</label>
                     <select name="cfg-cmspt-limit" class="m2-input__select" id="cfg-cmspt-limit" v-model="configuration.limit" @change="onChange">
@@ -55,7 +67,7 @@ const m2cCmsPagesTeaserConfigurator: vuejs.ComponentOption = {
                 </div>
             </div>
         </section>
-        
+
         <section class="m2c-cms-pages-teaser-configurator__section">
             <h3 class="m2c-cms-pages-teaser-configurator__subtitle">Mobile Layout</h3>
             <div class="m2c-cms-pages-teaser-configurator__scenario-options">
@@ -89,6 +101,7 @@ const m2cCmsPagesTeaserConfigurator: vuejs.ComponentOption = {
             default(): Object {
                 return {
                     tags: '',
+                    ids: '',
                     limit: '1000',
                     currentScenario: {
                         desktopLayout: {},
