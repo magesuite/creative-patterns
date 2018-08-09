@@ -183,6 +183,12 @@ export default class ProductFinder {
             }
         });
 
+        // Ignore all attributes if last option had category_only option set to true.
+        const $lastStep: JQuery = this._visitedSteps[this._visitedSteps.length - 1];
+        if ($lastStep.find(`.${this._options.optionClassName}--checked`).data('category-only')) {
+            delete configuredData.attributes;
+        }
+
         this._sendWithPOST(configuredData);
     }
 
