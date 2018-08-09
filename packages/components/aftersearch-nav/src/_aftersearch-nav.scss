@@ -2,18 +2,22 @@
     $root: &;
 
     $conf: map-merge(
-                    (
-                            tabletFilters: 4,
-                            laptopFilters: 6,
-                            desktopFilters: 6,
-                            tabletRows: 1,
-                            laptopRows: 1,
-                            desktopRows: 1,
-                            buttonMoreBottom: false,
-                            buttonLessBottom: false,
-                    ),
-                    $conf
+        (
+            tabletFilters: 4,
+            laptopFilters: 6,
+            desktopFilters: 6,
+            tabletRows: 1,
+            laptopRows: 1,
+            desktopRows: 1,
+            buttonMoreBottom: false,
+            buttonLessBottom: false,
+        ),
+        $conf
     );
+
+    &__show-more-button {
+        display: none;
+    }
 
     @include media('>=tablet', '<laptop') {
         $row-numbers: map-get($conf, tabletFilters);
