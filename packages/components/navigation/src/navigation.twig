@@ -21,7 +21,7 @@
                     <div class="{{ namespace }}navigation__flyout"{% if item.category_identifier %} data-category-identifier="{{ item.category_identifier }}"{% endif %}>
                         <div class="{{ namespace }}navigation__categories">
                             <div class="{{ namespace }}navigation__category{% if item.category_custom_url is not null %} {{ namespace }}navigation__category--custom{% endif %} {{ namespace }}navigation__category--hidden" data-category-id="{{ item.id }}"  {% if item.category_identifier %}data-category-identifier="{{ item.category_identifier }}"{% endif %}>
-                                <a href="{{ item.url }}" class="{{ namespace }}navigation__touch-link {{ namespace }}navigation__touch-link--category">
+                                <a href="{% if item.category_custom_url is not null %}{{ item.category_custom_url }}{% else %}{{ item.url }}{% endif %}" class="{{ namespace }}navigation__touch-link {{ namespace }}navigation__touch-link--category">
                                     {{ translate("Go to %1", item.label) }}
                                 </a>
                             </div>
