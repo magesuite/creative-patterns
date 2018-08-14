@@ -306,6 +306,8 @@ const layoutBuilder: vuejs.ComponentOption = {
                 const $origin: JQuery = $(`#${this.components[index].id }`);
                 const $duplicate: JQuery = $(`#${duplicate.id}`);
 
+                $duplicate.addClass('m2c-layout-builder__component--duplicate m2c-layout-builder__component--show-up');
+
                 setTimeout((): void => {
                     $duplicate.removeClass('m2c-layout-builder__component--show-up');
 
@@ -430,15 +432,6 @@ const layoutBuilder: vuejs.ComponentOption = {
 
         getIsSpecialComponent( componentType: string ): boolean {
             return this.ccConfig.specialComponents.indexOf( componentType ) !== -1;
-        },
-
-        /**
-         * Tells if component is duplicated
-         * @param {number} index Component's index in array.
-         * @return {boolean}
-         */
-        getIsDuplicated(componentId: string): boolean {
-            return componentId.indexOf('duplicate') !== -1;
         },
 
         /**
