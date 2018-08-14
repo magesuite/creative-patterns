@@ -41,7 +41,7 @@
     </div>
 
     <template v-for="component in components">
-        <div v-bind:class="{ 'm2c-layout-builder__component': true, 'm2c-layout-builder__component--special': getIsSpecialComponent( component.type ), 'm2c-layout-builder__component--invisible': getIsComponentHiddenFE( component.data ), 'm2c-layout-builder__component--filtered-out': !getIsComponentVisibleDashboard( component.data ) }" id="{{ component.id }}">
+        <div v-bind:class="{ 'm2c-layout-builder__component': true, 'm2c-layout-builder__component--special': getIsSpecialComponent( component.type ), 'm2c-layout-builder__component--invisible': getIsComponentHiddenFE( component.data ), 'm2c-layout-builder__component--filtered-out': !getIsComponentVisibleDashboard( component.data ), 'm2c-layout-builder__component--duplicate m2c-layout-builder__component--show-up': getIsDuplicated( component.id ) }" id="{{ component.id }}">
             <cc-component-adder class="cc-component-adder cc-component-adder--first">
                 <button is="action-button" class="action-button action-button--look_important action-button--type_icon-only | cc-component-adder__button" @click="createNewComponent( $index )">
                     <svg class="action-button__icon action-button__icon--size_100 | cc-component-adder__button-icon">
@@ -63,9 +63,14 @@
                                 <use xlink:href="#icon_arrow-down"></use>
                             </svg>
                         </button>
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings" :class="[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]" :disabled="isPossibleToEdit( component.type )" @click="editComponentSettings( $index )">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings" :class="[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]" :disabled="isPossibleToEdit( component.type )" @click="editComponentSettings( $index )" title="{{ getTranslatedText('Edit component') }}">
                             <svg class="action-button__icon">
                                 <use xlink:href="#icon_edit"></use>
+                            </svg>
+                        </button>
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--duplicate" :class="[ getIsSpecialComponent( component.type ) ? 'action-button--look_disabled' : '' ]" :disabled="getIsSpecialComponent( component.type )" @click="duplicateComponent( $index )" title="{{ getTranslatedText('Duplicate component') }}">
+                            <svg class="action-button__icon">
+                                <use xlink:href="#icon_duplicate"></use>
                             </svg>
                         </button>
                         <div class="cc-component-display-controller" v-if="isPossibleToControlDisplay( component.type )">

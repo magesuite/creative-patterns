@@ -135,7 +135,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         this.filters = (typeof(Storage) !== void(0) && window.localStorage.getItem('ccFilters')) ? JSON.parse(window.localStorage.getItem('ccFilters')) : this.ccConfig.filters;
         this.sortComponentsBySections();
         this.setupInitialDisplayProps();
-        this.$dispatch( 'cc-layout-builder__update' );
+        this.updateLayout();
     },
     methods: {
         /**
@@ -182,7 +182,7 @@ const layoutBuilder: vuejs.ComponentOption = {
                 }
                 this.components.splice( index, 0, componentInfo );
                 this.setComponentsPlacementInfo();
-                this.$dispatch( 'cc-layout-builder__update' );
+                this.updateLayout();
             }
         },
         /**
@@ -195,7 +195,7 @@ const layoutBuilder: vuejs.ComponentOption = {
             if ( componentInfo ) {
                 this.components.$set( index, componentInfo );
                 this.setComponentsPlacementInfo();
-                this.$dispatch( 'cc-layout-builder__update' );
+                this.updateLayout();
             }
         },
         /**
@@ -262,7 +262,7 @@ const layoutBuilder: vuejs.ComponentOption = {
                     this.components.$set( index - 1, this.components[ index ] );
                     this.components.$set( index, previousComponent );
                     this.setComponentsPlacementInfo();
-                    this.$dispatch( 'cc-layout-builder__update' );
+                    this.updateLayout();
                     $thisComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
                     $prevComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
                 }, 400 );
@@ -285,11 +285,39 @@ const layoutBuilder: vuejs.ComponentOption = {
                     this.components.$set( index + 1, this.components[ index ] );
                     this.components.$set(  index, previousComponent );
                     this.setComponentsPlacementInfo();
-                    this.$dispatch( 'cc-layout-builder__update' );
+                    this.updateLayout();
                     $thisComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
                     $nextComponent.removeClass( 'm2c-layout-builder__component--animating' ).css( 'transform', '' );
                 }, 400 );
             }
+        },
+        /**
+         * Duplicates component under given index and place it below the original one.
+         * @param {number} index Original component's index in array.
+         */
+        duplicateComponent(index: number): void {
+            let duplicate: IComponentInformation = JSON.parse(
+                JSON.stringify(this.components[index]),
+            );
+            duplicate.id = `${duplicate.id}_duplicate`;
+            this.addComponentInformation(index+1, duplicate);
+
+            this.$nextTick((): void => {
+                const $origin: JQuery = $(`#${this.components[index].id }`);
+                const $duplicate: JQuery = $(`#${duplicate.id}`);
+
+                setTimeout((): void => {
+                    $duplicate.removeClass('m2c-layout-builder__component--show-up');
+
+                    $('html, body').animate({
+                        scrollTop: $origin.offset().top + $origin.outerHeight(true) - 100,
+                    }, 350, 'swing');
+                }, 10);
+
+                setTimeout((): void => {
+                    $duplicate.removeClass('m2c-layout-builder__component--duplicate');
+                }, 800);
+            });
         },
         /**
          * Removes component and adder that is right after component from the DOM
@@ -298,7 +326,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         deleteComponent( index: number ): void {
             if ( window.confirm( 'Are you sure you want to delete this item?' ) ) {
                 this.components.splice( index, 1 );
-                this.$dispatch( 'cc-layout-builder__update' );
+                this.updateLayout();
             }
         },
         /**
@@ -382,8 +410,13 @@ const layoutBuilder: vuejs.ComponentOption = {
             return componentType === 'brand-carousel' || componentType === 'separator';
         },
 
+        /**
+         * Checks if it's possible to delete component.
+         * For now we only disallow removal of special components so I just call getIsSpecialComponent
+         * In the future there might be a need to iterate it, this is why it's separate method
+         */
         isPossibleToDelete( componentType: string ): boolean {
-            return this.ccConfig.specialComponents.indexOf( componentType ) !== -1;
+            return this.getIsSpecialComponent( componentType );
         },
 
         /**
@@ -397,6 +430,15 @@ const layoutBuilder: vuejs.ComponentOption = {
 
         getIsSpecialComponent( componentType: string ): boolean {
             return this.ccConfig.specialComponents.indexOf( componentType ) !== -1;
+        },
+
+        /**
+         * Tells if component is duplicated
+         * @param {number} index Component's index in array.
+         * @return {boolean}
+         */
+        getIsDuplicated(componentId: string): boolean {
+            return componentId.indexOf('duplicate') !== -1;
         },
 
         /**
