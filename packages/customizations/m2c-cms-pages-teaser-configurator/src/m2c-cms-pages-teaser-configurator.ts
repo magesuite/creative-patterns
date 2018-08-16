@@ -42,6 +42,16 @@ const m2cCmsPagesTeaserConfigurator: vuejs.ComponentOption = {
                         <option value="1000">${$t( 'All available teasers (no limit)' )}</option>
                     </select>
                 </div>
+
+                <div class="m2-input m2-input--type-inline | m2c-cms-pages-teaser-configurator__section-option">
+                    <label for="cfg-cmspt-text-variant" class="m2-input__label | m2c-cms-pages-teaser-configurator__section-option-label">${$t( 'Display variant' )}:</label>
+                    <select name="cfg-cmspt-text-variant" class="m2-input__select" id="cfg-cmspt-text-variant" v-model="configuration.textDisplayVariant" @change="onChange">
+                        <template v-for="(idx, scenario) in ccConfig.imageTeasersContentPositions">
+                            <option value="{{ idx + 1 }}">${$t( '{{ scenario }}' )}</option>
+                        </template>
+                    </select>
+                </div>
+            </div>
         </section>
 
         <section class="m2c-cms-pages-teaser-configurator__section">
@@ -103,6 +113,7 @@ const m2cCmsPagesTeaserConfigurator: vuejs.ComponentOption = {
                     tags: '',
                     ids: '',
                     limit: '1000',
+                    textDisplayVariant: '1',
                     currentScenario: {
                         desktopLayout: {},
                         mobileLayout: {},
@@ -114,6 +125,13 @@ const m2cCmsPagesTeaserConfigurator: vuejs.ComponentOption = {
         cmsTags: {
             type: String,
             default: '',
+        },
+        /* Obtain content-constructor's config file */
+        ccConfig: {
+            type: Object,
+            default(): any {
+                return {};
+            },
         },
     },
     events: {
