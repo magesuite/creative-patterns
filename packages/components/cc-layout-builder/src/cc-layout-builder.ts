@@ -408,30 +408,53 @@ const layoutBuilder: vuejs.ComponentOption = {
             return componentType.replace( '-', ' ' );
         },
 
-        isPossibleToEdit( componentType: string ): boolean {
-            return componentType === 'brand-carousel' || componentType === 'separator';
+        /**
+         * Checks if component is integrated and dependant of Magento.
+         * In this case some operations like duplicate/remove are not allowed
+         * @param  {string}  componentType type of component.
+         * @return {boolean}
+         */
+        getIsSpecialComponent( componentType: string ): boolean {
+            return this.ccConfig.specialComponents.indexOf(componentType) !== -1;
+        },
+
+        /**
+         * Checks if component can be edited.
+         * Components that doesn't provide any configurators cannot be edited.
+         * @param  {string}  componentType type of component.
+         * @return {boolean}
+         */
+        isPossibleToEdit(componentType: string): boolean {
+            return componentType !== 'brand-carousel' && componentType !== 'separator';
         },
 
         /**
          * Checks if it's possible to delete component.
          * For now we only disallow removal of special components so I just call getIsSpecialComponent
          * In the future there might be a need to iterate it, this is why it's separate method
+         * @param  {string}  componentType type of component.
+         * @return {boolean}
          */
-        isPossibleToDelete( componentType: string ): boolean {
-            return this.getIsSpecialComponent( componentType );
+        isPossibleToDelete(componentType: string): boolean {
+            return !this.getIsSpecialComponent(componentType);
+        },
+
+        /**
+         * Checks if it's possible to duplicate component.
+         * @param  {string}  componentType type of component.
+         * @return {boolean}
+         */
+        isPossibleToDuplicate(componentType: string): boolean {
+            return !this.getIsSpecialComponent(componentType) && componentType !== 'paragraph';
         },
 
         /**
          * FE mobile/desktop visibility cannot be controlled for Built-in components into magento core functionality
-         * @param {String} Type of component.
+         * @param  {string}  componentType type of component.
          * @return {boolean}
          */
-        isPossibleToControlDisplay( componentType: string ): boolean {
-            return componentType !== 'magento-product-grid-teasers' && componentType !== 'custom-html';
-        },
-
-        getIsSpecialComponent( componentType: string ): boolean {
-            return this.ccConfig.specialComponents.indexOf( componentType ) !== -1;
+        isPossibleToControlDisplay(componentType: string): boolean {
+            return !this.getIsSpecialComponent(componentType) && componentType !== 'custom-html';
         },
 
         /**

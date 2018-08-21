@@ -63,12 +63,12 @@
                                 <use xlink:href="#icon_arrow-down"></use>
                             </svg>
                         </button>
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings" :class="[ isPossibleToEdit( component.type ) ? 'action-button--look_disabled' : '' ]" :disabled="isPossibleToEdit( component.type )" @click="editComponentSettings( $index )" title="{{ getTranslatedText('Edit component') }}">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--settings" :class="[ isPossibleToEdit( component.type ) ? '' : 'action-button--look_disabled' ]" :disabled="!isPossibleToEdit( component.type )" @click="editComponentSettings( $index )" title="{{ getTranslatedText('Edit component') }}">
                             <svg class="action-button__icon">
                                 <use xlink:href="#icon_edit"></use>
                             </svg>
                         </button>
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--duplicate" :class="[ getIsSpecialComponent( component.type ) ? 'action-button--look_disabled' : '' ]" :disabled="getIsSpecialComponent( component.type )" @click="duplicateComponent( $index )" title="{{ getTranslatedText('Duplicate component') }}">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--duplicate" :class="[ isPossibleToDuplicate( component.type ) ? '' : 'action-button--look_disabled' ]" :disabled="!isPossibleToDuplicate( component.type )" @click="duplicateComponent( $index )" title="{{ getTranslatedText('Duplicate component') }}">
                             <svg class="action-button__icon">
                                 <use xlink:href="#icon_duplicate"></use>
                             </svg>
@@ -90,7 +90,7 @@
                                 </label>
                             </div>
                         </div>
-                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete" :class="[ isPossibleToDelete( component.type ) ? 'action-button--look_disabled' : '' ]" :disabled="isPossibleToDelete( component.type )" @click="deleteComponent( $index )">
+                        <button is="action-button" class="action-button action-button--look_default action-button--type_icon-only | cc-component-actions__button cc-component-actions__button--delete" :class="[ isPossibleToDelete( component.type ) ? '' : 'action-button--look_disabled' ]" :disabled="!isPossibleToDelete( component.type )" @click="deleteComponent( $index )">
                             <svg class="action-button__icon">
                                 <use xlink:href="#icon_trash-can"></use>
                             </svg>
