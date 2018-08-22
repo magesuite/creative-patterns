@@ -101,6 +101,7 @@ export default class ProductFinder {
         const $currentStep: JQuery = this._visitedSteps.slice(-1).pop();
         const previousHeight = parseInt(this._$element.css('height'), 10);
         const currentStepHeight: number = $currentStep.height();
+        this._$element.css('padding-bottom', this._$backButtons.outerHeight());
 
         setTimeout(() => {
             this._$element.css('height', $currentStep.height());
@@ -127,7 +128,6 @@ export default class ProductFinder {
         this._$backButtons.addClass(
             `${this._options.backButtonClassName}--visible`
         );
-        this._$element.css('padding-bottom', this._$backButtons.outerHeight());
 
         this._updateSizes();
     }
@@ -184,8 +184,14 @@ export default class ProductFinder {
         });
 
         // Ignore all attributes if last option had category_only option set to true.
-        const $lastStep: JQuery = this._visitedSteps[this._visitedSteps.length - 1];
-        if ($lastStep.find(`.${this._options.optionClassName}--checked`).data('category-only')) {
+        const $lastStep: JQuery = this._visitedSteps[
+            this._visitedSteps.length - 1
+        ];
+        if (
+            $lastStep
+                .find(`.${this._options.optionClassName}--checked`)
+                .data('category-only')
+        ) {
             delete configuredData.attributes;
         }
 
