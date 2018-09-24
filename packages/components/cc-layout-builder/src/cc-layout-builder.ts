@@ -19,6 +19,7 @@ import ccComponentStaticCmsBlockPreview from '../../cc-component-static-cms-bloc
 import ccComponentMagentoProductGridTeasersPreview from '../../cc-component-magento-product-grid-teasers-preview/src/cc-component-magento-product-grid-teasers-preview';
 import ccComponentCustomHtmlPreview from '../../cc-component-custom-html-preview/src/cc-component-custom-html-preview';
 import ccComponentProductFinderPreview from '../../cc-component-product-finder-preview/src/cc-component-product-finder-preview';
+import ccComponentDailyDealTeaserPreview from '../../cc-component-daily-deal-teaser-preview/src/cc-component-daily-deal-teaser-preview';
 
 import componentActions from '../../cc-component-actions/src/cc-component-actions';
 import componentAdder from '../../cc-component-adder/src/cc-component-adder';
@@ -70,6 +71,7 @@ const layoutBuilder: vuejs.ComponentOption = {
         'cc-component-magento-product-grid-teasers-preview': ccComponentMagentoProductGridTeasersPreview,
         'cc-component-custom-html-preview': ccComponentCustomHtmlPreview,
         'cc-component-product-finder-preview': ccComponentProductFinderPreview,
+        'cc-component-daily-deal-teaser-preview': ccComponentDailyDealTeaserPreview,
     },
     props: {
         /**
