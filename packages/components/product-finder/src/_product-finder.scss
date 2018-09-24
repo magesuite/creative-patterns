@@ -89,35 +89,50 @@ $product-finder-step-option-gap: 1rem !default;
 
             #{$root}__step--options-mobile_#{$i} & {
                 flex-basis: calc(
-                    #{100% /
-                        $i} -
+                        #{100% /
+                            $i} -
                         #{$step-option-num-of-gaps *
                         $product-finder-step-option-gap /
                         $i}
                 );
+
             }
 
             #{$root}__step--options-tablet_#{$i} & {
                 @include media('>=tablet') {
                     flex-basis: calc(
-                        #{100% / $i} - #{$step-option-num-of-gaps * $product-finder-step-option-gap /
+                            #{100% / $i} - #{$step-option-num-of-gaps * $product-finder-step-option-gap /
                             $i}
                     );
+
                 }
             }
 
             #{$root}__step--options-desktop_#{$i} & {
                 @include media('>=laptop') {
                     flex-basis: calc(
-                        #{100% / $i} - #{$step-option-num-of-gaps * $product-finder-step-option-gap /
+                            #{100% / $i} - #{$step-option-num-of-gaps * $product-finder-step-option-gap /
                             $i}
                     );
+
+                    /**
+                     * flex-basis does not respect box-sizing: border-box
+                     * It is fixed on Edge but not on IE11:
+                     * https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/106816/
+                     * To properly calculate flex-basis we have to add gap (margin)
+                     */
+                    .ie11 & {
+                        flex-basis: calc(
+                                #{100% / $i} - #{$step-option-num-of-gaps * $product-finder-step-option-gap /
+                            $i + $product-finder-step-option-gap}
+                        );
+                    }
                 }
             }
         }
 
         & + & {
-            margin-left: 1rem;
+            margin-left: $product-finder-step-option-gap;
         }
     }
 
