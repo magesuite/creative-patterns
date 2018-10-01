@@ -75,6 +75,11 @@ interface DailydealOptions {
      */
     updateLabels?: boolean,
     /**
+     * Callback function that (if defined) is fired after DD clock is rendered
+     * @type Function
+     */
+    afterRenderCallback?: Function,
+    /**
      * By default when DD has expired during page reading we do nothing - countdown stops on 00:00:00:00.
      * You can pass handler here and do whatever you want with expired DD
      * @type Function
@@ -212,7 +217,10 @@ export default class Dailydeal {
             // If cron hasn't refreshed it yet and page has been refreshed,
             // dailydeal should be hidden.
             this._hideDailydeal(true);
-
+            
+            if (this._options.expiredHandler && typeof(this._options.expiredHandler) === 'function') {
+                this._options.expiredHandler(this);
+            }
             return;
         }
 
@@ -466,7 +474,7 @@ export default class Dailydeal {
             this._hideDailydeal(); // Hide dailydeal when countdown ends
 
             if ( this._options.expiredHandler && typeof( this._options.expiredHandler ) === 'function' ) {
-                this._options.expiredHandler();
+                this._options.expiredHandler(this);
             }
 
             return;
@@ -498,5 +506,9 @@ export default class Dailydeal {
         this._clock = setInterval((): void => {
             component._updateClock();
         }, 1000);
+
+        if (this._options.afterRenderCallback && typeof(this._options.afterRenderCallback) === 'function') {
+            this._options.afterRenderCallback(this);
+        }
     }
 }
