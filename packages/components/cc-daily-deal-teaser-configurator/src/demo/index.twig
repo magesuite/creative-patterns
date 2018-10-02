@@ -1,0 +1,17 @@
+<h1>CC Daily Deal Teaser Component Demo</h1>
+ 
+{% include '../cc-daily-deal-teaser-configurator.twig', with {
+    headline: 'Sample headline',
+    subheadline: 'Sample subheadline'
+} %}
+ 
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script>
+<script src="../cc-daily-deal-teaser-configurator.js"></script>
+<script>
+    new Vue( {
+        el: 'body',
+        components: {
+            'cc-daily-deal-teaser-configurator': ccDailyDealTeaserConfigurator
+        }
+    } );
+</script>

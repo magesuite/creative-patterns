@@ -25,6 +25,7 @@ $namespace: 'cc-' !default;
 @import '../../cc-component-magento-product-grid-teasers-preview/src/cc-component-magento-product-grid-teasers-preview';
 @import '../../cc-component-custom-html-preview/src/cc-component-custom-html-preview';
 @import '../../cc-component-product-finder-preview/src/cc-component-product-finder-preview';
+@import '../../cc-component-daily-deal-teaser-preview/src/cc-component-daily-deal-teaser-preview';
 
 .#{$namespace}layout-builder {
     $root: &;
