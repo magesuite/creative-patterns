@@ -6,6 +6,7 @@ import ccProductFinderConfigurator from '../../../components/cc-product-finder-c
 
 const IStep: any = {
     "id": "",
+    "additional_css_class": "",
     "title": "",
     "description": "",
     "options": [

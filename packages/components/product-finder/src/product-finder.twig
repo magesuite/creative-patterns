@@ -11,6 +11,7 @@
         {% for step in steps %}
             {% set stepOptionsPerRow = optionsPerRow | merge(step.optionsPerRow ?: {}) %}
             {% set stepClasses = namespace ~ "product-finder__step--options-mobile_" ~ stepOptionsPerRow.mobile %}
+            {% set stepClasses = stepClasses ~ " " ~ step.additional_css_class %}
             {% set stepClasses = stepClasses ~ " " ~ namespace ~ "product-finder__step--options-tablet_" ~ stepOptionsPerRow.tablet %}
             {% set stepClasses = stepClasses ~ " " ~ namespace ~ "product-finder__step--options-desktop_" ~ stepOptionsPerRow.desktop %}
             {% if loop.index0  == 0 %}
