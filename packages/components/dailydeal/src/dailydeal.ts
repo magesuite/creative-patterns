@@ -217,7 +217,7 @@ export default class Dailydeal {
             // If cron hasn't refreshed it yet and page has been refreshed,
             // dailydeal should be hidden.
             this._hideDailydeal(true);
-            
+
             if (this._options.expiredHandler && typeof(this._options.expiredHandler) === 'function') {
                 this._options.expiredHandler(this);
             }
@@ -262,7 +262,7 @@ export default class Dailydeal {
          // Check if discount badges exists.
          if($dailydealDiscountBadge && $defaultDiscountBadge) {
              // Toggle discount badges.
-             $dailydealDiscountBadge.addClass(`${this._options.namespace}-badge--visible`);
+             $dailydealDiscountBadge.addClass(`${this._options.namespace}badge--visible`);
              $defaultDiscountBadge.hide();
          }
      }
@@ -306,8 +306,8 @@ export default class Dailydeal {
          // Check if discount badges exists.
          if($dailydealDiscountBadge && $defaultDiscountBadge) {
              // Toggle discount badges.
-             $dailydealDiscountBadge.removeClass(`${this._options.namespace}-badge--visible`).hide();
-             $defaultDiscountBadge.addClass(`${this._options.namespace}-badge--visible`);
+             $dailydealDiscountBadge.removeClass(`${this._options.namespace}badge--visible`).hide();
+             $defaultDiscountBadge.addClass(`${this._options.namespace}badge--visible`);
          }
      }
 
