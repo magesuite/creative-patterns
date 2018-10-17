@@ -130,10 +130,6 @@ $product-finder-step-option-gap: 1rem !default;
                 }
             }
         }
-
-        & + & {
-            margin-left: $product-finder-step-option-gap;
-        }
     }
 
     &__option-sizer {
