@@ -10,12 +10,6 @@ interface IComponentSettings {
     headingTag?: string;
 }
 
-const headlineDefaults: IComponentSettings = {
-    title: '',
-    subtitle: '',
-    headingTag: 'h2',
-};
-
 const m2cHeadlineConfigurator: vuejs.ComponentOption = {
     mixins: [
         ccHeadlineConfigurator,
@@ -47,7 +41,11 @@ const m2cHeadlineConfigurator: vuejs.ComponentOption = {
         configuration: {
             type: Object,
             default(): any {
-                return headlineDefaults;
+                return {
+                    title: '',
+                    subtitle: '',
+                    headingTag: 'h2',
+                };
             },
         },
     },
@@ -63,7 +61,7 @@ const m2cHeadlineConfigurator: vuejs.ComponentOption = {
     },
     ready(): void {
         if (!this.configuration.headingTag) {
-            this.configuration.headingTag = headlineDefaults.headingTag;
+            this.configuration.headingTag = 'h2';
         }
     },
 };
