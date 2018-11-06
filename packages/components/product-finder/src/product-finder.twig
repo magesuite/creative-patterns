@@ -38,9 +38,9 @@
                             <div class="{{ namespace }}product-finder__option-content">
                                 {% if option.image %}
                                     {% if option.label %}
-                                        {% set altTag = option.label ~ " " ~ translate("category icon") %}
+                                        {% set altTag = option.label ~ " " ~ translate("option icon") %}
                                     {% else %}
-                                        {% set altTag = translate("Product finder category icon") %}
+                                        {% set altTag = translate("Product finder option icon") %}
                                     {% endif %}
                                     <img class="{{ namespace }}product-finder__option-image" src="{{ option.image }}" alt="{{ altTag }}">
                                 {% endif %}
