@@ -43,7 +43,13 @@ $namespace: 'cs-' !default;
     font-weight: 400;
     font-size: 1rem;
     line-height: 0;
+    min-width: 15rem;
     box-sizing: border-box;
+    z-index: 2;
+
+    &.open {
+        z-index: 99;
+    }
 
     &__trigger {
         display: flex;
@@ -63,6 +69,7 @@ $namespace: 'cs-' !default;
         overflow: hidden;
         box-sizing: border-box;
         font-size: 1em;
+        padding-top: 0.38rem !important;
 
         #{$root}--open &,
         #{$root}.open & {
@@ -92,6 +99,7 @@ $namespace: 'cs-' !default;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-family: $base-font-family;
         font-size: 1rem;
         line-height: 1.155em;
     }
@@ -174,16 +182,17 @@ $namespace: 'cs-' !default;
         left: 0;
         z-index: 5;
         display: none;
-        width: 100%;
         background-color: #fafafa;
         border: 1px solid #e7e7e7;
-        border-top: 0;
         border-bottom-left-radius: 3px;
         border-bottom-right-radius: 3px;
         box-shadow: 0 1px 5px 0 rgba( 100, 100, 100, .1 );
         font-size: 1rem;
-        line-height: 1.125rem;
+        line-height: 1.35rem;
         box-sizing: border-box;
+        min-width: 100%;
+        z-index: -1;
+        margin-top: -1px;
 
         #{$root}--open &,
         #{$root}.open & {
@@ -191,11 +200,20 @@ $namespace: 'cs-' !default;
             opacity: 0;
             transform: translate3d( 0, -10px, 0 );
             transition: transform .25s ease, opacity .32s ease;
+
+            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                transform: none;
+                transition: opacity 0.32s ease;
+            }
         }
 
         #{$root}--animate & {
             transform: translate3d( 0, 0, 0 ) !important;
             opacity: 1 !important;
+
+            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+                transform: none !important;
+            }
         }
 
     }
@@ -236,6 +254,7 @@ $namespace: 'cs-' !default;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        line-height: 1.35;
     }
 
     &__menu-link {
