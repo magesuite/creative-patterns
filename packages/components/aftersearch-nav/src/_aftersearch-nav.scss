@@ -1,31 +1,23 @@
-@mixin aftersearch-nav($conf: ()) {
-    $root: &;
+$aftersearch-nav_tablet-filters: 4 !default;
+$aftersearch-nav_laptop-filters: 6 !default;
+$aftersearch-nav_desktop-filters: 6 !default;
+$aftersearch-nav_tablet-rows: 1 !default;
+$aftersearch-nav_laptop-rows: 1 !default;
+$aftersearch-nav_desktop-rows: 1 !default;
+$aftersearch-nav_button-bottom: false !default;
 
-    $conf: map-merge(
-        (
-            tabletFilters: 4,
-            laptopFilters: 6,
-            desktopFilters: 6,
-            tabletRows: 1,
-            laptopRows: 1,
-            desktopRows: 1,
-            buttonMoreBottom: false,
-            buttonLessBottom: false,
-        ),
-        $conf
-    );
+@mixin aftersearch-nav() {
+    $root: &;
 
     &__show-more-button {
         display: none;
     }
 
     @include media('>=tablet', '<laptop') {
-        $row-numbers: map-get($conf, tabletFilters);
-        $button-more-bottom: map-get($conf, buttonMoreBottom);
-        $button-less-bottom: map-get($conf, buttonLessBottom);
+        $row-numbers: $aftersearch-nav_tablet-filters;
 
-        $filters-rows-tablet: map-get($conf, tabletFilters) *
-            map-get($conf, tabletRows);
+        $filters-rows-tablet: $aftersearch-nav_tablet-filters *
+            $aftersearch-nav_tablet-rows;
 
         &__filter,
         &__filter-row {
@@ -37,33 +29,14 @@
         }
 
         &__filter-row:last-child:not(&__filter):nth-child(-n
-                + #{$filters-rows-tablet}) {
+                + #{$filters-rows-tablet
+                + 1}) {
             display: none;
         }
 
-        @if $button-more-bottom == true {
-            $row-numbers: map-get($conf, tabletFilters) + 1;
+        @if $aftersearch-nav_button-bottom {
+            $row-numbers: $aftersearch-nav_tablet-filters + 1;
 
-            .#{$namespace}filter-horizontal {
-                padding-bottom: 4.9rem !important;
-            }
-
-            .#{$namespace}aftersearch-nav__show-more-button {
-                position: absolute !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: -0.2rem !important;
-                margin: 0 auto !important;
-                min-width: 12rem !important;
-                max-width: 40rem !important;
-
-                #{$root}__show-more-trigger {
-                    text-align: center !important;
-                }
-            }
-        }
-
-        @if $button-less-bottom == true {
             .#{$namespace}filter-horizontal {
                 padding-bottom: 4.9rem !important;
             }
@@ -89,16 +62,18 @@
             #{$root}--expanded & {
                 display: block;
             }
+        }
+
+        &__filter:nth-child(#{$row-numbers}):nth-last-child(2) {
+            display: block;
         }
     }
 
     @include media('>=laptop', '<desktop') {
-        $row-numbers: map-get($conf, laptopFilters);
-        $button-more-bottom: map-get($conf, buttonMoreBottom);
-        $button-less-bottom: map-get($conf, buttonLessBottom);
+        $row-numbers: $aftersearch-nav_laptop-filters;
 
-        $filters-rows-laptop: map-get($conf, laptopFilters) *
-            map-get($conf, laptopRows);
+        $filters-rows-laptop: $aftersearch-nav_laptop-filters *
+            $aftersearch-nav_laptop-rows;
 
         &__filter,
         &__filter-row {
@@ -110,33 +85,14 @@
         }
 
         &__filter-row:last-child:not(&__filter):nth-child(-n
-                + #{$filters-rows-laptop}) {
+                + #{$filters-rows-laptop
+                + 1}) {
             display: none;
         }
 
-        @if $button-more-bottom == true {
-            $row-numbers: map-get($conf, laptopFilters) + 1;
+        @if $aftersearch-nav_button-bottom {
+            $row-numbers: $aftersearch-nav_laptop-filters + 1;
 
-            .#{$namespace}filter-horizontal {
-                padding-bottom: 4.9rem !important;
-            }
-
-            .#{$namespace}aftersearch-nav__show-more-button {
-                position: absolute !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: -0.2rem !important;
-                margin: 0 auto !important;
-                min-width: 12rem !important;
-                max-width: 40rem !important;
-
-                #{$root}__show-more-trigger {
-                    text-align: center !important;
-                }
-            }
-        }
-
-        @if $button-less-bottom == true {
             .#{$namespace}filter-horizontal {
                 padding-bottom: 4.9rem !important;
             }
@@ -162,16 +118,18 @@
             #{$root}--expanded & {
                 display: block;
             }
+        }
+
+        &__filter:nth-child(#{$row-numbers}):nth-last-child(2) {
+            display: block;
         }
     }
 
     @include media('>=desktop') {
-        $row-numbers: map-get($conf, desktopFilters);
-        $button-more-bottom: map-get($conf, buttonMoreBottom);
-        $button-less-bottom: map-get($conf, buttonLessBottom);
+        $row-numbers: $aftersearch-nav_desktop-filters;
 
-        $filters-rows-desktop: map-get($conf, desktopFilters) *
-            map-get($conf, desktopRows);
+        $filters-rows-desktop: $aftersearch-nav_desktop-filters *
+            $aftersearch-nav_desktop-rows;
 
         &__filter,
         &__filter-row {
@@ -183,33 +141,14 @@
         }
 
         &__filter-row:last-child:not(&__filter):nth-child(-n
-                + #{$filters-rows-desktop}) {
+                + #{$filters-rows-desktop
+                + 1}) {
             display: none;
         }
 
-        @if $button-more-bottom == true {
-            $row-numbers: map-get($conf, desktopFilters) + 1;
+        @if $aftersearch-nav_button-bottom {
+            $row-numbers: $aftersearch-nav_desktop-filters + 1;
 
-            .#{$namespace}filter-horizontal {
-                padding-bottom: 4.9rem !important;
-            }
-
-            .#{$namespace}aftersearch-nav__show-more-button {
-                position: absolute !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: -0.2rem !important;
-                margin: 0 auto !important;
-                min-width: 12rem !important;
-                max-width: 40rem !important;
-
-                #{$root}__show-more-trigger {
-                    text-align: center !important;
-                }
-            }
-        }
-
-        @if $button-less-bottom == true {
             .#{$namespace}filter-horizontal {
                 padding-bottom: 4.9rem !important;
             }
@@ -235,6 +174,10 @@
             #{$root}--expanded & {
                 display: block;
             }
+        }
+
+        &__filter:nth-child(#{$row-numbers}):nth-last-child(2) {
+            display: block;
         }
     }
 
