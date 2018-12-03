@@ -230,7 +230,6 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 url: this.configuration.blockId ? `${ window.location.origin }/rest/all/V1/cmsBlock/${this.configuration.blockId}` : `${ window.location.origin }/rest/all/V1/cmsBlock`,
                 body: dataConstruct,
             } ).then( ( response: any ): void => {
-
                 // If status is OK update component's configuration and run Save to save component data
                 if ( response.ok ) {
                     const responseData: any = ( typeof response.data === 'string' ) ? JSON.parse( response.data ) : response.data;
@@ -239,15 +238,33 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
 
                     // Hide loader
                     $( 'body' ).trigger( 'hideLoadingPopup' );
+
+                    // Set headers back
+                    Vue.http.headers.custom.Accept = 'text/html';
+
                     component.onSave();
                 }
             }, ( response: any ): void => {
                 // if failed and response returned any message, put it into error div, else put default text
-                if ( response.message ) {
-                    component.tempConfiguration.errorMessage = response.data.message;
-                } else {
-                    component.tempConfiguration.errorMessage = $t( 'An error occured. Please try again later.' );
-                }
+                let responseData: any = {};
+                try {
+                    responseData = JSON.parse(response.data);
+
+                    component.tempConfiguration.errorMessage = responseData.message 
+                        ? responseData.message 
+                        : $t( 'An unknown error occured. Please try again later.' );
+
+                    // Scroll modal to top to make message visible
+                    const $configuratorModal: any = $('.m2c-content-constructor__modal--configurator').closest('.modal-content');
+
+                    if($configuratorModal.length) {
+                        $configuratorModal.animate({ 
+                            scrollTop: 0,
+                        }, 150);
+                    }
+                } catch (err) {
+                    console.warn(`Could not parse response as JSON: ${err}`);
+                };
 
                 // Set headers back
                 Vue.http.headers.custom.Accept = 'text/html';
