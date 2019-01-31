@@ -100,6 +100,11 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
             type: String,
             default: '',
         },
+        /* Obtain admin prefix */
+        adminPrefix: {
+            type: String,
+            default: '',
+        },
         /* Obtain base-url for the image uploader */
         uploaderBaseUrl: {
             type: String,
@@ -301,39 +306,37 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         openMagentoVariablesModal(): void {
             MagentovariablePlugin.loadChooser( `${window.location.origin}/${this.adminPrefix}/admin/system_variable/wysiwygPlugin/`, 'textarea-cfg-paragraph' );
         },
+        /**
+         * Initializes TinyMCE WYSIWYG with given configuration (this.wysiwygConfig).
+         * Custom Event.observe(... event added to toggle editor on/off
+         * You can change editor settings if needed by extending 'editorConfig'.
+         * To extend config please see how it's done by Magento here: vendor/magento/module-catalog/Block/Adminhtml/Helper/Form/Wysiwyg.php (starting from #105)
+         */
         initWysiwyg(): void {
             const _this: any = this;
+            let editor: any;
+            const editorConfig: JSON = JSON.parse(this.wysiwygConfig);
 
-            window.tinyMCE_GZ = window.tinyMCE_GZ || {};
-            window.tinyMCE_GZ.loaded = true;
+            require([
+                'jquery',
+                'mage/adminhtml/wysiwyg/tiny_mce/setup'
+            ], function(jQuery): void {
 
-            require( [
-                'mage/translate',
-                'mage/adminhtml/events',
-                'm2cTinyMceWysiwygSetup',
-                'mage/adminhtml/wysiwyg/widget',
-            ], function(): void {
-                // Setup (this global variable is already set in constructor.phtml)
-                csWysiwygEditor = new m2cTinyMceWysiwygSetup( 'textarea-cfg-paragraph', _this.wysiwygCfg );
+                jQuery.extend(editorConfig);
 
-                // Initialization
-                csWysiwygEditor.setup( 'exact' );
-                _this.isEditorVisible = true;
+                editor = new tinyMceWysiwygSetup(
+                    'textarea-cfg-paragraph',
+                    editorConfig
+                );
 
-                // Set listener for enable/disable editor button
-                Event.observe( 'toggle-wysiwyg', 'click', function(): void {
-                    csWysiwygEditor.toggle();
+                Event.observe('toggle-wysiwyg', 'click', function(): void {
+                    editor.toggle();
                     _this.isEditorVisible = !_this.isEditorVisible;
-                }.bind( csWysiwygEditor ) );
+                }.bind(editor));
 
-                // Set handlers for editor
-                const editorFormValidationHandler = csWysiwygEditor.onFormValidation.bind( csWysiwygEditor );
-                varienGlobalEvents.attachEventHandler( 'formSubmit', editorFormValidationHandler );
-                varienGlobalEvents.clearEventHandlers( 'open_browser_callback' );
-
-                // Add callback for editor's IMAGE button to open file uploader while clicked
-                varienGlobalEvents.attachEventHandler( 'open_browser_callback', csWysiwygEditor.openFileBrowser );
-            } );
+                editor.turnOn();
+                _this.isEditorVisible = true;
+            });
         },
         /*
          * Set the proper option after variant click
