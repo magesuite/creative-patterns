@@ -1,4 +1,4 @@
-<div class="{{ namespace }}review {{ mix }}" itemscope itemprop="review" itemtype="http://schema.org/Review">
+<div class="{{ namespace }}review {{ mix }}">
     <span class="{{ namespace }}review__title" itemprop="name">{{ title|raw }}</span>
 
     <div class="{{ namespace }}review__rating">
@@ -11,10 +11,10 @@
     </div>
 
     <div class="{{ namespace }}review__meta">
-        <span class="{{ namespace }}review__author {{ namespace }}review__meta-item" itemprop="author">{{ author|raw }}</span>
-        <time class="{{ namespace }}review__date {{ namespace }}review__meta-item" itemprop="datePublished" datetime="{{ datetime }}">
+        <span class="{{ namespace }}review__author {{ namespace }}review__meta-item">{{ author|raw }}</span>
+        <time class="{{ namespace }}review__date {{ namespace }}review__meta-item" >
             {{ date }}
         </time>
     </div>
-    <p class="{{ namespace }}review__content" itemprop="description">{{ content|raw }}</p>
+    <p class="{{ namespace }}review__content">{{ content|raw }}</p>
 </div>
