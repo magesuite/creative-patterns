@@ -334,6 +334,12 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                     _this.isEditorVisible = !_this.isEditorVisible;
                 }.bind(editor));
 
+                const editorFormValidationHandler = editor.onFormValidation.bind(editor);
+                varienGlobalEvents.attachEventHandler('formSubmit', editorFormValidationHandler);
+                varienGlobalEvents.clearEventHandlers('open_browser_callback');
+                // Add callback for editor's IMAGE button to open file uploader while clicked
+                varienGlobalEvents.attachEventHandler('open_browser_callback', editor.openFileBrowser);
+
                 editor.turnOn();
                 _this.isEditorVisible = true;
             });
