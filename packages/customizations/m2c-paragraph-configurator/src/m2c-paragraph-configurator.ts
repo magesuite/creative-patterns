@@ -14,7 +14,7 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         ccParagraphConfigurator,
     ],
     template: `<form class="m2c-paragraph-configurator {{ classes }} | {{ mix }}" {{ attributes }} @submit.prevent="onSave">
-        
+
         <div class="m2c-paragraph-configurator__error" v-text="tempConfiguration.errorMessage" v-show="tempConfiguration.errorMessage">
         </div>
 
@@ -255,15 +255,15 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
                 try {
                     responseData = JSON.parse(response.data);
 
-                    component.tempConfiguration.errorMessage = responseData.message 
-                        ? responseData.message 
+                    component.tempConfiguration.errorMessage = responseData.message
+                        ? responseData.message
                         : $t( 'An unknown error occured. Please try again later.' );
 
                     // Scroll modal to top to make message visible
                     const $configuratorModal: any = $('.m2c-content-constructor__modal--configurator').closest('.modal-content');
 
                     if($configuratorModal.length) {
-                        $configuratorModal.animate({ 
+                        $configuratorModal.animate({
                             scrollTop: 0,
                         }, 150);
                     }
@@ -318,29 +318,24 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
             const editorConfig: JSON = JSON.parse(this.wysiwygConfig);
 
             require([
-                'jquery',
-                'mage/adminhtml/wysiwyg/tiny_mce/setup'
-            ], function(jQuery): void {
-
-                jQuery.extend(editorConfig);
-
-                editor = new tinyMceWysiwygSetup(
+                'mage/adminhtml/wysiwyg/tiny_mce/setup',
+            ], function(): void {
+                editor = new wysiwygSetup(
                     'textarea-cfg-paragraph',
                     editorConfig
                 );
 
-                Event.observe('toggle-wysiwyg', 'click', function(): void {
-                    editor.toggle();
-                    _this.isEditorVisible = !_this.isEditorVisible;
-                }.bind(editor));
+                editor.setup('exact');
 
-                const editorFormValidationHandler = editor.onFormValidation.bind(editor);
-                varienGlobalEvents.attachEventHandler('formSubmit', editorFormValidationHandler);
-                varienGlobalEvents.clearEventHandlers('open_browser_callback');
-                // Add callback for editor's IMAGE button to open file uploader while clicked
-                varienGlobalEvents.attachEventHandler('open_browser_callback', editor.openFileBrowser);
+                Event.observe(
+                    'toggle-wysiwyg',
+                    'click',
+                    function(): void {
+                        editor.toggle();
+                        _this.isEditorVisible = !_this.isEditorVisible;
+                    }.bind(editor)
+                );
 
-                editor.turnOn();
                 _this.isEditorVisible = true;
             });
         },
