@@ -492,7 +492,11 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
          * Opens modal with M2 built-in widget chooser
          */
         openCtaTargetModal(): void {
-            widgetTools.openDialog( `${window.location.origin}/${this.adminPrefix}/admin/widget/index/widget_target_id/cfg-pg-hero_url` );
+            widgetTools.openDialog(
+                `${window.location.origin}/${
+                    this.adminPrefix
+                }/admin/widget/index/filter_widgets/Link/widget_target_id/cfg-pg-hero_url/`
+            );
 
             this.wWidgetListener();
         },
@@ -551,7 +555,7 @@ const m2cProductsGridConfigurator: vuejs.ComponentOption = {
         },
 
         /**
-         * Calculate how many products should be returned by BE, 
+         * Calculate how many products should be returned by BE,
          * then saves result to component's configuration
          */
         setProductsLimit(): void {

@@ -60,7 +60,11 @@ const m2cButtonConfigurator: vuejs.ComponentOption = {
         /* Opens modal with M2 built-in widget chooser
          */
         openCtaTargetModal(): void {
-            widgetTools.openDialog( `${window.location.origin}/${this.adminPrefix}/admin/widget/index/filter_widgets/Link/widget_target_id/cfg-target` );
+            widgetTools.openDialog(
+                `${window.location.origin}/${
+                    this.adminPrefix
+                }/admin/widget/index/filter_widgets/Link/widget_target_id/cfg-target/`
+            );
 
             this.wWidgetListener();
         },

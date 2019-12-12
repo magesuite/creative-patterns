@@ -287,24 +287,34 @@ const m2cParagraphConfigurator: vuejs.ComponentOption = {
         /* Opens modal with M2 built-in widget chooser
          */
         openWidgetModal(): void {
-            widgetTools.openDialog( `${this.wysiwygCfg.widget_window_url}widget_target_id/textarea-cfg-paragraph` );
+            widgetTools.openDialog(
+                `${
+                    this.wysiwygCfg.plugins[1].options.window_url
+                }widget_target_id/textarea-cfg-paragraph/`
+            );
         },
         /* Opens modal with M2 built-in media uploader
          */
         openMediaModal(): void {
-            MediabrowserUtility.openDialog( `${this.uploaderBaseUrl}target_element_id/textarea-cfg-paragraph`,
+            MediabrowserUtility.openDialog(
+                `${
+                    this.uploaderBaseUrl
+                }target_element_id/textarea-cfg-paragraph/`,
                 'auto',
                 'auto',
-                $t( 'Insert File...' ),
+                $t('Insert File...'),
                 {
                     closed: true,
-                },
+                }
             );
         },
         /* Opens modal with M2 built-in variables
          */
         openMagentoVariablesModal(): void {
-            MagentovariablePlugin.loadChooser( `${window.location.origin}/${this.adminPrefix}/admin/system_variable/wysiwygPlugin/`, 'textarea-cfg-paragraph' );
+            MagentovariablePlugin.loadChooser(
+                this.wysiwygCfg.plugins[2].options.url,
+                'textarea-cfg-paragraph'
+            );
         },
         /**
          * Initializes TinyMCE WYSIWYG with given configuration (this.wysiwygConfig).
