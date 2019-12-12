@@ -433,10 +433,14 @@ const m2cImageTeaserConfigurator: vuejs.ComponentOption = {
         /* Opens modal with M2 built-in widget chooser
          * @param index {number} - index of teaser item to know where to place output of widget chooser
          */
-        openCtaTargetModal( index: number ): void {
-            widgetTools.openDialog( `${window.location.origin}/${this.adminPrefix}/admin/widget/index/filter_widgets/Link/widget_target_id/image-teaser-ctatarget-output-${index}` );
+        openCtaTargetModal(index: number): void {
+            widgetTools.openDialog(
+                `${window.location.origin}/${
+                this.adminPrefix
+                }/admin/widget/index/filter_widgets/Link/widget_target_id/image-teaser-ctatarget-output-${index}/`
+            );
 
-            this.wWidgetListener( index );
+            this.wWidgetListener(index);
         },
         /* Sets listener for widget chooser
          * It triggers component.onChange to update component's configuration
